@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MainStage</title>
+    <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Optional custom animation for hero card */
+    @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
+    .animate-bounce-slow { animation: bounce-slow 2s infinite; }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-center px-4 py-2">
+    <div class="flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
+      <h1 class="text-xl font-bold">HGBibleApp</h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
+      <select id="weekSelect" class="px-2 py-1 border rounded"></select>
+      <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
+      <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
+      <input id="advancedsearchInput" type="text" placeholder="Search cards..." class="px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
+    </div>
+  </header>
+<div id="weekInfo"></div>
+
+
+
+  <!-- MainStage Hero Card -->
+  <section id="mainStageCard" class="border rounded-2xl shadow-xl bg-white dark:bg-gray-800 p-4 mb-6 max-w-4xl mx-auto">
+    <div class="mb-4">
+      <h2 id="mainStageTitle" class="text-2xl font-bold">Week Title Placeholder</h2>
+      <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
+    </div>
+    <div class="mb-2">
+  <audio id="mainAudioPlayer" controls class="w-full rounded-lg">
+    Your browser does not support the audio element.
+  </audio>
+</div>
+
+    <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
+    <!-- Language Toggle Popup -->
+<div id="langPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-sm w-full">
+    <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-200">Select Language</h3>
+    <div class="flex flex-col gap-2">
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="english">English</button>
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="hebrew">Hebrew</button>
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="transliteration">Transliteration</button>
+    </div>
+    <button id="closeLangPopup" class="mt-4 px-3 py-1 rounded bg-red-400 text-white">Close</button>
+  </div>
+</div>
+
+<!-- Button to open popup -->
+<button id="openLangPopup" class="px-3 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mt-2">Language</button>
+    <div id="mainStageChapters" class="space-y-1 text-gray-700 dark:text-gray-300 mb-4"></div>
+    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4">
+      <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
+    </div>
+  </section>
+
+  <!-- Cards container for <div id="weekInfo"></div>
+-driven content -->
+  <main id="cardsContainer" class="flex-1 p-4 space-y-6 max-w-4xl mx-auto"></main>
+
+  <!-- Footer -->
+  <footer class="sticky bottom-0 bg-white dark:bg-gray-800 text-center py-2 shadow-inner">
+    &copy; 2025 HGBibleApp
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/mainStageLoader.js" defer></script>
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
+  </script>
+</body>
+</html>
