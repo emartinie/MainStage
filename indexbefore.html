@@ -95,9 +95,6 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-<!-- Container where player will render -->
-<div id="floating-player-root"></div>
-
 <script type="text/babel">
   function FloatingPlayer() {
     const playerRef = React.useRef(null);
@@ -135,22 +132,20 @@
           position: "fixed",
           top: position.y,
           left: position.x,
-          width: "150px",
-          height: "150px",
+          width: "300px",
           padding: "10px",
-          background: "none",
-          color: "transparent",
-          borderRadius: "50%",
+          background: "#222",
+          color: "#fff",
+          borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
           cursor: "move",
           zIndex: 9999,
-          
         }}
         onMouseDown={onMouseDown}
       >
-        <p style={{ margin: "auto", fontWeight: "bold" }}>Floating Player</p>
-        <audio id="mainAudioPlayer" align="center" controls style={{ width: "100%" }}>
-          <source src="https://audio.esv.org/hw/mq/66001001-66002026.mp3" type="audio/mpeg" />
+        <p style={{ margin: "0 0 5px 0", fontWeight: "bold" }}>Floating Player</p>
+        <audio id="mainAudioPlayer" controls style={{ width: "100%" }}>
+          <source src="your-audio.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
@@ -160,7 +155,6 @@
   ReactDOM.createRoot(document.getElementById("floating-player-root"))
     .render(<FloatingPlayer />);
 </script>
-
 
 </body>
 </html>
