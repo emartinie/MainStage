@@ -15,18 +15,22 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-left px-4 py-2">
+  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-center px-4 py-2">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
       <h1 class="text-xl font-bold">HGBibleApp</h1>
     </div>
     <div class="flex items-center gap-2">
+      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
+      <select id="weekSelect" class="px-2 py-1 border rounded"></select>
       <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
-      <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
       <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
+      <input id="advancedsearchInput" type="text" placeholder="Search cards..." class="px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
     </div>
   </header>
 <div id="weekInfo"></div>
+
+
 
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="border rounded-2xl shadow-xl bg-white dark:bg-gray-800 p-4 mb-6 max-w-4xl mx-auto">
@@ -67,15 +71,8 @@
     </div>
     <div>    </div>
     <div id="mainStageChapters" class="mb-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
+
   </section>
-<!-- Advanced Search Input -->
-<div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
-    <input id="advancedsearchInput" type="text" placeholder="Search cards..."
-           class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
-    <!-- Button will be inserted here via JS -->
-</div>
-
-
 
   <!-- Cards container for <div id="weekInfo"></div>
 -driven content -->
@@ -84,19 +81,15 @@
   <!-- Footer -->
   <footer class="sticky bottom-0 bg-white dark:bg-gray-800 text-center py-2 shadow-inner">
     &copy; 2025 HGBibleApp
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
-
   </footer>
 
   <!-- Scripts -->
   <script src="js/mainStageLoader.js" defer></script>
-  
-<script>
+  <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
   </script>
-
 <!-- React via CDN -->
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -155,7 +148,6 @@
         }}
         onMouseDown={onMouseDown}
       >
-
         <p style={{ margin: "auto", fontWeight: "bold" }}>Floating Player</p>
         <audio id="mainAudioPlayer" align="center" controls style={{ width: "100%" }}>
           <source src="https://audio.esv.org/hw/mq/66001001-66002026.mp3" type="audio/mpeg" />
@@ -168,73 +160,6 @@
   ReactDOM.createRoot(document.getElementById("floating-player-root"))
     .render(<FloatingPlayer />);
 </script>
-
-<script>
-// --- Debounce helper ---
-function debounce(fn, delay = 250) {
-    let timer;
-    return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
-
-// --- Advanced search ---
-function setupAdvancedSearch() {
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput) return;
-
-    const searchFn = debounce(() => {
-        const query = searchInput.value.toLowerCase();
-        const cards = document.querySelectorAll("#cardsContainer section");
-        let visibleCount = 0;
-
-        cards.forEach(card => {
-            const text = card.textContent.toLowerCase();
-            if (text.includes(query)) {
-                card.style.display = "";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        // Optional: show "No results" placeholder
-        let noResults = document.getElementById("noResultsPlaceholder");
-        if (!noResults) {
-            noResults = document.createElement("p");
-            noResults.id = "noResultsPlaceholder";
-            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
-            noResults.textContent = "No matching cards found.";
-            cardsContainer.parentNode.appendChild(noResults);
-        }
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-    }, 200);
-
-    searchInput.addEventListener("input", searchFn);
-}
-
-// --- Reset button ---
-function addSearchResetButton() {
-    const searchWrapper = document.getElementById("searchWrapper");
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput || !searchWrapper) return;
-
-    const resetBtn = document.createElement("button");
-    resetBtn.textContent = "Reset";
-    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
-    resetBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
-        const noResults = document.getElementById("noResultsPlaceholder");
-        if (noResults) noResults.style.display = "none";
-    });
-
-    searchWrapper.appendChild(resetBtn); // append inside the flex container
-}
-
-</script>
-
 
 
 </body>

@@ -84,7 +84,7 @@ function parseScriptureFromFilename(filename) {
 // --- Generic collapsible card ---
 function createCard(title, contentHTML) {
     const card = document.createElement("section");
-    card.className = "border rounded-2xl shadow-lg bg-white dark:bg-gray-800 p-4 transition transform hover:scale-[1.02] hover:shadow-2xl duration-300";
+    card.className = "card border rounded-2xl shadow-lg bg-white dark:bg-gray-800 p-4 transition transform hover:scale-[1.02] hover:shadow-2xl duration-300";
 
     const header = document.createElement("h2");
     header.className = "text-xl font-bold mb-2 cursor-pointer flex justify-between items-center";
@@ -228,21 +228,35 @@ const outlines = weekData.sections?.chapter_outlines || {};
 
 Object.keys(outlines).forEach(chap => {
   const p = document.createElement('p');
-  p.className = "flex justify-between items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shadow-sm";
+  p.className = "flex flex-col px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shadow-sm";
 
   const titleSpan = document.createElement('span');
-  titleSpan.className = "font-semibold text-gray-800 dark:text-gray-200";
+  titleSpan.className = "font-semibold text-gray-800 dark:text-gray-200 mb-1";
   titleSpan.textContent = chap;
 
-  const contentSpan = document.createElement('span');
-  contentSpan.className = "text-sm text-gray-600 dark:text-gray-300 ml-3";
-  contentSpan.textContent = outlines[chap];
+  const contentUl = document.createElement('ul');
+  contentUl.className = "ml-4 list-disc text-sm text-gray-600 dark:text-gray-300";
+
+  let items = [];
+
+  if (Array.isArray(outlines[chap])) {
+    items = outlines[chap];
+  } else if (typeof outlines[chap] === 'string') {
+    items = outlines[chap].split(',').map(s => s.trim());
+  } else {
+    items = [String(outlines[chap])];
+  }
+
+  items.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      contentUl.appendChild(li);
+  });
 
   p.appendChild(titleSpan);
-  p.appendChild(contentSpan);
+  p.appendChild(contentUl);
   mainStageChapters.appendChild(p);
 });
-
 
     // --- Video ---
     if (weekData.sections?.video) {
@@ -301,3 +315,6 @@ function init() {
 
 // --- Start ---
 document.addEventListener("DOMContentLoaded", init);
+setupAdvancedSearch();
+addSearchResetButton();
+

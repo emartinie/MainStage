@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> <!-- force dark -->
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Player Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Floating player styling */
+    #floatingAudioPlayer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    #floatingAudioPlayer audio {
+      width: 100%;
+    }
+    #floatingLabel {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #fff;
+      background: rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body class="dark:bg-gray-900 dark:text-white p-6">
+
+  <!-- Main Player -->
+  <div id="mainAudioPlayer" class="mb-6">
+    <audio id="mainPlayer" controls class="w-full">
+      <source src="sample1.mp3" type="audio/mpeg">
+    </audio>
+    <div id="mainLabel" class="mt-2 text-sm text-center">Now Playing: Sample 1</div>
+  </div>
+
+  <!-- Floating Player -->
+  <div id="floatingAudioPlayer" class="hidden">
+    <audio id="floatingPlayer" controls></audio>
+    <div id="floatingLabel">Now Playing...</div>
+  </div>
+
+  <!-- Playlist -->
+  <div class="space-y-2">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded" 
+            onclick="loadTrack('sample1.mp3','Sample 1')">
+      Play Sample 1
+    </button>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded" 
+            onclick="loadTrack('sample2.mp3','Sample 2')">
+      Play Sample 2
+    </button>
+  </div>
+
+<script>
+  const mainPlayer = document.getElementById("mainPlayer");
+  const floatingPlayer = document.getElementById("floatingPlayer");
+  const mainLabel = document.getElementById("mainLabel");
+  const floatingLabel = document.getElementById("floatingLabel");
+  const floatingWrapper = document.getElementById("floatingAudioPlayer");
+
+  function loadTrack(src, label) {
+    // main player always loads first
+    mainPlayer.src = src;
+    mainPlayer.play();
+
+    mainLabel.textContent = "Now Playing: " + label;
+
+    // floating player mirrors it
+    floatingPlayer.src = src;
+    floatingLabel.textContent = "Now Playing: " + label;
+    floatingWrapper.classList.remove("hidden");
+  }
+
+<div id="floatingPlayer" class="fixed bottom-4 right-4 w-72 bg-black/80 text-white p-4 rounded-2xl shadow-lg cursor-move z-50">
+  <audio id="floatingAudio" controls class="w-full"></audio>
+</div>
+
+<script>
+const floatingPlayer = document.getElementById("floatingPlayer");
+
+let offsetX = 0, offsetY = 0;
+let isDragging = false;
+
+function startDrag(e) {
+  isDragging = true;
+
+  // Handle both mouse and touch
+  const clientX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+  const clientY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+
+  const rect = floatingPlayer.getBoundingClientRect();
+  offsetX = clientX - rect.left;
+  offsetY = clientY - rect.top;
+
+  document.addEventListener("mousemove", drag);
+  document.addEventListener("mouseup", stopDrag);
+
+  document.addEventListener("touchmove", drag, { passive: false });
+  document.addEventListener("touchend", stopDrag);
+}
+
+function drag(e) {
+  if (!isDragging) return;
+
+  // Prevent scroll on touch while dragging
+  if (e.type.includes("touch")) e.preventDefault();
+
+  const clientX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
+  const clientY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
+
+  floatingPlayer.style.left = clientX - offsetX + "px";
+  floatingPlayer.style.top = clientY - offsetY + "px";
+  floatingPlayer.style.right = "auto";
+  floatingPlayer.style.bottom = "auto";
+  floatingPlayer.style.position = "fixed";
+}
+
+function stopDrag() {
+  isDragging = false;
+  document.removeEventListener("mousemove", drag);
+  document.removeEventListener("mouseup", stopDrag);
+
+  document.removeEventListener("touchmove", drag);
+  document.removeEventListener("touchend", stopDrag);
+}
+
+floatingPlayer.addEventListener("mousedown", startDrag);
+floatingPlayer.addEventListener("touchstart", startDrag, { passive: false });
+</script>
+
+</script>
+
+</body>
+</html>
