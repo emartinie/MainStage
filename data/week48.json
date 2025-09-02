@@ -5,20 +5,20 @@
   "week": 48,
   "title": "Bible Study for Week 48",
   "intro": {
-    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
+    "summary": "Learn the Bible in 52 weeks. This week's Bible study in a year is called judges. The commandment for the king to write a copy of the Pentateuch/ Torah demonstrates the work of Messiah. He Himself is the Word made flesh. He is the copy of the Torah in human form. Furthermore, He writes a copy of the Torah as He writes the Torah upon our hearts. The Torah of King Messiah is written not with ink, but with the Spirit of the living God, not on tablets of stone, but on tablets of human hearts (2 Corinthians 3:3). Click below to play or read Scriptures for this week.",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
   },
   "sections": {
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "src": "http://audio.esvbible.org/hw/05016018-05021009.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3",
+        "src": "http://audio.esvbible.org/hw/23051012-23052012.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
@@ -30,7 +30,7 @@
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40001001-40002026.mp3",
+        "src": "http://audio.esvbible.org/hw/40026047-40027010.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
@@ -49,26 +49,37 @@
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Deuteronomy 16:18 | Municipal Judges and Officers",
+        "Deuteronomy 16:21 | Forbidden Forms of Worship",
+        "Deuteronomy 17:8 | Legal Decisions by Priests and Judges",
+        "Deuteronomy 17:14 | Limitations of Royal Authority",
+        "Deuteronomy 18:1 | Privileges of Priests and Levites",
+        "Deuteronomy 18:9 | Child-Sacrifice, Divination, and Magic Prohibited",
+        "Deuteronomy 18:15 | A New Prophet Like Moses",
+        "Deuteronomy 19:1 | Laws concerning the Cities of Refuge",
+        "Deuteronomy 19:14 | Property Boundaries",
+        "Deuteronomy 19:15 | Law concerning Witnesses",
+        "Deuteronomy 20:1 | Rules of Warfare",
+        "Deuteronomy 21:1 | Law concerning Murder by Persons Unknown"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Isaiah 51:1 | Blessings in Store for God's People",
+        "Isaiah 52:1 | Let Zion Rejoice"
       ],
       "Writings": [
         "12:12 – Ephraim's Rebellion",
         "14:4 – Assurance of Forgiveness"
       ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "John 13:31-15:27 | The Way to the Father’s House",
+        "Luke 15:11-32 | The father's 2 sons"
+
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Ephesians 2 | Jews and Gentiles under one roof"
       ],
       "Revelation": [
-        "12:12 – Ephraim's Rebellion",
+        "Revelation 11 | The Father's house in Heaven",
         "14:4 – Assurance of Forgiveness"
       ]
     },
