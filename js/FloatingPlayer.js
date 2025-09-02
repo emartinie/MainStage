@@ -4,7 +4,7 @@
    1) Default (fallback) playlist
    ======================= */
 let playlist = [
-  { title: "Torah",      eng: "https://www.lanz.li/grnt/ev/01-Mt-01.mp3",      heb: "/audio/torah_heb.mp3",      grk: "/audio/torah_grk.mp3" },
+  { title: "Torah",      eng: "/audio/01-Mt-01.mp3",      heb: "/audio/torah_heb.mp3",      grk: "/audio/torah_grk.mp3" },
   { title: "Prophets",   eng: "/audio/prophets_eng.mp3",   heb: "/audio/prophets_heb.mp3",   grk: "/audio/prophets_grk.mp3" },
   { title: "Writings",   eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
   { title: "Gospels",    eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
