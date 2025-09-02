@@ -4,7 +4,7 @@
    1) Default (fallback) playlist
    ======================= */
 let playlist = [
-  { title: "Torah",      eng: "https://audio.esvbible.org/hw/05016018-05021009.mp3",      heb: "https://mechon-mamre.org/mp3/t0106.mp3",      grk: "https://www.lanz.li/grnt/ev/01-Mt-01.mp3" },
+  { title: "Torah",      eng: "https://www.esv.org/audio-player/Deuteronomy+16%3A18-21%3A9/",      heb: "https://mechon-mamre.org/mp3/t0106.mp3",      grk: "https://www.lanz.li/grnt/ev/01-Mt-01.mp3" },
   { title: "Prophets",   eng: "https://audio.esvbible.org/hw/23051012-23052012.mp3,   heb: "/audio/prophets_heb.mp3",   grk: "/audio/prophets_grk.mp3" },
   { title: "Writings",   eng: "http://audio.esvbible.org/hw/40026047-40027010.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
   { title: "Gospels",    eng: "http://audio.esvbible.org/hw/40026047-40027010.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
