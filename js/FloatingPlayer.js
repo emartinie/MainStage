@@ -4,13 +4,12 @@
    1) Default (fallback) playlist
    ======================= */
 let playlist = [
-  { title: "Torah",      eng: "https://www.esv.org/audio-player/Deuteronomy+16%3A18-21%3A9/",      heb: "https://mechon-mamre.org/mp3/t0106.mp3",      grk: "https://www.lanz.li/grnt/ev/01-Mt-01.mp3" },
-  { title: "Prophets",   eng: "https://audio.esvbible.org/hw/23051012-23052012.mp3,   heb: "/audio/prophets_heb.mp3",   grk: "/audio/prophets_grk.mp3" },
-  { title: "Writings",   eng: "http://audio.esvbible.org/hw/40026047-40027010.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
-  { title: "Gospels",    eng: "http://audio.esvbible.org/hw/40026047-40027010.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
-  { title: "Letters",    eng: "https://audio.esv.org/hw/mq/48003001-48004025.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
-  { title: "Revelation", eng: "https://audio.esv.org/hw/mq/66001001-66002026.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
-  { title: "Psalms",     eng: "https://audio.esv.org/hw/mq/19001001-19029011.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" }
+  { title: "Torah",      eng: "https://www.lanz.li/grnt/ev/01-Mt-01.mp3",      heb: "/audio/torah_heb.mp3",      grk: "/audio/torah_grk.mp3" },
+  { title: "Prophets",   eng: "/audio/prophets_eng.mp3",   heb: "/audio/prophets_heb.mp3",   grk: "/audio/prophets_grk.mp3" },
+  { title: "Writings",   eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
+  { title: "Gospels",    eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
+  { title: "Revelation", eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" },
+  { title: "Psalms",     eng: "/audio/gospels_eng.mp3",    heb: "/audio/gospels_heb.mp3",    grk: "/audio/gospels_grk.mp3" }
 ];
 
 /* =======================
