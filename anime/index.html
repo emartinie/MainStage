@@ -63,18 +63,27 @@
     @media (hover: none) {
       .card .overlay { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
+    .animate-bounce-slow { animation: bounce-slow 2s infinite; }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
-  <header class="bg-purple-800 p-4 shadow-lg sticky top-0 z-50 flex flex-col gap-2">
+ <header class="bg-purple-800 p-4 shadow-lg sticky top-0 z-50 flex items-center justify-between">
+  <!-- Logo -->
+  <img src="images/HGHouses.png" alt="Anime Logo" class="h-14 animate-bounce-slow">
+
+  <!-- Title & subtitle -->
+  <div class="text-center flex-1">
+    <h1 class="text-3xl font-bold text-white">Anime - Top 500</h1>
+    <p class="text-purple-200 mt-1">Featuring Japanese titles, voice actors, and genres!</p>
+  </div>
     <select id="tts-voice" class="bg-gray-700 text-white p-2 rounded w-48 self-center">
+      <option value="ja-JP">Japanese</option>  
+      <option value="en-US">English</option>    
       <option value="default">Default</option>
-      <option value="ja-JP">Japanese</option>
-      <option value="en-US">English</option>
-    </select>
-    <h1 class="text-3xl font-bold text-center">Anime Hub - Top 500</h1>
-    <p class="text-center text-purple-200 mt-1">Featuring Japanese titles, voice actors, and genres!</p>
+    </select>    
   </header>
 
   <main class="p-6">
