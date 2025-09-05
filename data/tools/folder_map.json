@@ -1,0 +1,99 @@
+{
+  "summary": {
+    "rootPath": "G:/My Drive/Preparedness",
+    "totalFolders": 10,
+    "totalFiles": 20,
+    "maxFilesPerFolder": 20,
+    "totalSize": 9241702601,
+    "earliest": "2015-02-11T16:35:30.294Z",
+    "latest": "2025-09-05T03:28:37.621Z",
+    "generatedAt": "2025-09-05T04:00:07.610Z"
+  },
+  "folderMap": {
+    "path": "G:/My Drive/Preparedness",
+    "folders": [
+      {
+        "path": "G:\\My Drive\\Preparedness\\Healthy Excercise",
+        "folders": [],
+        "files": [
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Herbal Remedies",
+        "folders": [],
+        "files": [
+          "Herbal Remedies.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Home Canning and More",
+        "folders": [],
+        "files": [
+          "Home Canning and More.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Homesteading",
+        "folders": [],
+        "files": [
+          "Homesteading.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Natural Disaster & Environment Survival",
+        "folders": [],
+        "files": [
+          "Natural Disaster & Environment Survival.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Off Grid Living",
+        "folders": [],
+        "files": [
+          "Off Grid Living.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Survival Retreats And Shelters",
+        "folders": [],
+        "files": [
+          "Survival Retreats And Shelters.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Survival Skills",
+        "folders": [],
+        "files": [
+          "Survival Skills.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Ultimate Survival Information",
+        "folders": [],
+        "files": [
+          "Ultimate Survival Information.rar",
+          "desktop.ini"
+        ]
+      },
+      {
+        "path": "G:\\My Drive\\Preparedness\\Food & Water",
+        "folders": [],
+        "files": [
+          "Food & Water.rar",
+          "desktop.ini"
+        ]
+      }
+    ],
+    "files": [
+      "desktop.ini"
+    ]
+  }
+}

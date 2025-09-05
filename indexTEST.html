@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MainStageTEST</title>
+  <title>MainStage</title>
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -15,47 +15,150 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-center px-4 py-2">
+  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-left px-4 py-2">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-      <h1 class="text-xl font-bold">HGBibleApp</h1>
+      <h1 class="text-xl font-bold"> </h1>
     </div>
     <div class="flex items-center gap-2">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
-      <select id="weekSelect" class="px-2 py-1 border rounded"></select>
       <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
+      <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
       <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
-      <input id="advancedsearchInput" type="text" placeholder="Search cards..." class="px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
     </div>
   </header>
+<div id="weekInfo"></div>
 
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="border rounded-2xl shadow-xl bg-white dark:bg-gray-800 p-4 mb-6 max-w-4xl mx-auto">
     <div class="mb-4">
-      <h2 id="mainStageTitle" class="text-2xl font-bold">Week Title Placeholder</h2>
+      <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
+    <div class="mb-2">
+  <audio id="mainAudioPlayer" controls class="w-full rounded-lg">
+    Your browser does not support the audio element.
+  </audio>
+<!-- Container where player will render -->
+<div id="floating-player-root"></div>
+<!-- Button to open popup -->
+<button id="openLangPopup" class="px-3 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mt-2">Language Toggle</button>
+<marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+</marquee>
+</div>
+
     <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
-    <div id="mainStageChapters" class="space-y-1 text-gray-700 dark:text-gray-300 mb-4"></div>
+    <!-- Language Toggle Popup -->
+<div id="langPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-sm w-full">
+    <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-200">Select Language</h3>
+    <div class="flex flex-col gap-2">
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="english">English</button>
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="hebrew">Hebrew</button>
+      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="transliteration">Greek</button>
+    </div>
+    <button id="closeLangPopup" class="mt-4 px-3 py-1 rounded bg-red-400 text-white">Close</button>
+  </div>
+</div>
+<!-- Chapter Outlines (under playlist) -->
+    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4">
       <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
   </section>
+<!-- Advanced Search Input -->
+<div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
+    <input id="advancedsearchInput" type="text" placeholder="Search cards..."
+           class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
+    <!-- Button will be inserted here via JS -->
+</div>
 
-  <!-- Cards container for JSON-driven content -->
+  <!-- Cards container for <div id="weekInfo"></div>
+-driven content -->
   <main id="cardsContainer" class="flex-1 p-4 space-y-6 max-w-4xl mx-auto"></main>
 
   <!-- Footer -->
   <footer class="sticky bottom-0 bg-white dark:bg-gray-800 text-center py-2 shadow-inner">
     &copy; 2025 HGBibleApp
+      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
+
   </footer>
 
   <!-- Scripts -->
-  <script src="js/mainStageLoaderTEST.js" defer></script>
+  <script src="js/mainStageLoader.js" defer></script>
+  <script src="js/TESTbackupinitialFloatingPlayer.js" defer></script>  
   <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
   </script>
+
+
+  <script>
+// --- Debounce helper ---
+function debounce(fn, delay = 250) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// --- Advanced search ---
+function setupAdvancedSearch() {
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput) return;
+    const searchFn = debounce(() => {
+        const query = searchInput.value.toLowerCase();
+        const cards = document.querySelectorAll("#cardsContainer section");
+        let visibleCount = 0;
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Optional: show "No results" placeholder
+        let noResults = document.getElementById("noResultsPlaceholder");
+        if (!noResults) {
+            noResults = document.createElement("p");
+            noResults.id = "noResultsPlaceholder";
+            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
+            noResults.textContent = "No matching cards found.";
+            cardsContainer.parentNode.appendChild(noResults);
+        }
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+    }, 200);
+
+    searchInput.addEventListener("input", searchFn);
+}
+
+// --- Reset button ---
+function addSearchResetButton() {
+    const searchWrapper = document.getElementById("searchWrapper");
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput || !searchWrapper) return;
+
+    const resetBtn = document.createElement("button");
+    resetBtn.textContent = "Reset";
+    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
+    resetBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
+        const noResults = document.getElementById("noResultsPlaceholder");
+        if (noResults) noResults.style.display = "none";
+    });
+
+    searchWrapper.appendChild(resetBtn); // append inside the flex container
+}
+
+</script>
+
+
+
 </body>
 </html>

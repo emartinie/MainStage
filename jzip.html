@@ -1,0 +1,75 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+  // List of your public Google Drive file IDs
+const fileIds = [
+  "0ByBj5IHFJFzvRE41ZTR4RS1CZ2c",
+  "0ByBj5IHFJFzvLXBzUG1jalB5aUU",
+  "0ByBj5IHFJFzvMGxoQk5tMFZQUzg",
+  "0ByBj5IHFJFzvUEZLMmp1MERGMEU",
+  "0ByBj5IHFJFzvNTYtZHNBQXNJRjQ",
+  "0ByBj5IHFJFzvRTdYR3htTWVWUmM",
+  "0ByBj5IHFJFzvWWJ6cFhYNnFmcXc",
+  "0ByBj5IHFJFzvbHYxNFhlVEU4dm8",
+  "0ByBj5IHFJFzvblB0N2tDdUdHcDg"
+];
+
+async function fetchCentralDirectory(fileId) {
+  const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
+  console.log(`Fetching headers for zip: ${fileId}`);
+
+  // First, get content length
+  const head = await fetch(url, { method: "HEAD" });
+  const size = parseInt(head.headers.get("Content-Length"));
+  if (!size) throw new Error("Could not get file size");
+
+  // Fetch the last 200 KB (central directory is at the end)
+  const start = Math.max(size - 200000, 0);
+  const resp = await fetch(url, { headers: { Range: `bytes=${start}-${size}` } });
+  const arrayBuffer = await resp.arrayBuffer();
+
+  // Use JSZip to read only the end of the file
+  const zip = new JSZip();
+  await zip.loadAsync(arrayBuffer, { checkCRC32: false });
+
+  const entries = [];
+  zip.forEach((relativePath, zipEntry) => {
+    if (!zipEntry.dir) entries.push({ filename: zipEntry.name, size: zipEntry._data.uncompressedSize });
+  });
+
+  return { zip_file_id: fileId, num_files: entries.length, contents: entries };
+}
+
+async function scanAllZips() {
+  const inventory = [];
+  for (const id of fileIds) {
+    try {
+
+      const info = await fetchCentralDirectory(id);
+      inventory.push(info);
+    } catch (e) {
+      console.warn(`Failed to read zip ${id}:`, e);
+      inventory.push({ zip_file_id: id, num_files: 0, contents: [] });
+    }
+  }
+
+  // Save JSON inventory
+  const blob = new Blob([JSON.stringify(inventory, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "zip_inventory.json";
+  link.click();
+
+  console.log("Inventory complete", inventory);
+}
+
+// Load JSZip if not already loaded
+if (typeof JSZip === "undefined") {
+  const script = document.createElement("script");
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
+  script.onload = scanAllZips;
+  document.body.appendChild(script);
+} else {
+  scanAllZips();
+}
+
+</script>

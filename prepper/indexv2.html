@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prepper PDF Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <style>
+    /* Floating player */
+    #floating-player {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 80px;
+      height: 80px;
+      background: #1f2937;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    #floating-player.playing { background: #065f46; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<div class="flex h-screen overflow-hidden">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-gray-100 flex-shrink-0 overflow-y-auto">
+    <div class="p-4 text-lg font-bold border-b border-gray-700">Folders</div>
+    <ul id="folder-list" class="p-2"></ul>
+  </aside>
+
+  <!-- Main content -->
+  <main class="flex-1 overflow-y-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">PDF Library</h1>
+    <!-- Advanced Search -->
+    <input id="search-input" type="text" placeholder="Search PDFs..." class="mb-4 p-2 w-full border rounded shadow" />
+    <div id="pdf-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </main>
+</div>
+
+<!-- Floating TTS player -->
+<div id="floating-player" title="Play/Pause">▶️</div>
+
+<script>
+  let pdfIndex = {};
+  const extractedTextCache = {}; // Cache for PDF text
+
+  // Load JSON index
+  fetch('flat_index.json')
+    .then(res => res.json())
+    .then(data => {
+      pdfIndex = data;
+      renderFolders(data.folderMap);
+      renderPDFs(data.files);
+    });
+
+  // Render folders sidebar
+  function renderFolders(folderMap) {
+    const folderList = document.getElementById('folder-list');
+    folderList.innerHTML = '';
+    for (const key in folderMap) {
+      const folder = folderMap[key];
+      const li = document.createElement('li');
+      li.className = 'p-2 hover:bg-gray-700 rounded cursor-pointer';
+      li.textContent = `${folder.path} (${folder.pdfCount})`;
+      li.onclick = () => filterFolder(folder.path);
+      folderList.appendChild(li);
+    }
+  }
+
+  // Render PDF cards
+  let currentPDFs = [];
+  function renderPDFs(files) {
+    currentPDFs = files;
+    const pdfContainer = document.getElementById('pdf-cards');
+    pdfContainer.innerHTML = '';
+    files.forEach(file => {
+      const card = document.createElement('div');
+      card.className = 'bg-white p-4 rounded shadow hover:shadow-lg transition';
+      card.innerHTML = `
+        <h2 class="font-bold text-lg">${file.name}</h2>
+        <p class="text-sm text-gray-600">${file.category || ''}</p>
+        <p class="text-sm text-gray-600">Pages: ${file.pdfPages || 'N/A'}</p>
+        <p class="text-sm text-gray-600">Modified: ${file.modified ? new Date(file.modified).toLocaleDateString() : 'N/A'}</p>
+        <button class="mt-2 bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700" onclick="playPDF('${file.path}')">Read</button>
+      `;
+      pdfContainer.appendChild(card);
+    });
+  }
+
+  // Filter PDFs by folder
+  function filterFolder(folderPath) {
+    const filtered = pdfIndex.files.filter(f => f.path.startsWith(folderPath));
+    renderPDFs(filtered);
+  }
+
+  // Advanced search
+  const searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('input', () => {
+    const term = searchInput.value.toLowerCase();
+    const filtered = pdfIndex.files.filter(f =>
+      f.name.toLowerCase().includes(term) ||
+      (f.category && f.category.toLowerCase().includes(term)) ||
+      (extractedTextCache[f.path] && extractedTextCache[f.path].toLowerCase().includes(term))
+    );
+    renderPDFs(filtered);
+  });
+
+  // Floating TTS player
+  let speech = null;
+  let currentText = '';
+  const player = document.getElementById('floating-player');
+  player.addEventListener('click', () => {
+    if (!speech) return;
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+      player.textContent = '▶️';
+      player.classList.remove('playing');
+    } else {
+      startSpeech(currentText);
+    }
+  });
+
+  // Play PDF
+  async function playPDF(path) {
+    currentText = extractedTextCache[path] || await extractPDFText(path);
+    startSpeech(currentText);
+  }
+
+  // Extract text from PDF using pdf.js
+  async function extractPDFText(path) {
+    const loadingTask = pdfjsLib.getDocument(path);
+    const pdfDoc = await loadingTask.promise;
+    let fullText = '';
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      const page = await pdfDoc.getPage(i);
+      const content = await page.getTextContent();
+      const pageText = content.items.map(item => item.str).join(' ');
+      fullText += pageText + '\n\n';
+    }
+    extractedTextCache[path] = fullText;
+    return fullText;
+  }
+
+  // Start speech
+  function startSpeech(text) {
+    if (!('speechSynthesis' in window)) { alert('Browser does not support speech synthesis.'); return; }
+    speech = new SpeechSynthesisUtterance(text);
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.lang = 'en-US';
+    speechSynthesis.speak(speech);
+    player.textContent = '⏸️';
+    player.classList.add('playing');
+    speech.onend = () => {
+      player.textContent = '▶️';
+      player.classList.remove('playing');
+    };
+  }
+</script>
+
+</body>
+</html>
