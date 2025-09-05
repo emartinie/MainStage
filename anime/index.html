@@ -1,211 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Anime - Top 500</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Sparkle hover animation */
-    @keyframes sparkle {
-      0%,100% { opacity:0; transform: translateY(0) rotate(0deg); }
-      50% { opacity:1; transform: translateY(-5px) rotate(10deg); }
-    }
-    .sparkle:hover { animation: sparkle 0.5s ease-in-out; }
+<meta charset="UTF-8">
+<title>Anime Hub - Top 500</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Hover sparkle animation */
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: translateY(0) rotate(0deg); }
+    50% { opacity: 1; transform: translateY(-10px) rotate(15deg); }
+  }
+  .sparkle:hover {
+    animation: sparkle 0.5s ease-in-out;
+  }
 
-    /* Overlay animation */
-    .overlay { opacity: 0; transform: translateY(10px); transition: all 0.3s ease-in-out; }
-    .card:hover .overlay, .card:active .overlay { opacity: 1; transform: translateY(0); }
+  /* Overlay animation */
+  .overlay {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-in-out;
+  }
+  .card:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    /* Floating TTS Player */
-    #tts-player {
-      position: fixed; bottom: 1rem; right: 1rem;
-      background: rgba(75,0,130,0.85); color:white;
-      padding:0.5rem 1rem; border-radius:0.5rem;
-      display:none; z-index:1000; font-size:0.9rem;
-    }
-  </style>
+  /* Floating TTS player */
+  #tts-player {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(75, 0, 130, 0.85);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    display: none;
+    z-index: 1000;
+    font-size: 1.1rem;
+  }
+</style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
-  <!-- Header -->
-  <header class="bg-purple-800 p-4 shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <img src="images/HGHouses.png" alt="Anime Logo" class="h-14 w-14 sm:h-16 sm:w-16 object-contain animate-bounce">
-      <div class="text-center sm:text-left flex-1">
-        <h1 class="text-2xl sm:text-3xl font-bold text-white leading-tight">Anime - Top 500</h1>
-        <p class="text-purple-200 text-sm sm:text-base mt-1">Featuring Japanese, voice actors, and all genres!</p>
-      </div>
-      <select id="tts-voice" class="bg-gray-700 text-white p-2 rounded shadow-sm hover:bg-gray-600">
-        <option value="default">Default</option>
-        <option value="ja-JP">Japanese</option>
-        <option value="en-US">English</option>
-      </select>
+<header class="bg-purple-800 p-6 shadow-lg sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between gap-4">
+  <div class="flex items-center gap-4">
+    <img src="logo.png" alt="Anime Hub Logo" class="h-16 w-16 md:h-20 md:w-20">
+    <div>
+      <h1 class="text-5xl md:text-6xl font-bold">Anime Hub - Top 500</h1>
+      <p class="text-xl md:text-2xl text-purple-200 mt-1">Featuring Japanese titles, voice actors, and genres!</p>
     </div>
-  </header>
-
-  <!-- Main -->
-  <main class="p-4 sm:p-6">
-    <!-- Search + Filters -->
-    <section id="controls" class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <input id="search-input" type="text" placeholder="Search title, Japanese, voice actor, genre..." class="p-2 rounded w-full sm:w-1/2 text-black">
-      <div id="filters" class="flex flex-wrap gap-2 sm:gap-4">
-        <!-- Filter checkboxes dynamically populated -->
-      </div>
-    </section>
-
-    <!-- Anime Grid -->
-    <section id="anime-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Cards dynamically injected -->
-    </section>
-  </main>
-
-  <!-- Floating TTS Player -->
-  <div id="tts-player">
-    <span id="tts-text"></span>
-    <button id="tts-pause" class="ml-2 bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">⏸</button>
-    <button id="tts-stop" class="ml-1 bg-red-500 px-2 py-1 rounded hover:bg-red-600">⏹</button>
   </div>
+  <select id="tts-voice" class="bg-gray-700 text-white p-4 rounded text-lg">
+    <option value="default">Default</option>
+    <option value="ja-JP">Japanese</option>
+    <option value="en-US">English</option>
+  </select>
+</header>
 
-  <script>
-    let animeData = [];
-    let voices = [];
-    let ttsUtterance;
+<main class="p-8">
+  <!-- Search + Filters -->
+  <section id="controls" class="mb-8 flex flex-col gap-6">
+    <input id="search-input" type="text" placeholder="Search by title, Japanese, voice actor, genre..." class="p-4 rounded w-full text-black text-xl">
+    <div id="filters" class="flex flex-wrap gap-4 text-lg">
+      <!-- dynamically populated filter checkboxes -->
+    </div>
+  </section>
 
-    async function loadAnime() {
-      const res = await fetch('anime_full_mapped.json');
-      const data = await res.json();
-      animeData = data.anime;
+  <!-- Anime Grid -->
+  <section id="anime-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <!-- Anime cards inserted here by JS -->
+  </section>
+</main>
 
-      populateFilters();
-      renderGrid(animeData);
-      initTTS();
-    }
+<!-- Floating TTS Player -->
+<div id="tts-player">
+  <span id="tts-text"></span>
+  <button id="tts-pause" class="ml-4 bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 text-lg">⏸ Pause</button>
+  <button id="tts-stop" class="ml-2 bg-red-500 px-4 py-2 rounded hover:bg-red-600 text-lg">⏹ Stop</button>
+</div>
 
-    function populateFilters() {
-      const genreSet = new Set();
-      const typeSet = new Set();
-      animeData.forEach(a => {
-        a.genres.forEach(g => genreSet.add(g));
-        typeSet.add(a.format);
-      });
+<script>
+let animeData = [];
+let ttsUtterance;
 
-      const filtersDiv = document.getElementById('filters');
-      genreSet.forEach(g => {
-        const label = document.createElement('label');
-        label.className = "flex items-center gap-1 text-sm";
-        label.innerHTML = `<input type="checkbox" class="genre-filter" value="${g}">${g}`;
-        filtersDiv.appendChild(label);
-      });
-      typeSet.forEach(t => {
-        const label = document.createElement('label');
-        label.className = "flex items-center gap-1 text-sm";
-        label.innerHTML = `<input type="checkbox" class="type-filter" value="${t}">${t}`;
-        filtersDiv.appendChild(label);
-      });
+async function loadAnime() {
+  const res = await fetch('anime_full_mapped.json');
+  const data = await res.json();
+  animeData = data.anime;
+  populateFilters();
+  renderGrid(animeData);
+}
 
-      // Event listeners
-      document.querySelectorAll('#filters input').forEach(input => input.addEventListener('change', applyFilters));
-      document.getElementById('search-input').addEventListener('input', applyFilters);
-    }
+function populateFilters() {
+  const genreSet = new Set();
+  const typeSet = new Set();
+  animeData.forEach(a => {
+    a.genres.forEach(g => genreSet.add(g));
+    typeSet.add(a.format);
+  });
 
-    function applyFilters() {
-      const search = document.getElementById('search-input').value.toLowerCase();
-      const selectedGenres = Array.from(document.querySelectorAll('.genre-filter:checked')).map(i => i.value);
-      const selectedTypes = Array.from(document.querySelectorAll('.type-filter:checked')).map(i => i.value);
+  const filtersDiv = document.getElementById('filters');
+  genreSet.forEach(g => {
+    const label = document.createElement('label');
+    label.className = "flex items-center gap-2 text-lg";
+    label.innerHTML = `<input type="checkbox" class="genre-filter" value="${g}">${g}`;
+    filtersDiv.appendChild(label);
+  });
+  typeSet.forEach(t => {
+    const label = document.createElement('label');
+    label.className = "flex items-center gap-2 text-lg";
+    label.innerHTML = `<input type="checkbox" class="type-filter" value="${t}">${t}`;
+    filtersDiv.appendChild(label);
+  });
 
-      const filtered = animeData.filter(a => {
-        const matchesSearch = (
-          a.title.romaji.toLowerCase().includes(search) ||
-          (a.title.native && a.title.native.toLowerCase().includes(search)) ||
-          a.characters?.edges?.some(c => c.node.name.full.toLowerCase().includes(search)) ||
-          a.characters?.edges?.some(c => (c.voiceActors?.map(v => v.name.full.toLowerCase()) || []).some(n => n.includes(search))) ||
-          a.genres.join(' ').toLowerCase().includes(search)
-        );
+  document.querySelectorAll('#filters input').forEach(input => input.addEventListener('change', applyFilters));
+  document.getElementById('search-input').addEventListener('input', applyFilters);
+}
 
-        const matchesGenre = selectedGenres.length === 0 || selectedGenres.some(g => a.genres.includes(g));
-        const matchesType = selectedTypes.length === 0 || selectedTypes.includes(a.format);
+function applyFilters() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const selectedGenres = Array.from(document.querySelectorAll('.genre-filter:checked')).map(i => i.value);
+  const selectedTypes = Array.from(document.querySelectorAll('.type-filter:checked')).map(i => i.value);
 
-        return matchesSearch && matchesGenre && matchesType;
-      });
+  const filtered = animeData.filter(a => {
+    const matchesSearch = (
+      a.title.romaji.toLowerCase().includes(search) ||
+      (a.title.native && a.title.native.toLowerCase().includes(search)) ||
+      a.characters?.edges?.some(c => c.node.name.full.toLowerCase().includes(search)) ||
+      a.characters?.edges?.some(c => (c.voiceActors?.map(v => v.name.full.toLowerCase()) || []).some(n => n.includes(search))) ||
+      a.genres.join(' ').toLowerCase().includes(search)
+    );
+    const matchesGenre = selectedGenres.length === 0 || selectedGenres.some(g => a.genres.includes(g));
+    const matchesType = selectedTypes.length === 0 || selectedTypes.includes(a.format);
+    return matchesSearch && matchesGenre && matchesType;
+  });
 
-      renderGrid(filtered);
-    }
+  renderGrid(filtered);
+}
 
-    function renderGrid(list) {
-      const grid = document.getElementById('anime-grid');
-      grid.innerHTML = '';
+function renderGrid(list) {
+  const grid = document.getElementById('anime-grid');
+  grid.innerHTML = '';
 
-      list.forEach(a => {
-        const card = document.createElement('div');
-        card.className = "card relative bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transform transition sparkle";
+  list.forEach(a => {
+    const card = document.createElement('div');
+    card.className = "card relative bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transform transition sparkle";
 
-        card.innerHTML = `
-          <img src="${a.coverImage.large}" alt="${a.title.romaji}" class="w-full h-64 object-cover" loading="lazy">
-          <div class="p-4">
-            <h2 class="text-xl font-bold">${a.title.romaji}</h2>
-            <h3 class="text-purple-400 text-lg drop-shadow-md">${a.title.native || ''}</h3>
-            <p class="text-gray-300 mt-2">Episodes: ${a.episodes || 'N/A'} | Type: ${a.format}</p>
-            <p class="text-gray-300">Genres: ${a.genres.join(', ')}</p>
-            <p class="text-gray-300">Popularity: ${a.popularity || 'N/A'} | Score: ${a.averageScore || 'N/A'}</p>
+    card.innerHTML = `
+      <img src="${a.coverImage.large}" alt="${a.title.romaji}" class="w-full h-128 object-cover" loading="lazy">
+      <div class="p-6">
+        <h2 class="text-2xl md:text-3xl font-bold">${a.title.romaji}</h2>
+        <h3 class="text-purple-400 text-xl md:text-2xl drop-shadow-md">${a.title.native || ''}</h3>
+        <p class="text-gray-300 mt-4 text-lg md:text-xl">Episodes: ${a.episodes || 'N/A'} | Type: ${a.format}</p>
+        <p class="text-gray-300 text-lg md:text-xl">Genres: ${a.genres.join(', ')}</p>
+        <p class="text-gray-300 text-lg md:text-xl">Popularity: ${a.popularity || 'N/A'} | Score: ${a.averageScore || 'N/A'}</p>
+      </div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-80 text-white p-6 flex flex-col justify-between">
+        <div>
+          <h4 class="text-2xl font-bold mb-4">Characters & Voice Actors</h4>
+          <ul class="text-lg max-h-96 overflow-y-auto">
+            ${
+              a.characters?.edges
+                ?.map(c => `<li>${c.node.name.full} - ${(c.voiceActors?.map(v => v.name.full).join(', ') || 'N/A')}</li>`)
+                .join('') || 'No characters'
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <button class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 text-lg tts-btn" data-text="${a.title.romaji} - ${a.title.native || ''}">
+            🔊 Read
+          </button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
 
-            <div class="overlay absolute inset-0 bg-black bg-opacity-80 text-white p-4 flex flex-col justify-between">
-              <div>
-                <h4 class="text-lg font-bold mb-2">Characters & Voice Actors</h4>
-                <ul class="text-sm max-h-48 overflow-y-auto">
-                  ${
-                    a.characters?.edges
-                      ?.map(c => `<li>${c.node.name.full} - ${(c.voiceActors?.map(v => v.name.full).join(', ') || 'N/A')}</li>`)
-                      .join('') || 'No characters'
-                  }
-                </ul>
-              </div>
-              <div class="mt-2">
-                <button class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 text-sm tts-btn" data-text="${a.title.romaji} - ${a.title.native || ''}">
-                  🔊 Read
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+  document.querySelectorAll('.tts-btn').forEach(btn => {
+    btn.addEventListener('click', () => playTTS(btn.dataset.text));
+  });
+}
 
-      // Wire TTS buttons
-      document.querySelectorAll('.tts-btn').forEach(btn => {
-        btn.addEventListener('click', () => playTTS(btn.dataset.text));
-      });
-    }
+function playTTS(text) {
+  const voiceSelect = document.getElementById('tts-voice');
+  const voiceLang = voiceSelect.value;
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  if (voiceLang !== 'default') {
+    const voice = speechSynthesis.getVoices().find(v => v.lang === voiceLang);
+    if (voice) ttsUtterance.voice = voice;
+  }
+  ttsUtterance.rate = 1;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.onstart = () => {
+    document.getElementById('tts-text').textContent = text;
+    document.getElementById('tts-player').style.display = 'block';
+  };
+  ttsUtterance.onend = () => {
+    document.getElementById('tts-player').style.display = 'none';
+  };
+  window.speechSynthesis.speak(ttsUtterance);
+}
 
-    function initTTS() {
-      voices = window.speechSynthesis.getVoices();
-      speechSynthesis.onvoiceschanged = () => voices = speechSynthesis.getVoices();
-    }
+document.getElementById('tts-pause').addEventListener('click', () => { if(window.speechSynthesis.speaking) window.speechSynthesis.pause(); });
+document.getElementById('tts-stop').addEventListener('click', () => { window.speechSynthesis.cancel(); document.getElementById('tts-player').style.display = 'none'; });
 
-    function playTTS(text) {
-      const voiceSelect = document.getElementById('tts-voice');
-      const voiceLang = voiceSelect.value;
+speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      if (voiceLang !== 'default') {
-        const voice = voices.find(v => v.lang === voiceLang);
-        if (voice) utterance.voice = voice;
-      }
-      utterance.rate = 1;
-      utterance.pitch = 1;
-      utterance.onstart = () => { 
-        document.getElementById('tts-text').textContent = text; 
-        document.getElementById('tts-player').style.display = 'block'; 
-      };
-      utterance.onend = () => { document.getElementById('tts-player').style.display = 'none'; };
-
-      window.speechSynthesis.speak(utterance);
-    }
-
-    document.getElementById('tts-pause').addEventListener('click', () => { if(window.speechSynthesis.speaking) window.speechSynthesis.pause(); });
-    document.getElementById('tts-stop').addEventListener('click', () => { window.speechSynthesis.cancel(); document.getElementById('tts-player').style.display = 'none'; });
-
-    loadAnime();
-  </script>
+loadAnime();
+</script>
 
 </body>
 </html>
