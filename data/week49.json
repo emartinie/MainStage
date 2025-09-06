@@ -1,9 +1,9 @@
 {
-  "english": "When You Go Out",
+  "english": "When You Go Out,",
   "hebrew": "כי תצא",
-  "transliteration": "Ki Teitzei | כי תצא",
+  "transliteration": "Ki Teitzei",
   "week": 49,
-  "title": "Placeholder Title for Week 49",
+  "title": "Bible Study for Week 49",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,37 +12,68 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/05021010-05025019.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/23054001-23054010.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Writings",
+        "src": "https://audio.esv.org/hw/mq/30003001-30004025.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/42023001-42023056.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
-      }
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+    {
+       "label": "Revelation",
+       "src": "https://audio.esv.org/hw/mq/66001001-66002026.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+     }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Deuteronomy 21:10 | Female Captives",
+        "Deuteronomy 21:15 | The Right of the Firstborn",
+        "Deuteronomy 21:18 | Rebellious Children",
+        "Deuteronomy 21:22 | Miscellaneous Laws",
+        "Deuteronomy 22:13 | Laws concerning Sexual Relations",
+        "Deuteronomy 23:1 | Those Excluded from the Assembly",
+        "Deuteronomy 23:9 | Sanitary, Ritual, and Humanitarian Precepts",
+        "Deuteronomy 24:1 | Laws concerning Marriage and Divorce",
+        "Deuteronomy 24:5 | Miscellaneous Laws",
+        "Deuteronomy 25:5 | Levirate Marriage",
+        "Deuteronomy 25:11 | Various Commands"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
+        "1Sa 16:1 | Saul is rejected and Samuel is sent to the new king over Israel",
         "14:4 – Assurance of Forgiveness"
       ],
-      "Writings": [],
+      "Writings": [
+        "14:4 – Assurance of Forgiveness"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Luke 23 | Jesus/ Yeshua Delivered to Pilate"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Hebrews 1 | Jesus/ Yeshua as Creator",
+        "James (Jacob) 5 | The example of the prophets"
       ],
       "Revelation": []
     },
