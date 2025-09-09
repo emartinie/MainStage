@@ -12,13 +12,13 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/05021010-05025019.mp3",
+        "src": "https://audio.esv.org/hw/mq/05021010-05025019.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/23054001-23054010.mp3",
+        "src": "https://audio.esv.org/hw/mq/23054001-23054010.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
@@ -30,7 +30,7 @@
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/42023001-42023056.mp3",
+        "src": "https://audio.esv.org/hw/mq/42023001-42023056.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
       },
@@ -42,7 +42,7 @@
       },
     {
        "label": "Revelation",
-       "src": "https://audio.esv.org/hw/mq/66001001-66002026.mp3",
+        "src": "https://audio.esv.org/hw/mq/66001001-66002026.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
      }
