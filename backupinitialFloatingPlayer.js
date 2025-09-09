@@ -1,4 +1,4 @@
-// backupinitialFloatingPlayer.js — wired to weekData, fully touch + click friendly
+// FloatingPlayer.js — wired to weekData, fully touch + click friendly
 function setupFloatingPlayer() {
   const existing = document.getElementById("floatingPlayer");
   if (existing) existing.remove();

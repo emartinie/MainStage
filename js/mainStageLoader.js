@@ -145,6 +145,28 @@ async function loadMainStageWeek(weekData) {
     // --- Playlist ---
     mainStagePlaylist.innerHTML = '';
     const playlist = weekData.sections?.audio_playlist || [];
+    // --- Notify floating/main player with normalized playlist (so it doesn't build files itself) ---
+    (function(){
+    const raw = weekData.sections?.audio_playlist || [];
+    const fpPlaylist = (raw || []).map(item => ({
+    title: item.label || item.title || item.name || "Untitled",
+    
+    // floating player likes eng/heb/grk fields, but accept single src too
+    eng: item.eng || item.src || "http://audio.esvbible.org/hw/05016018-05021009.mp3",
+    heb: item.heb || item.src || "/audio/greek/Matthew01-Greek.mp3",
+    grk: item.grk || item.src || "",
+    
+    // keep backward-compatible single 'src' pointer
+    src: item.src || item.eng || item.heb || item.grk || ""
+  }));
+  
+    // Send event to player
+    window.dispatchEvent(new CustomEvent("player:updatePlaylist", { detail: { playlist: fpPlaylist } }));
+  
+    // Optional compatibility: keep a global copy
+    window.mainPlaylist = fpPlaylist;
+    })();
+
 
     playlist.forEach(track => {
         const card = document.createElement('div');
@@ -181,8 +203,9 @@ async function loadMainStageWeek(weekData) {
         mainAudioPlayer.src = playlist[0].src;
         const nowPlayingLabel = document.getElementById("nowPlaying");
         if(nowPlayingLabel) nowPlayingLabel.textContent = `Now Playing: ${playlist[0].label} — ${parseScriptureFromFilename(playlist[0].src)}`;
-// --- Video ---
-if (weekData.sections?.video) {
+
+    // --- Video ---
+    if (weekData.sections?.video) {
     mainStageVideo.classList.remove("hidden");
     let videoURL = weekData.sections.video;
 

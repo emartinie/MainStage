@@ -1,254 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>アニメ (a-ni-me) - Top 500</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Sparkle animation */
-    @keyframes sparkle {
-      0%,100% { opacity: 0; transform: scale(1) rotate(0deg);}
-      50% { opacity: 1; transform: scale(1.2) rotate(15deg);}
-    }
-    .sparkle {
-      position: relative;
-    }
-    .sparkle::after {
-      content: '✨';
-      position: absolute;
-      top: -0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: sparkle 1s infinite;
-      pointer-events: none;
-      font-size: 1.5rem;
-    }
+<meta charset="UTF-8">
+<title>Anime Hub - Top 500</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Card sparkles on tap */
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.1) rotate(10deg); }
+  }
+  .sparkle-active {
+    animation: sparkle 0.5s ease-in-out;
+  }
 
-    /* Card expansion on tap */
-    .card-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-in-out;
-    }
-    .card.expanded .card-content {
-      max-height: 20rem; /* enough for characters + voice actors */
-    }
+  /* Overlay for mobile touch */
+  .overlay {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+  }
+  .overlay-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 
-    /* Floating filters panel */
-    #filters-panel {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(40,40,40,0.95);
-      max-height: 70%;
-      transform: translateY(100%);
-      transition: transform 0.3s ease-in-out;
-      overflow-y: auto;
-      padding: 1rem;
-      z-index: 50;
-    }
-    #filters-panel.open {
-      transform: translateY(0);
-    }
-
-    /* Floating TTS player */
-    #tts-player {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      background: rgba(75,0,130,0.85);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      display: none;
-      z-index: 100;
-      font-size: 1rem;
-    }
-  </style>
+  /* Floating TTS player */
+  #tts-player {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(75, 0, 130, 0.85);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: none;
+    z-index: 1000;
+    font-size: 1rem;
+  }
+</style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
-  <header class="bg-purple-800 p-4 shadow-lg sticky top-0 z-40 flex flex-col items-center gap-2">
-    <img src="images/HGHouses.png" alt="Anime Hub Logo" class="h-12 w-12">
-    <h1 class="text-2xl font-bold text-center">アニメ (a-ni-me) - Top 500</h1>
-    <p class="text-purple-200 text-center text-sm">Japanese titles, voice actors, genres!</p>
-    <input id="search-input" type="text" placeholder="Search by title, Japanese, voice actor, genre..."
-           class="p-2 rounded w-full text-black">
-    <button id="filters-toggle" class="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 text-sm mt-1">Filters</button>
-  </header>
+<header class="bg-purple-800 p-4 shadow-lg sticky top-0 z-50 flex flex-col sm:flex-row items-center justify-between gap-2">
+  <img src="logo.png" alt="Anime Hub Logo" class="h-12 w-12 object-contain">
+  <h1 class="text-2xl sm:text-3xl font-bold text-center flex-1">Anime Hub - Top 500</h1>
+  <select id="tts-voice" class="bg-gray-700 text-white p-2 rounded">
+    <option value="default">Default</option>
+    <option value="ja-JP">Japanese</option>
+    <option value="en-US">English</option>
+  </select>
+</header>
 
-  <!-- Filters panel -->
-  <div id="filters-panel">
-    <h2 class="text-xl font-bold mb-2">Genres</h2>
-    <div id="genre-filters" class="flex flex-wrap gap-2 mb-4"></div>
-    <h2 class="text-xl font-bold mb-2">Types</h2>
-    <div id="type-filters" class="flex flex-wrap gap-2"></div>
-    <button id="filters-close" class="bg-red-500 px-3 py-1 rounded hover:bg-red-600 mt-4 w-full">Close</button>
-  </div>
+<main class="p-4 sm:p-6">
+  <!-- Search input -->
+  <section id="controls" class="mb-4">
+    <input id="search-input" type="text" placeholder="Search by title, Japanese, voice actor, genre..." class="p-2 rounded w-full text-black text-sm sm:text-base">
+  </section>
 
   <!-- Anime Grid -->
-  <main id="anime-grid" class="p-4 grid grid-cols-1 gap-4"></main>
+  <section id="anime-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+    <!-- Cards inserted here -->
+  </section>
+</main>
 
-  <!-- Floating TTS Player -->
-  <div id="tts-player">
-    <span id="tts-text"></span>
-    <button id="tts-pause" class="ml-2 bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">⏸</button>
-    <button id="tts-stop" class="ml-1 bg-red-500 px-2 py-1 rounded hover:bg-red-600">⏹</button>
-    <select id="tts-voice" class="ml-2 bg-gray-700 text-white p-1 rounded">
-      <option value="default">Default</option>
-      <option value="ja-JP">Japanese</option>
-      <option value="en-US">English</option>
-    </select>
-  </div>
+<div id="tts-player">
+  <span id="tts-text"></span>
+  <button id="tts-pause" class="ml-2 bg-blue-500 px-2 py-1 rounded hover:bg-blue-600">⏸</button>
+  <button id="tts-stop" class="ml-1 bg-red-500 px-2 py-1 rounded hover:bg-red-600">⏹</button>
+</div>
 
-  <script>
-    let animeData = [];
-    let voices = [];
-    let ttsUtterance;
+<script>
+let animeData = [];
+let voices = [];
+let ttsUtterance;
 
-    async function loadAnime() {
-      const res = await fetch('anime_full_mapped.json');
-      const data = await res.json();
-      animeData = data.anime;
+async function loadAnime() {
+  const res = await fetch('anime_full_mapped.json');
+  const data = await res.json();
+  animeData = data.anime;
 
-      populateFilters();
-      renderGrid(animeData);
-      initTTS();
-    }
+  renderGrid(animeData);
+  initTTS();
+}
 
-    function populateFilters() {
-      const genreSet = new Set();
-      const typeSet = new Set();
-      animeData.forEach(a => {
-        a.genres.forEach(g => genreSet.add(g));
-        typeSet.add(a.format);
-      });
+function renderGrid(list) {
+  const grid = document.getElementById('anime-grid');
+  grid.innerHTML = '';
 
-      const genreDiv = document.getElementById('genre-filters');
-      genreSet.forEach(g => {
-        const label = document.createElement('label');
-        label.className = "flex items-center gap-1 bg-gray-700 px-2 py-1 rounded";
-        label.innerHTML = `<input type="checkbox" class="genre-filter" value="${g}">${g}`;
-        genreDiv.appendChild(label);
-      });
+  list.forEach(a => {
+    const card = document.createElement('div');
+    card.className = "card relative bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition hover:scale-105";
 
-      const typeDiv = document.getElementById('type-filters');
-      typeSet.forEach(t => {
-        const label = document.createElement('label');
-        label.className = "flex items-center gap-1 bg-gray-700 px-2 py-1 rounded";
-        label.innerHTML = `<input type="checkbox" class="type-filter" value="${t}">${t}`;
-        typeDiv.appendChild(label);
-      });
+    card.innerHTML = `
+      <img src="${a.coverImage.large}" alt="${a.title.romaji}" class="w-full h-64 object-cover" loading="lazy">
+      <div class="p-4 text-sm sm:text-base">
+        <h2 class="text-lg sm:text-xl font-bold">${a.title.romaji}</h2>
+        <h3 class="text-purple-400 text-base sm:text-lg drop-shadow-md">${a.title.native || ''}</h3>
+        <p class="text-gray-300 mt-1 sm:mt-2">Episodes: ${a.episodes || 'N/A'} | Type: ${a.format}</p>
+        <p class="text-gray-300 text-xs sm:text-sm">Genres: ${a.genres.join(', ')}</p>
+        <p class="text-gray-300 text-xs sm:text-sm">Popularity: ${a.popularity || 'N/A'} | Score: ${a.averageScore || 'N/A'}</p>
+      </div>
+      <div class="overlay absolute inset-0 bg-black bg-opacity-80 text-white p-3 flex flex-col justify-between">
+        <div class="overflow-y-auto max-h-48 text-xs sm:text-sm">
+          <h4 class="font-bold mb-1">Characters & Voice Actors</h4>
+          <ul>
+            ${
+              a.characters?.edges?.map(c => `<li>${c.node.name.full} - ${(c.voiceActors?.map(v => v.name.full).join(', ') || 'N/A')}</li>`).join('') || 'No characters'
+            }
+          </ul>
+        </div>
+        <div class="mt-2">
+          <button class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 text-xs sm:text-sm tts-btn" data-text="${a.title.romaji} - ${a.title.native || ''}">🔊 Read</button>
+        </div>
+      </div>
+    `;
 
-      document.querySelectorAll('.genre-filter, .type-filter').forEach(input => input.addEventListener('change', applyFilters));
-      document.getElementById('search-input').addEventListener('input', applyFilters);
-    }
+    // Toggle overlay on touch/click
+    const overlay = card.querySelector('.overlay');
+    card.addEventListener('click', () => {
+      overlay.classList.toggle('overlay-active');
+      card.classList.add('sparkle-active');
+      setTimeout(() => card.classList.remove('sparkle-active'), 500);
+    });
 
-    function applyFilters() {
-      const search = document.getElementById('search-input').value.toLowerCase();
-      const selectedGenres = Array.from(document.querySelectorAll('.genre-filter:checked')).map(i => i.value);
-      const selectedTypes = Array.from(document.querySelectorAll('.type-filter:checked')).map(i => i.value);
+    grid.appendChild(card);
+  });
 
-      const filtered = animeData.filter(a => {
-        const matchesSearch = (
-          a.title.romaji.toLowerCase().includes(search) ||
-          (a.title.native && a.title.native.toLowerCase().includes(search)) ||
-          a.characters?.edges?.some(c => c.node.name.full.toLowerCase().includes(search)) ||
-          a.characters?.edges?.some(c => (c.voiceActors?.map(v => v.name.full.toLowerCase()) || []).some(n => n.includes(search))) ||
-          a.genres.join(' ').toLowerCase().includes(search)
-        );
+  // Wire TTS buttons
+  document.querySelectorAll('.tts-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent card click from toggling overlay
+      playTTS(btn.dataset.text);
+    });
+  });
+}
 
-        const matchesGenre = selectedGenres.length === 0 || selectedGenres.some(g => a.genres.includes(g));
-        const matchesType = selectedTypes.length === 0 || selectedTypes.includes(a.format);
+function initTTS() {
+  voices = window.speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); };
+}
 
-        return matchesSearch && matchesGenre && matchesType;
-      });
+function playTTS(text) {
+  const voiceSelect = document.getElementById('tts-voice');
+  const voiceLang = voiceSelect.value;
 
-      renderGrid(filtered);
-    }
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  if (voiceLang !== 'default') {
+    const voice = voices.find(v => v.lang === voiceLang);
+    if (voice) ttsUtterance.voice = voice;
+  }
+  ttsUtterance.rate = 1; ttsUtterance.pitch = 1;
+  ttsUtterance.onstart = () => { 
+    document.getElementById('tts-text').textContent = text; 
+    document.getElementById('tts-player').style.display = 'block'; 
+  };
+  ttsUtterance.onend = () => { 
+    document.getElementById('tts-player').style.display = 'none'; 
+  };
 
-    function renderGrid(list) {
-      const grid = document.getElementById('anime-grid');
-      grid.innerHTML = '';
+  window.speechSynthesis.speak(ttsUtterance);
+}
 
-      list.forEach(a => {
-        const card = document.createElement('div');
-        card.className = "card relative bg-gray-800 rounded-lg overflow-hidden shadow-lg sparkle";
+// TTS player controls
+document.getElementById('tts-pause').addEventListener('click', ()=>{if(window.speechSynthesis.speaking) window.speechSynthesis.pause();});
+document.getElementById('tts-stop').addEventListener('click', ()=>{window.speechSynthesis.cancel(); document.getElementById('tts-player').style.display='none';});
 
-        card.innerHTML = `
-          <img src="${a.coverImage.large}" alt="${a.title.romaji}" class="w-full h-64 object-cover" loading="lazy">
-          <div class="p-4">
-            <h2 class="text-xl font-bold">${a.title.romaji}</h2>
-            <h3 class="text-purple-400 text-lg drop-shadow-md">${a.title.native || ''}</h3>
-            <p class="text-gray-300 mt-2">Episodes: ${a.episodes || 'N/A'} | Type: ${a.format}</p>
-            <p class="text-gray-300">Genres: ${a.genres.join(', ')}</p>
-            <p class="text-gray-300">Popularity: ${a.popularity || 'N/A'} | Score: ${a.averageScore || 'N/A'}</p>
-          </div>
-          <div class="card-content p-4 bg-gray-900 text-white">
-            <h4 class="text-lg font-bold mb-2">Characters & Voice Actors</h4>
-            <ul class="text-sm max-h-48 overflow-y-auto">
-              ${
-                a.characters?.edges
-                  ?.map(c => `<li>${c.node.name.full} - ${(c.voiceActors?.map(v => v.name.full).join(', ') || 'N/A')}</li>`)
-                  .join('') || 'No characters'
-              }
-            </ul>
-            <button class="bg-blue-500 px-2 py-1 rounded hover:bg-blue-600 text-sm mt-2 tts-btn" data-text="${a.title.romaji} - ${a.title.native || ''}">
-              🔊 Read
-            </button>
-          </div>
-        `;
+loadAnime();
+</script>
 
-        card.addEventListener('click', () => card.classList.toggle('expanded'));
-        grid.appendChild(card);
-      });
-
-      // Wire TTS buttons
-      document.querySelectorAll('.tts-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation(); // prevent expanding card when TTS plays
-          playTTS(btn.dataset.text);
-        });
-      });
-    }
-
-    function initTTS() {
-      voices = window.speechSynthesis.getVoices();
-      speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); };
-    }
-
-    function playTTS(text) {
-      const voiceSelect = document.getElementById('tts-voice');
-      const voiceLang = voiceSelect.value;
-      ttsUtterance = new SpeechSynthesisUtterance(text);
-
-      if (voiceLang !== 'default') {
-        const voice = voices.find(v => v.lang === voiceLang);
-        if (voice) ttsUtterance.voice = voice;
-      }
-
-      ttsUtterance.rate = 1; 
-      ttsUtterance.pitch = 1;
-      ttsUtterance.onstart = () => {
-        document.getElementById('tts-text').textContent = text;
-        document.getElementById('tts-player').style.display = 'block';
-      };
-      ttsUtterance.onend = () => { document.getElementById('tts-player').style.display = 'none'; };
-
-      window.speechSynthesis.speak(ttsUtterance);
-    }
-
-    document.getElementById('tts-pause').addEventListener('click', ()=>{ if(window.speechSynthesis.speaking) window.speechSynthesis.pause(); });
-    document.getElementById('tts-stop').addEventListener('click', ()=>{ window.speechSynthesis.cancel(); document.getElementById('tts-player').style.display='none'; });
-
-    // Filters panel toggle
-    const filtersPanel = document.getElementById('filters-panel');
-    document.getElementById('filters-toggle').addEventListener('click', ()=>filtersPanel.classList.add('open'));
-    document.getElementById('filters-close').addEventListener('click', ()=>filtersPanel.classList.remove('open'));
-
-    loadAnime();
-  </script>
 </body>
 </html>
