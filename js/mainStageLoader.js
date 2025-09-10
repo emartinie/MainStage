@@ -29,8 +29,13 @@ function cacheDOM() {
     mainStageVideo = document.getElementById("mainStageVideo");
     mainStageIframe = mainStageVideo.querySelector("iframe");
 
-    mainAudioPlayer = document.getElementById("mainAudioPlayer");
 }
+
+if (!window.globalAudio) {
+    window.globalAudio = new Audio();
+}
+const audio = window.globalAudio;
+
 
 // --- Populate week select ---
 function populateWeekSelect() {
@@ -187,8 +192,8 @@ async function loadMainStageWeek(weekData) {
         scriptureSpan.addEventListener('click', () => window.open(track.src, '_blank'));
 
         playBtn.addEventListener('click', () => {
-            mainAudioPlayer.src = track.src;
-            mainAudioPlayer.play().catch(err => console.warn("Autoplay prevented:", err));
+            audio.src = track.src;
+            audio.play().catch(err => console.warn("Autoplay prevented:", err));
             const nowPlayingLabel = document.getElementById("nowPlaying");
             if(nowPlayingLabel) nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
         });
@@ -200,7 +205,7 @@ async function loadMainStageWeek(weekData) {
     });
 
     if (playlist.length > 0) {
-        mainAudioPlayer.src = playlist[0].src;
+        audio.src = playlist[0].src;
         const nowPlayingLabel = document.getElementById("nowPlaying");
         if(nowPlayingLabel) nowPlayingLabel.textContent = `Now Playing: ${playlist[0].label} — ${parseScriptureFromFilename(playlist[0].src)}`;
 
@@ -323,17 +328,42 @@ function init() {
 
     weekSelect.addEventListener("change", () => loadWeek(weekSelect.value));
 
-    // --- Language popup ---
-    const popup = document.getElementById("langPopup");
-    document.getElementById("openLangPopup").addEventListener("click", () => popup.classList.remove("hidden"));
-    document.getElementById("closeLangPopup").addEventListener("click", () => popup.classList.add("hidden"));
-    document.querySelectorAll(".langOption").forEach(btn => {
-        btn.addEventListener("click", e => {
-            const lang = e.target.dataset.lang;
-            console.log("Selected language:", lang);
-            popup.classList.add("hidden");
-        });
+// --- SCRIPTURE and VIDEO POPUPS ---
+document.getElementById("openVersePopup").addEventListener("click", () => {
+    const iframe = document.getElementById("VerseIframe");
+    // You can load a default scripture page or empty content
+    iframe.src = "https://www.biblegateway.com/passage/?search=Deuteronomy%2021&version=ESV&interface=embed"; // default page
+    document.getElementById("langPopup").classList.remove("hidden");
+});
+
+// Example: dynamically change language from buttons inside iframe content
+document.querySelectorAll(".langOption").forEach(btn => {
+    btn.addEventListener("click", e => {
+        const lang = e.target.dataset.lang;
+        document.getElementById("VerseIframe").src = `scripture/${lang}.html`;
     });
+});
+
+document.getElementById("closeVersePopup").addEventListener("click", () => {
+    const iframe = document.getElementById("verseIframe");
+    iframe.src = ""; // optional: clear
+    document.getElementById("versePopup").classList.add("hidden");
+});
+
+// --- VIDEO POPUP ---
+document.getElementById("openVideoPopup").addEventListener("click", () => {
+    const iframe = document.getElementById("videoIframe");
+    // Load a default video/video page
+    iframe.src = "https://www.youtube.com/embed/sbdJXKqVgtg?si=U-z9wHsPLLjcyOEe";
+    document.getElementById("videoPopup").classList.remove("hidden");
+});
+
+document.getElementById("closeVideoPopup").addEventListener("click", () => {
+    const iframe = document.getElementById("videoIframe");
+    iframe.src = "https://www.youtube.com/embed/sbdJXKqVgtg?si=U-z9wHsPLLjcyOEe"; // optional: clear
+    document.getElementById("videoPopup").classList.add("hidden");
+});
+
 }
 
 // --- Start ---

@@ -175,7 +175,7 @@ function setupFloatingPlayer() {
   };
 
   // --- State ---
-  let autoNext=true, currentLang="eng", currentIndex=0, docked=false;
+  let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=false;
   let playlist=[];
 
   // --- Buttons ---

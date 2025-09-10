@@ -34,47 +34,45 @@
       <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
-    <div class="mb-2">
-  <audio id="mainAudioPlayer" controls class="w-full rounded-lg">
-    Your browser does not support the audio element.
-  </audio>
-<!-- Container where player will render -->
-<div id="floating-player-root"></div>
-<!-- Button to open popup -->
-<button id="openLangPopup" class="px-3 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mt-2">Language Toggle</button>
-<marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-</marquee>
-</div>
+  <!-- Container where player will render/dock -->
+  <div id="floating-player-root"></div>
 
-    <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
-    <!-- Language Toggle Popup -->
-<div id="langPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-sm w-full">
-    <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-200">Select Language</h3>
-    <div class="flex flex-col gap-2">
-      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="english">English</button>
-      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="hebrew">Hebrew</button>
-      <button class="langOption px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200" data-lang="transliteration">Greek</button>
-    </div>
-    <button id="closeLangPopup" class="mt-4 px-3 py-1 rounded bg-red-400 text-white">Close</button>
+  <!-- Trigger buttons -->
+  <button id="openVersePopup" class="px-3 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mt-2">Show Verses Window</button>
+  <button id="openVideoPopup" class="px-3 py-1 bg-green-600 dark:bg-green-400 text-white rounded mt-2">Show Video Window</button>
+  <marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+  </marquee>
   </div>
-</div>
-<!-- Chapter Outlines (under playlist) -->
+
+  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
+
+  <!-- Scripture Popup -->
+  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <iframe id="verseIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
+  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
+  </div>
+
+  <!-- Video Popup -->
+  <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
+  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
+  </div>
+
+  <!-- Chapter Outlines (under playlist) -->
     <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4">
-      <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
+    <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
   </section>
-<!-- Advanced Search Input -->
-<div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
+  <!-- Advanced Search Input -->
+  <div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
     <input id="advancedsearchInput" type="text" placeholder="Search cards..."
            class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
     <!-- Button will be inserted here via JS -->
-</div>
+  </div>
 
-  <!-- Cards container for <div id="weekInfo"></div>
--driven content -->
+  <!-- Cards container for <div id="weekInfo"></div>-driven content -->
   <main id="cardsContainer" class="flex-1 p-4 space-y-6 max-w-4xl mx-auto"></main>
 
   <!-- Footer -->
@@ -87,7 +85,9 @@
   <!-- Scripts -->
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/floatingPlayer.js" defer></script> 
+
   <script>
+
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
@@ -95,8 +95,8 @@
 
 
   <script>
-// --- Debounce helper ---
-function debounce(fn, delay = 250) {
+  // --- Debounce helper ---
+    function debounce(fn, delay = 250) {
     let timer;
     return function (...args) {
         clearTimeout(timer);
@@ -155,6 +155,8 @@ function addSearchResetButton() {
 
     searchWrapper.appendChild(resetBtn); // append inside the flex container
 }
+
+
 
 </script>
 
