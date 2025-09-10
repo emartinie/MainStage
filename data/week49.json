@@ -13,13 +13,13 @@
       {
         "label": "Torah",
         "src": "https://audio.esv.org/hw/mq/05021010-05025019.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
         "src": "https://audio.esv.org/hw/mq/23054001-23054010.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
@@ -76,6 +76,10 @@
         "James (Jacob) 5 | The example of the prophets"
       ],
       "Revelation": []
+    },
+    "bible_text": {
+      "first_verse": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
