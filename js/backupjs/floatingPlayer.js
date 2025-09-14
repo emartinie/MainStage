@@ -177,95 +177,46 @@ function setupFloatingPlayer() {
   };
 
   // --- State ---
-  let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=true;
+  let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=false;
   let playlist=[];
 
   // --- Buttons ---
-    // --- Buttons ---
   const playPauseBtn = btn("▶","Play / Pause",()=>{
     if(!audio.src){ loadTrack(); return; }
-    if(audio.paused){
-      audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶");
-    } else {
-      audio.pause();
-      playPauseBtn.textContent="▶";
-    }
+    if(audio.paused){ audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶"); }
+    else { audio.pause(); playPauseBtn.textContent="▶"; }
   });
   audio.addEventListener("play",()=>playPauseBtn.textContent="⏸");
   audio.addEventListener("pause",()=>playPauseBtn.textContent="▶");
   audio.addEventListener("ended",()=>playPauseBtn.textContent="▶");
 
-  const nextBtn  = btn("⏭","Next",()=>{
-    currentIndex=(currentIndex+1)%playlist.length;
-    loadTrack();
-  });
-
-  const langBtn  = btn("🌐","Language",()=>{
-    currentLang=currentLang==="eng" ? "heb" :
-                currentLang==="heb" ? "grk" : "eng";
-    loadTrack();
-  });
-
+  const nextBtn  = btn("⏭","Next",()=>{ currentIndex=(currentIndex+1)%playlist.length; loadTrack(); });
+  const langBtn  = btn("🌐","Language",()=>{ currentLang=currentLang==="eng"?"heb":currentLang==="heb"?"grk":"eng"; loadTrack(); });
   const sleepBtn = btn("🌙","Auto-next (sleep) on/off",()=>{
     autoNext=!autoNext;
     sleepBtn.style.opacity=autoNext?"1":"0.55";
-    sleepBtn.style.borderColor=autoNext
-      ? "rgba(255,255,255,0.15)"
-      : "rgba(255,255,255,0.35)";
+    sleepBtn.style.borderColor=autoNext?"rgba(255,255,255,0.15)":"rgba(255,255,255,0.35)";
   });
   sleepBtn.dataset.active="1";
-
-  // --- NEW: Psalms Playlist Button ---
-  const psalmsBtn = btn("🎵","Switch to Psalms Playlist",()=>{
-    if(typeof psalmsPlaylist!=="undefined" && psalmsPlaylist.length>0){
-      playlist = psalmsPlaylist;
-      currentIndex = 0;
-      loadTrack();
-    } else {
-      console.warn("⚠ No psalmsPlaylist defined!");
-    }
-  });
-
-  // --- NEW: Playback Speed Button ---
-  const speedBtn = btn("⏩","Toggle Playback Speed",()=>{
-    const speeds = [1, 1.25, 1.5, 2];
-    let idx = speeds.indexOf(audio.playbackRate);
-    audio.playbackRate = speeds[(idx+1)%speeds.length];
-    speedBtn.textContent = audio.playbackRate+"x";
-  });
-
-    const videoBtn = btn("🎬","Open Video (popup)",()=>{ console.log("TODO: video popup"); });
-    const shareBtn = btn("🔗","Share Track",()=>{ console.log("TODO: share logic"); });
-    const favBtn   = btn("⭐","Favorite",()=>{ console.log("TODO: favorites logic"); 
-
-  });
 
   // --- Dock Button ---
 const dockBtn = document.createElement("button");
 dockBtn.textContent = "⫶";
 Object.assign(dockBtn.style, {
-      padding:"6px 10px",
-      borderRadius:"9999px",
-      border:"1px solid rgba(255,255,255,0.15)",
-      background:"rgba(255,255,255,0.08)",
-      color:"#fff",
-      backdropFilter:"blur(4px)",
-      boxShadow:"0 1px 4px rgba(0,0,0,0.25)",
-      fontSize:"12px",
-      cursor:"pointer",
-      pointerEvents:"auto",
-      userSelect:"none",
-      touchAction:"manipulation",
-      zIndex:5
+  position: "absolute",
+  top: "8px",
+  right: "8px",
+  border: "none",
+  background: "#fff",
+  borderRadius: "6px",
+  padding: "4px 6px",
+  cursor: "pointer"
 });
 player.appendChild(dockBtn);
-
 
 dockBtn.addEventListener("click", () => {
   docked = !docked;
   const dockContainer = document.getElementById("floating-player-root");
-
-console.log("Dock button tapped", docked);
   
   if (docked && dockContainer) {
     // Move player into dock container
@@ -286,7 +237,9 @@ console.log("Dock button tapped", docked);
       justifyContent: "space-between",
       padding: "0 10px"
     });
-
+    centerBtn.style.width = "48px";
+    centerBtn.style.height = "48px";
+    centerBtn.style.fontSize = "20px";
   } else {
     // Move player back to floating
     document.body.appendChild(player);
@@ -305,7 +258,9 @@ console.log("Dock button tapped", docked);
       justifyContent: "center",
       padding: "0"
     });
-
+    centerBtn.style.width = "64px";
+    centerBtn.style.height = "64px";
+    centerBtn.style.fontSize = "24px";
   }
 });
 
@@ -322,7 +277,7 @@ console.log("Dock button tapped", docked);
     zIndex:4
   });
 
-  const orbitButtons = [dockBtn,nextBtn,langBtn,sleepBtn,psalmsBtn,speedBtn,videoBtn,shareBtn,favBtn];
+  const orbitButtons = [dockBtn,nextBtn,langBtn,sleepBtn];
   orbitButtons.forEach(b=>{
     b.style.pointerEvents="auto";
     controls.appendChild(b);

@@ -21,7 +21,8 @@
       <h1 class="text-xl font-bold"> </h1>
     </div>
     <div class="flex items-center gap-2">
-      <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
+  
+    <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
       <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
       <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
     </div>
@@ -35,11 +36,11 @@
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
   <!-- Container where player will render/dock -->
-  <div id="floating-player-root"></div>
+  <div id="floating-player-root" style="float: center;"></div>
 
   <!-- Trigger buttons -->
-  <button id="openVersePopup" class="px-3 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mt-2">Show Verses Window</button>
-  <button id="openVideoPopup" class="px-3 py-1 bg-green-600 dark:bg-green-400 text-white rounded mt-2">Show Video Window</button>
+  <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
+  <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button>
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
@@ -155,11 +156,7 @@ function addSearchResetButton() {
 
     searchWrapper.appendChild(resetBtn); // append inside the flex container
 }
-
-
-
-</script>
-
+  </script>
 
 
 </body>

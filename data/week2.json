@@ -3,55 +3,105 @@
   "hebrew": "נח",
   "transliteration": "Noach | נח",
   "week": 2,
-  "title": "Noah Noach|נח Week 2",
+  "title": "Bible Study for Week 2",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
   },
-  "sections": {
+   "sections": {
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Writings",
+        "src": "http://audio.esvbible.org/hw/11011001-11011043.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
-      }
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
+      },
+    {
+       "label": "Revelation",
+        "src": "http://audio.esvbible.org/hw/66021001-66021015.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/revelation/rev07g.mp3"
+     }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Genesis 1:1 | Six Days of Creation and the Sabbath",
+        "Genesis 2:4 | Another Account of the Creation",
+        "Genesis 3:1 | The First Sin and Its Punishment",
+        "Genesis 4:1 | Cain Murders Abel",
+        "Genesis 4:17 | Beginnings of Civilization",
+        "Genesis 5:1 | Adam’s Descendants to Noah and His Sons",
+        "Genesis 6:1 | The Wickedness of Humankind",
+        "Genesis 6:9 | Noah Pleases God"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Isaiah 42:1 | The Servant, a Light to the Nations",
+        "Isaiah 42:10 | A Hymn of Praise"
+        "Isaiah 42:21 | Israel’s Disobedience",
+        "Isaiah 43:1 | Restoration and Protection Promised"
       ],
-      "Writings": [],
+      "Writings": [
+        "1 Kings 11 | Prophecy of Israel and Judah's Division"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "John 1 | The Word (Torah) Becomes Flesh)"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Ephesians 2 | From Children of Disobedience into the Commonwealth of Israel",
+        "Colossians 2 | Beware of Traditions and Doctrines of Men"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 21:1 | New Heaven & Earth.",
+        "Revelation 14 | Beware of Traditions and Doctrines of Men"
+      ]
+    },
+    "scripture_text": {
+      "english": "English ScriptureText didn't dynamically parse/ render",
+      "hebrew": "Hebrew ScriptureText didn't dynamically parse/ render",
+      "greek": "Greek ScriptureText didn't dynamically parse/ render",
+      "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
       "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
     },
-    "deeper_learning": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
-    "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+    "commentary2": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+
+    "aleph_tav": {
+      "quote": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
     "kids_study": {
       "videos": [
         "https://www.youtube.com/embed/lre-LLz-UzE",

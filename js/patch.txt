@@ -1,0 +1,47 @@
+// --- PATCH START ---
+
+// 1️⃣ Popup buttons edge alignment
+function updatePopupButtonPositions() {
+  const docked = player.parentElement.id === "floating-player-root";
+  const popups = document.querySelectorAll(".popup-btn"); // give your popup buttons this class
+  popups.forEach(btn => {
+    Object.assign(btn.style, {
+      position: "absolute",
+      top: docked ? "0" : "",
+      bottom: docked ? "0" : "",
+      left: docked ? "0" : "",
+      right: docked ? "0" : "",
+      transform: "none", // reset any translate
+      pointerEvents: "auto"
+    });
+  });
+}
+
+// 2️⃣ Update dockBtn listener to call popup alignment
+const oldDockClick = dockBtn.onclick;
+dockBtn.addEventListener("click", e => {
+  if(oldDockClick) oldDockClick(e);  // preserve existing dock logic
+  updatePopupButtonPositions();
+});
+
+// 3️⃣ Route mainStage buttons to floating player
+function playFloatingPlayerTrack(track) {
+  if(!track) return;
+  playlist = [track];
+  currentIndex = 0;
+  loadTrack();          // uses existing floatingPlayer loadTrack()
+  audio.play().catch(()=>{});
+}
+
+// Attach mainStage buttons (add `mainStagePlayBtn` class)
+document.querySelectorAll(".mainStagePlayBtn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const track = btn.dataset.track ? JSON.parse(btn.dataset.track) : null;
+    if(track) playFloatingPlayerTrack(track);
+  });
+});
+
+// Initial call in case docked on load
+updatePopupButtonPositions();
+
+// --- PATCH END ---

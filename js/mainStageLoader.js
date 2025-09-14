@@ -12,7 +12,7 @@ function getCurrentWeekNumber() {
 
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
-let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, mainAudioPlayer;
+let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, floatingPlayer;
 
 // --- Initialize DOM Elements ---
 function cacheDOM() {
@@ -332,7 +332,7 @@ function init() {
 document.getElementById("openVersePopup").addEventListener("click", () => {
     const iframe = document.getElementById("VerseIframe");
     // You can load a default scripture page or empty content
-    iframe.src = "https://www.biblegateway.com/passage/?search=Deuteronomy%2021&version=ESV&interface=embed"; // default page
+    iframe.src = ""; // default page
     document.getElementById("langPopup").classList.remove("hidden");
 });
 
