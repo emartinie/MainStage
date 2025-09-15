@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Content → JSON Tool</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    textarea { width: 100%; margin: 5px 0; }
+    pre { background: #f4f4f4; padding: 10px; }
+    .field { margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h2>Content → JSON Converter</h2>
+  
+  <label>File name (without .json):</label><br>
+  <input type="text" id="filename" placeholder="example"><br><br>
+
+  <button onclick="switchMode('basic')">Basic Mode</button>
+  <button onclick="switchMode('template')">Template Mode</button>
+  <button onclick="downloadJSON()">Download JSON</button>
+  
+  <div id="inputArea"></div>
+  
+  <h3>Preview</h3>
+  <pre id="preview"></pre>
+
+  <script>
+    let currentJSON = null;
+    let mode = "basic";
+    let templateSchema = {
+      title: "",
+      author: "",
+      sections: [
+        { id: 1, heading: "", content: "" },
+        { id: 2, heading: "", content: "" }
+      ]
+    };
+
+    function cleanText(input) {
+      return input.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    }
+
+    function switchMode(newMode) {
+      mode = newMode;
+      const area = document.getElementById("inputArea");
+      area.innerHTML = "";
+
+      if (mode === "basic") {
+        area.innerHTML = `
+          <label>Paste your content:</label><br>
+          <textarea id="content" rows="12"></textarea><br>
+          <button onclick="convertBasic()">Preview JSON</button>
+        `;
+      } else if (mode === "template") {
+        let html = <h3>Template Mode</h3>;
+        html += <label>Title:</label><br><input type="text" id="title"><br><br>;
+        html += <label>Author:</label><br><input type="text" id="author"><br><br>;
+        templateSchema.sections.forEach((s, i) => {
+          html += `
+            <div class="field">
+              <label>Section ${s.id} Heading:</label><br>
+              <input type="text" id="heading${i}"><br>
+              <label>Section ${s.id} Content:</label><br>
+              <textarea id="content${i}" rows="4"></textarea>
+            </div>
+          `;
+        });
+        html += <button onclick="convertTemplate()">Preview JSON</button>;
+        area.innerHTML = html;
+      }
+    }
+
+    function convertBasic() {
+      const rawText = document.getElementById("content").value.trim();
+      const filename = document.getElementById("filename").value.trim() || "output";
+      const paragraphs = rawText.split(/\n+/).map((p, i) => ({
+        id: i + 1,
+        content: cleanText(p)
+      })).filter(p => p.content.length > 0);
+
+      currentJSON = {
+        filename: filename,
+        created: new Date().toISOString(),
+        sections: paragraphs
+      };
+      document.getElementById("preview").textContent = JSON.stringify(currentJSON, null, 2);
+    }
+
+    function convertTemplate() {
+      const filename = document.getElementById("filename").value.trim() || "output";
+      const title = document.getElementById("title").value.trim();
+      const author = document.getElementById("author").value.trim();
+
+      const sections = templateSchema.sections.map((s, i) => ({
+        id: s.id,
+        heading: document.getElementById("heading"+i).value.trim(),
+        content: cleanText(document.getElementById("content"+i).value.trim())
+      }));
+
+      currentJSON = {
+        filename: filename,
+        created: new Date().toISOString(),
+        title,
+        author,
+        sections
+      };
+      document.getElementById("preview").textContent = JSON.stringify(currentJSON, null, 2);
+    }
+
+    function downloadJSON() {
+      if (!currentJSON) return alert("Nothing to download yet!");
+      const blob = new Blob([JSON.stringify(currentJSON, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = (currentJSON.filename || "output") + ".json";
+      link.click();
+    }
+
+    // Start in basic mode
+    switchMode("basic");
+  </script>
+</body>
+</html>

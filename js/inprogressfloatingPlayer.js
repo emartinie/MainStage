@@ -1,3 +1,5 @@
+// #2 POSSIBLY circle docking in floatingplayer-rootfloatingPlayer.js
+
 function setupFloatingPlayer() {
   const existing = document.getElementById("floatingPlayer");
   if (existing) existing.remove();
@@ -92,7 +94,123 @@ function setupFloatingPlayer() {
   svg.appendChild(circleProgress);
   player.appendChild(svg);
 
-  // --- Center content ---
+// --- Draggable Circular Progress ---
+const progressCircle = document.getElementById("progress-circle"); // your SVG/circle element
+let isDragging = false;
+
+const updateProgress = (x, y) => {
+  const rect = progressCircle.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+
+  const dx = x - cx;
+  const dy = y - cy;
+  let angle = Math.atan2(dy, dx); // -PI to PI
+  if(angle < 0) angle += 2*Math.PI;
+
+  const percent = angle / (2 * Math.PI);
+  audio.currentTime = percent * audio.duration;
+
+  // Optional: update visual progress (strokeDashoffset)
+  progressCircle.style.strokeDashoffset = progressCircleLength * (1 - percent);
+};
+
+// --- Mouse / Touch ---
+progressCircle.addEventListener("mousedown", e => { isDragging = true; updateProgress(e.clientX, e.clientY); });
+window.addEventListener("mousemove", e => { if(isDragging) updateProgress(e.clientX, e.clientY); });
+window.addEventListener("mouseup",   e => { if(isDragging) isDragging = false; });
+
+progressCircle.addEventListener("touchstart", e => { isDragging = true; updateProgress(e.touches[0].clientX, e.touches[0].clientY); });
+window.addEventListener("touchmove", e => { if(isDragging) updateProgress(e.touches[0].clientX, e.touches[0].clientY); });
+window.addEventListener("touchend",  e => { if(isDragging) isDragging = false; });
+
+// --- Update progress in real-time ---
+audio.addEventListener("timeupdate", () => {
+  if(!isDragging){
+    const percent = audio.currentTime / audio.duration;
+    progressCircle.style.strokeDashoffset = progressCircleLength * (1 - percent);
+  }
+});
+Sent
+Write to
+ 
+// --- Variables ---
+let isDragging = false;
+const progressCircle = document.getElementById("progress-circle"); // the circular progress bar
+const orbitButtons = document.querySelectorAll(".orbit-button");    // orbiting buttons
+const dockedButtons = document.querySelectorAll(".docked-button"); // horizontal docked buttons
+const audio = window.globalAudio;
+
+// --- Pointer events for circle ---
+progressCircle.style.pointerEvents = "auto"; // default
+progressCircle.addEventListener("mousedown", e => {
+  isDragging = true;
+  progressCircle.classList.add("dragging");
+});
+
+window.addEventListener("mouseup", e => {
+  if (isDragging) {
+    isDragging = false;
+    progressCircle.classList.remove("dragging");
+  }
+});
+
+// --- Mouse move for dragging ---
+window.addEventListener("mousemove", e => {
+  if (!isDragging) return;
+  const rect = progressCircle.getBoundingClientRect();
+  const centerX = rect.left + rect.width/2;
+  const centerY = rect.top + rect.height/2;
+  const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+  const percent = (angle + Math.PI) / (2*Math.PI); // 0–1
+  audio.currentTime = percent * audio.duration;
+  updateProgressUI(percent);
+});
+
+// --- Progress UI ---
+function updateProgressUI(percent){
+  // update your circular progress fill or rotation
+  progressCircle.style.background = conic-gradient(#4f46e5 ${percent*360}deg, #ddd 0deg);
+}
+
+// --- Button placement ---
+function positionButtons(){
+  if(docked){
+    // horizontal layout
+    const btns = dockedButtons;
+    btns.forEach((b,i)=>{
+      Object.assign(b.style,{
+        position:"absolute",
+        top:"50%",
+        left:`${10 + i*60}px`,
+        transform:"translateY(-50%)",
+        zIndex:10
+      });
+    });
+  } else {
+    // orbit around circle
+    const radius = 70;
+    orbitButtons.forEach((b,i)=>{
+      const angle = (i/orbitButtons.length)*2*Math.PI;
+      Object.assign(b.style,{
+        position:"absolute",
+        left:`${50 + radius*Math.cos(angle)}%`,
+        top:`${50 + radius*Math.sin(angle)}%`,
+        transform:"translate(-50%,-50%)",
+        zIndex:10
+      });
+    });
+  }
+}
+
+// --- Call whenever state changes ---
+dockBtn.addEventListener("click", () => {
+  docked = !docked;
+  positionButtons();
+});
+ 
+
+// --- Center content ---
   const center = document.createElement("div");
   Object.assign(center.style, {
     display: "grid",
@@ -175,60 +293,135 @@ function setupFloatingPlayer() {
   };
 
   // --- State ---
-  let autoNext=true, currentLang="eng", currentIndex=0, docked=false;
+  let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=true;
   let playlist=[];
 
   // --- Buttons ---
+    // --- Buttons ---
   const playPauseBtn = btn("▶","Play / Pause",()=>{
     if(!audio.src){ loadTrack(); return; }
-    if(audio.paused){ audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶"); }
-    else { audio.pause(); playPauseBtn.textContent="▶"; }
+    if(audio.paused){
+      audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶");
+    } else {
+      audio.pause();
+      playPauseBtn.textContent="▶";
+    }
   });
   audio.addEventListener("play",()=>playPauseBtn.textContent="⏸");
   audio.addEventListener("pause",()=>playPauseBtn.textContent="▶");
   audio.addEventListener("ended",()=>playPauseBtn.textContent="▶");
 
-  const nextBtn  = btn("⏭","Next",()=>{ currentIndex=(currentIndex+1)%playlist.length; loadTrack(); });
-  const langBtn  = btn("🌐","Language",()=>{ currentLang=currentLang==="eng"?"heb":currentLang==="heb"?"grk":"eng"; loadTrack(); });
+  const nextBtn  = btn("⏭","Next",()=>{
+    currentIndex=(currentIndex+1)%playlist.length;
+    loadTrack();
+  });
+
+  const langBtn  = btn("🌐","Language",()=>{
+    currentLang=currentLang==="eng" ? "heb" :
+                currentLang==="heb" ? "grk" : "eng";
+    loadTrack();
+  });
+
   const sleepBtn = btn("🌙","Auto-next (sleep) on/off",()=>{
     autoNext=!autoNext;
     sleepBtn.style.opacity=autoNext?"1":"0.55";
-    sleepBtn.style.borderColor=autoNext?"rgba(255,255,255,0.15)":"rgba(255,255,255,0.35)";
+    sleepBtn.style.borderColor=autoNext
+      ? "rgba(255,255,255,0.15)"
+      : "rgba(255,255,255,0.35)";
   });
   sleepBtn.dataset.active="1";
 
-  const dockBtn  = btn("⫶","Dock/Undock",()=>{
-    docked=!docked;
-    if(docked){
-      Object.assign(player.style,{
-        width:"100%",
-        maxWidth:"520px",
-        height:"72px",
-        borderRadius:"14px",
-        left:"50%",
-        bottom:"10px",
-        transform:"translateX(-50%)"
-      });
-      svg.style.display="none";
-      ring.style.display="none";
-      center.style.marginTop="0";
-      titleEl.style.fontSize="clamp(12px,2.2vw,15px)";
+  // --- NEW: Psalms Playlist Button ---
+  const psalmsBtn = btn("🎵","Switch to Psalms Playlist",()=>{
+    if(typeof psalmsPlaylist!=="undefined" && psalmsPlaylist.length>0){
+      playlist = psalmsPlaylist;
+      currentIndex = 0;
+      loadTrack();
     } else {
-      Object.assign(player.style,{
-        width:"190px",
-        height:"190px",
-        borderRadius:"50%",
-        bottom:"1rem",
-        right:"1rem",
-        left:"auto",
-        top:"auto",
-        transform:"none"
-      });
-      svg.style.display="";
-      ring.style.display="";
-      center.style.marginTop="0";
+      console.warn("⚠ No psalmsPlaylist defined!");
     }
   });
+
+  // --- NEW: Playback Speed Button ---
+  const speedBtn = btn("⏩","Toggle Playback Speed",()=>{
+    const speeds = [1, 1.25, 1.5, 2];
+    let idx = speeds.indexOf(audio.playbackRate);
+    audio.playbackRate = speeds[(idx+1)%speeds.length];
+    speedBtn.textContent = audio.playbackRate+"x";
+  });
+
+    const videoBtn = btn("🎬","Open Video (popup)",()=>{ console.log("TODO: video popup"); });
+    const shareBtn = btn("🔗","Share Track",()=>{ console.log("TODO: share logic"); });
+    const favBtn   = btn("⭐","Favorite",()=>{ console.log("TODO: favorites logic"); 
+
+  });
+
+  // --- Dock Button ---
+const dockBtn = document.createElement("button");
+dockBtn.textContent = "⫶";
+Object.assign(dockBtn.style, {
+      padding:"6px 10px",
+      borderRadius:"9999px",
+      border:"1px solid rgba(255,255,255,0.15)",
+      background:"rgba(255,255,255,0.08)",
+      color:"#fff",
+      backdropFilter:"blur(4px)",
+      boxShadow:"0 1px 4px rgba(0,0,0,0.25)",
+      fontSize:"12px",
+      cursor:"pointer",
+      pointerEvents:"auto",
+      userSelect:"none",
+      touchAction:"manipulation",
+      zIndex:5
+});
+player.appendChild(dockBtn);
+
+dockBtn.addEventListener("click", () => {
+  docked = !docked;
+  const dockContainer = document.getElementById("floating-player-root");
+  
+  if (docked && dockContainer) {
+    // Move player into dock container
+    dockContainer.appendChild(player);
+    Object.assign(player.style, {
+      position: "relative",
+      width: "100%",
+      maxWidth: "520px",
+      height: "72px",
+      borderRadius: "14px",
+      left: "0",
+      bottom: "0",
+      right: "0",
+      top: "0",
+      transform: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 10px"
+    });
+
+  } else {
+    // Move player back to floating
+    document.body.appendChild(player);
+    Object.assign(player.style, {
+      position: "fixed",
+      width: "190px",
+      height: "190px",
+      bottom: "1rem",
+      right: "1rem",
+      borderRadius: "50%",
+      left: "auto",
+      top: "auto",
+      transform: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "0"
+    });
+
+  }
+});
+
 
   // --- Controls container for orbit buttons ---
   const controls = document.createElement("div");
@@ -242,7 +435,7 @@ function setupFloatingPlayer() {
     zIndex:4
   });
 
-  const orbitButtons = [dockBtn,nextBtn,langBtn,sleepBtn];
+  const orbitButtons = [dockBtn,nextBtn,langBtn,sleepBtn,psalmsBtn,speedBtn,videoBtn,shareBtn,favBtn];
   orbitButtons.forEach(b=>{
     b.style.pointerEvents="auto";
     controls.appendChild(b);
@@ -274,6 +467,8 @@ function setupFloatingPlayer() {
   // --- Append to DOM ---
   player.appendChild(center);
   document.body.appendChild(player);
+
+
 
   // --- Playlist / loading ---
   function normalize(list){ return (list||[]).map(i=>({ title:i.label||i.title||"Untitled", eng:i.eng||i.src||"", heb:i.heb||i.src||"", grk:i.grk||i.src||"" })); }

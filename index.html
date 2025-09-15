@@ -2,11 +2,24 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MainStage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4a5568">
+  <title>Bible MainStage</title>
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+
+
+/* Optional: force the floating player to scale on small screens */
+.floating-player {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}
     /* Optional custom animation for hero card */
     @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
     .animate-bounce-slow { animation: bounce-slow 2s infinite; }
@@ -15,6 +28,9 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
 
   <!-- Header -->
+   <button id="installBtn" style="display:none;">
+   📲 Install App
+    </button> 
   <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-left px-4 py-2">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
@@ -86,14 +102,13 @@
   <!-- Scripts -->
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/floatingPlayer.js" defer></script> 
+  <script src="app.js" defer></script> 
 
   <script>
-
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
   </script>
-
 
   <script>
   // --- Debounce helper ---

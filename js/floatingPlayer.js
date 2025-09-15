@@ -260,12 +260,9 @@ Object.assign(dockBtn.style, {
 });
 player.appendChild(dockBtn);
 
-
 dockBtn.addEventListener("click", () => {
   docked = !docked;
   const dockContainer = document.getElementById("floating-player-root");
-
-console.log("Dock button tapped", docked);
   
   if (docked && dockContainer) {
     // Move player into dock container
