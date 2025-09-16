@@ -52,8 +52,8 @@
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
   <!-- Container where player will render/dock -->
-  <div id="floating-player-root" style="float: center;"></div>
-
+  <div id="floating-player"></div>
+  
   <!-- Trigger buttons -->
   <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
   <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button>
@@ -61,7 +61,7 @@
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
   </div>
-
+  <h2>AudioVisual Scriptures</h2>
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
   <!-- Scripture Popup -->
@@ -75,13 +75,15 @@
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
   <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
   </div>
-
+    <h2>Chapter Outlines</h2>
   <!-- Chapter Outlines (under playlist) -->
     <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
   </section>
+    <h2>Search Scriptures and Bible Studies</h2>
+
   <!-- Advanced Search Input -->
   <div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
     <input id="advancedsearchInput" type="text" placeholder="Search cards..."

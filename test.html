@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+
+
+<script>
+// test-one.js
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const BASE_URL = 'https://api.scripture.api.bible/v1';
+
+async function main() {
+  try {
+    const res = await fetch(${BASE_URL}/bibles, {
+      headers: { 'api-key': process.env.API_KEY }
+    });
+
+    if (!res.ok) {
+      throw new Error(API error: ${res.status} ${res.statusText});
+    }
+
+    const data = await res.json();
+    console.log(JSON.stringify(data, null, 2));
+  } catch (err) {
+    console.error('Request failed:', err.message);
+  }
+}
+
+main();
+</script>
+
+</head>
+</body>
+</html>
