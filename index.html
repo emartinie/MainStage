@@ -82,22 +82,44 @@
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
   </section>
-    <h2>Search Scriptures and Bible Studies</h2>
-
-  <!-- Advanced Search Input -->
-  <div id="searchWrapper" class="flex items-center max-w-4xl mx-auto mb-4">
-    <input id="advancedsearchInput" type="text" placeholder="Search cards..."
-           class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">
-    <!-- Button will be inserted here via JS -->
+<!-- Hero-style Calendar Card -->
+<Section id="calendarCard" class="border rounded-2xl shadow-xl bg-white dark:bg-gray-800 p-4 mb-6 max-w-4xl mx-auto">
+  <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-gray-200">Next Holy Day:Trumpets(יוֹם תְּרוּעָה)Yom Teruah, Rosh Hashanah</h3>
+  <p id="nextHolyDay" class="px-2 py-1 border rounded">dynamically rendering times/ dates...</p>
+  <p id="daysToPrepare" class="px-2 py-1 border rounded"></p>
+  <p id="locationHint" class="px-2 py-1 border rounded"></p>
+  
+  <!-- Optional: mini calendar preview -->
+  <div id="miniCalendar" class="mt-3 p-2 bg-gray-100 dark:bg-gray-700 rounded">
+    <!-- dynamically render days/weeks -->
   </div>
+
+  <!-- Filters / alternate calendar selectors -->
+  <div class="mt-3 flex gap-2">
+    <h2>Choose Calendar</h2>
+    <button id="filterHillel" class="px-2 py-1 border rounded">Hillel</button>
+    <button id="filterEnochian" class="px-2 py-1 border rounded">Enochian</button>
+    <button id="filterZedokian" class="px-2 py-1 border roModeunded">Zedokian</button>
+    <button id="filterOrthodox" class="px-2 py-1 border rounded">Orthodox</button>
+    <button id="filterHillel" class="px-2 py-1 border rounded">MS Christian</button>
+
+  </div>
+</div>
+  </section>
 
   <!-- Cards container for <div id="weekInfo"></div>-driven content -->
   <main id="cardsContainer" class="flex-1 p-4 space-y-6 max-w-4xl mx-auto"></main>
 
   <!-- Footer -->
   <footer class="sticky bottom-0 bg-white dark:bg-gray-800 text-center py-2 shadow-inner">
-    &copy; 2025 HGBibleApp
+    
+  <!-- Advanced Search Input -->
+  <div id="searchWrapper" class="flex-1 p-4 space-y-6 max-w-4xl mx-auto" style="float: justify;>
+    <input id="advancedsearchInput" type="text" placeholder="Search Scriptures and Bible Studies..."
+           class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">&copy; 2025 HGBibleApp
       <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
+    <!-- Button will be inserted here via JS -->
+  </div>
 
   </footer>
 
