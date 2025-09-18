@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Superfly Bible App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans overflow-x-hidden">
+
+  <!-- Sticky Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <div class="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-14">
+      <h1 class="font-bold text-lg">📖 Superfly Bible App</h1>
+
+      <!-- Menu -->
+      <nav class="flex items-center gap-4">
+        <button class="hover:text-blue-600">Home</button>
+        <button class="hover:text-blue-600">Calendar</button>
+        <button class="hover:text-blue-600">Study</button>
+        <button class="hover:text-blue-600">More</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Stage -->
+  <main class="pt-16 pb-24">
+    <div id="mainStage" class="max-w-screen-lg mx-auto px-4 space-y-8">
+      
+      <!-- Loader placeholder -->
+      <section id="weekLoaderSection" class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">📅 Weekly Study</h2>
+        <div id="weekContent" class="text-gray-600">Loading...</div>
+      </section>
+
+      <!-- Calendar placeholder -->
+      <section id="calendarSection" class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">📆 Calendar</h2>
+        <div id="calendarContent" class="text-gray-600">Coming soon...</div>
+      </section>
+
+      <!-- Other modules placeholder -->
+      <section id="modulesSection" class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">🧩 Modules</h2>
+        <div id="modulesContent" class="text-gray-600">Extensions will load here.</div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Floating Player -->
+  <div id="floatingPlayer" class="fixed bottom-4 right-4 bg-white shadow-lg rounded-full w-64 h-16 flex items-center px-4 transition-all duration-300 translate-y-32 opacity-0 pointer-events-none">
+    <!-- Play Button -->
+    <button id="floatingPlayButton" class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow hover:bg-blue-600">
+      ▶
+    </button>
+    <!-- Title -->
+    <div class="ml-3 flex-1 overflow-hidden">
+      <p id="floatingPlayerTitle" class="truncate text-sm font-medium">Nothing playing</p>
+      <div class="w-full bg-gray-200 h-1 rounded overflow-hidden">
+        <div id="floatingProgress" class="bg-blue-500 h-1 w-0"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="mainLoader.js"></script>
+  <script src="floatingPlayer.js"></script>
+</body>
+</html>

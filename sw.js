@@ -3,10 +3,10 @@ self.addEventListener("install", event => {
     caches.open("bible-app-v1").then(cache => {
       return cache.addAll([
         "/",
-        "/index.html",
-        "/styles.css",
-        "/app.js",
-        "/manifest.json"
+        "index.html",
+        "css/styles.css",
+        "app.js",
+        "manifest.json"
       ]);
     })
   );
@@ -18,4 +18,13 @@ self.addEventListener("fetch", event => {
       return response || fetch(event.request);
     })
   );
+});
+
+self.addEventListener('install', (event) => {
+    console.log('Service Worker installing.');
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+    console.log('Service Worker activated.');
 });
