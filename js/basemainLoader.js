@@ -45,3 +45,22 @@ function renderChapterOutline(container, chapterData) {
 // Example usage
 const chaptersContainer = document.getElementById("mainStageChapters");
 renderChapterOutline(chaptersContainer, window.weekData?.sections?.chapters || []);
+
+
+
+// after you build fpPlaylist (array of {label, src, eng, heb, grk})
+
+// optionally set language
+window.dispatchEvent(new CustomEvent("player:setLang", { detail: { lang: "eng" } }));
+
+// 🌌 Cosmic Badass Parallax
+document.addEventListener("mousemove", (e) => {
+  const cosmic = document.querySelector(".cosmic-badass");
+  if (!cosmic) return;
+
+  const { innerWidth, innerHeight } = window;
+  const rotateY = ((e.clientX / innerWidth) - 0.5) * 20;  // left/right tilt
+  const rotateX = ((e.clientY / innerHeight) - 0.5) * -20; // up/down tilt
+
+  cosmic.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});

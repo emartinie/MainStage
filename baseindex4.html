@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 50 Bible Study</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="cosmic-badass">
+
+<!-- Header -->
+<header class="site-header">
+  <h1>Bible Study: Week 50</h1>
+  <h2>Ki Tavo | כי תבוא</h2>
+</header>
+
+<!-- Hero Glass / Floating Player Root -->
+<div id="fp-hero-glass-root"></div>
+
+<!-- Main Content -->
+<main class="study-container">
+
+  <!-- Intro -->
+  <section class="intro">
+    <p class="summary">Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...</p>
+    <p class="instructions">How it works: Read daily, listen to audio, and meet weekly in your HomeGroup.</p>
+  </section>
+
+  <!-- Audio Playlist -->
+  <section class="audio-playlist">
+    <h3>Audio Playlist</h3>
+    <ul>
+      <li>
+        <button class="play-btn circle" data-src="http://audio.esvbible.org/hw/05026001-05029008.mp3">▶ Torah (Eng)</button>
+        <button class="play-btn" data-src="https://mechon-mamre.org/mp3/t0521.mp3">Hebrew</button>
+        <button class="play-btn" data-src="https://audio.esv.org/hw/mq/01028010-01032002.mp3">Greek</button>
+      </li>
+      <li>
+        <button class="play-btn circle" data-src="http://audio.esvbible.org/hw/23060001-23060022.mp3">▶ Prophets (Eng)</button>
+        <button class="play-btn" data-src="https://mechon-mamre.org/mp3/t1054.mp3">Hebrew</button>
+        <button class="play-btn" data-src="https://audio.esv.org/hw/mq/01028010-01032002.mp3">Greek</button>
+      </li>
+      <li>
+        <button class="play-btn circle" data-src="http://audio.esvbible.org/hw/11011001-11011043.mp3">▶ Writings (Eng)</button>
+        <button class="play-btn" data-src="https://audio.esv.org/hw/mq/01028010-01032002.mp3">Hebrew</button>
+        <button class="play-btn" data-src="https://audio.esv.org/hw/mq/01028010-01032002.mp3">Greek</button>
+      </li>
+      <!-- Add other playlist items here -->
+    </ul>
+  </section>
+
+  <!-- Chapter Outlines -->
+  <section class="chapter-outlines">
+    <h3>Chapter Outlines</h3>
+    <div class="outline-group">
+      <h4>Torah</h4>
+      <ul>
+        <li>Deuteronomy 26:1 | First Fruits and Tithes</li>
+        <li>Deuteronomy 26:16 | Concluding Exhortation</li>
+        <li>Deuteronomy 27:1 | The Inscribed Stones and Altar on Mount Ebal</li>
+        <li>Deuteronomy 27:11 | Twelve Curses</li>
+        <li>Deuteronomy 28:1 | Blessings for Obedience</li>
+        <li>Deuteronomy 28:15 | Warnings against Disobedience</li>
+        <li>Deuteronomy 29:2 | The Covenant Renewed in Moab</li>
+      </ul>
+    </div>
+    <!-- Add Prophets, Writings, etc. -->
+  </section>
+
+  <!-- Commentary -->
+  <section class="commentary">
+    <h3>Commentary</h3>
+    <blockquote>"There are few ideal families in the Bible. Jacob's certainly wasn't…"</blockquote>
+    <p>Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises...</p>
+  </section>
+
+  <!-- Deeper Learning -->
+  <section class="deeper-learning">
+    <h3>Deeper Learning</h3>
+    <p>Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...</p>
+  </section>
+
+  <!-- Kids Study -->
+  <section class="kids-study">
+    <h3>Kids Study</h3>
+    <iframe width="320" height="180" src="https://www.youtube.com/embed/lre-LLz-UzE" title="Kids Video 1" frameborder="0" allowfullscreen></iframe>
+    <iframe width="320" height="180" src="https://www.youtube.com/embed/YzjHjXe-2XU" title="Kids Video 2" frameborder="0" allowfullscreen></iframe>
+    <a href="COLORING_PAGES.pdf" target="_blank" class="download-btn">Download Coloring Pages</a>
+  </section>
+
+  <!-- Language Learning -->
+  <section class="language-learning">
+    <h3>Language Learning</h3>
+    <p>Hebrew: <strong>Makom | מקום</strong> — The Place</p>
+    <p>Greek: <strong>Pistis | πίστις</strong> — Faith</p>
+    <audio controls src="YOUR-TEACHING-LINK.mp3"></audio>
+  </section>
+
+  <!-- Psalms Plan -->
+  <section class="psalms-plan">
+    <h3>Psalms Plan</h3>
+    <ul>
+      <li>Sunday: <audio controls src="https://audio.esv.org/hw/mq/19001001-19029011.mp3"></audio></li>
+      <li>Monday: <audio controls src="https://audio.esv.org/hw/mq/19030001-19050023.mp3"></audio></li>
+      <li>Tuesday: <audio controls src="https://audio.esv.org/hw/mq/19051001-19072020.mp3"></audio></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p>&copy; Bible Study App 5785</p>
+</footer>
+
+<!-- Floating Player Script -->
+<script src="js/floatingPlayer-v3.js"></script>
+
+<!-- Playlist & Audio Logic -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Play buttons
+    document.querySelectorAll(".play-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const src = btn.dataset.src;
+        if (window.globalAudio && src) {
+          window.globalAudio.src = src;
+          window.globalAudio.play().catch(() => {});
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

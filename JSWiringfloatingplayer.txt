@@ -1,0 +1,13 @@
+<script>
+// 🔥 Attach floating player inside hero card
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.renderFloatingPlayer) {
+    window.renderFloatingPlayer("fp-hero-glass-root");
+  }
+
+  // 🔥 Trigger week rendering
+  if (window.renderWeek) {
+    window.renderWeek("weekSection");
+  }
+});
+</script>

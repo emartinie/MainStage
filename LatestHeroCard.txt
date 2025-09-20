@@ -1,0 +1,20 @@
+<!-- Hero/MainStage Card -->
+<section id="mainStageCard" class="hero-card relative ...">
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">
+  </video>
+
+  <div class="relative z-10 space-y-3">
+    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
+    <p class="text-gray-300 text-lg">English / Hebrew / Transliteration</p>
+
+    <!-- 🔥 Floating Player Mount Point -->
+    <div id="fp-hero-glass-root" class="w-full flex justify-center mt-4"></div>
+  </div>
+</section>
+
+<!-- 🔥 Week Rendering Placeholder -->
+<section id="weekSection" class="space-y-6 mt-6">
+  <!-- dynamically filled by renderWeek() -->
+</section>

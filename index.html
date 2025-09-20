@@ -7,6 +7,8 @@
   <meta name="theme-color" content="#4a5568">
   <title>Bible MainStage</title>
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
+  <link rel="stylesheet" href="css/cosmicbadass.css">
+  <link rel="stylesheet" href="css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
 
@@ -53,9 +55,9 @@
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
   <!-- Container where player will render/dock -->
-  <div id="floating-player"></div>
-  
-  <!-- Trigger buttons -->
+<!-- Floating Player -->
+<div id="fp-hero-glass-root"></div>  
+  <!-- Trigger butt ons -->
   <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
   <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button>
   <marquee behavior="scroll" direction="right">
@@ -125,8 +127,8 @@
   </footer>
   </main>
   <!-- Scripts -->
-  <script src="js/basemainStageLoader.js" defer></script>
-  <script src="js/basefloatingPlayer.js" defer></script> 
+  <script src="js/mainStageLoader.js" defer></script>
+  <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="app.js" defer></script> 
 
   <script>
@@ -198,6 +200,7 @@ function addSearchResetButton() {
 }
   </script>
 
+<script src="js/floatingPlayer-v3.js"></script>
 
 </body>
 </html>

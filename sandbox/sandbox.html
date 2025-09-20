@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HGBibleApp Sandbox - Cosmic Badass + Debugger</title>
+<link rel="icon" href="images/HGHouses.png">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Floating Player CSS -->
+<link rel="stylesheet" href="css/FloatingPlayerv-3.css">
+<!-- Custom Styles -->
+<style>
+/* General Dark/Glassy 3D look */
+body { font-family: 'Inter', sans-serif; background: #111827; color: #f9fafb; margin:0; }
+.container { max-width: 1200px; margin:0 auto; padding:1rem; }
+
+/* Hero/MainStage */
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: rgba(30,41,59,0.85);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.hero-card h2 { font-family:'Poppins', sans-serif; font-size:2.5rem; font-weight:800; text-shadow:2px 2px 10px rgba(0,0,0,0.5); }
+.hero-card p { font-size:1.1rem; margin-top:0.5rem; }
+
+/* Floating Player */
+.fp-player {
+  --size: 80px;
+  position: fixed; bottom:1rem; right:1rem;
+  width: var(--size); height: var(--size);
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+  z-index:9999;
+  transition: transform 0.3s ease;
+}
+.fp-player:hover { transform: scale(1.1); }
+
+/* Hero Animation */
+@keyframes bounce-slow {0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);}}
+.animate-bounce-slow { animation: bounce-slow 2s infinite; }
+
+/* 3D Cards */
+.card {
+  background: rgba(30,41,59,0.9);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+
+/* Cosmic Badass Orbit */
+.cosmic-badass { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-bottom:2rem;}
+.cosmic-card { background:rgba(59,130,246,0.2); border-radius:1.5rem; padding:1rem; text-align:center; flex:1 1 200px; transition: transform 0.3s ease; }
+.cosmic-card:hover { transform: rotateY(10deg) rotateX(5deg) scale(1.05); }
+@keyframes orbit { 0% { transform: rotate(0deg) translateX(100px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); } }
+.cosmic-orbit { animation: orbit 20s linear infinite; }
+
+/* Scrollable containers */
+.scroll-container { overflow-x:auto; scrollbar-width:thin; scrollbar-color:#3b82f6 #1f2937; }
+.scroll-container::-webkit-scrollbar { height:8px; }
+.scroll-container::-webkit-scrollbar-thumb { background-color:#3b82f6; border-radius:4px; }
+.scroll-container::-webkit-scrollbar-track { background-color:#1f2937; }
+
+/* Debugger Panel */
+#debuggerPanel {
+  position: fixed; bottom:0; right:0;
+  width:100%; max-height:200px;
+  background: rgba(17,24,39,0.95);
+  color:#fefefe; font-family: monospace;
+  font-size:12px; overflow-y:auto; border-top:2px solid #3b82f6;
+  z-index:99999; padding:0.5rem; box-sizing:border-box;
+}
+.debug-btn { position: fixed; bottom:210px; right:1rem; background:#3b82f6; color:white; padding:0.25rem 0.5rem; border-radius:0.25rem; cursor:pointer; font-size:12px; z-index:99999; }
+</style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+<div class="container">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 mb-4">
+  <div class="flex items-center gap-2">
+    <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
+    <h1 class="text-2xl font-extrabold tracking-wide text-blue-400">HGBibleApp Sandbox</h1>
+  </div>
+</header>
+
+<!-- Hero/MainStage Card -->
+<section class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="https://www.youtube.com/watch?v=V_2mmgzp274" type="video/mp4">
+  </video>
+  <div class="relative z-10 space-y-3">
+    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
+    <p class="text-gray-300 text-lg">English / Hebrew / Transliteration</p>
+    <!-- Floating Player Root -->
+    <div id="fp-hero-glass-root"></div>
+  </div>
+</section>
+
+<!-- Cosmic Badass Section -->
+<div class="cosmic-badass">
+  <div class="cosmic-card cosmic-orbit"><h3>Torah Study</h3><p>Weekly Parashah outline with deep insights.</p></div>
+  <div class="cosmic-card cosmic-orbit"><h3>Prophets</h3><p>Messianic connections through the Prophets.</p></div>
+  <div class="cosmic-card cosmic-orbit"><h3>Writings</h3><p>Wisdom literature and hidden gems.</p></div>
+</div>
+
+<!-- Example 3D Cards -->
+<section id="cardsContainer" class="space-y-6 mt-6">
+  <div class="card"><h3 class="text-xl font-bold mb-2">Genesis 1:1</h3><p>“In the beginning, God created the heavens and the earth.”</p></div>
+  <div class="card"><h3 class="text-xl font-bold mb-2">Psalm 23</h3><p>“The Lord is my shepherd; I shall not want.”</p></div>
+</section>
+
+<!-- Debugger Panel Toggle -->
+<button id="toggleDebugger" class="debug-btn">Toggle Debugger</button>
+<div id="debuggerPanel" style="display:none;"></div>
+
+</div> <!-- container -->
+
+<!-- Floating Player Script -->
+<script src="js/FloatingPlayerv-3.js"></script>
+
+<script>
+// Debugging helpers
+const debug = (msg) => {
+  const panel = document.getElementById('debuggerPanel');
+  if(panel){ panel.innerHTML += msg + '<br>'; panel.scrollTop = panel.scrollHeight; }
+};
+
+// Toggle debugger
+document.getElementById('toggleDebugger').addEventListener('click', () => {
+  const panel = document.getElementById('debuggerPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+});
+
+// Example floating player playlist
+document.addEventListener("DOMContentLoaded", () => {
+  debug("DOM fully loaded, initializing sandbox...");
+
+  // Dummy playlist
+  const playlist = [
+    { title: "Psalm 23", eng: "audio/Matthew01-Greek.mp3", heb: "audio/Matthew01-Greek.mp3" },
+    { title: "John 3:16", eng: "audio/Matthew01-Greek.mp3", grk: "Matthew01-Greek.mp3" }
+  ];
+
+  // Dispatch playlist event
+  window.dispatchEvent(new CustomEvent("player:updatePlaylist", { detail: { playlist } }));
+  debug("Playlist dispatched to floating player.");
+
+  // Log basic environment info
+  debug`(Screen: ${window.innerWidth}x${window.innerHeight})`;
+  debug`(User Agent: ${navigator.userAgent})`;
+});
+</script>
+
+</body>
+</html>

@@ -1,55 +1,55 @@
-/* Experimental Floating Player 2.0 */
-.floating-player-2 {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-radius: 16px;
-  background: rgba(30, 30, 30, 0.6);
-  backdrop-filter: blur(12px);
-  color: white;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease-in-out;
-  z-index: 1000;
-  cursor: grab;
-}
+// Experimental Floating Player 2.0
+document.addEventListener("DOMContentLoaded", () => {
+  const player = document.getElementById("floating-player");
+  if (!player) return;
 
-.floating-player-2:hover {
-  transform: scale(1.02);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
-}
+  // Create dock/undock button
+  const dockBtn = document.createElement("button");
+  dockBtn.className = "dock-btn";
+  dockBtn.textContent = "⇲"; // dock icon
+  player.appendChild(dockBtn);
 
-.floating-player-2 .dock-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  padding: 0.4rem 0.7rem;
-  border-radius: 8px;
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
+  // Add glassy style + expand/dock states
+  player.classList.add("floating-player-2", "expanded");
 
-.floating-player-2 .dock-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-  transform: scale(1.1);
-}
+  dockBtn.addEventListener("click", () => {
+    if (player.classList.contains("expanded")) {
+      player.classList.remove("expanded");
+      player.classList.add("docked");
+      dockBtn.textContent = "⇱"; // undock icon
+    } else {
+      player.classList.remove("docked");
+      player.classList.add("expanded");
+      dockBtn.textContent = "⇲"; // dock icon
+    }
+  });
+});
 
-/* Docked State */
-.floating-player-2.docked {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  justify-content: center;
-  padding: 0;
-}
+const player = document.querySelector(".exp-player");
+const playBtn = document.getElementById("playBtn");
+const dockBtn = document.getElementById("dockBtn");
+const progressBar = document.querySelector(".exp-progress-bar");
 
-.floating-player-2.docked .dock-btn {
-  position: absolute;
-  bottom: -0.6rem;
-  right: -0.6rem;
-  border-radius: 50%;
-}
+window.globalAudio = window.globalAudio || new Audio();
+
+playBtn.addEventListener("click", () => {
+  if (window.globalAudio.paused) {
+    window.globalAudio.play();
+    playBtn.textContent = "⏸";
+  } else {
+    window.globalAudio.pause();
+    playBtn.textContent = "▶";
+  }
+});
+
+dockBtn.addEventListener("click", () => {
+  player.classList.toggle("docked");
+});
+
+// Simple progress bar update
+window.globalAudio.addEventListener("timeupdate", () => {
+  if (window.globalAudio.duration) {
+    const progress = (window.globalAudio.currentTime / window.globalAudio.duration) * 100;
+    progressBar.style.width = progress + "%";
+  }
+});
