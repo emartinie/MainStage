@@ -1,0 +1,31 @@
+<!-- Hero-style Calendar Card -->
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+<!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+
+  <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-gray-200">
+    Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
+  </h3>
+
+  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">dynamically rendering times/ dates...</p>
+  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare</p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Places to Gather</p>
+
+  <!-- Inner calendar card -->
+  <div id="calendarCardInner" class="card">
+    <h3>Calendar</h3>
+    <div id="weekDisplay">Current Week:</div>
+    <div id="sabbathDisplay">Next Sabbath:</div>
+    <div id="feastDisplay">Next Holy day or hiliday:</div>
+  </div>
+
+    <div class="mt-3 flex gap-2 flex-wrap">
+      <button id="filterHillel" class="px-2 py-1 border rounded">Hillel</button>
+      <button id="filterEnochian" class="px-2 py-1 border rounded">Enochian</button>
+      <button id="filterZedokian" class="px-2 py-1 border rounded">Zedokian</button>
+      <button id="filterOrthodox" class="px-2 py-1 border rounded">Orthodox</button>
+      <button id="filterMSChristian" class="px-2 py-1 border rounded">MS Christian</button>
+    </div>
+  </section>

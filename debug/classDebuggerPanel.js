@@ -6,6 +6,22 @@ class DebuggerPanel {
     this.hookConsole();
     this.hookEvents();
     this.updateMemoryStorage();
+    // Create orbiting tabs
+  const orbitTabs = document.createElement("div");
+  orbitTabs.className = "orbiting-tabs";
+  ["Logs","Player","Memory/Storage","Dependencies"].forEach((name,i)=>{
+  const btn = document.createElement("div");
+  btn.className = "tabButton";
+  btn.textContent = name;
+  btn.style.transform = `rotate(${i*90}deg) translateX(100px) rotate(-${i*90}deg)`;
+  btn.addEventListener("click", () => {
+    Array.from(this.tabs.children).forEach(c=>c.style.display="none");
+    const sec = this.tabs.querySelector`(#dbg-${name.replace("/\s/g,")})`;
+    if(sec) sec.style.display="block";
+  });
+  orbitTabs.appendChild(btn);
+});
+panel.insertBefore(orbitTabs, this.tabs);
   }
 
   createPanel() {
@@ -44,8 +60,8 @@ class DebuggerPanel {
 
   createSection(name) {
     const sec = document.createElement("div");
-    sec.id = dbg-${name.replace(/\s/g,"")};
-    sec.innerHTML = <h4 style="margin:4px 0;">${name}</h4><div class="content" style="max-height:150px; overflow:auto; background:rgba(0,0,0,0.2); border-radius:6px; padding:4px;"></div>;
+    sec.id = `dbg-${name.replace("/\s/g,")}`;
+    sec.innerHTML = `<h4 style="margin:4px 0;">${name}</h4><div class="content" style="max-height:150px; overflow:auto; background:rgba(0,0,0,0.2); border-radius:6px; padding:4px;"></div>`;
     this.tabs.appendChild(sec);
   }
 
@@ -64,6 +80,8 @@ class DebuggerPanel {
     };
   }
 
+
+
   hookEvents() {
     window.addEventListener("player:updatePlaylist", (e) => {
       const sec = this.tabs.querySelector("#dbg-Player .content");
@@ -72,7 +90,7 @@ class DebuggerPanel {
   }
 
   updateMemoryStorage() {
-    const memSec = this.tabs.querySelector("#dbg-Memory/Storage .content");
+    const memSec = this.tabs.querySelector`("#dbg-Memory/Storage .content")`;
     if (!memSec) return;
     const update = async () => {
       let usage = "N/A", quota = "N/A";
@@ -82,8 +100,8 @@ class DebuggerPanel {
         quota = est.quota;
       }
       let heap = "N/A";
-      if (performance.memory) heap = Used: ${performance.memory.usedJSHeapSize};
-      memSec.textContent = Storage Usage: ${usage} / ${quota}\nJS Heap: ${heap};
+      if (performance.memory) heap = `(Used ${performance.memory.usedJSHeapSize})`;
+      memSec.textContent = `(Storage Usage: ${usage} / ${quota}\nJS Heap: ${heap})`;
       setTimeout(update, 2000);
     };
     update();

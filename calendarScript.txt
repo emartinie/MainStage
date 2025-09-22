@@ -1,0 +1,57 @@
+  <script>
+  (function() {
+    // Hardcoded feast days for 2025
+    const feastDays = {
+      "2025-04-13": "Passover",
+      "2025-06-01": "Pentecost",
+      "2025-09-23": "Trumpets",
+      "2025-10-02": "Day of Atonement",
+      "2025-10-07": "Feast of Tabernacles"
+    };
+
+    // Helper: format YYYY-MM-DD
+    function formatDate(d) {
+      return d.toISOString().split("T")[0];
+    }
+
+    // Get current week (Sunday–Saturday)
+    function getWeek(date = new Date()) {
+      const start = new Date(date);
+      start.setDate(date.getDate() - date.getDay()); // Sunday
+      return Array.from({length: 7}, (_, i) => {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        return d;
+      });
+    }
+
+    // Render week
+    function renderWeek() {
+      const week = getWeek();
+      document.getElementById("weekDisplay").innerHTML =
+        "<strong>Days This Week:</strong> " +
+        week.map(d => formatDate(d)).join(" • ");
+    }
+
+    // Show Sabbath
+    function renderSabbath() {
+      const today = new Date();
+      const sabbath = getWeek().find(d => d.getDay() === 6); // Saturday
+      document.getElementById("sabbathDisplay").innerHTML =
+        `<strong>Next Sabbath: ${formatDate(sabbath)} ${today.getDay() === 6 ? "(Today!)" : ""}`;
+    }
+
+    // Show Feast if today matches
+    function renderFeast() {
+      const todayStr = formatDate(new Date());
+      const feast = feastDays[todayStr];
+      document.getElementById("feastDisplay").innerHTML =
+        `feast ? "<strong>Feast Today:</strong> ${feast} : "<em>No feast today</em>"`;
+    }
+
+    // Init
+    renderWeek();
+    renderSabbath();
+    renderFeast();
+  })();
+  </script>

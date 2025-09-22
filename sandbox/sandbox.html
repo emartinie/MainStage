@@ -9,6 +9,8 @@
 
 <!-- Floating Player CSS -->
 <link rel="stylesheet" href="css/FloatingPlayerv-3.css">
+<link rel="stylesheet" href="css/cosmicbadass.css">
+
 <!-- Custom Styles -->
 <style>
 /* General Dark/Glassy 3D look */
@@ -103,7 +105,7 @@ body { font-family: 'Inter', sans-serif; background: #111827; color: #f9fafb; ma
 <!-- Hero/MainStage Card -->
 <section class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="https://www.youtube.com/watch?v=V_2mmgzp274" type="video/mp4">
+    <source src="videos/bg-motion.mp4" type="video/mp4">
   </video>
   <div class="relative z-10 space-y-3">
     <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
@@ -126,14 +128,13 @@ body { font-family: 'Inter', sans-serif; background: #111827; color: #f9fafb; ma
   <div class="card"><h3 class="text-xl font-bold mb-2">Psalm 23</h3><p>“The Lord is my shepherd; I shall not want.”</p></div>
 </section>
 
+<!-- Floating Player Script -->
+<script src="js/FloatingPlayerv-3.js"></script>
+
 <!-- Debugger Panel Toggle -->
 <button id="toggleDebugger" class="debug-btn">Toggle Debugger</button>
 <div id="debuggerPanel" style="display:none;"></div>
-
-</div> <!-- container -->
-
-<!-- Floating Player Script -->
-<script src="js/FloatingPlayerv-3.js"></script>
+</div> 
 
 <script>
 // Debugging helpers

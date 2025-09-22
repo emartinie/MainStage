@@ -1,0 +1,286 @@
+<!-- Cosmic Badass Calendar Card -->
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+
+  <h3 class="text-xl font-bold mb-2">Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
+  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Days: 10</p>
+  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues</p>
+
+  <!-- Inner Calendar -->
+  <div id="calendarCardInner" class="card mt-4 bg-gray-800/70 rounded-xl p-4 backdrop-blur-sm">
+    <div class="flex gap-2 flex-wrap mb-3">
+      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white active" data-tab="weekTab">Week</button>
+      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="sabbathTab">Sabbath</button>
+      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="feastsTab">Feasts</button>
+      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="otherTab">Other Religions</button>
+    </div>
+
+    <div class="tabContent" id="weekTab">
+      <h4 class="font-semibold mb-2">Current Week</h4>
+      <p>Sun 09/22 • Mon 09/23 • Tue 09/24 • Wed 09/25 • Thu 09/26 • Fri 09/27 • Sat 09/28</p>
+    </div>
+
+    <div class="tabContent hidden" id="sabbathTab">
+      <h4 class="font-semibold mb-2">Next Sabbath</h4>
+      <p>Saturday, 09/28 - Starts Friday sunset, ends Saturday sunset</p>
+    </div>
+
+    <div class="tabContent hidden" id="feastsTab">
+      <h4 class="font-semibold mb-2">Biblical Feasts</h4>
+      <ul class="list-disc pl-5">
+        <li>Passover - 04/13/2025</li>
+        <li>Unleavened Bread - 04/14/2025</li>
+        <li>Pentecost - 06/01/2025</li>
+        <li>Trumpets - 09/23/2025</li>
+        <li>Day of Atonement - 10/02/2025</li>
+        <li>Feast of Tabernacles - 10/07/2025</li>
+        <li>Last Great Day - 10/14/2025</li>
+      </ul>
+    </div>
+
+    <div class="tabContent hidden" id="otherTab">
+      <h4 class="font-semibold mb-2">Other Religious Observances</h4>
+      <ul class="list-disc pl-5">
+        <li>Ramadan - 04/02/2025</li>
+        <li>Eid al-Fitr - 05/02/2025</li>
+        <li>Diwali - 11/01/2025</li>
+        <li>Christmas - 12/25/2025</li>
+      </ul>
+    </div>
+
+    <div class="mt-3 flex gap-2 flex-wrap">
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
+    </div>
+  </div>
+
+  <style>
+    /* Tab and content */
+    .tabContent { transition: opacity 0.3s ease; }
+    .tabContent.hidden { display: none; opacity: 0; }
+    .tabBtn.active { border-color: #00ffff; }
+    .filterBtn.active { background-color: #0ff; color: #000; }
+
+    /* Card hover & scaling */
+    #calendarCard:hover { transform: scale(1.02); }
+
+    /* Scrollable inner content */
+    #calendarCardInner { max-height: 350px; overflow-y: auto; }
+  </style>
+
+  <script>
+    (function() {
+      const tabs = document.querySelectorAll(".tabBtn");
+      const contents = document.querySelectorAll(".tabContent");
+
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          contents.forEach(c => c.classList.add("hidden"));
+          const target = document.getElementById(tab.dataset.tab);
+          if (target) target.classList.remove("hidden");
+        });
+      });
+
+      const filters = document.querySelectorAll(".filterBtn");
+      filters.forEach(btn => {
+        btn.addEventListener("click", () => btn.classList.toggle("active"));
+      });
+    })();
+  </script>
+</section>
+12:53 AM
+You sent
+<!-- Cosmic Badass Calendar Card with Live Countdown -->
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+
+  <!-- Main Header -->
+  <h3 class="text-xl font-bold mb-2 text-gray-100">
+    Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
+  </h3>
+  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Countdown: <span id="holyDayCountdown">Calculating...</span></p>
+  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: <span id="prepareDays">--</span></p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Suggested Gathering Locations</p>
+
+  <!-- Inner Card Mini-Windows -->
+  <div id="calendarCardInner" class="card mt-4 p-4 bg-gray-800/50 backdrop-blur-md rounded-xl space-y-4">
+    <h4 class="font-semibold text-lg mb-2">Calendar Overview</h4>
+    
+    <div class="mini-window p-2 bg-gray-700/40 rounded-lg overflow-auto">
+      <h5 class="font-semibold">Current Week</h5>
+      <div id="weekDisplay" class="text-sm">Calculating week...</div>
+    </div>
+    
+    <div class="mini-window p-2 bg-gray-700/40 rounded-lg overflow-auto">
+      <h5 class="font-semibold">Next Sabbath</h5>
+      <div id="sabbathDisplay" class="text-sm">Calculating...</div>
+    </div>
+    
+    <div class="mini-window p-2 bg-gray-700/40 rounded-lg overflow-auto">
+      <h5 class="font-semibold">Biblical Feasts</h5>
+      <ul id="feastDisplay" class="text-sm list-disc pl-5"></ul>
+    </div>
+
+    <div class="mini-window p-2 bg-gray-700/40 rounded-lg overflow-auto">
+      <h5 class="font-semibold">Other Traditions</h5>
+      <ul id="otherTraditions" class="text-sm list-disc pl-5"></ul>
+    </div>
+  </div>
+
+  <!-- Filter / View Buttons -->
+  <div class="mt-4 flex flex-wrap gap-2">
+    <button id="filterHillel" class="px-3 py-1 border rounded hover:bg-gray-700 transition">Hillel</button>
+    <button id="filterEnochian" class="px-3 py-1 border rounded hover:bg-gray-700 transition">Enochian</button>
+    <button id="filterZedokian" class="px-3 py-1 border rounded hover:bg-gray-700 transition">Zedokian</button>
+    <button id="filterOrthodox" class="px-3 py-1 border rounded hover:bg-gray-700 transition">Orthodox</button>
+    <button id="filterMSChristian" class="px-3 py-1 border rounded hover:bg-gray-700 transition">MS Christian</button>
+  </div>
+
+  <!-- Mini Calendar -->
+  <div id="miniCalendar" class="mt-4 p-2 bg-gray-700/40 rounded-lg text-sm text-gray-200">
+    <h5 class="font-semibold mb-1">Mini Calendar Preview</h5>
+    <div>Calculating...</div>
+  </div>
+</section>
+
+<style>
+  /* Card Hover & Transition */
+  .hero-card:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.7); }
+  
+  /* Mini Windows */
+  .mini-window { max-height: 100px; overflow-y: auto; }
+  
+  /* Buttons */
+  #calendarCard button { cursor: pointer; }
+  #calendarCard button:hover { background-color: rgba(255,255,255,0.1); }
+
+  /* Scrollbars */
+  .mini-window::-webkit-scrollbar { width: 6px; }
+  .mini-window::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.3); border-radius: 3px; }
+</style>
+
+<script>
+(function(){
+  const feastDays = {
+    "2025-04-13": "Passover",
+    "2025-06-01": "Pentecost",
+    "2025-09-23": "Trumpets",
+    "2025-10-02": "Day of Atonement",
+    "2025-10-07": "Feast of Tabernacles"
+  };
+
+  const otherTraditions = {
+    "Orthodox Easter": "2025-04-20",
+    "Ramadan Start": "2025-03-30",
+    "Diwali": "2025-11-01",
+    "Chinese New Year": "2025-01-29"
+  };
+
+  const weekDisplay = document.getElementById("weekDisplay");
+  const sabbathDisplay = document.getElementById("sabbathDisplay");
+  const feastDisplayEl = document.getElementById("feastDisplay");
+  const otherTraditionsEl = document.getElementById("otherTraditions");
+  const holyDayCountdown = document.getElementById("holyDayCountdown");
+
+  // Helpers
+  function formatDate(d) { return d.toISOString().split("T")[0]; }
+
+  function getWeek(date = new Date()) {
+    const start = new Date(date); start.setDate(date.getDate() - date.getDay());
+    return Array.from({length:7},(_,i)=>{
+      const d = new Date(start); d.setDate(start.getDate()+i); return d;
+    });
+  }
+
+  function getNextSabbath() {
+    const today = new Date();
+    const diff = (6 - today.getDay() + 7) % 7 || 7;
+    const sabbath = new Date(today);
+    sabbath.setDate(today.getDate() + diff);
+    sabbath.setHours(18,0,0,0); // sunset approx 6pm
+    return sabbath;
+  }
+
+  function getNextFeast() {
+    const today = new Date();
+    const futureFeasts = Object.keys(feastDays)
+      .map(d=>new Date(d))
+      .filter(d=>d>=today)
+      .sort((a,b)=>a-b);
+    return futureFeasts[0];
+  }
+
+  function updateCountdown(el, targetDate) {
+    const now = new Date();
+    const diff = targetDate - now;
+    if(diff<=0){el.textContent="Now!"; return;}
+    const days = Math.floor(diff/86400000);
+    const hours = Math.floor((diff%86400000)/3600000);
+    const minutes = Math.floor((diff%3600000)/60000);
+    const seconds = Math.floor((diff%60000)/1000);
+    el.textContent = ${days}d ${hours}h ${minutes}m ${seconds}s;
+  }
+
+  // Render Week
+  function renderWeek() {
+    const week = getWeek();
+    weekDisplay.textContent = week.map(d=>formatDate(d)).join(" • ");
+  }
+
+  // Render Sabbath
+  function renderSabbath() {
+    const sab = getNextSabbath();
+    updateCountdown(sabbathDisplay, sab);
+  }
+
+  // Render Feasts
+  function renderFeasts() {
+    feastDisplayEl.innerHTML = "";
+    Object.entries(feastDays).forEach(([date,name])=>{
+      const li = document.createElement("li");
+      li.textContent = ${name}: ${date};
+      feastDisplayEl.appendChild(li);
+    });
+    const nextFeast = getNextFeast();
+    updateCountdown(holyDayCountdown, nextFeast);
+  }
+
+  // Other Traditions
+  function renderOtherTraditions() {
+    otherTraditionsEl.innerHTML = "";
+    Object.entries(otherTraditions).forEach(([name,date])=>{
+      const li = document.createElement("li");
+      li.textContent = ${name}: ${date};
+      otherTraditionsEl.appendChild(li);
+    });
+  }
+
+  // Initial render
+  renderWeek();
+  renderSabbath();
+  renderFeasts();
+  renderOtherTraditions();
+
+  // Update countdowns every second
+  setInterval(()=>{
+    renderSabbath();
+    renderFeasts();
+  },1000);
+
+})();
+</script>
+Sent
+Write to

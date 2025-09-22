@@ -1,4 +1,6 @@
 // /debug/debugger.js
+(() => {
+
 (function () {
   if (window.__DEBUGGER__) return;
   window.__DEBUGGER__ = true;
@@ -66,7 +68,7 @@
   window.debugLog = function (msg, level = "info") {
     const el = document.createElement("div");
     el.className = "debug-line " + level;
-    el.textContent = [${new Date().toLocaleTimeString()}] ${msg};
+    el.textContent = [$`{new Date().toLocaleTimeString()}`];
     document.getElementById("debug-output").appendChild(el);
     document.getElementById("debug-output").scrollTop =
       document.getElementById("debug-output").scrollHeight;
@@ -83,7 +85,7 @@
 
   // Global error hooks
   window.onerror = (msg, src, line, col, err) => {
-    debugLog(ERROR: ${msg} @ ${line}:${col}, "error");
+    debugLog`(ERROR: ${msg} @ ${line}:${col}, "error");
   };
   window.onunhandledrejection = (e) => {
     debugLog(Unhandled Promise: ${e.reason}, "error");
@@ -133,7 +135,7 @@
     setTimeout(() => {
       if (typeof debugToggle === "function") debugToggle();
     }, 300);
-  }
+})();
 
 / Make panel draggable
 let isDragging = false, startX, startY;
@@ -144,20 +146,7 @@ window.addEventListener("touchmove", e => { if(isDragging){ const t = e.touches[
 window.addEventListener("mouseup", () => { isDragging = false; });
 window.addEventListener("touchend", () => { isDragging = false; });
 
-// Make panel resizable (bottom-right corner)
-const resizer = document.createElement("div");
-resizer.style.width = resizer.style.height = "20px";
-resizer.style.position = "absolute";
-resizer.style.right = "0"; resizer.style.bottom = "0";
-resizer.style.cursor = "nwse-resize";
-resizer.style.background = "rgba(255,255,255,0.3)";
-panel.appendChild(resizer);
+  // Example: safe test log
+  console.log("Debugger loaded");
 
-let isResizing = false;
-resizer.addEventListener("mousedown", e => { isResizing = true; e.stopPropagation(); });
-resizer.addEventListener("touchstart", e => { isResizing = true; e.stopPropagation(); });
-window.addEventListener("mousemove", e => { if(isResizing){ panel.style.width = e.clientX - panel.offsetLeft + "px"; panel.style.height = e.clientY - panel.offsetTop + "px"; }});
-window.addEventListener("touchmove", e => { if(isResizing){ const t = e.touches[0]; panel.style.width = t.clientX - panel.offsetLeft + "px"; panel.style.height = t.clientY - panel.offsetTop + "px"; }});
-window.addEventListener("mouseup", () => { isResizing = false; });
-window.addEventListener("touchend", () => { isResizing = false; });
-})();
+})(); // <-- this closes the IIFE wrapper

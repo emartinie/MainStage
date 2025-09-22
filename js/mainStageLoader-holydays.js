@@ -1,14 +1,14 @@
-// --- Config ---
-const START_DATE = new Date("2024-10-26T00:00:00Z");
-const TOTAL_WEEKS = 52;
+// --- Config i changed this file and it needs to be replaced ---
+//const START_DATE = new Date("2024-09-26T00:00:00Z");
+//const TOTAL_WEEKS = 52;
 
 // --- Helper: Current Week ---
-function getCurrentWeekNumber() {
-    const diffMs = new Date() - START_DATE;
-    if (diffMs < 0) return 1;
-    const week = Math.floor(diffMs / (1000*60*60*24*7)) + 4;
-    return week > TOTAL_WEEKS ? TOTAL_WEEKS : week;
-}
+//function getCurrentWeekNumber() {
+  //  const diffMs = new Date() - START_DATE;
+    //if (diffMs < 0) return 1;
+   // const week = Math.floor(diffMs / (1000*60*60*24*7)) + 4;
+  //  return week > TOTAL_WEEKS ? TOTAL_WEEKS : week;
+//}
 
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
@@ -318,18 +318,18 @@ function loadCalendarCard(weekData) {
   const mainCalendar = weekData.calendar || {};
   const nextHolyDay = mainCalendar.nextHolyDay || { name: "N/A", date: null, location: "" };
   
-  nextHolyDayEl.textContent = {nextHolyDay.name} — ${nextHolyDay.date || "TBD"};
+  nextHolyDayEl.textContent = `{nextHolyDay.name} — ${nextHolyDay.date || "TBD"}`;
 
   if (nextHolyDay.date) {
     const today = new Date();
     const holyDate = new Date(nextHolyDay.date);
     const diffDays = Math.ceil((holyDate - today) / (1000 * 60 * 60 * 24));
-    daysToPrepareEl.textContent = Days to prepare: ${diffDays};
+    daysToPrepareEl.textContent = `DaysToPrepare : ${diffDays}`;
   } else {
     daysToPrepareEl.textContent = "";
   }
 
-  locationHintEl.textContent = nextHolyDay.location ? Suggested location: ${nextHolyDay.location} : "";
+  locationHintEl.textContent = `nextHolyDay.location ? Suggested location: ${nextHolyDay.location} : ""`;
   
   // Add optional mini-calendar rendering logic here
   renderMiniCalendar(mainCalendar);

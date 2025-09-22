@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Sandbox — Cosmic Badass + Debugging</title>
+<link rel="stylesheet "href="css/cosmicbadass.css"/>
+
 <style>
   :root{--bg:#0b1220;--glass:rgba(255,255,255,0.04);--accent1:#60a5fa;--accent2:#34d399}
   html,body{height:100%;margin:0;background:linear-gradient(180deg,#02040a 0%, #071426 50%, #061223 100%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
@@ -89,7 +91,9 @@
 
   <!-- Debug overlay -->
   <div id="debug-overlay" aria-hidden="false">
-    <header><strong>Sandbox Debug</strong><span style="margin-left:auto" class="small" id="dbg-time">—</span></header>
+      <header>
+      <strong>Sandbox Debug</strong><span style="margin-left:auto" class="small" id="dbg-time">—</span></header>        
+<button id="closeDebuggerBtn">✖</button>    
     <div id="debug-summary" class="small"></div>
     <div id="debugOverlayLogs" role="log" aria-live="polite"></div>
     <div class="dbg-controls">
@@ -97,6 +101,18 @@
       <button id="dbg-check-res">Check resources</button>
       <button id="dbg-export">Export logs</button>
       <button id="dbg-toggle">Toggle debug</button>
+      <div id="customDebuggerTabs">
+        <button data-tab="logs" class="active">Logs</button>
+        <button data-tab="network">Network</button>
+        <button data-tab="actions">Actions</button>
+      </div>
+      <div id="customDebuggerContent">
+        <div id="customDebuggerLogs"></div>
+        <div id="customDebuggerNetwork" style="display:none;"></div>
+        <div id="customDebuggerActions" style="display:none;">
+          <button id="renderWeekBtn">▶ Render Week</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -144,9 +160,9 @@
   function checkResources(){
     addLog('info','Checking key resources...');
     const checks = [
-      {type:'css', sel:'link[href*="styles.css"]'},
-      {type:'js', sel:'script[src*="floating"]'},
-      {type:'js', sel:'script[src*="mainStageLoader"]'}
+      {type:'css', sel:'link[href*="css/cosmicbadass.css"]'},
+      {type:'js', sel:'script[src*="js/FloatingPlayerv-3.js"]'},
+      {type:'js', sel:'script[src*="js/mainStageLoader"]'}
     ];
     checks.forEach(c=>{
       const found = document.querySelector(c.sel);
@@ -155,12 +171,95 @@
     // check globalAudio
     addLog('info','globalAudio present? ' + (window.globalAudio ? 'YES' : 'NO'));
   }
+
+    // Close
+    panel.querySelector("#closeDebuggerBtn").addEventListener("click", togglePanel);
+
+    // Tabs
+    const tabs = panel.querySelectorAll("#customDebuggerTabs button");
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const contentDivs = panel.querySelectorAll("#customDebuggerContent > div");
+        contentDivs.forEach(div => (div.style.display = "none"));
+        const target = panel.querySelector(#customDebugger${btn.dataset.tab.charAt(0).toUpperCase() + btn.dataset.tab.slice(1)});
+        if (target) target.style.display = "block";
+      });
+    });
+
+    // Example action: Render Week
+    const renderBtn = panel.querySelector("#renderWeekBtn");
+    if (renderBtn) {
+      renderBtn.addEventListener("click", () => {
+        console.log("[Debugger Action] Render Week triggered");
+        // Hook into your real renderWeek() if available:
+        if (typeof renderWeek === "function") renderWeek();
+      });
+    }
+
+    return panel;
+  }
+
+  // ========== TOGGLE ==========
+  function togglePanel() {
+    if (!panel) createPanel();
+    panelVisible = !panelVisible;
+    panel.style.display = panelVisible ? "flex" : "none";
+  }
+
+  // ========== HOTKEY ==========
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === "m") {
+      e.preventDefault();
+      togglePanel();
+    }
+  });
+
+  // ========== SECRET TAP ==========
+  let tapTimeout, tapCount = 0;
+  document.body.addEventListener("click", (e) => {
+    const nearBottomRight = (
+      window.innerWidth - e.clientX < 60 &&
+      window.innerHeight - e.clientY < 60
+    );
+    if (nearBottomRight) {
+      tapCount++;
+      clearTimeout(tapTimeout);
+      tapTimeout = setTimeout(() => tapCount = 0, 400);
+      if (tapCount >= 2) {
+        togglePanel();
+        tapCount = 0;
+      }
+    }
+  });
+
+  // ========== CONSOLE HOOK ==========
+  const logContainer = () => panel?.querySelector("#customDebuggerLogs");
+  ["log","warn","error"].forEach(level => {
+    const orig = console[level];
+    console[level] = (...args) => {
+      orig.apply(console,args);
+      const el = document.createElement("div");
+      el.className = "debugger-log-entry";
+      el.style.color = level === "error" ? "tomato" : level === "warn" ? "gold" : "white";
+      el.textContent = [${level.toUpperCase()}] ${args.map(a => (typeof a==="object"?JSON.stringify(a):a)).join(" ")};
+      logContainer()?.appendChild(el);
+    };
+  });
+
+  console.log("[Debugger] Initialized. Press Ctrl+M or double-tap bottom-right to toggle.");
+
   // public API
   window.__dbg.addLog = addLog;
   // initial
   addLog('info','Sandbox ready — debug logging initialized');
   checkResources();
 })();
+
+
+
 </script>
 
 <script>
@@ -313,5 +412,11 @@
   setTimeout(function(){ window.dispatchEvent(new CustomEvent('player:updatePlaylist', { detail:{ playlist: sample } })); }, 700);
 })();
 </script>
+
+  <!-- Main Scripts -->
+<script src="js/FloatingPlayerv-3.js" defer></script>
+ <script src="js/mainStageLoader.js" defer></script>
+  <script src="app.js" defer></script> 
+ 
 </body>
 </html>
