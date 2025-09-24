@@ -1,0 +1,23 @@
+<div class="cosmic-card" style="height: 500px; width: 100%;">
+  <div id="map" style="height: 100%; width: 100%;"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Initialize map
+  const map = L.map('map').setView([39.5, -98.35], 4);
+
+  // Tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Load your GeoJSON
+  fetch('sandbox/data/maps/HomeGroupsMap.geojson') // <-- replace with your actual GeoJSON file path
+    .then(res => res.json())
+    .then(data => {
+      L.geoJSON(data).addTo(map);
+    })
+    .catch(err => console.error('GeoJSON load error:', err));
+</script>

@@ -9,9 +9,23 @@
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
   <link rel="stylesheet" href="css/cosmicbadass.css">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <style>
+    .cosmic-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh; /* full viewport height for testing */
+      min-height: 300px;
+    }
 
+    #map {
+      flex-grow: 1;
+      width: 100%;
+    }
 
 /* Optional: force the floating player to scale on small screens */
 .floating-player {
@@ -26,6 +40,7 @@
     /* Optional bounce animation for hero card */
     @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
     .animate-bounce-slow { animation: bounce-slow 2s infinite; }
+
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
@@ -171,53 +186,83 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
-</div>
+  </section>
+
+<section>
+  <div class="card cosmic-map-card">
+    <div id="map" style="height: 500px; width: 100%;"></div>
   </div>
-            HGMap: https://www.google.com/maps/d/embed?mid=1i8CyzaLOIxM0ryaiYGwFeqEFDFC7fU4W" width="100%" height="100%
 
-      <!-- Google Map Container -->
-    <div id="map" class="mt-4 w-full h-80 rounded-lg border"></div>
+  <!-- Leaflet CSS/JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-  <style>
-    /* Tab and content */
-    .tabContent { transition: opacity 0.3s ease; }
-    .tabContent.hidden { display: none; opacity: 0; }
-    .tabBtn.active { border-color: #00ffff; }
-    .filterBtn.active { background-color: #0ff; color: #000; }
-
-    /* Card hover & scaling */
-    #calendarCard:hover { transform: scale(1.02); }
-
-    /* Scrollable inner content */
-    #calendarCardInner { max-height: 350px; overflow-y: auto; }
-  </style>
+  <!-- MarkerCluster CSS + JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+  />
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
   <script>
-    (function() {
-      const tabs = document.querySelectorAll(".tabBtn");
-      const contents = document.querySelectorAll(".tabContent");
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
 
-      tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-          tabs.forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
 
-          contents.forEach(c => c.classList.add("hidden"));
-          const target = document.getElementById(tab.dataset.tab);
-          if (target) target.classList.remove("hidden");
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
         });
-      });
 
-      const filters = document.querySelectorAll(".filterBtn");
-      filters.forEach(btn => {
-        btn.addEventListener("click", () => btn.classList.toggle("active"));
-      });
-    })();
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
   </script>
 </section>
- 
   <!-- Cards container for <div id="weekInfo"></div>-driven content -->
-  <main id="cardsContainer" http://192.168.254.10:8080/sandbox/</main>
+  <main id="cardsContainer"></main>
   </main>
 
   <!-- Footer -->
@@ -233,6 +278,9 @@
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="app.js" defer></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
+<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
  
     <!-- debug Script -->
   <script src="debug/FinalCosmicDebugger.js" defer></script>  

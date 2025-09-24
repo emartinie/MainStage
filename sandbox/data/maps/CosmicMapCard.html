@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cosmic Map Card</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+<style>
+  body { margin:0; padding:0; font-family:sans-serif; }
+  #map { height: 600px; width: 100%; }
+  #sidebar {
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:white;
+    padding:10px;
+    z-index:1000;
+    max-height: 90%;
+    overflow:auto;
+    border-radius:6px;
+    box-shadow:0 0 6px rgba(0,0,0,0.3);
+  }
+  #sidebar label { display:block; margin-top:5px; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h4>Filters</h4>
+  <div id="zipFilters"></div>
+</div>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+<script>
+// Initialize the map
+const map = L.map('map').setView([39.5, -98.35], 4); // center of USA
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Marker Cluster Group
+const markers = L.markerClusterGroup();
+
+// Load your GeoJSON file (replace 'yourfile.geojson')
+fetch("sandbox/data/maps/HomeGroupsMap.geojson")
+.then(res => res.json())
+.then(data => {
+  // Collect unique zip codes for filters
+  const zipSet = new Set();
+
+  L.geoJSON(data, {
+    pointToLayer: (feature, latlng) => {
+      // Slight random offset for privacy
+      const offset = 0.01;
+      const randomLat = latlng.lat + (Math.random()-0.5)*offset;
+      const randomLng = latlng.lng + (Math.random()-0.5)*offset;
+
+      const marker = L.marker([randomLat, randomLng]);
+      const props = feature.properties;
+
+      zipSet.add(props.Zip || props.Coordinates?.split(',')[0] || 'Unknown');
+
+      const popupContent = `
+        <strong>${props.Name || 'Anonymous'}</strong><br>
+        <em>${props.City || ''}</em><br>
+        <button onclick="alert('Contact form stub for ${props.Name || 'Anonymous'}')">Contact</button>
+      `;
+      marker.bindPopup(popupContent);
+      markers.addLayer(marker);
+      return marker;
+    }
+  });
+
+  map.addLayer(markers);
+
+  // Create filter checkboxes
+  const zipFiltersDiv = document.getElementById('zipFilters');
+  zipSet.forEach(zip => {
+    const id = 'zip_' + zip;
+    const label = document.createElement('label');
+    label.innerHTML = `<input type="checkbox" id="${id}" checked> ${zip}`;
+    zipFiltersDiv.appendChild(label);
+
+    document.getElementById(id).addEventListener('change', () => {
+      markers.clearLayers();
+      L.geoJSON(data, {
+        filter: feature => {
+          const props = feature.properties;
+          const featureZip = props.Zip || props.Coordinates?.split(',')[0] || 'Unknown';
+          return document.getElementById('zip_' + featureZip)?.checked;
+        },
+        pointToLayer: (feature, latlng) => {
+          const offset = 0.01;
+          const randomLat = latlng.lat + (Math.random()-0.5)*offset;
+          const randomLng = latlng.lng + (Math.random()-0.5)*offset;
+          const marker = L.marker([randomLat, randomLng]);
+          const props = feature.properties;
+          const popupContent = `
+            <strong>${props.Name || 'Anonymous'}</strong><br>
+            <em>${props.City || ''}</em><br>
+            <button onclick="alert('Contact form stub for ${props.Name || 'Anonymous'}')">Contact</button>
+          `;
+          marker.bindPopup(popupContent);
+          markers.addLayer(marker);
+          return marker;
+        }
+      });
+    });
+  });
+})
+
+</script>
+</body>
+</html>

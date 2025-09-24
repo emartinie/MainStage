@@ -274,7 +274,185 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </section>
 
+
+
+
+
 <section id="cardsContainer" class="space-y-6 mt-6">
+
+<!-- Begin Cosmic Badass Map Card -->
+<section class="cosmic-card">
+  <header class="cosmic-header">
+    <h2>Map</h2>
+    <div class="toolbar">
+      <button class="cosmic-btn" onclick="locateMe()">📍 My Location</button>
+      <button class="cosmic-btn">🔍 Search</button>
+      <button class="cosmic-btn">⚙️ Filters</button>
+    </div>
+  </header>
+
+  <div id="cosmic-map" class="map-placeholder">
+    <div id="map" style="height: 500px; width: 100%;"></div>
+  </div>
+
+<!-- Leaflet CSS/JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster CSS + JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+  />
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+  <script>
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
+
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
+        });
+
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+
+  // Optional: locate me button logic
+  function locateMe() {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported.");
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    });
+  }
+</script>
+<style>
+  .cosmic-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a0f1c, #1b2138);
+    color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    overflow: hidden;
+    margin: 1rem;
+  }
+
+  .cosmic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 25, 40, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
+  }
+
+  .cosmic-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #8a2be2;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cosmic-btn {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cosmic-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 400px; /* Adjust height */
+    background: #111;
+    position: relative;
+  }
+
+  .cosmic-footer {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    background: rgba(20, 25, 40, 0.85);
+    border-top: 2px solid rgba(138, 43, 226, 0.6);
+  }
+</style>
+
+
+
+
+  <footer class="cosmic-footer">
+    <p>✨ Touch & drag to explore the universe ✨</p>
+  </footer>
+</section>
+
+  <!-- End Cosmic Badass Map Card -->
+
 
   <!-- Example 3D Card -->
   <div class="card">

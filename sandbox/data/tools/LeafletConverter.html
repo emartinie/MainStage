@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>KML to GeoJSON Previewer (with Groups)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    #controls { padding: 10px; background: #f0f0f0; }
+    #map { height: 80vh; }
+    select { margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <input type="file" id="fileInput" accept=".kml,.xml" />
+    <button id="saveBtn" disabled>Save as JSON</button>
+    <label>Filter group:</label>
+    <select id="groupFilter">
+      <option value="">All</option>
+    </select>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <script>
+    const map = L.map("map").setView([20, 0], 2);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    let currentGeoJSON = null;
+    let geoLayer = null;
+    const groupFilter = document.getElementById("groupFilter");
+
+    function kmlToGeoJSON(kmlText) {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(kmlText, "text/xml");
+      const geojson = { type: "FeatureCollection", features: [] };
+
+      function parsePlacemarks(node, group = "Ungrouped") {
+        const placemarks = node.getElementsByTagName("Placemark");
+        for (let pm of placemarks) {
+          const name = pm.getElementsByTagName("name")[0]?.textContent || "";
+          const desc = pm.getElementsByTagName("description")[0]?.textContent || "";
+          const point = pm.getElementsByTagName("Point")[0];
+
+          if (point) {
+            const coords = point.getElementsByTagName("coordinates")[0].textContent.trim().split(",");
+            geojson.features.push({
+              type: "Feature",
+              properties: { name, description: desc, group },
+              geometry: { type: "Point", coordinates: [parseFloat(coords[0]), parseFloat(coords[1])] }
+            });
+          }
+        }
+      }
+
+      function walkFolders(node, currentGroup = "Ungrouped") {
+        // Parse placemarks in this level
+        parsePlacemarks(node, currentGroup);
+
+        // Handle nested folders
+        const folders = node.getElementsByTagName("Folder");
+        for (let folder of folders) {
+          const folderName = folder.getElementsByTagName("name")[0]?.textContent || currentGroup;
+          walkFolders(folder, folderName);
+        }
+      }
+
+      walkFolders(xml);
+      return geojson;
+    }
+
+    function renderMap(geojson, filter = "") {
+      if (geoLayer) map.removeLayer(geoLayer);
+
+      geoLayer = L.markerClusterGroup();
+      L.geoJSON(geojson, {
+        filter: f => !filter || f.properties.group === filter,
+        pointToLayer: (feature, latlng) => L.marker(latlng),
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(
+            "<b>" + feature.properties.name + "</b><br>" +
+            (feature.properties.description || "") +
+            "<br><i>Group: " + feature.properties.group + "</i>"
+          );
+        }
+      }).addTo(geoLayer);
+
+      geoLayer.addTo(map);
+      if (geoLayer.getLayers().length > 0) {
+        map.fitBounds(geoLayer.getBounds());
+      }
+    }
+
+    document.getElementById("fileInput").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const kmlText = ev.target.result;
+        currentGeoJSON = kmlToGeoJSON(kmlText);
+
+        // Fill filter dropdown with groups
+        const groups = [...new Set(currentGeoJSON.features.map(f => f.properties.group))];
+        groupFilter.innerHTML = '<option value="">All</option>';
+        groups.forEach(g => {
+          const opt = document.createElement("option");
+          opt.value = g;
+          opt.textContent = g;
+          groupFilter.appendChild(opt);
+        });
+
+        renderMap(currentGeoJSON);
+        document.getElementById("saveBtn").disabled = false;
+      };
+      reader.readAsText(file);
+    });
+
+    groupFilter.addEventListener("change", () => {
+      if (currentGeoJSON) renderMap(currentGeoJSON, groupFilter.value);
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      if (!currentGeoJSON) return;
+      const blob = new Blob([JSON.stringify(currentGeoJSON, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "map.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

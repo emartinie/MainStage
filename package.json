@@ -2,7 +2,6 @@
   "name": "pwa-api-playground",
   "version": "1.0.0",
   "description": "Dev environment for testing API helpers and PWA features",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node test-tlv.js",
