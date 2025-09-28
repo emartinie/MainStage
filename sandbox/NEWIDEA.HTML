@@ -1,0 +1,139 @@
+<section class="mainstage-carousel">
+
+  <!-- Carousel wrapper -->
+  <div class="carousel-wrapper" style="position:relative; overflow:hidden; width:100%; max-width:600px; margin:0 auto;">
+    
+    <!-- Cards container -->
+    <div class="carousel-cards" style="display:flex; transition:transform 0.4s ease;">
+      
+      <!-- MainCard 1 -->
+      <div class="card main-card" style="min-width:100%; border-radius:12px; padding:20px; background:#1e1e2f; color:#fff;">
+        <h2>Main Card 1</h2>
+        <p>Welcome to your MainStage!</p>
+      </div>
+      
+      <!-- MapCard 1 -->
+      <div class="card map-card" style="min-width:100%; border-radius:12px; padding:0; overflow:hidden;">
+        <div id="map1" style="height:400px; width:100%; border-radius:12px;"></div>
+      </div>
+      
+      <!-- MainCard 2 -->
+      <div class="card main-card" style="min-width:100%; border-radius:12px; padding:20px; background:#1e1e2f; color:#fff;">
+        <h2>Main Card 2</h2>
+        <p>Another MainStage card!</p>
+      </div>
+      
+      <!-- MapCard 2 -->
+      <div class="card map-card" style="min-width:100%; border-radius:12px; padding:0; overflow:hidden;">
+        <div id="map2" style="height:400px; width:100%; border-radius:12px;"></div>
+      </div>
+
+    </div>
+    
+    <!-- Carousel controls -->
+    <button id="preBtn" style="position:absolute; top:50%; left:10px; transform:translateY(-50%); z-index:10;">◀</button>
+    <button id="nexBtn" style="position:absolute; top:50%; right:10px; transform:translateY(-50%); z-index:10;">▶</button>
+  </div>
+</section>
+
+<script>
+  // MainStage logic
+  const cards = document.querySelectorAll('.mainstage-card');
+  const takeStageButtons = document.querySelectorAll('.take-stage-btn');
+
+  takeStageButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.target.closest('.mainstage-card');
+      cards.forEach(c => c.classList.remove('on-stage'));
+      card.classList.add('on-stage');
+    });
+  });
+
+  // Carousel logic (optional)
+  const preBtn = document.querySelector('.prev-card');
+  const nexBtn = document.querySelector('.next-card');
+  let currentIndex = 0;
+
+  function showCard(idx) {
+    cards.forEach((c, i) => c.style.display = i === idx ? 'block' : 'none');
+  }
+
+  prev-Btn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    showCard(currentIndex);
+  });
+
+  next-Btn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    showCard(currentIndex);
+  });
+
+  // Initialize carousel
+  showCard(currentIndex);
+  // Carousel logic
+  const cardsContainer = document.querySelector(".carousel-cards");
+  const totalCards = cardsContainer.children.length;
+
+  document.getElementById("preBtn").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+    updateCarousel();
+  });
+
+  document.getElementById("nexBtn").addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % totalCards;
+    updateCarousel();
+  });
+
+  function updateCarousel() {
+    cardsContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Function to initialize map
+  function initMap(mapId) {
+    const map = L.map(mapId).setView([39.5, -98.35], 4);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const markers = L.markerClusterGroup();
+
+    fetch("HomeGroupsMap.geojson")
+      .then(res => res.json())
+      .then(data => {
+        data.features?.forEach((feature, idx) => {
+          const coords = feature.geometry?.coordinates;
+          if (!coords || coords.length < 2 || isNaN(coords[0]) || isNaN(coords[1])) {
+            console.warn`(Feature ${idx} missing valid coordinates, skipping.)`;
+            return;
+          }
+
+          const [lng, lat] = coords;
+          const marker = L.marker([lat, lng]);
+          const name = feature.properties?.Name || "Unnamed location";
+          marker.bindPopup`(<strong>${name}</strong>)`;
+          markers.addLayer(marker);
+        });
+
+        map.addLayer(markers);
+        if (markers.getLayers().length) map.fitBounds(markers.getBounds());
+      })
+      .catch(err => console.error("Error loading GeoJSON:", err));
+
+    return map;
+  }
+
+  // Initialize both MapCards
+  initMap("map1");
+  initMap("map2");
+
+  // Optional: swipe support (touch)
+  let startX = 0;
+  cardsContainer.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
+  cardsContainer.addEventListener("touchend", e => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (diff > 50) currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+    else if (diff < -50) currentIndex = (currentIndex + 1) % totalCards;
+    updateCarousel();
+  });
+</script>

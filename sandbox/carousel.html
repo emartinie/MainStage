@@ -22,10 +22,25 @@
       min-height: 300px;
     }
 
-    #map {
-      flex-grow: 1;
-      width: 100%;
+        /* Extra badass polish */
+    #bibleStage {
+      perspective: 1200px;
+      overflow: hidden;
     }
+    .bibleCard {
+      flex: 0 0 100%;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      backface-visibility: hidden;
+    }
+    .bibleCard.inactive {
+      opacity: 0;
+      transform: scale(0.9) rotateY(15deg);
+    }
+    .bibleCard.active {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+    }
+
 
 /* Optional: force the floating player to scale on small screens */
 .floating-player {
@@ -45,7 +60,7 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
-<main>
+
   <!-- Header -->
    <button id="installBtn" style="display:none;">
    📲 Install App
@@ -57,31 +72,26 @@
     </div>
     <div class="flex items-center gap-2">
   
-    <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
+    <button id="prevWeek" class="px-2 py-1 border rounded">&laquo;</button>
       <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
-      <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
+      <button id="nextWeek" class="px-2 py-1 border rounded">&raquo;</button>
     </div>
   </header>
 <div id="weekInfo"></div>
-<!-- Floating Player -->
-<!-- Hero/MainStage Card 2-->
-<section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
+<body class="bg-gray-900 flex flex-col items-center min-h-screen justify-center">
 
-  <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-  </marquee>
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek</p>
 
-    <!-- Floating Player -->
-    <div id="fp-hero-glass-root"></div>
-  </div>
-</section>
 <div id="fp-hero-glass-root"></div> 
+
+
+  <!-- Carousel Wrapper -->
+  <section id="bibleCarousel" class="relative w-full max-w-2xl">
+    
+    <!-- Stage -->
+    <div id="bibleStage" class="relative flex items-center justify-center bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col min-h-fit">
+      
+      <!-- Cards -->
+      <div class="bibleCard active flex items-center justify-center rounded-xl shadow-lg">
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
@@ -101,7 +111,7 @@
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
-  </div>
+ 
   <h2>AudioVisual Scriptures</h2>
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
@@ -122,8 +132,233 @@
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
-  </section>
+<section id="cardsContainer" class="space-y-6 mt-6">      </div>
 
+      <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg">
+      <!-- Begin Cosmic Badass Map Card -->
+  <section class="cosmic-card">
+  <header class="cosmic-header">
+    <h2>Map</h2>
+    <div class="toolbar" style="rounded-3xl shadow-2xl overflow-hidden">
+      <button id="locateBtn" class="cosmic-btn" onclick="locateMe()">📍 My Location</button>
+      <button id="searchBtn" class="cosmic-btn">🔍 Search</button>
+      <button id="filterBtn" class="cosmic-btn">⚙️ Filters</button>
+    </div>
+  </header>
+
+  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6">
+    <div id="map" style="height: 435px; width: 100%; rounded-3xl shadow-2xl overflow-hidden";"></div>
+  </div>
+  <footer class="cosmic-footer" style="rounded-3xl shadow-2xl overflow-hidden">
+    <p><img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">✨Explore the universe of like-hearted believers in-gathering the scattered!✨<img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">
+</p>
+  </footer>
+
+<!-- Leaflet CSS/JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster CSS + JS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+  />
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+  <script>
+(() => {
+
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
+
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
+        });
+
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+
+ // Optional: locate me button logic
+  function locateMe() {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported.");
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    });
+  }
+
+  // Dummy food layer
+  const foodLayer = L.layerGroup([
+    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
+    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
+    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
+  ]).addTo(map);
+
+  // Search
+  document.getElementById("searchBtn").addEventListener("click", async () => {
+    const query = prompt("Enter a place or address:");
+    if (!query) return;
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+ 
+      const data = await res.json();
+
+      if (data.length) {
+        const { lat, lon, display_name } = data[0];
+        const latLng = [parseFloat(lat), parseFloat(lon)];
+        map.setView(latLng, 14);
+        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+      } else {
+        alert("Place not found");
+      }
+    } catch (err) {
+      console.error("Search failed:", err);
+    }
+  });
+
+  // Filter (toggle layer)
+  let showFood = true;
+  document.getElementById("filterBtn").addEventListener("click", () => {
+    showFood = !showFood;
+    if (showFood) {
+      map.addLayer(foodLayer);
+    } else {
+      map.removeLayer(foodLayer)};
+    
+  });
+
+
+
+})(); // <-- this closes the IIFE wrapper   
+
+</script> 
+<style>
+  .cosmic-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a0f1c, #1b2138);
+    color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    overflow: hidden;
+    margin: 1rem;
+  }
+
+  .cosmic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 25, 40, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
+  }
+
+  .cosmic-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #8a2be2;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cosmic-btn {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cosmic-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 100%; /* Adjust height */
+    background: #111;
+    position: relative;
+  }
+
+  .cosmic-footer {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    background: rgba(20, 25, 40, 0.85);
+    border-top: 2px solid rgba(138, 43, 226, 0.6);
+  }
+</style>
+
+
+  <!-- End Cosmic Badass Map Card -->
+</section>
+
+      </div>
+
+      <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg">
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
@@ -186,86 +421,82 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
+  </section>      </div>
+    </div>
+
+    <!-- Controls -->
+    <button id="biblePrevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
+      ⬅️
+    </button>
+    <button id="bibleNextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
+      ➡️
+    </button>
   </section>
 
-<section>
-  <div class="card cosmic-map-card">
-    <div id="map" style="height: 500px; width: 100%;"></div>
-  </div>
-
-  <!-- Leaflet CSS/JS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet/dist/leaflet.css"
-  />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- MarkerCluster CSS + JS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
-  />
-  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-
   <script>
-    // Initialize map
-    const map = L.map("map").setView([39.5, -98.35], 4);
+const stage = document.getElementById(".bibleStage"); // your stage container
+const cards = document.querySelectorAll(".bibleCard");
+let activeIndex = 0;
 
-    // Base layer
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+function showCard(newIndex) {
+  const current = cards[activeIndex];
+  const next = cards[newIndex];
 
-    // Cluster group
-    const markers = L.markerClusterGroup();
+  // make current card inactive (absolute + faded)
+  current.classList.remove("active");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95");
 
-    // Load your GeoJSON
-    fetch("HomeGroupsMap.geojson")
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .then((data) => {
-        data.features.forEach((feature, idx) => {
-          const coordsStr = feature.properties.Coordinates;
-          if (!coordsStr) {
-            console.warn`(Feature ${idx} missing Coordinates)`;
-            return;
-          }
-          const coords = coordsStr.split(",").map(Number);
-          if (coords.length < 2) {
-            console.warn`(Feature ${idx} has invalid Coordinates)`;
-            return;
-          }
-          const [lon, lat] = coords;
+  // make next card active (normal flow + visible)
+  next.classList.add("active");
+  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
 
-          // Create marker using coordinates
-          const marker = L.marker([lat, lon]);
+  activeIndex = newIndex;
+}
 
-          // Bind popup (name + optional extra info)
-          marker.bindPopup(
-            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
-          );
 
-          markers.addLayer(marker);
-        });
+// Swipe support
+ 
+ 
+  let startX = 0;
+ 
 
-        // Add cluster group to map
-        map.addLayer(markers);
-      })
-      .catch((err) => console.error("Error loading GeoJSON:", err));
+  if (stage && cards.length) {
+    stage.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+
+    stage.addEventListener("touchend", e => {
+      const delta = e.changedTouches[0].clientX - startX;
+      if (delta > 50) activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+      else if (delta < -50) activeIndex = (activeIndex + 1) % cards.length;
+      updateActiveCard();
+    });
+
+    function updateActiveCard() {
+      cards.forEach((card, i) => card.classList.toggle("active", i === activeIndex));
+    }
+
+    // Initialize
+    updateActiveCard();
+  }
+ 
+// Init
+showCard(activeIndex);
+</script>
+
+document.getElementById("biblePrevBtn").addEventListener("click", () => {
+  const nextIndex = (activeIndex + 1) % cards.length;
+  showCard(nextIndex);
+});
+
+document.getElementById("bibleNextBtn").addEventListener("click", () => {
+  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+  showCard(prevIndex);
+});
+
   </script>
-</section>
-  <!-- Cards container for <div id="weekInfo"></div>-driven content -->
-  <main id="cardsContainer"></main>
-  </main>
+ 
 
-  <!-- Footer -->
+</main>
+<!-- Footer -->
   <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
     <div class="flex justify-center gap-2 p-2">
       <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
@@ -274,17 +505,6 @@
     </div>
     <p class="mt-2">&copy; 2025 HGBibleApp</p>
   </footer>
-    <!-- Scripts -->
-  <script src="js/mainStageLoader.js" defer></script>
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="app.js" defer></script>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
-<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
-<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
- 
-    <!-- debug Script -->
-  <script src="debug/FinalCosmicDebuggerNew.js" defer></script>  
-
   <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
@@ -353,7 +573,16 @@ function addSearchResetButton() {
     searchWrapper.appendChild(resetBtn); // append inside the flex container
 }
   </script>
-
-
+ 
+    <!-- Scripts -->
+  <script src="js/mainStageLoader.js" defer></script>
+  <script src="js/FloatingPlayerv-3.js" defer></script> 
+  <script src="app.js" defer></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
+<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
+<script>
+  console.log("✅ Script closed properly");
+</script>
 </body>
 </html>

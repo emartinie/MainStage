@@ -1,0 +1,787 @@
+new calendar card...
+
+
+
+
+<!-- Hero Calendar + Map Card -->
+<section id="calendarMapCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+
+  <!-- Header with next holy day -->
+  <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-gray-200">
+    Next Holy Day: <span id="nextHolyDayText">Loading...</span>
+  </h3>
+
+  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare</p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Places to Gather</p>
+
+  <!-- Inner Card -->
+  <div id="calendarCardInner" class="card">
+    <h3>Calendar</h3>
+    <div id="weekDisplay">Current Week:</div>
+    <div id="sabbathDisplay">Next Sabbath:</div>
+    <div id="feastDisplay">Next Feast:</div>
+  </div>
+
+  <!-- Calendar Filter Buttons -->
+  <div class="mt-3 flex gap-2 flex-wrap">
+    <button class="calendarFilterBtn px-2 py-1 border rounded" data-calendar="hillel">Hillel</button>
+    <button class="calendarFilterBtn px-2 py-1 border rounded" data-calendar="enochian">Enochian</button>
+    <button class="calendarFilterBtn px-2 py-1 border rounded" data-calendar="zedokian">Zedokian</button>
+    <button class="calendarFilterBtn px-2 py-1 border rounded" data-calendar="orthodox">Orthodox</button>
+    <button class="calendarFilterBtn px-2 py-1 border rounded" data-calendar="msChristian">MS Christian</button>
+  </div>
+
+  <!-- Google Map Container -->
+  <div id="map" class="mt-4 w-full h-80 rounded-lg border"></div>
+
+</section>
+
+<script>
+(async function() {
+  // --- Calendar Logic (same as before) ---
+  const calendars = {
+    hillel: [{ name: "Passover", date: "2025-04-13" }, { name: "Pentecost", date: "2025-06-01" }],
+    enochian: [{ name: "Enoch Feast", date: "2025-05-15" }],
+    zedokian: [{ name: "Zedokian Feast", date: "2025-07-20" }],
+    orthodox: [{ name: "Orthodox Easter", date: "2025-04-20" }],
+    msChristian: [{ name: "MS Christmas", date: "2025-12-25" }]
+  };
+
+  let currentCalendar = "hillel";
+
+  function formatDate(d) { return d.toISOString().split("T")[0]; }
+  function getNextFeast(calendar) {
+    const now = new Date();
+    const calFeasts = calendars[calendar];
+    return calFeasts.find(f => new Date(f.date) > now) || calFeasts[0];
+  }
+
+  function renderFeastCountdown() {
+    const feast = getNextFeast(currentCalendar);
+    const feastDate = new Date(feast.date + "T18:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = feastDate - now;
+      let text;
+      if (diff <= 0) {
+        text = ${feast.name} is today or over!;
+      } else {
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        text = ${days}d ${hours}h ${mins}m ${secs}s until ${feast.name};
+      }
+      document.getElementById("feastDisplay").innerText = text;
+      document.getElementById("nextHolyDayText").innerText = feast.name;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  function renderWeek() {
+    const start = new Date();
+    start.setDate(start.getDate() - start.getDay());
+    const week = Array.from({length:7}, (_,i) => { const d=new Date(start); d.setDate(start.getDate()+i); return d; });
+    document.getElementById("weekDisplay").innerHTML = "<strong>Week:</strong> "+week.map(d=>formatDate(d)).join(" • ");
+  }
+
+  function renderSabbath() {
+    const week = Array.from({length:7}, (_,i)=>{ const d=new Date(); d.setDate(d.getDate()-d.getDay()+i); return d; });
+    const sabbath = week.find(d=>d.getDay()===6);
+    const today = new Date();
+    document.getElementById("sabbathDisplay").innerHTML = <strong>Sabbath:</strong> ${formatDate(sabbath)} ${today.getDay()===6?"(Today!)":""};
+  }
+
+  document.querySelectorAll(".calendarFilterBtn").forEach(btn=>{
+    btn.addEventListener("click", ()=> {
+      currentCalendar = btn.dataset.calendar;
+      renderFeastCountdown();
+    });
+  });
+
+  renderWeek();
+  renderSabbath();
+  renderFeastCountdown();
+
+  // --- Google Map Logic ---
+  // Load your exported map points JSON file
+  const mapPoints = await fetch("mapPoints.json").then(res=>res.json());
+
+  function initMap() {
+    const center = { lat: 31.7683, lng: 35.2137 }; // Example: Jerusalem
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 5,
+      center
+    });
+
+    mapPoints.forEach(p=>{
+      const marker = new google.maps.Marker({
+        position: {lat:p.lat, lng:p.lng},
+        map,
+        title: p.name
+      });
+
+      const infoWindow = new google.maps.InfoWindow({
+        content: <strong>${p.name}</strong><br/>${p.info||""}
+      });
+
+      marker.addListener("click", ()=>infoWindow.open(map, marker));
+    });
+  }
+
+  window.initMap = initMap; // required by Google Maps API
+})();
+</script>
+
+<!-- Google Maps API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+
+
+
+
+
+<!-- Latest Cosmic Calendar Card -->
+<section id="calendarCard" 
+  class="relative border border-purple-400/40 rounded-3xl 
+         shadow-[0_0_30px_rgba(168,85,247,0.4)] 
+         bg-gradient-to-br from-gray-900/80 via-black/70 to-purple-900/60 
+         backdrop-blur-xl text-white p-6 mx-auto max-w-4xl 
+         transform transition-all duration-700 hover:scale-[1.04] 
+         hover:shadow-[0_0_60px_rgba(168,85,247,0.8)] overflow-hidden">
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline 
+    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-20 opacity-25 mix-blend-screen">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+  <!-- Shimmer overlay -->
+  <div class="absolute inset-0 rounded-3xl 
+              bg-[radial-gradient(circle_at_20%_30%,rgba(168,85,247,0.2),transparent_70%)] 
+              animate-[pulse_8s_infinite] -z-10"></div>
+
+  <!-- Header -->
+  <h3 class="text-2xl font-extrabold mb-3 text-center 
+             text-purple-300 tracking-widest drop-shadow-lg animate-pulse">
+    ✨ Next Holy Day: 
+    <span class="text-white">Trumpets (יוֹם תְּרוּעָה)</span>
+  </h3>
+
+  <!-- Dynamic content -->
+  <div class="space-y-3 text-center">
+    <p id="nextHolyDay" 
+       class="px-3 py-2 border border-purple-400/50 rounded-lg 
+              bg-black/40 text-purple-200 text-base shadow-md animate-fadeIn">
+       Countdown to Feast:
+       <span id="countdownTimer" class="font-mono text-xl text-pink-300">Loading...</span>
+    </p>
+    <p id="daysToPrepare" 
+       class="px-3 py-2 border border-pink-400/40 rounded-lg 
+              bg-black/40 text-pink-200 text-sm shadow-inner animate-bounce-slow">
+       Days to Prepare
+    </p>
+    <p id="locationHint" 
+       class="px-3 py-2 border border-indigo-400/40 rounded-lg 
+              bg-black/40 text-indigo-200 text-sm shadow-inner animate-fadeIn">
+       Places to Gather
+    </p>
+  </div>
+
+  <!-- Inner calendar -->
+  <div id="calendarCardInner" 
+       class="mt-5 p-4 rounded-xl 
+              bg-gradient-to-br from-black/60 via-gray-900/60 to-purple-800/40 
+              border border-purple-400/20 shadow-inner animate-breath">
+    <h4 class="text-lg font-semibold mb-2 text-purple-300">📅 Calendar</h4>
+    <div id="weekDisplay" class="text-sm mb-1 text-gray-200">Current Week:</div>
+    <div id="sabbathDisplay" class="text-sm mb-1 text-gray-200">Next Sabbath:</div>
+    <div id="feastDisplay" class="text-sm text-gray-200">Next Holy Day or holiday:</div>
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="mt-6 flex flex-wrap gap-3 justify-center">
+    <button id="filterHillel" class="cosmic-btn">Hillel</button>
+    <button id="filterEnochian" class="cosmic-btn">Enochian</button>
+    <button id="filterZedokian" class="cosmic-btn">Zedokian</button>
+    <button id="filterOrthodox" class="cosmic-btn">Orthodox</button>
+    <button id="filterMSChristian" class="cosmic-btn">MS Christian</button>
+  </div>
+</section>
+
+<!-- Tailwind Extras -->
+<style>
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes breath {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.02); opacity: 1; }
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-breath { animation: breath 6s infinite ease-in-out; }
+.animate-bounce-slow { animation: bounce-slow 4s infinite ease-in-out; }
+.cosmic-btn {
+  @apply px-4 py-2 text-sm font-semibold rounded-full border 
+         border-purple-400/40 bg-purple-700/30 text-purple-200 
+         hover:bg-purple-500/40 hover:text-white shadow-md 
+         transition-all duration-500 relative overflow-hidden;
+}
+.cosmic-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+  opacity: 0;
+}
+.cosmic-btn:hover::before {
+  opacity: 1;
+}
+</style>
+
+<!-- Countdown Script -->
+<script>
+function startCountdown(targetDate) {
+  const countdownEl = document.getElementById("countdownTimer");
+  
+  function update() {
+    const now = new Date();
+    const diff = targetDate - now;
+    
+    if (diff <= 0) {
+      countdownEl.textContent = "🎉 The Feast has arrived!";
+      clearInterval(timer);
+      return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    
+    countdownEl.textContent = 
+      ${days}d ${hours}h ${mins}m ${secs}s;
+  }
+  
+  update();
+  const timer = setInterval(update, 1000);
+}
+
+// Example: Feast of Trumpets on Oct 3, 2025, 6:00 PM
+startCountdown(new Date("2025-10-03T18:00:00"));
+</script>
+
+
+<!-- Cosmic Calendar Card -->
+<section id="calendarCard" 
+  class="relative border border-purple-400/40 rounded-3xl 
+         shadow-[0_0_30px_rgba(168,85,247,0.4)] 
+         bg-gradient-to-br from-gray-900/80 via-black/70 to-purple-900/60 
+         backdrop-blur-xl text-white p-6 mx-auto max-w-4xl 
+         transform transition-all duration-700 hover:scale-[1.04] 
+         hover:shadow-[0_0_60px_rgba(168,85,247,0.8)] overflow-hidden">
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline 
+    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-20 opacity-25 mix-blend-screen">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+  <!-- Shimmer overlay -->
+  <div class="absolute inset-0 rounded-3xl 
+              bg-[radial-gradient(circle_at_20%_30%,rgba(168,85,247,0.2),transparent_70%)] 
+              animate-[pulse_8s_infinite] -z-10"></div>
+
+  <!-- Header -->
+  <h3 class="text-2xl font-extrabold mb-3 text-center 
+             text-purple-300 tracking-widest drop-shadow-lg animate-pulse">
+    ✨ Next Holy Day: 
+    <span class="text-white">Trumpets (יוֹם תְּרוּעָה)</span>
+  </h3>
+
+  <!-- Dynamic content -->
+  <div class="space-y-3 text-center">
+    <p id="nextHolyDay" 
+       class="px-3 py-2 border border-purple-400/50 rounded-lg 
+              bg-black/40 text-purple-200 text-base shadow-md animate-fadeIn">
+       Countdown to Feast:
+       <span id="countdownTimer" class="font-mono text-xl text-pink-300">Loading...</span>
+    </p>
+    <p id="daysToPrepare" 
+       class="px-3 py-2 border border-pink-400/40 rounded-lg 
+              bg-black/40 text-pink-200 text-sm shadow-inner animate-bounce-slow">
+       Days to Prepare
+    </p>
+    <p id="locationHint" 
+       class="px-3 py-2 border border-indigo-400/40 rounded-lg 
+              bg-black/40 text-indigo-200 text-sm shadow-inner animate-fadeIn">
+       Places to Gather
+    </p>
+  </div>
+
+  <!-- Inner calendar -->
+  <div id="calendarCardInner" 
+       class="mt-5 p-4 rounded-xl 
+              bg-gradient-to-br from-black/60 via-gray-900/60 to-purple-800/40 
+              border border-purple-400/20 shadow-inner animate-breath">
+    <h4 class="text-lg font-semibold mb-2 text-purple-300">📅 Calendar</h4>
+    <div id="weekDisplay" class="text-sm mb-1 text-gray-200">Current Week:</div>
+    <div id="sabbathDisplay" class="text-sm mb-1 text-gray-200">Next Sabbath:</div>
+    <div id="feastDisplay" class="text-sm text-gray-200">Next Holy Day or holiday:</div>
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="mt-6 flex flex-wrap gap-3 justify-center">
+    <button id="filterHillel" class="cosmic-btn">Hillel</button>
+    <button id="filterEnochian" class="cosmic-btn">Enochian</button>
+    <button id="filterZedokian" class="cosmic-btn">Zedokian</button>
+    <button id="filterOrthodox" class="cosmic-btn">Orthodox</button>
+    <button id="filterMSChristian" class="cosmic-btn">MS Christian</button>
+  </div>
+</section>
+
+<!-- Tailwind Extras -->
+<style>
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes breath {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.02); opacity: 1; }
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-breath { animation: breath 6s infinite ease-in-out; }
+.animate-bounce-slow { animation: bounce-slow 4s infinite ease-in-out; }
+.cosmic-btn {
+  @apply px-4 py-2 text-sm font-semibold rounded-full border 
+         border-purple-400/40 bg-purple-700/30 text-purple-200 
+         hover:bg-purple-500/40 hover:text-white shadow-md 
+         transition-all duration-500 relative overflow-hidden;
+}
+.cosmic-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+  opacity: 0;
+}
+.cosmic-btn:hover::before {
+  opacity: 1;
+}
+</style>
+
+<!-- Countdown Script -->
+<script>
+function startCountdown(targetDate) {
+  const countdownEl = document.getElementById("countdownTimer");
+  
+  function update() {
+    const now = new Date();
+    const diff = targetDate - now;
+    
+    if (diff <= 0) {
+      countdownEl.textContent = "🎉 The Feast has arrived!";
+      clearInterval(timer);
+      return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    
+    countdownEl.textContent = 
+      ${days}d ${hours}h ${mins}m ${secs}s;
+  }
+  
+  update();
+  const timer = setInterval(update, 1000);
+}
+
+// Example: Feast of Trumpets on Oct 3, 2025, 6:00 PM
+startCountdown(new Date("2025-10-03T18:00:00"));
+</script>
+
+
+<!-- basic Calendar Card -->
+<section id="calendarCard" class="hero-card ...">
+  <video autoplay muted loop ...></video>
+  <h3>Next Holy Day: <span id="nextHolyDayText"></span></h3>
+
+  <div id="calendarCardInner" class="card">
+    <div id="weekDisplay"></div>
+    <div id="sabbathDisplay"></div>
+    <div id="feastDisplay"></div>
+    <div id="countdownDisplay"></div>
+  </div>
+
+  <div class="filters flex gap-2">
+    <button data-view="biblicalFeasts">Biblical Feasts</button>
+    <button data-view="otherReligions">Other Calendars</button>
+  </div>
+
+  <div id="feastDetails"></div>
+</section>
+
+
+<!-- next level Hero-style Calendar Card -->
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/firevideos.mp4" type="video/mp4">
+  </video>
+
+  <h3 class="text-xl font-bold mb-2 text-gray-200">
+    Next Holy Day: <span id="nextHolyDayText">Trumpets (Yom Teruah)</span>
+  </h3>
+
+  <!-- Card Inner -->
+  <div id="calendarCardInner" class="card bg-gray-800/70 p-4 rounded-lg space-y-2">
+    <div id="weekDisplay"></div>
+    <div id="sabbathDisplay"></div>
+    <div id="feastDisplay"></div>
+    <div id="countdownDisplay" class="text-lg font-mono"></div>
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="mt-3 flex gap-2 flex-wrap">
+    <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600" data-view="biblicalFeasts">Biblical Feasts</button>
+    <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600" data-view="otherReligions">Other Calendars</button>
+  </div>
+
+  <!-- Feast Details -->
+  <div id="feastDetails" class="mt-2 p-2 bg-gray-700 rounded max-h-60 overflow-y-auto"></div>
+
+</section>
+
+<script>
+(function() {
+  const feastData = {
+    biblicalFeasts: [
+      { name: "Passover", date: "2025-04-13", info: "Passover details..." },
+      { name: "Pentecost", date: "2025-06-01", info: "Pentecost details..." },
+      { name: "Trumpets", date: "2025-09-23", info: "Trumpets details..." },
+      { name: "Day of Atonement", date: "2025-10-02", info: "Day of Atonement details..." },
+      { name: "Feast of Tabernacles", date: "2025-10-07", info: "Feast of Tabernacles details..." },
+    ],
+    otherReligions: [
+      { name: "Gregorian Calendar Event", date: "2025-09-21", info: "Example event info..." },
+      { name: "Islamic Calendar Event", date: "2025-09-23", info: "Example event info..." }
+    ]
+  };
+
+  // Helpers
+  function formatDate(d) {
+    return d.toISOString().split("T")[0];
+  }
+  function getWeek(date = new Date()) {
+    const start = new Date(date);
+    start.setDate(date.getDate() - date.getDay());
+    return Array.from({length: 7}, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return d;
+    });
+  }
+
+  // Render Week
+  function renderWeek() {
+    const week = getWeek();
+    document.getElementById("weekDisplay").innerHTML =
+      "<strong>Week:</strong> " + week.map(d => formatDate(d)).join(" • ");
+  }
+
+  // Render Sabbath
+  function renderSabbath() {
+    const sabbath = getWeek().find(d => d.getDay() === 6);
+    const today = new Date();
+    document.getElementById("sabbathDisplay").innerHTML =
+      <strong>Sabbath:</strong> ${formatDate(sabbath)} ${today.getDay() === 6 ? "(Today!)" : ""};
+  }
+
+  // Render Feasts / Countdown
+  let countdownInterval = null;
+  function renderFeast(view = "biblicalFeasts") {
+    const nowStr = formatDate(new Date());
+    const feastList = feastData[view];
+    const nextFeast = feastList.find(f => f.date >= nowStr) || feastList[0];
+
+    document.getElementById("feastDisplay").innerHTML =
+      <strong>Next Feast:</strong> ${nextFeast.name} (${nextFeast.date});
+
+    // Render Details
+    const detailsDiv = document.getElementById("feastDetails");
+    detailsDiv.innerHTML = feastList.map(f => <div class="p-1 border-b">${f.name}: ${f.info}</div>).join("");
+
+    // Clear previous countdown
+    if(countdownInterval) clearInterval(countdownInterval);
+
+    // Start Countdown
+    function updateCountdown() {
+      const target = new Date(nextFeast.date + "T00:00:00");
+      const diff = target - new Date();
+      if(diff < 0) {
+        document.getElementById("countdownDisplay").innerText = "Today!";
+        return;
+      }
+      const days = Math.floor(diff/86400000);
+      const hours = Math.floor((diff%86400000)/3600000);
+      const mins = Math.floor((diff%3600000)/60000);
+      const secs = Math.floor((diff%60000)/1000);
+      document.getElementById("countdownDisplay").innerText =
+        Countdown: ${days}d ${hours}h ${mins}m ${secs}s;
+    }
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  // Filter Buttons
+  document.querySelectorAll(".filterBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      renderFeast(btn.dataset.view);
+    });
+  });
+
+  // Initial render
+  renderWeek();
+  renderSabbath();
+  renderFeast("biblicalFeasts");
+})();
+</script>
+
+<style>
+/* Simple card animations and styles */
+#calendarCardInner { transition: all 0.3s ease; }
+.filterBtn { transition: transform 0.2s ease, background 0.2s ease; }
+.filterBtn:hover { transform: scale(1.05); }
+#countdownDisplay { font-weight: bold; font-size: 1.2rem; }
+#feastDetails div:hover { background: rgba(255,255,255,0.1); cursor: pointer; }
+</style>
+
+
+<script>
+(function() {
+  const feastData = {
+    biblicalFeasts: [
+      { name: "Passover", date: "2025-04-13", info: "Passover details..." },
+      { name: "Pentecost", date: "2025-06-01", info: "Pentecost details..." },
+      { name: "Trumpets", date: "2025-09-23", info: "Trumpets details..." },
+      { name: "Day of Atonement", date: "2025-10-02", info: "Day of Atonement details..." },
+      { name: "Feast of Tabernacles", date: "2025-10-07", info: "Feast of Tabernacles details..." },
+    ],
+    otherReligions: [
+      { name: "Gregorian Calendar Event", date: "2025-09-21", info: "Example event info..." },
+      { name: "Islamic Calendar Event", date: "2025-09-23", info: "Example event info..." }
+    ]
+  };
+
+  function formatDate(d) { return d.toISOString().split("T")[0]; }
+  function getWeek(date = new Date()) {
+    const start = new Date(date);
+    start.setDate(date.getDate() - date.getDay());
+    return Array.from({length: 7}, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return d;
+    });
+  }
+
+  function renderWeek() {
+    const week = getWeek();
+    document.getElementById("weekDisplay").innerHTML =
+      "<strong>Week:</strong> " + week.map(d => formatDate(d)).join(" • ");
+  }
+
+  function renderSabbath() {
+    const sabbath = getWeek().find(d => d.getDay() === 6);
+    const today = new Date();
+    document.getElementById("sabbathDisplay").innerHTML =
+      <strong>Sabbath:</strong> ${formatDate(sabbath)} ${today.getDay() === 6 ? "(Today!)" : ""};
+  }
+
+  let countdownInterval = null;
+  function renderFeast(view = "biblicalFeasts") {
+    const nowStr = formatDate(new Date());
+    const feastList = feastData[view];
+    const nextFeast = feastList.find(f => f.date >= nowStr) || feastList[0];
+
+    document.getElementById("feastDisplay").innerHTML =
+      <strong>Next Feast:</strong> <span class="highlightFeast">${nextFeast.name} (${nextFeast.date})</span>;
+
+    const detailsDiv = document.getElementById("feastDetails");
+    detailsDiv.innerHTML = feastList.map(f => `
+      <div class="feastItem">
+        <div class="feastHeader">${f.name} (${f.date})</div>
+        <div class="feastInfo">${f.info}</div>
+      </div>
+    `).join("");
+
+    // Collapsible feast details
+    detailsDiv.querySelectorAll(".feastHeader").forEach(h => {
+      h.style.cursor = "pointer";
+      h.onclick = () => {
+        const info = h.nextElementSibling;
+        info.style.maxHeight = info.style.maxHeight ? null : info.scrollHeight + "px";
+      };
+    });
+
+    if(countdownInterval) clearInterval(countdownInterval);
+
+    function updateCountdown() {
+      const target = new Date(nextFeast.date + "T00:00:00");
+      const diff = target - new Date();
+      if(diff < 0) {
+        document.getElementById("countdownDisplay").innerText = "Today!";
+        return;
+      }
+      const days = Math.floor(diff/86400000);
+      const hours = Math.floor((diff%86400000)/3600000);
+      const mins = Math.floor((diff%3600000)/60000);
+      const secs = Math.floor((diff%60000)/1000);
+
+      // Flip animation effect
+      document.getElementById("countdownDisplay").innerHTML = `
+        Countdown: 
+        <span class="flip">${days}d</span> 
+        <span class="flip">${hours}h</span> 
+        <span class="flip">${mins}m</span> 
+        <span class="flip">${secs}s</span>
+      `;
+    }
+
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  document.querySelectorAll(".filterBtn").forEach(btn => {
+    btn.addEventListener("click", () => renderFeast(btn.dataset.view));
+  });
+
+  renderWeek();
+  renderSabbath();
+  renderFeast("biblicalFeasts");
+})();
+</script>
+
+<style>
+/* Highlight next feast */
+.highlightFeast { color: #ffd700; font-weight: bold; }
+
+/* Feast collapse animation */
+.feastItem { border-bottom: 1px solid #444; margin-bottom: 2px; }
+.feastInfo { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-left: 4px; }
+
+/* Flip countdown animation */
+.flip {
+  display: inline-block;
+  perspective: 200px;
+  margin: 0 2px;
+  background: rgba(255,255,255,0.1);
+  padding: 0 4px;
+  border-radius: 2px;
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+}
+.flip:hover { transform: rotateX(360deg); }
+
+/* Filter buttons hover */
+.filterBtn { transition: transform 0.2s ease, background 0.2s ease; }
+.filterBtn:hover { transform: scale(1.05); background: #555; }
+</style>
+
+
+<script>
+(function() {
+  // Example static feasts with approximate sunset start/end offsets (in hours)
+  const feasts = [
+    { name: "Passover", date: "2025-04-13", sunsetOffset: -6, info: "Passover details..." },
+    { name: "Pentecost", date: "2025-06-01", sunsetOffset: -6, info: "Pentecost details..." },
+    { name: "Trumpets", date: "2025-09-23", sunsetOffset: -6, info: "Trumpets details..." },
+    { name: "Day of Atonement", date: "2025-10-02", sunsetOffset: -6, info: "Day of Atonement details..." },
+    { name: "Feast of Tabernacles", date: "2025-10-07", sunsetOffset: -6, info: "Feast of Tabernacles details..." }
+  ];
+
+  function formatDate(d) { return d.toISOString().split("T")[0]; }
+  
+  // Calculate sunset-based start/end for each feast
+  function getSunsetDate(feast) {
+    const d = new Date(feast.date + "T18:00:00"); // 18:00 = rough sunset
+    d.setHours(d.getHours() + feast.sunsetOffset); // adjust if needed
+    return d;
+  }
+
+  function renderFeastCountdown() {
+    const now = new Date();
+    const upcomingFeast = feasts.find(f => getSunsetDate(f) > now) || feasts[0];
+    const feastStart = getSunsetDate(upcomingFeast);
+    const feastEnd = new Date(feastStart);
+    feastEnd.setDate(feastEnd.getDate() + 1); // ends next sunset
+
+    function updateCountdown() {
+      const diff = feastStart - new Date();
+      let countdownText;
+      if(diff <= 0 && new Date() < feastEnd) {
+        countdownText = "Feast Today!";
+      } else if(diff <= 0) {
+        countdownText = "Feast Over";
+      } else {
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        countdownText = ${days}d ${hours}h ${mins}m ${secs}s until ${upcomingFeast.name};
+      }
+      document.getElementById("feastDisplay").innerText = countdownText;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  function renderWeek() {
+    const start = new Date();
+    start.setDate(start.getDate() - start.getDay());
+    const week = Array.from({length: 7}, (_, i) => {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      return d;
+    });
+    document.getElementById("weekDisplay").innerHTML =
+      "<strong>Week:</strong> " + week.map(d => formatDate(d)).join(" • ");
+  }
+
+  function renderSabbath() {
+    const week = Array.from({length: 7}, (_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - d.getDay() + i);
+      return d;
+    });
+    const sabbath = week.find(d => d.getDay() === 6);
+    const today = new Date();
+    document.getElementById("sabbathDisplay").innerHTML =
+      <strong>Sabbath:</strong> ${formatDate(sabbath)} ${today.getDay() === 6 ? "(Today!)" : ""};
+  }
+
+  renderWeek();
+  renderSabbath();
+  renderFeastCountdown();
+})();
+</script>
+
+

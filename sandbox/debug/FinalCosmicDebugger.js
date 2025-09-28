@@ -180,7 +180,7 @@
     // ignore when typing in inputs
     const active = document.activeElement;
     if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) return;
-    if (e.ctrlKey && e.key && e.key.toLowerCase() === "m") {
+    if (e.ctrlKey && e.key && e.key.toLowerCase() === "M") {
       toggleDebugger();
     }
   });

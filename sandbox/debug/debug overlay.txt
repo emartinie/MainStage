@@ -1,0 +1,41 @@
+/* debug overlay */
+  #debug-overlay{position:fixed;right:18px;top:18px;width:340px;max-height:77vh;overflow:hidden;background:rgba(6,10,18,0.75);border-radius:10px;padding:8px;z-index:10000;color:#dfeffc;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+  #debug-overlay header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  #debugOverlayLogs{height:280px;overflow:auto;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.007));padding:8px;border-radius:6px}
+  .dbg-row{font-family:monospace;font-size:12px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.01)}
+  .dbg-level-info{color:#bfe1ff}
+  .dbg-level-warn{color:#ffe59a}
+  .dbg-level-error{color:#ff9b9b}
+  .dbg-controls{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+  .dbg-controls button{background:#0f1724;border:1px solid rgba(255,255,255,0.04);color:#dff2ff;padding:6px;border-radius:6px;cursor:pointer}
+  /* small helpers */
+  .small{font-size:12px;color:#9fbcd9}
+  @media (max-width:520px){ #debug-overlay{width:92vw;left:4vw;right:4vw;top:10px} .fp-player{--size:150px} .fp-player.expanded{width:calc(100% - 2rem);right:1rem;transform:none} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="meta">
+        <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#18304b,#1a2f4a);display:flex;align-items:center;justify-content:center;font-weight:700">HG</div>
+        <div>
+          <h1>HGBibleApp — Sandbox</h1>
+          <p>Cosmic testbed — player + debugging. Everything you need to iterate fast.</p>
+        </div>
+        <div style="margin-left:auto" class="chip">Sandbox</div>
+      </div>
+
+      <div style="margin-top:18px" id="fp-hero-glass-root" aria-hidden="false"></div>
+
+      <div style="margin-top:22px;display:flex;gap:12px">
+        <button id="emit-sample" class="fp-btn">Emit sample playlist</button>
+        <button id="emit-toggle" class="fp-btn">Toggle play (player:togglePlay)</button>
+        <button id="dump-log" class="fp-btn">Download logs</button>
+      </div>
+    </section>
+
+    <section style="margin-top:26px">
+      <h3 style="margin:0 0 8px">Notes</h3>
+      <p class="small">This sandbox normalizes playlist data and dispatches it to the floating player with the event <code>player:updatePlaylist</code>. Use the debug overlay on the top-right to see logs, errors, and loaded resources.</p>
+    </section>

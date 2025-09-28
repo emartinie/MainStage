@@ -1,0 +1,46 @@
+/* badass.css */
+
+/* Reusable card base */
+.badass-card {
+  border-radius: 1rem;
+  background: rgba(20, 20, 30, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.badass-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.6);
+}
+
+/* Glowing text */
+.badass-glow {
+  color: #00ffc8;
+  text-shadow: 0 0 8px #00ffc8, 0 0 16px rgba(0, 255, 200, 0.7);
+}
+
+/* Gradient button */
+.badass-btn {
+  background: linear-gradient(135deg, #00ffc8, #0088ff);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.badass-btn:hover {
+  background: linear-gradient(135deg, #00ff88, #00bbff);
+  transform: translateY(-2px);
+}
+
+/* Pulse animation */
+@keyframes badass-pulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 200, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(0, 255, 200, 0.9); }
+}
+
+.badass-pulse {
+  animation: badass-pulse 2s infinite;
+}

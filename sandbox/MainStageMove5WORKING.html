@@ -57,31 +57,24 @@
     </div>
     <div class="flex items-center gap-2">
   
-    <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
+    <button id="prevWeek" class="px-2 py-1 border rounded">&laquo;</button>
       <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
-      <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
+      <button id="nextWeek" class="px-2 py-1 border rounded">&raquo;</button>
     </div>
   </header>
 <div id="weekInfo"></div>
-<!-- Floating Player -->
-<!-- Hero/MainStage Card 2-->
-<section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
+<body class="bg-gray-900 flex flex-col items-center min-h-screen justify-center">
+<!-- Navigation -->
+    <div class="flex items-center gap-2 justify-center"> 
+  <button id="prevBtn2" class="px-4 py-2 bg-blue-600 rounded" style="float: left;">&laquo; Prev</button>
+  <button id="nextBtn2" class="px-4 py-2 bg-blue-600 rounded" style="float: right;">Next &raquo;</button>
+</div>
 
-  <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-  </marquee>
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek</p>
-
-    <!-- Floating Player -->
-    <div id="fp-hero-glass-root"></div>
-  </div>
-</section>
+<!-- Placeholder cards -->
+<div id="MainCard" class="card">
 <div id="fp-hero-glass-root"></div> 
+
+
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
@@ -101,7 +94,7 @@
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
-  </div>
+ 
   <h2>AudioVisual Scriptures</h2>
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
@@ -122,8 +115,13 @@
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
-  </section>
+<section id="cardsContainer" class="space-y-6 mt-6"></section>
 
+  </div>
+
+
+
+<div id="CalendarCard" class="card">
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
@@ -187,13 +185,25 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
   </section>
-
+</div>
+<div id="MapCard" class="card">
 <section>
-  <div class="card cosmic-map-card">
-    <div id="map" style="height: 500px; width: 100%;"></div>
+<!-- Begin Cosmic Badass Map Card -->
+<section class="cosmic-card">
+  <header class="cosmic-header">
+    <h2>Map</h2>
+    <div class="toolbar">
+      <button class="cosmic-btn" onclick="locateMe()">📍 My Location</button>
+      <button class="cosmic-btn">🔍 Search</button>
+      <button class="cosmic-btn">⚙️ Filters</button>
+    </div>
+  </header>
+
+  <div id="cosmic-map" class="map-placeholder">
+    <div id="map" style="w-full h-96 rounded-3xl shadow-2xl overflow-hidden""></div>
   </div>
 
-  <!-- Leaflet CSS/JS -->
+<!-- Leaflet CSS/JS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet/dist/leaflet.css"
@@ -259,13 +269,159 @@
         map.addLayer(markers);
       })
       .catch((err) => console.error("Error loading GeoJSON:", err));
-  </script>
-</section>
-  <!-- Cards container for <div id="weekInfo"></div>-driven content -->
-  <main id="cardsContainer"></main>
-  </main>
 
-  <!-- Footer -->
+  // Optional: locate me button logic
+  function locateMe() {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported.");
+      return;
+    }
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    });
+  }
+</script>
+<style>
+  .cosmic-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a0f1c, #1b2138);
+    color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    overflow: hidden;
+    margin: 1rem;
+  }
+
+  .cosmic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 25, 40, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
+  }
+
+  .cosmic-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #8a2be2;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cosmic-btn {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cosmic-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 400px; /* Adjust height */
+    background: #111;
+    position: relative;
+  }
+
+  .cosmic-footer {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    background: rgba(20, 25, 40, 0.85);
+    border-top: 2px solid rgba(138, 43, 226, 0.6);
+  }
+</style>
+
+
+
+
+  <footer class="cosmic-footer">
+    <p>✨ Touch & drag to explore the universe ✨</p>
+  </footer>
+</section>
+
+  <!-- End Cosmic Badass Map Card -->
+
+ </div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cardIds = ["MainCard", "CalendarCard", "MapCard"];
+  const cards = cardIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  if (!cards.length) return;
+
+  let currentIndex = 0;
+
+  const transitions = [
+    "translate-x-20",
+    "-translate-x-20",
+    "translate-y-20",
+    "-translate-y-20",
+    "rotate-12",
+    "-rotate-12",
+    "scale-90"
+  ];
+
+  function showCard(index) {
+    cards.forEach((card, i) => {
+      if (i === index) {
+        const randomClass = transitions[Math.floor(Math.random() * transitions.length)];
+
+        // Reset classes
+        card.classList.remove(...transitions);
+        card.classList.add(randomClass, "opacity-0", "scale-90");
+
+        // Force reflow
+        void card.offsetWidth;
+
+        // Animate in
+        card.classList.add("transition-all", "duration-700");
+        card.classList.remove("opacity-0", "scale-90", randomClass);
+      } else {
+        card.classList.add("opacity-0", "scale-90");
+      }
+    });
+
+    currentIndex = index;
+  }
+
+  document.getElementById("prevBtn2").addEventListener("click", () => {
+    const nextIndex = (currentIndex - 1 + cards.length) % cards.length;
+    showCard(nextIndex);
+  });
+
+  document.getElementById("nextBtn2").addEventListener("click", () => {
+    const nextIndex = (currentIndex + 1) % cards.length;
+    showCard(nextIndex);
+  });
+
+  // Initial display
+  showCard(0);
+});
+</script>
+<!-- Footer -->
   <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
     <div class="flex justify-center gap-2 p-2">
       <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
@@ -274,17 +430,6 @@
     </div>
     <p class="mt-2">&copy; 2025 HGBibleApp</p>
   </footer>
-    <!-- Scripts -->
-  <script src="js/mainStageLoader.js" defer></script>
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="app.js" defer></script>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
-<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
-<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
- 
-    <!-- debug Script -->
-  <script src="debug/FinalCosmicDebuggerNew.js" defer></script>  
-
   <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
@@ -353,7 +498,14 @@ function addSearchResetButton() {
     searchWrapper.appendChild(resetBtn); // append inside the flex container
 }
   </script>
-
+    <!-- Scripts -->
+    <!-- Scripts -->
+  <script src="js/mainStageLoader.js" defer></script>
+  <script src="js/FloatingPlayerv-3.js" defer></script> 
+  <script src="app.js" defer></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
+<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
 
 </body>
 </html>

@@ -1,0 +1,15 @@
+<script>
+  fetch("HomeGroupsMap.geojson")
+    .then(response => {
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return response.json();
+    })
+    .then(data => {
+      L.geoJSON(data, {
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(feature.properties.name || "Unnamed location");
+        }
+      }).addTo(map);
+    })
+    .catch(err => console.error("Error loading GeoJSON:", err));
+</script>
