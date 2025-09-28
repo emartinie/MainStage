@@ -71,7 +71,14 @@
       <h1 class="text-xl font-bold"> </h1>
     </div>
     <div class="flex items-center gap-2">
-  
+      <!-- Controls -->
+    <button id="biblePrevBtn" class="px-2 left-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
+      ⬅️
+    </button>
+<p>Stage</p>
+    <button id="bibleNextBtn" class="px-2 right-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
+      ➡️
+    </button>
     <button id="prevWeek" class="px-2 py-1 border rounded">&laquo;</button>
       <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
       <button id="nextWeek" class="px-2 py-1 border rounded">&raquo;</button>
@@ -86,12 +93,13 @@
 
   <!-- Carousel Wrapper -->
   <section id="bibleCarousel" class="relative w-full max-w-2xl">
+
     
     <!-- Stage -->
     <div id="bibleStage" class="relative flex items-center justify-center bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col min-h-fit">
       
       <!-- Cards -->
-      <div class="bibleCard active flex items-center justify-center rounded-xl shadow-lg">
+      <div class="bibleCard active flex items-center justify-center rounded-xl shadow-lg flex flex-col">
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
@@ -118,13 +126,13 @@
   <!-- Scripture Popup -->
   <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <iframe id="verseIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
+  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50 flex flex-col">Close</button>
   </div>
 
   <!-- Video Popup -->
   <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
+  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50 flex flex-col">Close</button>
   </div>
     <h2>Chapter Outlines</h2>
   <!-- Chapter Outlines (under playlist) -->
@@ -146,8 +154,8 @@
     </div>
   </header>
 
-  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6">
-    <div id="map" style="height: 435px; width: 100%; rounded-3xl shadow-2xl overflow-hidden";"></div>
+  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6flex flex-col">
+    <div id="map" style="height: 435px; width: 100%; rounded-3xl shadow-2xl overflow-hidden z-0 flex flex-col";"></div>
   </div>
   <footer class="cosmic-footer" style="rounded-3xl shadow-2xl overflow-hidden">
     <p><img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">✨Explore the universe of like-hearted believers in-gathering the scattered!✨<img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">
@@ -240,6 +248,8 @@
     });
   }
 
+<!--
+
   // Dummy food layer
   const foodLayer = L.layerGroup([
     L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
@@ -282,7 +292,7 @@
     
   });
 
-
+-->
 
 })(); // <-- this closes the IIFE wrapper   
 
@@ -358,7 +368,7 @@
 
       </div>
 
-      <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg">
+      <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex flex-col">
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
@@ -367,11 +377,12 @@
   </video>
 
   <h3 class="text-xl font-bold mb-2">Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
-  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Days: 10</p>
+  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Remaining Days: 10</p>
   <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
-  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues</p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues, churches, HomeGroups</p>
 
   <!-- Inner Calendar -->
+<p>Calculating...</p>
   <div id="calendarCardInner" class="card mt-4 bg-gray-800/70 rounded-xl p-4 backdrop-blur-sm">
     <div class="flex gap-2 flex-wrap mb-3">
       <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white active" data-tab="weekTab">Week</button>
@@ -382,16 +393,28 @@
 
     <div class="tabContent" id="weekTab">
       <h4 class="font-semibold mb-2">Current Week</h4>
-      <p>Sun 09/22 • Mon 09/23 • Tue 09/24 • Wed 09/25 • Thu 09/26 • Fri 09/27 • Sat 09/28</p>
+      <p>Sun 09/29 • Mon 09/30 • Tue 09/31 • Wed 10/01 • Thu 10/02 • Fri 10/03 • Sat 10/04</p>
     </div>
-
-    <div class="tabContent hidden" id="sabbathTab">
+      <p></p>
+    <div class="tabContent" id="sabbathTab">
       <h4 class="font-semibold mb-2">Next Sabbath</h4>
       <p>Saturday, 09/28 - Starts Friday sunset, ends Saturday sunset</p>
     </div>
+      <p></p>    
+    <div class="tabContent" id="feastsTab">
+      <h4 class="font-bold mb-2">Biblical Feasts- Here is a breakdown of the upcoming holidays:</h4>
+      <p></p>
+      <h3 class="font-semibold mb-2">Sukkot (Feast of Tabernacles/Booths):</h3>
+      <h2>Begins the evening of October 6, 2025, and ends the evening of October 13, 2025. This is a harvest festival where people build temporary "sukkah" booths to commemorate the Israelites' wandering in the wilderness.</h2> 
+      <p></p>
+      <h3 class="font-semibold mb-2">Shemini Atzeret/Simchat Torah:</h3>
+      <h2>Follows Sukkot, beginning the evening of October 13, 2025. Shemini Atzeret marks the end of the holiday of Sukkot, while Simchat Torah celebrates the completion of the annual Torah reading cycle.</h2>
+      <p></p>
+      <h3 class="font-semibold mb-2">Hanukkah (Feast of Dedication):</h3>
+      <h2>This Biblical festival (mentioned in the New Testament and apocrypha) is celebrated in the winter usually around the pagan christmas holiday. For 2025, Hanukkah will begin the evening of December 14 and last until the evening of December 22, 2025.</h2>
+        <p></p>
+  
 
-    <div class="tabContent hidden" id="feastsTab">
-      <h4 class="font-semibold mb-2">Biblical Feasts</h4>
       <ul class="list-disc pl-5">
         <li>Next Feast - Trumpets - Sept. 23rd Sundown</li>
         <li>Passover - 04/13/2025</li>
@@ -403,8 +426,9 @@
         <li>Last Great Day - 10/14/2025</li>
       </ul>
     </div>
+      <p></p>
 
-    <div class="tabContent hidden" id="otherTab">
+    <div class="tabContent" id="otherTab">
       <h4 class="font-semibold mb-2">Other Religious Observances</h4>
       <ul class="list-disc pl-5">
         <li>Ramadan - 04/02/2025</li>
@@ -413,6 +437,7 @@
         <li>Christmas - 12/25/2025</li>
       </ul>
     </div>
+      <p></p>
 
     <div class="mt-3 flex gap-2 flex-wrap">
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
@@ -421,20 +446,88 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
+      <p></p>
+
+<div class="mini-calendar-container">
+        <div class="calendar-header">
+            <h2>September 2025</h2>
+        </div>
+        <table class="calendar-table w-full">
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="empty"></td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>15</td>
+                    <td>16</td>
+                    <td>17</td>
+                    <td>18</td>
+                    <td>19</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>22</td>
+                    <td>23</td>
+                    <td>24</td>
+                    <td>25</td>
+                    <td>26</td>
+                    <td>27</td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td>29</td>
+                    <td>30</td>
+                    <td class="empty"></td>
+                    <td class="empty"></td>
+                    <td class="empty"></td>
+                    <td class="empty"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+      <p></p>
+
+    <div class="tabContent" id="otherTab">
+      <h4 class="font-semibold mb-2">Current Moon Phase:</h4>
+      <ul class="list-disc pl-5">
+        <li><img src="https://github.com/ngocjohn/lunar-phase/blob/main/assets/lunar-default.png" alt="Description"></li>
+      <p></p>
+
   </section>      </div>
     </div>
 
-    <!-- Controls -->
-    <button id="biblePrevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
-      ⬅️
-    </button>
-    <button id="bibleNextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
-      ➡️
-    </button>
+
   </section>
 
   <script>
-const stage = document.getElementById(".bibleStage"); // your stage container
 const cards = document.querySelectorAll(".bibleCard");
 let activeIndex = 0;
 
@@ -452,35 +545,6 @@ function showCard(newIndex) {
 
   activeIndex = newIndex;
 }
-
-
-// Swipe support
- 
- 
-  let startX = 0;
- 
-
-  if (stage && cards.length) {
-    stage.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-
-    stage.addEventListener("touchend", e => {
-      const delta = e.changedTouches[0].clientX - startX;
-      if (delta > 50) activeIndex = (activeIndex - 1 + cards.length) % cards.length;
-      else if (delta < -50) activeIndex = (activeIndex + 1) % cards.length;
-      updateActiveCard();
-    });
-
-    function updateActiveCard() {
-      cards.forEach((card, i) => card.classList.toggle("active", i === activeIndex));
-    }
-
-    // Initialize
-    updateActiveCard();
-  }
- 
-// Init
-showCard(activeIndex);
-</script>
 
 document.getElementById("biblePrevBtn").addEventListener("click", () => {
   const nextIndex = (activeIndex + 1) % cards.length;
