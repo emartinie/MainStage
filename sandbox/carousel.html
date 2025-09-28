@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -58,20 +59,17 @@
 
   </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-screen">
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
 
   <!-- Header -->
-   <button id="installBtn" style="display:none;">
-   📲 Install App
-    </button> 
-  <header class="sticky top-0 z-50  flex justify-between items-left px-4 py-2 bg-gray-900/80 backdrop-blur-sm py-2 shadow-inner flex flex-col">
+  <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-      <h1 class="text-xl font-bold"> </h1>
+      <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
     </div>
-    <div class="flex items-center gap-2 flex flex-col">
-      <!-- Controls -->
+    <button id="installBtn" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" style="display:none;">📲 Install App</button>
+<!-- Controls -->
     <button id="biblePrevBtn" class="px-2 left-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
       ⬅️
     </button>
@@ -84,6 +82,7 @@
       <button id="nextWeek" class="px-2 py-1 border rounded">&raquo;</button>
     </div>
   </header>
+      
 <div id="weekInfo"></div>
 <body class="bg-gray-900 flex flex-col items-center min-h-screen justify-center">
 
@@ -92,11 +91,11 @@
 
 
   <!-- Carousel Wrapper -->
-  <section id="bibleCarousel" class="relative w-full max-w-2xl">
+  <section id="bibleCarousel" class="relative">
 
     
     <!-- Stage -->
-    <div id="bibleStage" class="relative flex items-center justify-center bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col min-h-fit">
+    <div id="bibleStage" class="relative flex items-center justify-center rounded-xl shadow-lg flex flex-col">
       
       <!-- Cards -->
       <div class="bibleCard active flex items-center justify-center rounded-xl shadow-lg flex flex-col">
@@ -527,36 +526,80 @@
 
   </section>
 
-  <script>
+<script>
 const cards = document.querySelectorAll(".bibleCard");
 let activeIndex = 0;
 
+// Utility: update active card
 function showCard(newIndex) {
+  if (newIndex === activeIndex) return;
+
   const current = cards[activeIndex];
   const next = cards[newIndex];
 
-  // make current card inactive (absolute + faded)
+  // reset current
   current.classList.remove("active");
-  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
 
-  // make next card active (normal flow + visible)
+  // activate next
   next.classList.add("active");
   next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
 
   activeIndex = newIndex;
 }
 
+// Prev/Next button logic
 document.getElementById("biblePrevBtn").addEventListener("click", () => {
-  const nextIndex = (activeIndex + 1) % cards.length;
-  showCard(nextIndex);
-});
-
-document.getElementById("bibleNextBtn").addEventListener("click", () => {
   const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
   showCard(prevIndex);
 });
 
-  </script>
+document.getElementById("bibleNextBtn").addEventListener("click", () => {
+  const nextIndex = (activeIndex + 1) % cards.length;
+  showCard(nextIndex);
+});
+
+// Touch/swipe support
+let startX = 0;
+const stage = document.getElementById("bibleStage");
+
+stage.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+stage.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      // swipe right = prev
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      showCard(prevIndex);
+    } else {
+      // swipe left = next
+      const nextIndex = (activeIndex + 1) % cards.length;
+      showCard(nextIndex);
+    }
+  }
+});
+</script>
+
+<!-- 🌌 Cosmic Badass Section -->
+<div class="cosmic-badass">
+  <div class="cosmic-card cosmic-orbit">
+    <h3>Torah Study</h3>
+    <p>Weekly Parashah outline with deep insights.</p>
+  </div>
+  <div class="cosmic-card cosmic-orbit">
+    <h3>Prophets</h3>
+    <p>Messianic connections through the Prophets.</p>
+  </div>
+  <div class="cosmic-card cosmic-orbit">
+    <h3>Writings</h3>
+    <p>Wisdom literature and hidden gems.</p>
+  </div>
+</div>
  
 
 </main>
