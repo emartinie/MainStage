@@ -65,12 +65,12 @@
    <button id="installBtn" style="display:none;">
    📲 Install App
     </button> 
-  <header class="sticky top-0 z-50  flex justify-between items-left px-4 py-2 bg-gray-900/80 backdrop-blur-sm py-2 shadow-inner">
+  <header class="sticky top-0 z-50  flex justify-between items-left px-4 py-2 bg-gray-900/80 backdrop-blur-sm py-2 shadow-inner flex flex-col">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
       <h1 class="text-xl font-bold"> </h1>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 flex flex-col">
       <!-- Controls -->
     <button id="biblePrevBtn" class="px-2 left-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
       ⬅️
@@ -124,7 +124,7 @@
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
   <!-- Scripture Popup -->
-  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 flex flex-col">
   <iframe id="verseIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
   <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50 flex flex-col">Close</button>
   </div>
@@ -136,7 +136,7 @@
   </div>
     <h2>Chapter Outlines</h2>
   <!-- Chapter Outlines (under playlist) -->
-    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"></div>
+    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100% flex flex-col"></div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100% flex flex-col">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg flex flex-col"></iframe>
     </div>
@@ -154,11 +154,11 @@
     </div>
   </header>
 
-  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6flex flex-col">
+  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6 flex flex-col">
     <div id="map" style="height: 435px; width: 100%; rounded-3xl shadow-2xl overflow-hidden z-0 flex flex-col";"></div>
   </div>
-  <footer class="cosmic-footer" style="rounded-3xl shadow-2xl overflow-hidden">
-    <p><img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">✨Explore the universe of like-hearted believers in-gathering the scattered!✨<img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">
+  <footer class="cosmic-footer" style="rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+    <p><img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">✨Explore the universe of like-hearted believers in-gathering the scattered!✨<img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2 flex flex-col">
 </p>
   </footer>
 
@@ -370,7 +370,7 @@
 
       <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex flex-col">
 <!-- Cosmic Badass Calendar Card -->
-<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl flex flex-col">
   <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
@@ -561,7 +561,7 @@ document.getElementById("bibleNextBtn").addEventListener("click", () => {
 
 </main>
 <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
+  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner flex flex-col">
     <div class="flex justify-center gap-2 p-2">
       <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
       <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
