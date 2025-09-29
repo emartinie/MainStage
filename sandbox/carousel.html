@@ -6,13 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#4a5568">
-  <title>Sandbox-Bible MainStage</title>
+  <title>SANDBOX-Bible MainStage</title>
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
   <link rel="stylesheet" href="css/cosmicbadass.css">
   <link rel="stylesheet" href="css/styles.css">
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<!-- MarkerCluster CSS + JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
   <script src="https://cdn.tailwindcss.com"></script>
+
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script> 
   
   <style>
     .cosmic-card {
@@ -28,23 +33,19 @@
       perspective: 1200px;
       overflow: hidden;
     }
-
-.bibleCard {
-  @apply absolute top-0 left-0 w-full h-full 
-         opacity-0 scale-95 
-         transition-all duration-500 ease-in-out
-         pointer-events-none; /* prevent clicks on hidden cards */
-}
-
-.bibleCard.active {
-  @apply relative opacity-100 scale-100
-         pointer-events-auto; /* enable interaction */
-}
-    
+    .bibleCard {
+      flex: 0 0 100%;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      backface-visibility: hidden;
+    }
     .bibleCard.inactive {
       opacity: 0;
       transform: scale(0.9) rotateY(15deg);
-}
+    }
+    .bibleCard.active {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+    }
 
 
 /* Optional: force the floating player to scale on small screens */
@@ -54,7 +55,6 @@
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  z-index: 9999;
 }
 
     /* Optional bounce animation for hero card */
@@ -67,7 +67,7 @@
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2">
+  <header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2">
     <div class="flex items-center gap-2">
       <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
       <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
@@ -106,7 +106,7 @@
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
   </video>
 
@@ -127,15 +127,15 @@
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
   <!-- Scripture Popup -->
-  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 flex flex-col">
+  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center flex flex-col">
   <iframe id="verseIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50 flex flex-col">Close</button>
+  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white flex flex-col">Close</button>
   </div>
 
   <!-- Video Popup -->
-  <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50 flex flex-col">Close</button>
+  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white flex flex-col">Close</button>
   </div>
     <h2>Chapter Outlines</h2>
   <!-- Chapter Outlines (under playlist) -->
@@ -143,45 +143,53 @@
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100% flex flex-col">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg flex flex-col"></iframe>
     </div>
-<section id="cardsContainer" class="space-y-6 mt-6">      </div>
+<section id="cardsContainer" class="space-y-6 mt-6">      
+</div>
+</section>
 
-      <div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex flex-col">
-      <!-- Begin Cosmic Badass Map Card -->
-  <section class="cosmic-card">
-  <header class="cosmic-header">
-    <h2>🗺️</h2>
-    <div class="toolbar" style="rounded-3xl shadow-2xl overflow-hidden">
-      <button id="locateBtn" class="cosmic-btn" onclick="locateMe()">📍 My Location</button>
-      <button id="searchBtn" class="cosmic-btn">🔍 Search</button>
-      <button id="filterBtn" class="cosmic-btn">⚙️ Filters</button>
+<section>
+
+<div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex-col z-50">
+  <!-- Cosmic Badass Map Card -->
+  <section class="cosmic-card w-full max-w-5xl bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+
+    <!-- Header -->
+    <header class="cosmic-header flex items-center justify-between p-4 border-b border-gray-700">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/> 🗺️ Phrophecy Map 🗺️ <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700">
+      <button id="locateBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍 My Location</button>
+      <button id="searchBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍 Search</button>
+      <button id="filtersBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️ Filters</button>
+
+      <div class="flex items-center gap-2">
+        <label for="zipInput" class="text-sm">Zip:</label>
+        <input id="zipInput" type="text" placeholder="Enter Zipcode" 
+               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
+        <button id="zipBtn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">Filter</button>
+        <button id="resetBtn" class="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white rounded-lg">Reset</button>
+      </div>
     </div>
-  </header>
 
-  <div id="cosmic-map" style="rounded-3xl shadow-2xl overflow-hidden py-6 flex flex-col">
-    <div id="map" style="height: 435px; width: 100%; rounded-3xl shadow-2xl overflow-hidden z-0 flex flex-col";"></div>
-  </div>
-  <footer class="cosmic-footer" style="rounded-3xl shadow-2xl overflow-hidden flex flex-col">
-    <p><img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2">✨Explore the universe of like-hearted believers in-gathering the scattered!✨<img src="images/HGHouses.png" alt="logo" class="inline-block w-8 h-7 align-text-bottom mr-2 flex flex-col">
-</p>
-  </footer>
+    <!-- Map Container -->
+    <div id="cosmic-map" class="flex-1 relative">
+      <div id="map" class="min-h-[300px] w-full rounded-b-3xl overflow-hidden"></div>
+    </div>
 
-<!-- Leaflet CSS/JS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet/dist/leaflet.css"
-  />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- MarkerCluster CSS + JS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
-  />
-  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <!-- Footer -->
+    <footer class="cosmic-footer bg-gray-800/80 text-center text-white p-3">
+      <p class="flex items-center justify-center gap-2 text-sm">
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </p>
+    </footer>
+  </section>
+</div>
 
   <script>
 (() => {
@@ -304,22 +312,21 @@ map.on('locationerror', onLocationError);
     }
   });
 
-  // Filter (toggle layer)
-  let showFood = true;
-  document.getElementById("filterBtn").addEventListener("click", () => {
-    showFood = !showFood;
-    if (showFood) {
-      map.addLayer(foodLayer);
-    } else {
-      map.removeLayer(foodLayer)};
-    
-  });
-
--->
+// Filter zipcode logic
+document.getElementById("zipBtn").addEventListener("click", () => {
+  const zip = document.getElementById("zipInput").value.trim();
+  if (!zip) return;
+  const filtered = markerData.filter(item => item.zipcode === zip);
+  renderMarkers(filtered);
+  if (filtered.length > 0) {
+    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
+  }
+});
 
 })(); // <-- this closes the IIFE wrapper   
 
 </script> 
+
 <style>
   .cosmic-card {
     display: flex;
@@ -395,17 +402,63 @@ map.on('locationerror', onLocationError);
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl flex flex-col">
   <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video>
+      <p>Choose Calendar Calculation:</p>
+  <h3 class="text-xl font-bold mb-2"> Current Calendar Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
 
-  <h3 class="text-xl font-bold mb-2">Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
+    <div class="mt-3 flex gap-2 flex-wrap">
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Western Orthodox/ Catholic</button>
+
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sighted Moon</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sliver Moon</button>
+
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sabattical Moon</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Solar-Lunar</button>
+
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
+      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Pagan</button>
+
+    </div>
+      <!-- New section: Astronomical Info -->
+      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
+        <h4 class="font-semibold mb-2">Astronomical Info</h4>
+        <p>🌞 Sun Rise / Set: </p>
+        <p>🌙 Moon Phase: </p>
+        <p>⭐ Visible Stars / Constellations: </p>
+        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
+      </div>
+<!-- New section: Astronomical Info -->
+      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
+        <h4 class="font-semibold mb-2">Future Info</h4>
+  <h3 class="text-xl font-bold mb-2"> Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
   <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Remaining Days: 10</p>
   <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
   <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues, churches, HomeGroups</p>
+        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
+      </div>
 
-  <!-- Inner Calendar -->
-<p>Calculating...</p>
+
+      <!-- New section: Holy Day Descriptions -->
+      <div class="holidaysSection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
+        <h4 class="font-semibold mb-2">Holy Days / Feasts Explained</h4>
+        <ul class="list-disc pl-5">
+          <li>
+            Trumpets - Sept 23: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Trumpets: A day of blowing the shofar to announce the new year')">Info</button>
+          </li>
+          <li>
+            Passover - Apr 13: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Passover: Commemorates the Israelites’ escape from Egypt')">Info</button>
+          </li>
+          <li>
+            Sukkot - Oct 6: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot: Feast of Tabernacles, commemorating wandering in the wilderness')">Info</button>
+          </li>
+        </ul>
+
   <div id="calendarCardInner" class="card mt-4 bg-gray-800/70 rounded-xl p-4 backdrop-blur-sm">
     <div class="flex gap-2 flex-wrap mb-3">
       <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white active" data-tab="weekTab">Week</button>
@@ -461,88 +514,49 @@ map.on('locationerror', onLocationError);
       </ul>
     </div>
       <p></p>
+      </div>
 
-    <div class="mt-3 flex gap-2 flex-wrap">
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
-    </div>
-      <p></p>
+  <!-- Inner Calendar -->
+<p>Calculating...</p>
 
-<div class="mini-calendar-container">
-        <div class="calendar-header">
-            <h2>September 2025</h2>
-        </div>
-        <table class="calendar-table w-full">
-            <thead>
-                <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="empty"></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td>18</td>
-                    <td>19</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                    <td>26</td>
-                    <td>27</td>
-                </tr>
-                <tr>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
-                    <td class="empty"></td>
-                    <td class="empty"></td>
-                    <td class="empty"></td>
-                    <td class="empty"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-      <p></p>
 
-    <div class="tabContent" id="otherTab">
-      <h4 class="font-semibold mb-2">Current Moon Phase:</h4>
-      <ul class="list-disc pl-5">
-        <li><img src="https://github.com/ngocjohn/lunar-phase/blob/main/assets/lunar-default.png" alt="Description"></li>
-      <p></p>
+      <!-- New section: Astronomical Info -->
+      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
+        <h4 class="font-semibold mb-2">MORE Astronomical Info</h4>
+        <p>🌞 Sun Rise / Set: </p>
+        <p>🌙 Moon Phase: </p>
+        <p>⭐ Visible Stars / Constellations: Placeholder</p>
+        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
+      </div>
+
+
+
+      <!--       <!-- New section: Holy Day Descriptions -->
+      <div class="holidaysSection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
+        <h4 class="font-semibold mb-2">Holy Days / Feasts Explained</h4>
+        <ul class="list-disc pl-5">
+          <li>
+            Trumpets - Sept 23: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Trumpets: A day of blowing the shofar to announce the new year')">Info</button>
+          </li>
+          <li>
+            Passover - Apr 13: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Passover: Commemorates the Israelites’ escape from Egypt')">Info</button>
+          </li>
+          <li>
+            Sukkot - Oct 6: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot: Feast of Tabernacles, commemorating wandering in the wilderness')">Info</button>
+          </li>
+        </ul>
+      </div>/ Future interaction -->
+      <div class="futurePlaceholders mt-4 p-3 border-2 border-dashed border-indigo-400 rounded-xl text-indigo-200">
+        <p>🎵 Placeholder: Music/voice interaction panel</p>
+        <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+        <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+      </div>
+
+    </div> <!-- End calendarCardInner -->
+
+  </section>
+</div>
+
 
   </section>      </div>
     </div>
@@ -554,40 +568,25 @@ map.on('locationerror', onLocationError);
 const cards = document.querySelectorAll(".bibleCard");
 let activeIndex = 0;
 
-// make only the active card visible on load
-cards.forEach((card, i) => {
-  if (i === activeIndex) {
-    card.classList.add("active");
-    card.style.display = "block";
-  } else {
-    card.classList.remove("active");
-    card.style.display = "none";
-  }
-});
-
+// Utility: update active card
 function showCard(newIndex) {
   if (newIndex === activeIndex) return;
 
   const current = cards[activeIndex];
   const next = cards[newIndex];
 
-  // hide all cards before switching
-  cards.forEach(card => {
-    card.classList.remove("active", "prev");
-    card.style.display = "none";
-  });
+  // reset current
+  current.classList.remove("active");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
 
-  // mark current as prev (optional: animate out)
-  current.classList.add("prev");
-  current.style.display = "block"; // let it animate out
-
-  // activate next card
+  // activate next
   next.classList.add("active");
-  next.style.display = "block";
+  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
 
   activeIndex = newIndex;
 }
 
+// Prev/Next button logic
 document.getElementById("biblePrevBtn").addEventListener("click", () => {
   const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
   showCard(prevIndex);
@@ -598,27 +597,30 @@ document.getElementById("bibleNextBtn").addEventListener("click", () => {
   showCard(nextIndex);
 });
 
-// touch/swipe support
+// Touch/swipe support
 let startX = 0;
 const stage = document.getElementById("bibleStage");
 
-stage.addEventListener("touchstart", e => {
+stage.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
 });
 
-stage.addEventListener("touchend", e => {
+stage.addEventListener("touchend", (e) => {
   const endX = e.changedTouches[0].clientX;
-  if (endX - startX > 50) {
-    // swipe right → previous card
-    const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-    showCard(prevIndex);
-  } else if (startX - endX > 50) {
-    // swipe left → next card
-    const nextIndex = (activeIndex + 1) % cards.length;
-    showCard(nextIndex);
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      // swipe right = prev
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      showCard(prevIndex);
+    } else {
+      // swipe left = next
+      const nextIndex = (activeIndex + 1) % cards.length;
+      showCard(nextIndex);
+    }
   }
 });
-</script>
 </script>
 
 <!-- 🌌 Cosmic Badass Section -->
@@ -721,9 +723,7 @@ function addSearchResetButton() {
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="app.js" defer></script>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
-<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
-<script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js" defer></script>
+
 <script>
   console.log("✅ Script closed properly");
 </script>
