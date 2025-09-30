@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar Quick Test</title>
+<script defer src="quickCalendarTest.js"></script>
+<style>
+  body { margin:0; background:#111; color:#fff; font-family:sans-serif; }
+  #calendarCard { max-width:400px; margin:2rem auto; }
+</style>
+</head>
+<body>
+
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 flex flex-col">
+  <h2>Cosmic Calendar Preview</h2>
+  <div id="astroInfo" class="space-y-2 text-sm">
+    <!-- Dummy real-time style data -->
+    <p>Sunrise: 06:23</p>
+    <p>Moonphase: Waxing Gibbous</p>
+    <p>Stars/Constellations: Orion, Taurus</p>
+  </div>
+  <div id="calendarInfo" class="space-y-1 text-sm mt-4">
+    <p>Remaining HolyDays: 10</p>
+    <p>Days to Prepare: 3</p>
+    <p>Locations: <a href="#">Jerusalem</a>, <a href="#">Synagogues</a></p>
+  </div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const astro = document.getElementById("astroInfo");
+  const cal = document.getElementById("calendarInfo");
+
+  // Fake dynamic update every 3 seconds
+  setInterval(()=>{
+    const sunHour = 6 + Math.floor(Math.random()*2);
+    const sunMin = Math.floor(Math.random()*60).toString().padStart(2,'0');
+    astro.querySelector("p:nth-child(1)").textContent = Sunrise: ${sunHour}:${sunMin};
+
+    const moonPhases = ["New Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Last Quarter","Waning Crescent"];
+    const moon = moonPhases[Math.floor(Math.random()*moonPhases.length)];
+    astro.querySelector("p:nth-child(2)").textContent = Moonphase: ${moon};
+
+    // Calendar info pseudo-random
+    const remaining = 5 + Math.floor(Math.random()*10);
+    const prepare = 1 + Math.floor(Math.random()*5);
+    cal.querySelector("p:nth-child(1)").textContent = Remaining HolyDays: ${remaining};
+    cal.querySelector("p:nth-child(2)").textContent = Days to Prepare: ${prepare};
+  },3000);
+});
+</script>
+
+</body>
+</html>

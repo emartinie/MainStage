@@ -1,0 +1,35 @@
+upgrades-mobile first always
+
+main card;
+-show video/show verse buttons..need to be rewritten anyway, so we can toss out everything existing. they both need glass windows that popup and can both be open at the same time even on small screens. if anything in a playlist has video content the video window needs to auto-pop but have the ability to be close without stopping the audio stopping (everything uses the global audio with floating player controls)
+
+-the Torah/Prophets/Writings section created by the mainloader that I call "AudioVisual Scriptures".. needs upgraded in the same way everything else is, plus i just now realized it is no longer clickable but if we are upgrading that may be obsolete we'll see. I don't think upgrades need to happen in mainloader.js but they might be more than just placeholderstyling and same with the "cardsContainer" that is created the same way. 
+
+-the Chapter Outlines section created by mailoader.js needs to be upgraded just the same. it's a lot the the calendar card was; just text/ bulleted text, no flare, no interactivity, etc. It just fethes and renders some stuff from json. [hrm, maybe it's time to start thinking about about calendar json data and addend week-related calendar data to week jsons].
+
+-the cardsContainer rendered expandable cards.. if you can upgrade them with the same style and same tool then please do. most of them are pretty obsolete and can be rendered many different ways once we get the html paragraphs into week json files. (<section id="cardsContainer" class="space-y-6 mt-6"> and mainloader does the rest. )
+
+- ive got some orbiting cards but whatever not important...
+
+- map card.. we can revamp the whole layout as long as it stays working. As you know there are a few "untouchable" pieces but other than that it needs to "look" like everything else. 
+
+- calendar card.. there's a LOT i want but i'll stick to things related to this iteration;
+--"choose calendar"..it's the main toggle/filter just like zipcode is the main map filter. But i already have 11 buttons, so buttons are'nt the way to go. I dont want a cheesy dropdown anymore than i want that for the 52-week selector but i don't know what else we can do. 
+
+-- astronomical info..even with dummy data i want EVERYTHING to appear like it is being calculated in real time (too bad we are out of saved memory because that is an imortant statement). I don't want just scrolling window text ANYWHERE. I want to wisely use horizontal real estate [i know that's hard on a small screen]
+---Sunrise
+---Moonphase
+---Stars/ Constellations
+
+--Calendar info (changes with calendar filter change)
+---Remaining current HolyDays/ holidays: 10
+---Days to Prepare to prepare for next HolyDays/ holidays: 3
+---Locations to Congregate: Jerusalem, Synagogues, churches, HomeGroups {clickable hyperlinks to map with loaded markers/ applied filters }
+---Learn more details
+
+-- Holy Days / Feasts + HolyDays/ holidays Explained {datelinks work, feast days hover popup, like Scriptures in the future, will open a small popup with a short description of HolyDay/ holiday} 
+----could be a calendar or bulleted list or whatever. could include an additional toggle/ selector/ filter for this month/quarter/year plus specific calender filters or selectALL for comparison
+----could have buttons or whatever; zero style restrictions and eventually i want everything dynamic and until then we make it LOOK like it's dynamic even if we just have to edit some <options> in HTML
+
+**<!--all of my other goals don't really exist in the app yet, but there are alot of them. Is this too much? I know memory has been full for a while-->
+

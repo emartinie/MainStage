@@ -53,7 +53,7 @@
   max-width: 90vw;
   max-height: 90vh;
   position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   right: 1rem;
 }
 
@@ -66,32 +66,46 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-screen">
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
 
-  <!-- Header -->
-  <header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2">
-    <div class="flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-      <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
-    </div>
-    <button id="installBtn" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" style="display:none;">📲 Install App</button>
-<!-- Controls -->
-    <button id="biblePrevBtn" class="px-2 left-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
-      ⬅️
+<!-- Header -->
+<header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
+  <div class="flex items-center gap-2">
+    <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
+  </div>
+
+  <!-- Bible Carousel Controls -->
+  <div class="flex items-center gap-2">
+    <button id="biblePrevBtn" 
+            class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
     </button>
-<p></p>
-    <button id="bibleNextBtn" class="px-2 right-2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full shadow-lg">
-      ➡️
+
+    <button id="bibleNextBtn" 
+            class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </button>
-    <button id="prevWeek" class="px-2 py-1 border rounded">&laquo;</button>
-      <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
-      <button id="nextWeek" class="px-2 py-1 border rounded">&raquo;</button>
-    </div>
-  </header>
+
+    <!-- Week Selector -->
+    <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
+    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600">
+      <!-- Dynamic week options -->
+    </select>
+    <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
+  </div>
+
+  <button id="installBtn" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" style="display:none;">📲 Install App</button>
+</header>
       
 <div id="weekInfo"></div>
 <body class="bg-gray-900 flex flex-col items-center min-h-screen justify-center">
 
 
-<div id="fp-hero-glass-root"></div> 
+<div id="fp-hero-glass-root"><img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow"></div> 
 
 
   <!-- Carousel Wrapper -->
@@ -405,154 +419,111 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video>
-      <p>Choose Calendar Calculation:</p>
-  <h3 class="text-xl font-bold mb-2"> Current Calendar Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
-
-    <div class="mt-3 flex gap-2 flex-wrap">
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Western Orthodox/ Catholic</button>
-
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sighted Moon</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sliver Moon</button>
-
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Sabattical Moon</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Solar-Lunar</button>
-
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Pagan</button>
-
+     <!-- 🔮 Universal Glass Modal -->
+<div id="modalContainer" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="modal glass rounded-xl shadow-xl max-w-md w-[90%] max-h-[90%] overflow-y-auto p-4 relative">
+    <button class="absolute top-2 right-2 text-gray-400 hover:text-white" onclick="closeModal()">
+      ✕
+    </button>
+    <div id="modalContent" class="text-sm text-gray-100 space-y-4">
+      <!-- dynamic content goes here -->
     </div>
-      <!-- New section: Astronomical Info -->
-      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
-        <h4 class="font-semibold mb-2">Astronomical Info</h4>
-        <p>🌞 Sun Rise / Set: </p>
-        <p>🌙 Moon Phase: </p>
-        <p>⭐ Visible Stars / Constellations: </p>
-        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
+  </div>
+</div>
+
+<script>
+function openModal(contentHtml) {
+  const modal = document.getElementById("modalContainer");
+  const content = document.getElementById("modalContent");
+  content.innerHTML = contentHtml;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeModal() {
+  const modal = document.getElementById("modalContainer");
+  modal.classList.remove("flex");
+  modal.classList.add("hidden");
+}
+</script>
+
+<style>
+/* subtle glass look */
+.glass {
+  background: rgba(30, 30, 40, 0.8);
+  backdrop-filter: blur(12px);
+}
+</style>
+
+
+<!-- Calendar Card -->
+<div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex-col z-40">
+  <section class="calendar-card bg-gray-900/80 backdrop-blur-md rounded-2xl shadow-xl p-4 w-full max-w-md text-white">
+    
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 4h12m-15 4h18" />
+        </svg>
+        Calendar
+      </h2>
+      <!-- Placeholder segmented selector -->
+      <div class="flex gap-2 overflow-x-auto">
+        <button class="px-3 py-1 bg-blue-600 rounded-full text-sm whitespace-nowrap">Hebrew</button>
+        <button class="px-3 py-1 bg-gray-700 rounded-full text-sm whitespace-nowrap">Gregorian</button>
+        <button class="px-3 py-1 bg-gray-700 rounded-full text-sm whitespace-nowrap">Other…</button>
       </div>
-<!-- New section: Astronomical Info -->
-      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
-        <h4 class="font-semibold mb-2">Future Info</h4>
-  <h3 class="text-xl font-bold mb-2"> Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
-  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Remaining Days: 10</p>
-  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
-  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues, churches, HomeGroups</p>
-        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
+    </header>
+
+    <!-- Mini Calendar Placeholder -->
+    <div class="bg-black/40 rounded-lg p-3 mb-4">
+      <p class="text-sm text-gray-300">📅 Mini calendar view goes here</p>
+    </div>
+
+    <!-- Astronomical Info -->
+    <section class="grid grid-cols-3 gap-3 text-center mb-4">
+      <div class="bg-black/40 p-2 rounded-lg">
+        🌅 <p class="text-xs">Sunrise</p>
+        <p class="font-bold">6:42 AM</p>
       </div>
+      <div class="bg-black/40 p-2 rounded-lg">
+        🌙 <p class="text-xs">Moon</p>
+        <p class="font-bold">Waxing</p>
+      </div>
+      <div class="bg-black/40 p-2 rounded-lg">
+        ✨ <p class="text-xs">Stars</p>
+        <p class="font-bold">Orion</p>
+      </div>
+    </section>
 
+    <!-- Calendar Info -->
+    <section class="space-y-2 mb-4">
+      <p>📖 Remaining Holy Days: <span class="font-bold">10</span></p>
+      <p>⏳ Days to Prepare: <span class="font-bold">3</span></p>
+      <p>📍 Congregation: 
+        <a href="#" class="text-blue-400 underline">Jerusalem</a>, 
+        <a href="#" class="text-blue-400 underline">Synagogues</a>, 
+        <a href="#" class="text-blue-400 underline">Churches</a>, 
+        <a href="#" class="text-blue-400 underline">HomeGroups</a>
+      </p>
+    </section>
 
-      <!-- New section: Holy Day Descriptions -->
-      <div class="holidaysSection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
-        <h4 class="font-semibold mb-2">Holy Days / Feasts Explained</h4>
-        <ul class="list-disc pl-5">
-          <li>
-            Trumpets - Sept 23: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Trumpets: A day of blowing the shofar to announce the new year')">Info</button>
-          </li>
-          <li>
-            Passover - Apr 13: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Passover: Commemorates the Israelites’ escape from Egypt')">Info</button>
-          </li>
-          <li>
-            Sukkot - Oct 6: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot: Feast of Tabernacles, commemorating wandering in the wilderness')">Info</button>
-          </li>
-        </ul>
-
-  <div id="calendarCardInner" class="card mt-4 bg-gray-800/70 rounded-xl p-4 backdrop-blur-sm">
-    <div class="flex gap-2 flex-wrap mb-3">
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white active" data-tab="weekTab">Week</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="sabbathTab">Sabbath</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="feastsTab">Feasts</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="otherTab">Other Religions</button>
-    </div>
-
-    <div class="tabContent" id="weekTab">
-      <h4 class="font-semibold mb-2">Current Week</h4>
-      <p>Sun 09/29 • Mon 09/30 • Tue 09/31 • Wed 10/01 • Thu 10/02 • Fri 10/03 • Sat 10/04</p>
-    </div>
-      <p></p>
-    <div class="tabContent" id="sabbathTab">
-      <h4 class="font-semibold mb-2">Next Sabbath</h4>
-      <p>Saturday, 09/28 - Starts Friday sunset, ends Saturday sunset</p>
-    </div>
-      <p></p>    
-    <div class="tabContent" id="feastsTab">
-      <h4 class="font-bold mb-2">Biblical Feasts- Here is a breakdown of the upcoming holidays:</h4>
-      <p></p>
-      <h3 class="font-semibold mb-2">Sukkot (Feast of Tabernacles/Booths):</h3>
-      <h2>Begins the evening of October 6, 2025, and ends the evening of October 13, 2025. This is a harvest festival where people build temporary "sukkah" booths to commemorate the Israelites' wandering in the wilderness.</h2> 
-      <p></p>
-      <h3 class="font-semibold mb-2">Shemini Atzeret/Simchat Torah:</h3>
-      <h2>Follows Sukkot, beginning the evening of October 13, 2025. Shemini Atzeret marks the end of the holiday of Sukkot, while Simchat Torah celebrates the completion of the annual Torah reading cycle.</h2>
-      <p></p>
-      <h3 class="font-semibold mb-2">Hanukkah (Feast of Dedication):</h3>
-      <h2>This Biblical festival (mentioned in the New Testament and apocrypha) is celebrated in the winter usually around the pagan christmas holiday. For 2025, Hanukkah will begin the evening of December 14 and last until the evening of December 22, 2025.</h2>
-        <p></p>
-  
-
-      <ul class="list-disc pl-5">
-        <li>Next Feast - Trumpets - Sept. 23rd Sundown</li>
-        <li>Passover - 04/13/2025</li>
-        <li>Unleavened Bread - 04/14/2025</li>
-        <li>Pentecost - 06/01/2025</li>
-        <li>Trumpets - 09/23/2025</li>
-        <li>Day of Atonement - 10/02/2025</li>
-        <li>Feast of Tabernacles - 10/07/2025</li>
-        <li>Last Great Day - 10/14/2025</li>
+    <!-- Holy Days List -->
+    <section>
+      <h3 class="text-md font-semibold mb-2">Holy Days / Feasts</h3>
+      <ul class="space-y-2">
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Passover (Nisan 14) — <span class="text-blue-300">Learn more</span>
+        </li>
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Shavuot (Sivan 6) — <span class="text-blue-300">Learn more</span>
+        </li>
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Yom Kippur (Tishrei 10) — <span class="text-blue-300">Learn more</span>
+        </li>
       </ul>
-    </div>
-      <p></p>
-
-    <div class="tabContent" id="otherTab">
-      <h4 class="font-semibold mb-2">Other Religious Observances</h4>
-      <ul class="list-disc pl-5">
-        <li>Ramadan - 04/02/2025</li>
-        <li>Eid al-Fitr - 05/02/2025</li>
-        <li>Diwali - 11/01/2025</li>
-        <li>Christmas - 12/25/2025</li>
-      </ul>
-    </div>
-      <p></p>
-      </div>
-
-  <!-- Inner Calendar -->
-<p>Calculating...</p>
-
-
-      <!-- New section: Astronomical Info -->
-      <div class="astronomySection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
-        <h4 class="font-semibold mb-2">MORE Astronomical Info</h4>
-        <p>🌞 Sun Rise / Set: </p>
-        <p>🌙 Moon Phase: </p>
-        <p>⭐ Visible Stars / Constellations: Placeholder</p>
-        <button class="px-2 py-1 mt-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Detailed astronomical calculations coming soon!')">Learn More</button>
-      </div>
-
-
-
-      <!--       <!-- New section: Holy Day Descriptions -->
-      <div class="holidaysSection mt-4 p-4 rounded-xl bg-gray-700/60 backdrop-blur-sm">
-        <h4 class="font-semibold mb-2">Holy Days / Feasts Explained</h4>
-        <ul class="list-disc pl-5">
-          <li>
-            Trumpets - Sept 23: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Trumpets: A day of blowing the shofar to announce the new year')">Info</button>
-          </li>
-          <li>
-            Passover - Apr 13: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Passover: Commemorates the Israelites’ escape from Egypt')">Info</button>
-          </li>
-          <li>
-            Sukkot - Oct 6: <button class="px-2 py-1 ml-2 border rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot: Feast of Tabernacles, commemorating wandering in the wilderness')">Info</button>
-          </li>
-        </ul>
-      </div>/ Future interaction -->
-      <div class="futurePlaceholders mt-4 p-3 border-2 border-dashed border-indigo-400 rounded-xl text-indigo-200">
-        <p>🎵 Placeholder: Music/voice interaction panel</p>
-        <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
-        <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
-      </div>
-
-    </div> <!-- End calendarCardInner -->
+    </section>
 
   </section>
 </div>
@@ -642,15 +613,25 @@ stage.addEventListener("touchend", (e) => {
 
 </main>
 <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner flex flex-col">
-    <div class="flex justify-center gap-2 p-2">
-      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
-    </div>
-    <p class="mt-2">&copy; 2025 HGBibleApp</p>
-  </footer>
-  <script>
+<footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner flex flex-col z-50">
+  <div class="flex justify-center gap-2 p-2">
+    <input id="advancedsearchInput" 
+           type="text" 
+           placeholder="Search Scriptures..." 
+           class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    
+    <button id="darkModeToggle" 
+            class="px-3 py-1 bg-gray-700 text-white rounded transition transform hover:scale-110 hover:bg-gray-600 hover:drop-shadow-[0_0_8px_#00f] hover:-rotate-3">
+      🌙 Dark
+    </button>
+    
+    <button id="searchResetBtn" 
+            class="px-3 py-1 bg-gray-700 text-white rounded transition transform hover:scale-110 hover:bg-gray-600 hover:drop-shadow-[0_0_8px_#f00] hover:rotate-3">
+      🔄 Reset
+    </button>
+  </div>
+  <p class="mt-2 text-gray-400 text-sm">&copy; 2025 HGBibleApp</p>
+</footer>  <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));

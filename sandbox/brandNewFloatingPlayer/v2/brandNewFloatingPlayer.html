@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand New Floating Player Demo</title>
+<script type="module" src="brandNewFloatingPlayer.js" defer></script>
+<style>
+  body { margin:0; background:#111; color:#fff; font-family:sans-serif; }
+  #floatingPlayerRoot { position: relative; z-index: 9999; }
+</style>
+</head>
+<body>
+
+<div id="floatingPlayerRoot"></div>
+
+<!-- Example playlist for demo -->
+<script>
+  window.demoPlaylist = [
+    { title: "Psalm 23", eng: "audio/psalm23-eng.mp3", heb: "audio/psalm23-heb.mp3", grk: "audio/psalm23-grk.mp3", video: "videos/psalm23.mp4" },
+    { title: "Psalm 91", eng: "audio/psalm91-eng.mp3", heb: "audio/psalm91-heb.mp3", grk: "audio/psalm91-grk.mp3", video: "videos/psalm91.mp4" },
+    { title: "Psalm 121", eng: "audio/psalm121-eng.mp3", heb: "audio/psalm121-heb.mp3", grk: "audio/psalm121-grk.mp3" }
+  ];
+</script>
+
+</body>
+</html>
