@@ -27,14 +27,12 @@
     .cosmic-card {
       display: flex;
       flex-direction: column;
-      width: 100%;
       height: 100vh; /* full viewport height for testing */
       min-height: 300px;
     }
 
     #map {
       flex-grow: 1;
-      width: 100%;
     }
 
            /* Extra badass polish */
@@ -188,6 +186,7 @@
 
   </div>
 
+      <div class="bibleCard inactive">
 
 
 <!-- Cosmic Badass Calendar Card -->
@@ -254,12 +253,17 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
+</div>
   </section>
 
-  <section class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl>
-<section>
-  <!-- Header -->
-    <header class="cosmic-header flex items-center justify-between p-4 border-b border-gray-700">
+  </div>
+
+      <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
+
+  <!-- Cosmic Badass Map Card -->
+  <section class="cosmic-card rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+    <!-- Header -->
+    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto">
       <h2 class="text-2xl font-bold flex items-center gap-2">
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Phrophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>
@@ -280,23 +284,21 @@
       </div>
     </div>
 
-  <div class="card cosmic-map-card">
-    <div id="map" style="height: 500px; width: 100%;"></div>
-  </div>
+    <!-- Map Container -->
+    <div id="cosmic-map" class="flex-1 relative rounded-b-3xl">
+      <div id="map" class="min-h-[300px] rounded-b-3xl"></div>
+    </div>
 
     <!-- Footer -->
-    <footer class="cosmic-footer bg-gray-800/80 text-center text-white p-3">
+    <footer class="cosmic-footer bg-gray-800/80 text-center text-white">
       <p class="flex items-center justify-center gap-2 text-sm">
         <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
         ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
         <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </p>
     </footer>
-  </section>
-</div>
 
-  <script>
-    (() => {
+<script>
 
     // Initialize map
     const map = L.map("map").setView([39.5, -98.35], 4);
@@ -427,20 +429,87 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   }
 });
 
-})(); // <-- this closes the IIFE wrapper   
-
 </script> 
+
+
+
+<style>
+  .cosmic-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a0f1c, #1b2138);
+    color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    overflow: hidden;
+    margin: 1rem;
+  }
+
+  .cosmic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 25, 40, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
+  }
+
+  .cosmic-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #8a2be2;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cosmic-btn {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cosmic-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+
+  .map-placeholder {
+    height: 100%; /* Adjust height */
+    background: #111;
+    position: relative;
+  }
+
+  .cosmic-footer {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    background: rgba(20, 25, 40, 0.85);
+    border-top: 2px solid rgba(138, 43, 226, 0.6);
+  }
+</style>
+
+  </section>
+</div>
+  <!-- End Cosmic Badass Map Card -->
+
+
 
 </section>
 </div>
-</div>
+<section id="cardsContainer" class="space-y-6 mt-6">      
 
-  <!-- Cards container for <div id="weekInfo"></div>-driven content -->
-  <main id="cardsContainer">
 
 </main>
-  </main>
-</div>
+
 
 
   <!-- Footer -->
@@ -457,7 +526,65 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="app.js" defer></script>
 
- 
+  <script>
+const cards = document.querySelectorAll(".bibleCard");
+let activeIndex = 0;
+
+// Utility: update active card
+function showCard(newIndex) {
+  if (newIndex === activeIndex) return;
+
+  const current = cards[activeIndex];
+  const next = cards[newIndex];
+
+  // reset current
+  current.classList.remove("active");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
+
+  // activate next
+  next.classList.add("active");
+  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
+
+  activeIndex = newIndex;
+}
+
+// Prev/Next button logic
+document.getElementById("biblePrevBtn").addEventListener("click", () => {
+  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+  showCard(prevIndex);
+});
+
+document.getElementById("bibleNextBtn").addEventListener("click", () => {
+  const nextIndex = (activeIndex + 1) % cards.length;
+  showCard(nextIndex);
+});
+
+// Touch/swipe support
+let startX = 0;
+const stage = document.getElementById("bibleStage");
+
+stage.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+stage.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      // swipe right = prev
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      showCard(prevIndex);
+    } else {
+      // swipe left = next
+      const nextIndex = (activeIndex + 1) % cards.length;
+      showCard(nextIndex);
+    }
+  }
+});
+</script>
+
 
   <script>
     // Dark mode toggle
