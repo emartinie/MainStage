@@ -195,7 +195,13 @@
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video>
-  <h3 class="text-xl font-bold mb-2">Next Holy Day: Yom Kippur (Day of Atonement) or (Hebrew: יום כיפור) : Starts the evening of Wednesday, October 1, 2025, and concludes at nightfall on Thursday, October 2, 2025. </h3>
+   <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Phrophecy Calendar<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+  </h2>
+  <h3 class="text-xl font-bold mb-2">Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
+  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Days: 10</p>
+  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
+  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues</p>
 
 <section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
 
@@ -207,7 +213,7 @@
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
     </h2>
     <h3 class="text-xl font-semibold text-blue-400">
-      Current Calculation: "Hillel"
+      Current Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
     </h3>
   </header>
 
@@ -223,8 +229,6 @@
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox / Catholic</button>
-    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
-
   </div>
 
   <!-- Horizontal Section Example -->
@@ -268,14 +272,11 @@
         Holy Days / Feasts Explained
       </h2>
       <ul class="list-disc pl-5 space-y-1">
-        <li>Evening of Wed, Oct 1, 2025 – Thu, Oct 2, 2025 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Yom Kippur means Day of Atonement in English and is the holiest day on the Jewish calendar, observed by fasting and intensive prayer to atone for sins and seal judgment for the year. The holiday marks the end of the Days of Awe (the Ten Days of Repentance) that begin with Rosh Hashanah, focusing on self-reflection, seeking forgiveness, and making amends')">Info</button></li>
-        <li>Sukkot (Feast of Tabernacles): Starts the evening of Monday, October 6, 2025, and concludes at nightfall on Monday, October 13, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot lasts for seven days. The two days following the festival, Shemini Atzeret and Simchat Torah, are separate holidays but are related to Sukkot and are commonly thought of as part of Sukkot.')">Info</button></li>
-
- <li>Shemini Atzeret: Follows Sukkot, beginning the evening of Monday, October 13, 2025, and ending at nightfall on Tuesday, October 14, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('It is celebrated on the 22nd day of the Hebrew month of Tishrei, usually coinciding with late-September or early-October. It is the eighth day of Sukkot, a sacred occasion, where one stores up gratitude and devotion, and is not quite its own holiday.')">Info</button></li>
-
+        <li>Trumpets - Sept 23 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+        <li>Passover - Apr 13 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+        <li>Sukkot - Oct 6 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
       </ul>
     </div>
-</div>
 
   </section>
 
@@ -302,6 +303,8 @@
     </div>
 
     <div class="tabContent" id="weekTab">
+      <h4 class="font-semibold mb-2">Current Week</h4>
+      <p>Sun 09/22 • Mon 09/23 • Tue 09/24 • Wed 09/25 • Thu 09/26 • Fri 09/27 • Sat 09/28</p>
     </div>
 
     <div class="tabContent hidden" id="sabbathTab">
@@ -332,51 +335,6 @@
         <li>Christmas - 12/25/2025</li>
       </ul>
     </div>
-
-<!-- Astronomical Info -->
-  <section class="astronomy bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-    <h2 class="text-2xl font-bold flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
-      </svg>
-      Astronomical Info
-    </h2>
-    <p>🌞 Sun Rise / Set: 06:23</p>
-    <p>🌙 Moon Phase: Waxing Crescent</p>
-    <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
-    <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
-  </section>
-
-  <!-- Calendar Dates -->
-  <section class="dates bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-    <h2 class="text-2xl font-bold flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-      </svg>
-      Calendar Dates
-    </h2>
-    <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
-    <p>Remaining Days: 10</p>
-    <p>Days to Prepare: 3</p>
-    <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
-    <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
-  </section>
-
-  <!-- Holy Days / Feasts -->
-  <section class="feasts bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-    <h2 class="text-2xl font-bold flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-      </svg>
-      Holy Days / Feasts Explained
-    </h2>
-    <ul class="list-disc pl-5 space-y-1">
-      <li>Trumpets - Sept 23 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
-      <li>Passover - Apr 13 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
-      <li>Sukkot - Oct 6 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
-    </ul>
-  </section>
-
 
     <div class="mt-3 flex gap-2 flex-wrap">
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>

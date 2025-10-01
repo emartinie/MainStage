@@ -607,6 +607,196 @@ document.getElementById("zipBtn").addEventListener("click", () => {
         <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
       </div>
 
+--------------------------------------------------------------------
+<!-- Refactored Phrophecy Calendar Card -->
+<section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl rounded-3xl shadow-2xl space-y-6">
+
+  <!-- Hero Header -->
+  <header class="flex flex-col items-center gap-2 text-center">
+    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+      Phrophecy Calendar
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+    </h2>
+    <h3 class="text-xl font-semibold text-blue-400">
+      Current Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
+    </h3>
+  </header>
+
+  <!-- Calendar Filters -->
+  <div class="calendar-filters flex flex-wrap gap-2 justify-center">
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+      </svg>
+      Hillel
+    </button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox / Catholic</button>
+  </div>
+
+  <!-- Astronomical Info -->
+  <section class="astronomy bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
+      </svg>
+      Astronomical Info
+    </h2>
+    <p>🌞 Sun Rise / Set: 06:23</p>
+    <p>🌙 Moon Phase: Waxing Crescent</p>
+    <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
+    <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+  </section>
+
+  <!-- Calendar Dates -->
+  <section class="dates bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+      </svg>
+      Calendar Dates
+    </h2>
+    <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
+    <p>Remaining Days: 10</p>
+    <p>Days to Prepare: 3</p>
+    <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+    <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+  </section>
+
+  <!-- Holy Days / Feasts -->
+  <section class="feasts bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      Holy Days / Feasts Explained
+    </h2>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>Trumpets - Sept 23 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+      <li>Passover - Apr 13 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+      <li>Sukkot - Oct 6 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+    </ul>
+  </section>
+
+  <!-- In Progress / Placeholders -->
+  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      In Progress
+    </h2>
+    <p>🎵 Placeholder: Music / voice interaction panel</p>
+    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+
+---------------------------------------------------
+
+<section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
+
+  <!-- Hero Header -->
+  <header class="flex flex-col items-center gap-2 text-center">
+    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+      Phrophecy Calendar
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+    </h2>
+    <h3 class="text-xl font-semibold text-blue-400">
+      Current Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
+    </h3>
+  </header>
+
+  <!-- Calendar Filters -->
+  <div class="calendar-filters flex flex-wrap gap-2 justify-center">
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+      </svg>
+      Hillel
+    </button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox / Catholic</button>
+  </div>
+
+  <!-- Horizontal Section Example -->
+  <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    
+    <!-- Astronomical Info Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
+        </svg>
+        Astronomical Info
+      </h2>
+      <p>🌞 Sun Rise / Set: 06:23</p>
+      <p>🌙 Moon Phase: Waxing Crescent</p>
+      <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+    </div>
+
+    <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        Calendar Dates
+      </h2>
+      <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
+      <p>Remaining Days: 10</p>
+      <p>Days to Prepare: 3</p>
+      <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+    </div>
+
+    <!-- Holy Days / Feasts Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Holy Days / Feasts Explained
+      </h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Trumpets - Sept 23 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+        <li>Passover - Apr 13 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+        <li>Sukkot - Oct 6 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- Placeholder / In Progress -->
+  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      In Progress
+    </h2>
+    <p>🎵 Placeholder: Music / voice interaction panel</p>
+    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+  </section>
+
+</section>
+
+-----------------------------------------------
+
+
+
+  </section>
+
+</section>
+
+..........................................
+
     </div> <!-- End calendarCardInner -->
 
   </section>
