@@ -1,0 +1,110 @@
+new calendar
+
+<!-- 🔮 Universal Glass Modal -->
+<div id="modalContainer" class="fixed inset-0 hidden items-center justify-center bg-black/50 z-50">
+  <div class="modal glass rounded-xl shadow-xl max-w-md w-[90%] max-h-[90%] overflow-y-auto p-4 relative">
+    <button class="absolute top-2 right-2 text-gray-400 hover:text-white" onclick="closeModal()">
+      ✕
+    </button>
+    <div id="modalContent" class="text-sm text-gray-100 space-y-4">
+      <!-- dynamic content goes here -->
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(contentHtml) {
+  const modal = document.getElementById("modalContainer");
+  const content = document.getElementById("modalContent");
+  content.innerHTML = contentHtml;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeModal() {
+  const modal = document.getElementById("modalContainer");
+  modal.classList.remove("flex");
+  modal.classList.add("hidden");
+}
+</script>
+
+<style>
+/* subtle glass look */
+.glass {
+  background: rgba(30, 30, 40, 0.8);
+  backdrop-filter: blur(12px);
+}
+</style>
+
+
+<!-- Calendar Card -->
+<div class="bibleCard inactive absolute flex items-center justify-center rounded-xl shadow-lg flex-col z-40">
+  <section class="calendar-card bg-gray-900/80 backdrop-blur-md rounded-2xl shadow-xl p-4 w-full max-w-md text-white">
+    
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 4h12m-15 4h18" />
+        </svg>
+        Calendar
+      </h2>
+      <!-- Placeholder segmented selector -->
+      <div class="flex gap-2 overflow-x-auto">
+        <button class="px-3 py-1 bg-blue-600 rounded-full text-sm whitespace-nowrap">Hebrew</button>
+        <button class="px-3 py-1 bg-gray-700 rounded-full text-sm whitespace-nowrap">Gregorian</button>
+        <button class="px-3 py-1 bg-gray-700 rounded-full text-sm whitespace-nowrap">Other…</button>
+      </div>
+    </header>
+
+    <!-- Mini Calendar Placeholder -->
+    <div class="bg-black/40 rounded-lg p-3 mb-4">
+      <p class="text-sm text-gray-300">📅 Mini calendar view goes here</p>
+    </div>
+
+    <!-- Astronomical Info -->
+    <section class="grid grid-cols-3 gap-3 text-center mb-4">
+      <div class="bg-black/40 p-2 rounded-lg">
+        🌅 <p class="text-xs">Sunrise</p>
+        <p class="font-bold">6:42 AM</p>
+      </div>
+      <div class="bg-black/40 p-2 rounded-lg">
+        🌙 <p class="text-xs">Moon</p>
+        <p class="font-bold">Waxing</p>
+      </div>
+      <div class="bg-black/40 p-2 rounded-lg">
+        ✨ <p class="text-xs">Stars</p>
+        <p class="font-bold">Orion</p>
+      </div>
+    </section>
+
+    <!-- Calendar Info -->
+    <section class="space-y-2 mb-4">
+      <p>📖 Remaining Holy Days: <span class="font-bold">10</span></p>
+      <p>⏳ Days to Prepare: <span class="font-bold">3</span></p>
+      <p>📍 Congregation: 
+        <a href="#" class="text-blue-400 underline">Jerusalem</a>, 
+        <a href="#" class="text-blue-400 underline">Synagogues</a>, 
+        <a href="#" class="text-blue-400 underline">Churches</a>, 
+        <a href="#" class="text-blue-400 underline">HomeGroups</a>
+      </p>
+    </section>
+
+    <!-- Holy Days List -->
+    <section>
+      <h3 class="text-md font-semibold mb-2">Holy Days / Feasts</h3>
+      <ul class="space-y-2">
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Passover (Nisan 14) — <span class="text-blue-300">Learn more</span>
+        </li>
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Shavuot (Sivan 6) — <span class="text-blue-300">Learn more</span>
+        </li>
+        <li class="bg-black/40 p-2 rounded hover:bg-black/60 cursor-pointer">
+          Yom Kippur (Tishrei 10) — <span class="text-blue-300">Learn more</span>
+        </li>
+      </ul>
+    </section>
+
+  </section>
+</div>

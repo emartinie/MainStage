@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -5,14 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#4a5568">
-  <title>Sandbox-Bible MainStage</title>
+  <title>SANDBOX-Bible MainStage</title>
     <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
   <link rel="stylesheet" href="css/cosmicbadass.css">
   <link rel="stylesheet" href="css/styles.css">
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Leaflet MarkerCluster CSS + JS -->
+<!-- MarkerCluster CSS + JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
@@ -20,8 +18,6 @@
 
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
      <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script> 
-  
-  
   
   <style>
     .cosmic-card {
@@ -32,12 +28,7 @@
       min-height: 300px;
     }
 
-    #map {
-      flex-grow: 1;
-      width: 100%;
-    }
-
-           /* Extra badass polish */
+        /* Extra badass polish */
     #bibleStage {
       perspective: 1200px;
       overflow: hidden;
@@ -62,9 +53,8 @@
   max-width: 90vw;
   max-height: 90vh;
   position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   right: 1rem;
-  z-index: 9999;
 }
 
     /* Optional bounce animation for hero card */
@@ -73,9 +63,9 @@
 
   </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 min-h-screen">
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
-<main>
+
 <!-- Header -->
 <header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
   <div class="flex items-center gap-2">
@@ -110,37 +100,26 @@
 
   <button id="installBtn" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" style="display:none;">📲 Install App</button>
 </header>
+      
 <div id="weekInfo"></div>
-<!-- Floating Player -->
-<!-- Hero/MainStage Card 2-->
-<section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
+<body class="bg-gray-900 flex flex-col items-center min-h-screen justify-center">
 
-  <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-  </marquee>
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek</p>
 
-    <!-- Floating Player -->
-    <div id="fp-hero-glass-root"></div>
-    </div>
-    </section>
-    <div id="fp-hero-glass-root"></div> 
+<div id="fp-hero-glass-root"><img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow"></div> 
 
-    <!-- Carousel Wrapper -->
-    <section id="bibleCarousel" class="relative">
+
+  <!-- Carousel Wrapper -->
+  <section id="bibleCarousel" class="relative">
+
+    
     <!-- Stage -->
-    <div id="bibleStage" class="relative">
+    <div id="bibleStage" class="relative flex items-center justify-center rounded-xl shadow-lg flex flex-col">
       
       <!-- Cards -->
-      <div class="bibleCard active">
-  
-<section>
-  <!-- MainStage Hero Card -->
+     <section>
+    <div class="bibleCard active flex items-center justify-center rounded-xl shadow-lg">
+
+<!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
@@ -191,10 +170,10 @@
 
   <!-- Cards container for <div id="weekInfo"></div>-driven content -->
   <main id="cardsContainer">
+      </div>
 
-
-  </section>
-  <section>
+      <section>
+    <div class="bibleCard inactive absolute">
 
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
@@ -261,9 +240,22 @@
       <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
     </div>
     </div> <!-- End calendarCardInner -->
- </section>
- 
-  <section class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl>
+      </div>
+    </section>
+
+      <section>
+    <div class="bibleCard inactive absolute">
+
+<!--paste -->
+      </div>
+
+
+      <section>
+    <div class="bibleCard inactive absolute">
+
+<!--paste -->
+      </div>
+<section class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl>
 
   <!-- Header -->
     <header class="cosmic-header flex items-center justify-between p-4 border-b border-gray-700">
@@ -499,29 +491,94 @@ stage.addEventListener("touchend", (e) => {
 });
 </script>
   </section>
-  </div>
+  </div></div>
 
 
-
-</main>
-
-  <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
-    <div class="flex justify-center gap-2 p-2">
-      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
+  </section>      </div>
     </div>
-    <p class="mt-2">&copy; 2025 HGBibleApp</p>
-  </footer>
-    <!-- Scripts -->
-  <script src="js/mainStageLoader.js" defer></script>
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="app.js" defer></script>
 
- 
 
-  <script>
+  </section>
+
+<script>
+const cards = document.querySelectorAll(".bibleCard");
+let activeIndex = 0;
+
+// Utility: update active card
+function showCard(newIndex) {
+  if (newIndex === activeIndex) return;
+
+  const current = cards[activeIndex];
+  const next = cards[newIndex];
+
+  // reset current
+  current.classList.remove("active");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
+
+  // activate next
+  next.classList.add("active");
+  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
+
+  activeIndex = newIndex;
+}
+
+// Prev/Next button logic
+document.getElementById("biblePrevBtn").addEventListener("click", () => {
+  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+  showCard(prevIndex);
+});
+
+document.getElementById("bibleNextBtn").addEventListener("click", () => {
+  const nextIndex = (activeIndex + 1) % cards.length;
+  showCard(nextIndex);
+});
+
+// Touch/swipe support
+let startX = 0;
+const stage = document.getElementById("bibleStage");
+
+stage.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+stage.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      // swipe right = prev
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      showCard(prevIndex);
+    } else {
+      // swipe left = next
+      const nextIndex = (activeIndex + 1) % cards.length;
+      showCard(nextIndex);
+    }
+  }
+});
+</script>
+</main>
+<!-- Footer -->
+<footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner flex flex-col z-50">
+  <div class="flex justify-center gap-2 p-2">
+    <input id="advancedsearchInput" 
+           type="text" 
+           placeholder="Search Scriptures..." 
+           class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    
+    <button id="darkModeToggle" 
+            class="px-3 py-1 bg-gray-700 text-white rounded transition transform hover:scale-110 hover:bg-gray-600 hover:drop-shadow-[0_0_8px_#00f] hover:-rotate-3">
+      🌙 Dark
+    </button>
+    
+    <button id="searchResetBtn" 
+            class="px-3 py-1 bg-gray-700 text-white rounded transition transform hover:scale-110 hover:bg-gray-600 hover:drop-shadow-[0_0_8px_#f00] hover:rotate-3">
+      🔄 Reset
+    </button>
+  </div>
+  <p class="mt-2 text-gray-400 text-sm">&copy; 2025 HGBibleApp</p>
+</footer>  <script>
     // Dark mode toggle
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
@@ -589,7 +646,14 @@ function addSearchResetButton() {
     searchWrapper.appendChild(resetBtn); // append inside the flex container
 }
   </script>
+ 
+    <!-- Scripts -->
+  <script src="js/mainStageLoader.js" defer></script>
+  <script src="js/FloatingPlayerv-3.js" defer></script> 
+  <script src="app.js" defer></script>
 
-
+<script>
+  console.log("✅ Script closed properly");
+</script>
 </body>
 </html>
