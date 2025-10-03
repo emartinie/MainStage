@@ -1,12 +1,12 @@
 // --- Config ---
-const START_DATE = new Date("2025-10-18 T00:00:00Z");
+const START_DATE = new Date("2024-10-26T00:00:00Z");
 const TOTAL_WEEKS = 52;
 
 // --- Helper: Current Week ---
 function getCurrentWeekNumber() {
     const diffMs = new Date() - START_DATE;
     if (diffMs < 0) return 1;
-    const week = Math.floor(diffMs / (1000*60*60*24*7)) + 1;
+    const week = Math.floor(diffMs / (1000*60*60*24*7)) + 4;
     return week > TOTAL_WEEKS ? TOTAL_WEEKS : week;
 }
 
