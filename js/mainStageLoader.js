@@ -298,7 +298,7 @@ Object.keys(outlines).forEach(chap => {
 // --- Load Week ---
 async function loadWeek(weekNum) {
     try {
-        const res = await fetch(`data/week${weekNum}.json`);
+        const res = await fetch(`./data/week${weekNum}.json`);
         if (!res.ok) throw new Error("Failed to fetch week data");
         const data = await res.json();
         await loadMainStageWeek(data);
