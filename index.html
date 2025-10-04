@@ -444,7 +444,7 @@
     const markers = L.markerClusterGroup();
 
     // Load your GeoJSON
-    fetch("HomeGroupsMap.geojson")
+    fetch("/sandbox/HomeGroupsMap.geojson")
       .then((response) => {
         if (!response.ok) throw new Error("HTTP " + response.status);
         return response.json();
