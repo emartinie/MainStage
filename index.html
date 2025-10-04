@@ -4,13 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4a5568">
-  <title>Bible MainStage</title>
-    <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
+<!-- Social Media Preview Meta Tags -->
+<meta property="og:title" content="MainStage Bible Study App" />
+<meta property="og:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://emartinie.github.io/MainStage/sandbox/savedindex.html" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Map.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MainStage Bible Study App" />
+<meta name="twitter:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+<meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<!-- Extra (SEO + universal) -->
+<meta name="description" content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
+<meta name="author" content="Eddie Martinie" />  
+<meta name="theme-color" content="#4a5568">
+  <title>MainStage Bible Study App</title>
+    <link rel="icon" type="image/x-icon" href="<link rel="icon" type="image/png" href="https://emartinie.github.io/MainStage/images/HGHouses.png">">
   <link rel="stylesheet" href="css/cosmicbadass.css">
   <link rel="stylesheet" href="css/styles.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet MarkerCluster CSS + JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script> 
+  
+  
+  
   <style>
+    .cosmic-card {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* full viewport height for testing */
+      min-height: 300px;
+    }
+
+    #map {
+      flex-grow: 1;
+    }
+
+           /* Extra badass polish */
+    #bibleStage {
+      perspective: 1200px;
+      overflow: hidden;
+    }
+    .bibleCard {
+      flex: 0 0 100%;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      backface-visibility: hidden;
+    }
+    .bibleCard.inactive {
+      opacity: 0;
+      transform: scale(0.9) rotateY(15deg);
+    }
+    .bibleCard.active {
+      opacity: 1;
+      transform: scale(1) rotateY(0deg);
+    }
 
 
 /* Optional: force the floating player to scale on small screens */
@@ -22,48 +85,81 @@
   right: 1rem;
   z-index: 9999;
 }
+
     /* Optional bounce animation for hero card */
     @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
     .animate-bounce-slow { animation: bounce-slow 2s infinite; }
+
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
 <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
 <main>
-  <!-- Header -->
-   <button id="installBtn" style="display:none;">
-   📲 Install App
-    </button> 
-  <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md flex justify-between items-left px-4 py-2">
-    <div class="flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-      <h1 class="text-xl font-bold"> </h1>
-    </div>
-    <div class="flex items-center gap-2">
-  
-    <button id="prevWeek" class="px-2 py-1 border rounded">Prev</button>
-      <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600"></select>
-      <button id="nextWeek" class="px-2 py-1 border rounded">Next</button>
-    </div>
-  </header>
+<!-- Header -->
+<header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
+  <div class="flex items-center gap-2">
+    <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
+  </div>
+
+  <!-- Bible Carousel Controls -->
+  <div class="flex items-center gap-2">
+    <button id="biblePrevBtn" 
+            class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <button id="bibleNextBtn" 
+            class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Week Selector -->
+    <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
+    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600">
+      <!-- Dynamic week options -->
+    </select>
+    <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
+  </div>
+
+  <button id="installBtn" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" style="display:none;">📲 Install App</button>
+</header>
 <div id="weekInfo"></div>
 <!-- Floating Player -->
-<!-- Hero/MainStage Card -->
+<!-- Hero/MainStage Card 2-->
 <section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
   </video>
 
-  <div class="relative z-10 space-y-3">
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek</p>
+  <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+  </marquee>
+    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Bible MainStage</h2>
+    <p class="text-gray-300 text-lg">English / Hebrew / Greek Audio Players + Scripture</p>
 
     <!-- Floating Player -->
     <div id="fp-hero-glass-root"></div>
-  </div>
-</section>
-<div id="fp-hero-glass-root"></div> 
+    </div>
+    </section>
+    <div id="fp-hero-glass-root"></div> 
+
+  <!-- Carousel Wrapper -->
+  <section id="bibleCarousel" class="relative">
+
+    
+    <!-- Stage -->
+    <div id="bibleStage" class="relative">
+      
+      <!-- Cards -->
+      <div class="bibleCard active">
+
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
@@ -83,8 +179,9 @@
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
-  </div>
-  <h2>AudioVisual Scriptures</h2>
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>AudioVisual Scriptures<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>
   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
 
   <!-- Scripture Popup -->
@@ -98,52 +195,526 @@
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
   <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
   </div>
-    <h2>Chapter Outlines</h2>
-  <!-- Chapter Outlines (under playlist) -->
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>  <!-- Chapter Outlines (under playlist) -->
     <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"></div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>
+
   </section>
 
-<!-- Hero-style Calendar Card -->
-<Section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-<!-- Background video -->
+  </div>
+
+      <div class="bibleCard inactive">
+
+
+<!-- Cosmic Badass Calendar Card -->
+<section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+  <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video>
-  <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-gray-200">Next Holy Day:Trumpets(יוֹם תְּרוּעָה)Yom Teruah, Rosh Hashanah</h3>
-  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">dynamically rendering times/ dates...</p>
-  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%"></p>
-  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%"></p>
-  
-  <!-- Optional: mini calendar preview -->
-  <div id="miniCalendar" class="mt-3 p-2 bg-gray-100 dark:bg-gray-700 rounded max-w-100%">
-    <!-- dynamically render days/weeks -->
+  <h3 class="text-xl font-bold mb-2">Next Holy Day: Yom Kippur (Day of Atonement) or (Hebrew: יום כיפור) : Starts the evening of Wednesday, October 1, 2025, and concludes at nightfall on Thursday, October 2, 2025. </h3>
+
+<section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
+
+  <!-- Hero Header -->
+  <header class="flex flex-col items-center gap-2 text-center">
+    <h2 class="text-3xl font-extrabold flex items-center gap-3">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+      Phrophecy Calendar
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
+    </h2>
+    <h3 class="text-xl font-semibold text-blue-400">
+      Current Calculation: "Hillel"
+    </h3>
+  </header>
+
+  <!-- Calendar Filters -->
+  <div class="calendar-filters flex flex-wrap gap-2 justify-center">
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+      </svg>
+      Hillel
+    </button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox / Catholic</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
+
   </div>
+
+  <!-- Placeholder / In Progress -->
+  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      In Progress
+    </h2>
+    <p>🎵 Placeholder: Music / voice interaction panel</p>
+    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+</section>
+
+  <!-- Horizontal Section Example -->
+  <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    
+    <!-- Astronomical Info Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
+        </svg>
+        Astronomical Info
+      </h2>
+      <p>🌞 Sun Rise / Set: 06:23</p>
+      <p>🌙 Moon Phase: Waxing Crescent</p>
+      <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+    </div>
+
+    <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        Calendar Dates
+      </h2>
+      <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
+      <p>Remaining Days: 10</p>
+      <p>Days to Prepare: 3</p>
+      <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+    </div>
+
+    <!-- Holy Days / Feasts Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        Holy Days / Feasts Explained
+      </h2>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>Evening of Wed, Oct 1, 2025 – Thu, Oct 2, 2025 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Yom Kippur means Day of Atonement in English and is the holiest day on the Jewish calendar, observed by fasting and intensive prayer to atone for sins and seal judgment for the year. The holiday marks the end of the Days of Awe (the Ten Days of Repentance) that begin with Rosh Hashanah, focusing on self-reflection, seeking forgiveness, and making amends')">Info</button></li>
+        <li>Sukkot (Feast of Tabernacles): Starts the evening of Monday, October 6, 2025, and concludes at nightfall on Monday, October 13, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot lasts for seven days. The two days following the festival, Shemini Atzeret and Simchat Torah, are separate holidays but are related to Sukkot and are commonly thought of as part of Sukkot.')">Info</button></li>
+
+ <li>Shemini Atzeret: Follows Sukkot, beginning the evening of Monday, October 13, 2025, and ending at nightfall on Tuesday, October 14, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('It is celebrated on the 22nd day of the Hebrew month of Tishrei, usually coinciding with late-September or early-October. It is the eighth day of Sukkot, a sacred occasion, where one stores up gratitude and devotion, and is not quite its own holiday.')">Info</button></li>
+
+      </ul>
+
+<section>
+
+      <h4 class="font-semibold mb-2">Next Sabbath</h4>
+      <p>Saturday, 09/28 - Starts Friday sunset, ends Saturday sunset</p>
+    </div>
+
+    <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        2026 Calendar Dates
+      </h2>
+      <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
+      <p>April 1: Passover Sundown</p>
+      <p>April 2–8: Feast of Unleavened Bread</p>
+      <p>September 12: Feast of Trumpets</p>
+      <p>September 22–24: Rosh Hashanah</p>
+      <p>October 1–2: Yom Kippur</p>
+      <p>October 6–13: Sukkot</p>
+      <p>December 14–22: Hanukkah</p>
+      <p>Last Great Day - 10/14/2025</p>
+      <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+    </div>
+ 
+       <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+      <h2>Christian Holidays</24>
+ 
+        <p>January 1: Solemnity of Mary, the Mother of God</p>
+        <p>January 6: Epiphany</p>
+        <p>February 18: Ash Wednesday</p>
+        <p>May 14: Ascension of the Lord</p>
+        <p>January 7: Orthodox Christmas Day</p>
+        <p>May 24: Pentecost</p>
+        <p>August 15: Assumption of the Blessed Virgin Mary</p>
+        <p>November 1: All Saints' Day</p>
+        <p>November 29: First Sunday of Advent</p>        
+        <p>December 8: Immaculate Conception of the Blessed Virgin Mary</p>
+        <p>December 25: Christmas</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>Pagan Christmas - 12/25/2026</p>
 </div>
+ <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        Other Religious Observances
+      </h2>
+     
+       <p>February 17–March 18: Ramadan</p>
+        <p>May 26–27: Eid al-Adha</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>January 3: Mahayana New Year (Buddhist)</p>
+        <p>June 18: Martyrdom of Guru Arjan Dev (Sikhism)</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>August 16: Krishna Janmashtami (Hinduism)</p>
+        <p>October 20: Diwali (Hindu, Jain, Sikh)</p>
+        <p>November 5: Guru Nanak Gurpurab (Sikhism)</p>        
+        <p>February 17–March 18: Ramadan</p>
+        <p>May 26–27: Eid al-Adha</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>Christmas - 12/25/2025</p>
+<section>
+
+ <section>
+
+    </div>
+  </div>
   </section>
 
-  <!-- Cards container for <div id="weekInfo"></div>-driven content -->
-  <main id="cardsContainer" http://192.168.254.10:8080/sandbox/</main>
+      <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
+
+  <!-- Cosmic Badass Map Card -->
+  <section class="cosmic-card rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+    <!-- Header -->
+    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Prophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700">
+      <button id="locateBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍 My Location</button>
+      <button id="searchBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍 Search</button>
+      <button id="filtersBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️ Filters</button>
+
+      <div class="flex items-center gap-2">
+        <label for="zipInput" class="text-sm">Zip:</label>
+        <input id="zipInput" type="text" placeholder="Enter Zipcode" 
+               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
+        <button id="zipBtn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">Filter</button>
+        <button id="resetBtn" class="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white rounded-lg">Reset</button>
+      </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="cosmic-map" class="flex-1 relative rounded-b-3xl">
+      <div id="map" class="min-h-[300px] rounded-b-3xl"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="cosmic-footer bg-gray-800/80 text-center text-white">
+      <p class="flex items-center justify-center gap-2 text-sm">
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </p>
+    </footer>
+
+<script>
+
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
+
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
+        });
+
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+
+ // Optional: locate me button logic
+  
+<!-- new locateme -->
+  function onLocationFound(e) {
+    var radius = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
+  function onLocationError(e) {
+    alert(e.message);
+}
+
+map.on('locationerror', onLocationError);
+<!-- end new code-->
+
+<!-- button function needs listener -->
+  function locateMe() {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    });
+  }
+
+  // Dummy food layer
+  const foodLayer = L.layerGroup([
+    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
+    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
+    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
+  ]).addTo(map);
+
+  // Search
+  document.getElementById("searchBtn").addEventListener("click", async () => {
+    const query = prompt("Enter a place or address:");
+    if (!query) return;
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+ 
+      const data = await res.json();
+
+      if (data.length) {
+        const { lat, lon, display_name } = data[0];
+        const latLng = [parseFloat(lat), parseFloat(lon)];
+        map.setView(latLng, 14);
+        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+      } else {
+        alert("Place not found");
+      }
+    } catch (err) {
+      console.error("Search failed:", err);
+    }
+  });
+
+// Filter zipcode logic
+document.getElementById("zipBtn").addEventListener("click", () => {
+  const zip = document.getElementById("zipInput").value.trim();
+  if (!zip) return;
+  const filtered = markerData.filter(item => item.zipcode === zip);
+  renderMarkers(filtered);
+  if (filtered.length > 0) {
+    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
+  }
+});
+
+</script> 
+
+
+
+<style>
+  .cosmic-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #0a0f1c, #1b2138);
+    color: #f1f1f1;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    overflow: hidden;
+    margin: 1rem;
+  }
+
+  .cosmic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(20, 25, 40, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
+  }
+
+  .cosmic-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #8a2be2;
+  }
+
+  .toolbar {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cosmic-btn {
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(138, 43, 226, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .cosmic-btn:hover {
+    background: rgba(138, 43, 226, 0.5);
+    box-shadow: 0 0 10px #8a2be2;
+  }
+
+  .map-placeholder {
+    height: 100%; /* Adjust height */
+    background: #111;
+    position: relative;
+  }
+
+  .cosmic-footer {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    background: rgba(20, 25, 40, 0.85);
+    border-top: 2px solid rgba(138, 43, 226, 0.6);
+  }
+</style>
+
+  </section>
+</div>
+  <!-- End Cosmic Badass Map Card -->
+
+
+
+</section>
+</div>
+<section id="cardsContainer" class="space-y-6 mt-6">      
+
+
+</main>
+
+
 
   <!-- Footer -->
-  <footer class="sticky bottom-0 bg-white dark:bg-gray-800 text-center py-2 shadow-inner">
-    
-  <!-- Advanced Search Input -->
-  <div id="searchWrapper" class="flex-1 p-4 space-y-6 max-w-100% mx-auto" style="float: justify;>
-    <input id="advancedsearchInput" type="text" placeholder="Search Scriptures and Bible Studies..."
-           class="flex-1 px-2 py-1 border rounded dark:bg-gray-700 dark:text-gray-200">&copy; 2025 HGBibleApp
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">Dark</button>
-    <!-- Button will be inserted here via JS soon -->
-  </div>
-
+  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
+    <div class="flex justify-center gap-2 p-2">
+      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
+      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
+      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
+    </div>
+    <p class="mt-2">&copy; 2025 HGBibleApp</p>
   </footer>
-  </main>
-  <!-- Scripts -->
+    <!-- Scripts -->
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="app.js" defer></script> 
+  <script src="app.js" defer></script>
+
+  <script>
+const cards = document.querySelectorAll(".bibleCard");
+let activeIndex = 0;
+
+// Utility: update active card
+function showCard(newIndex) {
+  if (newIndex === activeIndex) return;
+
+  const current = cards[activeIndex];
+  const next = cards[newIndex];
+
+  // reset current
+  current.classList.remove("active");
+  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
+
+  // activate next
+  next.classList.add("active");
+  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
+
+  activeIndex = newIndex;
+}
+
+// Prev/Next button logic
+document.getElementById("biblePrevBtn").addEventListener("click", () => {
+  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+  showCard(prevIndex);
+});
+
+document.getElementById("bibleNextBtn").addEventListener("click", () => {
+  const nextIndex = (activeIndex + 1) % cards.length;
+  showCard(nextIndex);
+});
+
+// Touch/swipe support
+let startX = 0;
+const stage = document.getElementById("bibleStage");
+
+stage.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+stage.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const deltaX = endX - startX;
+
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX > 0) {
+      // swipe right = prev
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      showCard(prevIndex);
+    } else {
+      // swipe left = next
+      const nextIndex = (activeIndex + 1) % cards.length;
+      showCard(nextIndex);
+    }
+  }
+});
+</script>
+
 
   <script>
     // Dark mode toggle
@@ -214,11 +785,6 @@ function addSearchResetButton() {
 }
   </script>
 
-  <script src="js/FloatingPlayer-v3.js" defer></script>
-  <script src="js/mainStageLoader-holydays.js" defer></script>
-  <script src="app.js" defer></script> 
-    <!-- debug Script -->
-  <script src="debug/FinalCosmicDebugger.js" defer></script> 
 
 </body>
 </html>

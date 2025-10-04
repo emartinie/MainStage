@@ -4,9 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4a5568">
-  <title>Sandbox-Bible MainStage</title>
-    <link rel="icon" type="image/x-icon" href="images/HGHouses.png">
+<!-- Social Media Preview Meta Tags -->
+<meta property="og:title" content="MainStage Bible Study App" />
+<meta property="og:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://emartinie.github.io/MainStage/sandbox/savedindex.html" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Map.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
+<meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MainStage Bible Study App" />
+<meta name="twitter:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+<meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<!-- Extra (SEO + universal) -->
+<meta name="description" content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
+<meta name="author" content="Eddie Martinie" />  
+<meta name="theme-color" content="#4a5568">
+  <title>MainStage Bible Study App</title>
+    <link rel="icon" type="image/x-icon" href="<link rel="icon" type="image/png" href="https://emartinie.github.io/MainStage/images/HGHouses.png">">
   <link rel="stylesheet" href="css/cosmicbadass.css">
   <link rel="stylesheet" href="css/styles.css">
   <!-- Leaflet CSS -->
@@ -120,8 +141,8 @@
   <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Weekly Bible Studies</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek</p>
+    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Bible MainStage</h2>
+    <p class="text-gray-300 text-lg">English / Hebrew / Greek Audio Players + Scripture</p>
 
     <!-- Floating Player -->
     <div id="fp-hero-glass-root"></div>
@@ -195,13 +216,7 @@
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video>
-   <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Phrophecy Calendar<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-  </h2>
-  <h3 class="text-xl font-bold mb-2">Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</h3>
-  <p id="nextHolyDay" class="px-2 py-1 border rounded max-w-100%">Days: 10</p>
-  <p id="daysToPrepare" class="px-2 py-1 border rounded max-w-100%">Days to Prepare: 3</p>
-  <p id="locationHint" class="px-2 py-1 border rounded max-w-100%">Locations: Jerusalem, Synagogues</p>
+  <h3 class="text-xl font-bold mb-2">Next Holy Day: Yom Kippur (Day of Atonement) or (Hebrew: יום כיפור) : Starts the evening of Wednesday, October 1, 2025, and concludes at nightfall on Thursday, October 2, 2025. </h3>
 
 <section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
 
@@ -213,7 +228,7 @@
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-8"/>
     </h2>
     <h3 class="text-xl font-semibold text-blue-400">
-      Current Calculation: "Hillel"- Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah
+      Current Calculation: "Hillel"
     </h3>
   </header>
 
@@ -229,7 +244,22 @@
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern Orthodox</button>
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox / Catholic</button>
+    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
+
   </div>
+
+  <!-- Placeholder / In Progress -->
+  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      In Progress
+    </h2>
+    <p>🎵 Placeholder: Music / voice interaction panel</p>
+    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+</section>
 
   <!-- Horizontal Section Example -->
   <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -272,90 +302,100 @@
         Holy Days / Feasts Explained
       </h2>
       <ul class="list-disc pl-5 space-y-1">
-        <li>Trumpets - Sept 23 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
-        <li>Passover - Apr 13 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
-        <li>Sukkot - Oct 6 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500">Info</button></li>
+        <li>Evening of Wed, Oct 1, 2025 – Thu, Oct 2, 2025 <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Yom Kippur means Day of Atonement in English and is the holiest day on the Jewish calendar, observed by fasting and intensive prayer to atone for sins and seal judgment for the year. The holiday marks the end of the Days of Awe (the Ten Days of Repentance) that begin with Rosh Hashanah, focusing on self-reflection, seeking forgiveness, and making amends')">Info</button></li>
+        <li>Sukkot (Feast of Tabernacles): Starts the evening of Monday, October 6, 2025, and concludes at nightfall on Monday, October 13, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('Sukkot lasts for seven days. The two days following the festival, Shemini Atzeret and Simchat Torah, are separate holidays but are related to Sukkot and are commonly thought of as part of Sukkot.')">Info</button></li>
+
+ <li>Shemini Atzeret: Follows Sukkot, beginning the evening of Monday, October 13, 2025, and ending at nightfall on Tuesday, October 14, 2025<button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="alert('It is celebrated on the 22nd day of the Hebrew month of Tishrei, usually coinciding with late-September or early-October. It is the eighth day of Sukkot, a sacred occasion, where one stores up gratitude and devotion, and is not quite its own holiday.')">Info</button></li>
+
       </ul>
-    </div>
 
-  </section>
+<section>
 
-  <!-- Placeholder / In Progress -->
-  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-    <h2 class="text-2xl font-bold flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-      </svg>
-      In Progress
-    </h2>
-    <p>🎵 Placeholder: Music / voice interaction panel</p>
-    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
-    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
-  </section>
-
-  <!-- Inner Calendar -->
-  <div id="calendarCardInner" class="card mt-4 bg-gray-800/70 rounded-xl p-4 backdrop-blur-sm">
-    <div class="flex gap-2 flex-wrap mb-3">
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white active" data-tab="weekTab">Week</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="sabbathTab">Sabbath</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="feastsTab">Feasts</button>
-      <button class="tabBtn px-3 py-1 border rounded bg-gray-700 hover:bg-gray-600 text-white" data-tab="otherTab">Other Religions</button>
-    </div>
-
-    <div class="tabContent" id="weekTab">
-      <h4 class="font-semibold mb-2">Current Week</h4>
-      <p>Sun 09/22 • Mon 09/23 • Tue 09/24 • Wed 09/25 • Thu 09/26 • Fri 09/27 • Sat 09/28</p>
-    </div>
-
-    <div class="tabContent hidden" id="sabbathTab">
       <h4 class="font-semibold mb-2">Next Sabbath</h4>
       <p>Saturday, 09/28 - Starts Friday sunset, ends Saturday sunset</p>
     </div>
 
-    <div class="tabContent hidden" id="feastsTab">
-      <h4 class="font-semibold mb-2">Biblical Feasts</h4>
-      <ul class="list-disc pl-5">
-        <li>Next Feast - Trumpets - Sept. 23rd Sundown</li>
-        <li>Passover - 04/13/2025</li>
-        <li>Unleavened Bread - 04/14/2025</li>
-        <li>Pentecost - 06/01/2025</li>
-        <li>Trumpets - 09/23/2025</li>
-        <li>Day of Atonement - 10/02/2025</li>
-        <li>Feast of Tabernacles - 10/07/2025</li>
-        <li>Last Great Day - 10/14/2025</li>
-      </ul>
+    <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        2026 Calendar Dates
+      </h2>
+      <p>Next Holy Day: Trumpets (יוֹם תְּרוּעָה) Yom Teruah, Rosh Hashanah</p>
+      <p>April 1: Passover Sundown</p>
+      <p>April 2–8: Feast of Unleavened Bread</p>
+      <p>September 12: Feast of Trumpets</p>
+      <p>September 22–24: Rosh Hashanah</p>
+      <p>October 1–2: Yom Kippur</p>
+      <p>October 6–13: Sukkot</p>
+      <p>December 14–22: Hanukkah</p>
+      <p>Last Great Day - 10/14/2025</p>
+      <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+      <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
     </div>
-
-    <div class="tabContent hidden" id="otherTab">
-      <h4 class="font-semibold mb-2">Other Religious Observances</h4>
-      <ul class="list-disc pl-5">
-        <li>Ramadan - 04/02/2025</li>
-        <li>Eid al-Fitr - 05/02/2025</li>
-        <li>Diwali - 11/01/2025</li>
-        <li>Christmas - 12/25/2025</li>
-      </ul>
-    </div>
-
-    <div class="mt-3 flex gap-2 flex-wrap">
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Hillel</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">Orthodox</button>
-      <button class="filterBtn px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
-    </div>
+ 
+       <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+      <h2>Christian Holidays</24>
+ 
+        <p>January 1: Solemnity of Mary, the Mother of God</p>
+        <p>January 6: Epiphany</p>
+        <p>February 18: Ash Wednesday</p>
+        <p>May 14: Ascension of the Lord</p>
+        <p>January 7: Orthodox Christmas Day</p>
+        <p>May 24: Pentecost</p>
+        <p>August 15: Assumption of the Blessed Virgin Mary</p>
+        <p>November 1: All Saints' Day</p>
+        <p>November 29: First Sunday of Advent</p>        
+        <p>December 8: Immaculate Conception of the Blessed Virgin Mary</p>
+        <p>December 25: Christmas</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>Pagan Christmas - 12/25/2026</p>
 </div>
-  </section>
+ <!-- Calendar Dates Card -->
+    <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+        </svg>
+        Other Religious Observances
+      </h2>
+     
+       <p>February 17–March 18: Ramadan</p>
+        <p>May 26–27: Eid al-Adha</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>January 3: Mahayana New Year (Buddhist)</p>
+        <p>June 18: Martyrdom of Guru Arjan Dev (Sikhism)</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>August 16: Krishna Janmashtami (Hinduism)</p>
+        <p>October 20: Diwali (Hindu, Jain, Sikh)</p>
+        <p>November 5: Guru Nanak Gurpurab (Sikhism)</p>        
+        <p>February 17–March 18: Ramadan</p>
+        <p>May 26–27: Eid al-Adha</p>
+        <p>June 16–17: Islamic New Year (Hijri)</p>
+        <p>Christmas - 12/25/2025</p>
+<section>
 
+ <section>
+
+    </div>
   </div>
+  </section>
 
       <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
 
   <!-- Cosmic Badass Map Card -->
   <section class="cosmic-card rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
     <!-- Header -->
-    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto">
+    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
       <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Phrophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Prophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>
     </header>
 
