@@ -150,6 +150,37 @@
     </section>
     <div id="fp-hero-glass-root"></div> 
 
+<!-- Quiz Toggle -->
+<div id="quizToggle" class="text-center mb-6">
+  <label class="inline-flex items-center cursor-pointer">
+    <span class="mr-3 font-semibold text-lg">Cosmic Quiz:</span>
+    <input type="checkbox" id="toggleGame" class="hidden" checked>
+    <div class="w-14 h-7 bg-gray-300 rounded-full shadow-inner toggle-bg relative">
+      <div class="w-7 h-7 bg-yellow-400 rounded-full shadow-md toggle-ball absolute top-0 left-0 transition-all"></div>
+    </div>
+  </label>
+</div>
+
+
+<!-- Quiz Container -->
+<div id="quizContainer" class="p-6 max-w-xl mx-auto text-center">
+  <div id="questionsCard"
+       class="p-8 rounded-3xl shadow-2xl text-white text-2xl font-bold mb-6 transform transition-all duration-500 bg-gradient-to-r from-purple-900 via-indigo-800 to-pink-700">
+    Loading question...
+  </div>
+
+  <div id="answerCard"
+       class="p-6 rounded-xl bg-white text-gray-900 text-lg font-semibold border-2 border-indigo-300 shadow-inner hidden transition-all duration-500">
+    <em id="answerText"></em>
+  </div>
+
+  <div class="flex justify-between mt-6">
+    <button id="prevBtn" class="px-5 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow hover:bg-gray-300 transition">◀ Previous</button>
+    <button id="revealBtn" class="px-6 py-2 bg-yellow-400 text-black font-bold rounded-lg shadow hover:bg-yellow-300 transition transform hover:scale-105">✨ Reveal ✨</button>
+    <button id="nextBtn" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition">Next ▶</button>
+  </div>
+</div>
+
   <!-- Carousel Wrapper -->
   <section id="bibleCarousel" class="relative">
 
@@ -633,94 +664,146 @@ document.getElementById("zipBtn").addEventListener("click", () => {
 
 
 
-</section>
-</div>
-<section id="cardsContainer" class="space-y-6 mt-6">      
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  let questions = [];
+  let currentIndex = 0;
+  let gameOn = true;
 
+  const toggleGame = document.getElementById("toggleGame");
+  toggleGame.addEventListener("change", () => gameOn = toggleGame.checked);
 
-</main>
-
-
-
-  <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
-    <div class="flex justify-center gap-2 p-2">
-      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
-    </div>
-    <p class="mt-2">&copy; 2025 HGBibleApp</p>
-  </footer>
-    <!-- Scripts -->
-  <script src="js/mainStageLoader.js" defer></script>
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="app.js" defer></script>
-
-  <script>
-const cards = document.querySelectorAll(".bibleCard");
-let activeIndex = 0;
-
-// Utility: update active card
-function showCard(newIndex) {
-  if (newIndex === activeIndex) return;
-
-  const current = cards[activeIndex];
-  const next = cards[newIndex];
-
-  // reset current
-  current.classList.remove("active");
-  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
-
-  // activate next
-  next.classList.add("active");
-  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
-
-  activeIndex = newIndex;
-}
-
-// Prev/Next button logic
-document.getElementById("biblePrevBtn").addEventListener("click", () => {
-  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-  showCard(prevIndex);
-});
-
-document.getElementById("bibleNextBtn").addEventListener("click", () => {
-  const nextIndex = (activeIndex + 1) % cards.length;
-  showCard(nextIndex);
-});
-
-// Touch/swipe support
-let startX = 0;
-const stage = document.getElementById("bibleStage");
-
-stage.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
-
-stage.addEventListener("touchend", (e) => {
-  const endX = e.changedTouches[0].clientX;
-  const deltaX = endX - startX;
-
-  if (Math.abs(deltaX) > 50) {
-    if (deltaX > 0) {
-      // swipe right = prev
-      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-      showCard(prevIndex);
-    } else {
-      // swipe left = next
-      const nextIndex = (activeIndex + 1) % cards.length;
-      showCard(nextIndex);
+  async function loadQuestions() {
+    try {
+      const res = await fetch("./bible_questions.json"); // make sure JSON path is correct
+      questions = await res.json();
+      console.log("Questions loaded:", questions);
+      if (!questions.length) {
+        document.getElementById("questionsCard").innerText = "No questions found.";
+        return;
+      }
+      showQuestion();
+    } catch (err) {
+      console.error("Error loading questions:", err);
+      document.getElementById("questionsCard").innerText = "Failed to load questions.";
     }
   }
+
+  function showQuestion() {
+    if (!gameOn) return;
+
+    const q = questions[currentIndex];
+    const card = document.getElementById("questionsCard");
+    const answerCard = document.getElementById("answerCard");
+    const answerText = document.getElementById("answerText");
+
+    // Cosmic pop animation
+    card.style.transform = "scale(0.9)";
+    card.style.opacity = 0;
+
+    setTimeout(() => {
+      card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
+      card.style.transform = "scale(1)";
+      card.style.opacity = 1;
+
+      answerText.innerText = q.answer;
+      answerCard.classList.add("hidden");
+      answerCard.style.opacity = 0;
+    }, 150);
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if (!gameOn) return;
+    if (currentIndex < questions.length - 1) currentIndex++;
+    showQuestion();
+  });
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (!gameOn) return;
+    if (currentIndex > 0) currentIndex--;
+    showQuestion();
+  });
+
+  document.getElementById("revealBtn").addEventListener("click", () => {
+    if (!gameOn) return;
+    const answerCard = document.getElementById("answerCard");
+    if (answerCard.classList.contains("hidden")) {
+      answerCard.classList.remove("hidden");
+      answerCard.style.opacity = 0;
+      setTimeout(() => answerCard.style.opacity = 1, 50);
+    } else {
+      answerCard.classList.add("hidden");
+    }
+  });
+
+  loadQuestions();
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  // === Canvas for cosmic streaks ===
+  const canvas = document.createElement('canvas');
+  canvas.id='cosmicCanvas';
+  document.getElementById('quizContainer').appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  let streaks=[];
 
-  <script>
-    // Dark mode toggle
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
-  </script>
+  function addStreak(x,y){
+    streaks.push({x,y,lifetime:50});
+  }
+
+  function animateStreaks(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    streaks.forEach((s,i)=>{
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,Math.random()*3+2,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${s.lifetime/50})`;
+      ctx.fill();
+      s.y -= 2+Math.random()*2;
+      s.x += (Math.random()-0.5)*2;
+      s.lifetime--;
+      if(s.lifetime<=0) streaks.splice(i,1);
+    });
+    requestAnimationFrame(animateStreaks);
+  }
+  animateStreaks();
+
+  // === Reveal answer hook to trigger streaks ===
+  const revealBtn=document.getElementById('revealBtn');
+  revealBtn.addEventListener('click',()=>{
+    const rect=document.getElementById('questionsCard').getBoundingClientRect();
+    for(let i=0;i<30;i++){
+      addStreak(rect.left+rect.width/2,rect.top+rect.height/2);
+    }
+  });
+
+  // === Resize canvas ===
+  window.addEventListener('resize',()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+  });
+});
+</script>
+
+<style>
+/* Toggle switch animation */
+.toggle-bg { cursor: pointer; }
+.toggle-ball { top: 0.125rem; left: 0.125rem; }
+input:checked + .toggle-bg .toggle-ball {
+  transform: translateX(100%);
+  background-color: #4ade80;
+}
+
+/* Cosmic pulse animation */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.6); }
+  50% { box-shadow: 0 0 30px rgba(255,255,255,1); }
+}
+.animate-pulse { animation: pulseGlow 1.5s infinite; }
+</style>
 
   <script>
   // --- Debounce helper ---

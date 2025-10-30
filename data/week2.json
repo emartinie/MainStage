@@ -12,13 +12,15 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "src": "http://audio.esvbible.org/hw/01006009-01011032.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"",
+        "src": "http://audio.esvbible.org/hw/23054001-23055005.mp3",
         "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
@@ -36,7 +38,7 @@
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
+        "src": "http://audio.esvbible.org/hw/51002001-51002023.mp3",
         "heb": "https://mechon-mamre.org/mp3/t1054.mp",
         "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
       },
@@ -49,26 +51,27 @@
     ],
     "chapter_outlines": {
       "Torah": [
-        "Genesis 1:1 | Six Days of Creation and the Sabbath",
-        "Genesis 2:4 | Another Account of the Creation",
-        "Genesis 3:1 | The First Sin and Its Punishment",
-        "Genesis 4:1 | Cain Murders Abel",
-        "Genesis 4:17 | Beginnings of Civilization",
-        "Genesis 5:1 | Adam’s Descendants to Noah and His Sons",
-        "Genesis 6:1 | The Wickedness of Humankind",
-        "Genesis 6:9 | Noah Pleases God"
+	"Genesis 6:1 | The Wickedness of Humankind",
+	"Genesis 6:9 | Noah Pleases God",
+	"Genesis 7:1 | The Great Flood",
+	"Genesis 8:1 | The Flood Subsides",
+	"Genesis 8:20 | God’s Promise to Noah",
+	"Genesis 9:1 | The Covenant with Noah",
+	"Genesis 9:18 | Noah and His Sons",
+	"Genesis 10:1 | Nations Descended from Noah",
+	"Genesis 11:1 | The Tower of Babel",
+	"Genesis 11:10 | Descendants of Shem",
+	"Genesis 11:27 | Descendants of Terah"
       ],
       "Prophets": [
-        "Isaiah 42:1 | The Servant, a Light to the Nations",
-        "Isaiah 42:10 | A Hymn of Praise"
-        "Isaiah 42:21 | Israel’s Disobedience",
-        "Isaiah 43:1 | Restoration and Protection Promised"
+	"Isaiah 54:1 | The Eternal Covenant of Peace",
+	"Isaiah 55:1 | An Invitation to Abundant Life"
       ],
       "Writings": [
         "1 Kings 11 | Prophecy of Israel and Judah's Division"
       ],
       "Gospels": [
-        "John 1 | The Word (Torah) Becomes Flesh)"
+        "Luke 17 | One will be taken and the other left"
       ],
       "Letters": [
         "Ephesians 2 | From Children of Disobedience into the Commonwealth of Israel",
@@ -86,8 +89,7 @@
       "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
     },
     "commentary": {
-      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
-      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+      "content": ""
     },
     "commentary2": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -97,10 +99,8 @@
       "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
       "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
     },
-
     "aleph_tav": {
-      "quote": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
-      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+      "quote": "" 
     },
     "kids_study": {
       "videos": [

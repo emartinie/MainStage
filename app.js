@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("./sw.js")
+      .register("/sw.js")
       .then(reg => console.log("Service Worker registered:", reg))
       .catch(err => console.error("SW registration failed:", err));
   });
@@ -15,26 +15,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;  // Save the event for later
 
     showInstallButton(); // Make the button visible
-});
-
-let deferredPrompt;
-const installButton = document.getElementById('installButton');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installButton.style.display = 'flex';
-});
-
-installButton.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      console.log('User accepted install');
-    }
-    deferredPrompt = null;
-  }
 });
 
 // Show the install button dynamically

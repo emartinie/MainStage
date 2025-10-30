@@ -1,7 +1,7 @@
 {
-  "english": "",
-  "hebrew": "",
-  "transliteration": "",
+  "english": "Genesis- in the beginning",
+  "hebrew": "בראשית",
+  "transliteration": "Bereshit",
   "week": 1,
   "title": "Bible Study for Week 1",
   "intro": {
@@ -12,38 +12,38 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "src": "https://audio.esv.org/hw/mq/01001001-01006008.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"",
+        "src": "https://audio.esv.org/hw/mq/23042005-23043010.mp3",
         "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Writings",
         "src": "http://audio.esvbible.org/hw/11011001-11011043.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "src": "https://audio.esv.org/hw/mq/43001001-43001051.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
       },
       {
         "label": "Letters",
         "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
       },
     {
        "label": "Revelation",
         "src": "http://audio.esvbible.org/hw/66021001-66021015.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
         "grk": "http://www.helding.net/greeklatinaudio/greek/revelation/rev07g.mp3"
      }
     ],
@@ -60,7 +60,7 @@
       ],
       "Prophets": [
         "Isaiah 42:1 | The Servant, a Light to the Nations",
-        "Isaiah 42:10 | A Hymn of Praise"
+        "Isaiah 42:10 | A Hymn of Praise",
         "Isaiah 42:21 | Israel’s Disobedience",
         "Isaiah 43:1 | Restoration and Protection Promised"
       ],
@@ -85,9 +85,7 @@
       "greek": "Greek ScriptureText didn't dynamically parse/ render",
       "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
     },
-    "commentary": {
-      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
-      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    "commentary": ""
     },
     "commentary2": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -131,8 +129,7 @@
         "day": "Monday",
         "audio": "psalm-monday.mp3"
       }
-    ]
-  },
+    ],
   "first_verse": {
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"

@@ -1,0 +1,160 @@
+/* ==========================
+   Cosmic Commentary Card
+   ========================== */
+#mainStage .commentary-card {
+  /* Background & glow */
+  @apply bg-gradient-to-br from-blue-900/80 to-blue-800/70;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 0 25px rgba(100, 180, 255, 0.3),  /* outer glow */
+    inset 0 0 15px rgba(100, 180, 255, 0.15); /* inner glow */
+  
+  /* Text & layout */
+  color: #e0f7ff;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Optional: Add a subtle orbiting ring around the player */
+#floatingPlayer::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 200, 255, 0.4);
+  animation: orbitRing 5s linear infinite;
+  pointer-events: none;
+
+/* Hover glow effect */
+#mainStage .commentary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 0 40px rgba(100, 200, 255, 0.7),
+    inset 0 0 25px rgba(100, 200, 255, 0.25);
+}
+
+@keyframes orbitRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#floatingPlayer {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.😎, 0 0 40px rgba(0, 255, 255, 0.6);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Cosmic Floating Player */
+#floatingPlayer {
+  position: fixed;
+  bottom: 12px;
+  left: 309px; /* adjust if needed */
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  color: #ffffff;
+  cursor: grab;
+  user-select: none;
+  z-index: 9999;
+  overflow: visible;
+
+  /* Base glow and background */
+  background: radial-gradient(
+    120% 120% at 30% 30%, 
+    rgba(31, 41, 55, 0.95), 
+    rgba(17, 24, 39, 0.9)
+  );
+  box-shadow:
+    0 0 30px rgba(0, 200, 255, 0.9),
+    0 0 50px rgba(0, 200, 255, 0.6),
+    inset 0 0 20px rgba(0, 150, 255, 0.4) !important;
+  backdrop-filter: blur(8px);
+
+  /* Smooth transitions for movement */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* Glowing pulse animation */
+  animation: floatingGlow 2.5s ease-in-out infinite alternate;
+}
+
+/* Pulsing glow animation */
+@keyframes floatingGlow {
+  0% {
+    box-shadow:
+      0 0 20px rgba(0, 200, 255, 0.7),
+      0 0 40px rgba(0, 200, 255, 0.5),
+      inset 0 0 15px rgba(0, 150, 255, 0.3);
+  }
+  100% {
+    box-shadow:
+      0 0 35px rgba(0, 200, 255, 1),
+      0 0 60px rgba(0, 200, 255, 0.7),
+      inset 0 0 25px rgba(0, 150, 255, 0.5);
+  }
+}
+
+#mainStage {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* Headings inside commentary */
+#mainStage .commentary-card h1,
+#mainStage .commentary-card h2,
+#mainStage .commentary-card h3 {
+  @apply text-blue-200 font-semibold drop-shadow-md;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Paragraphs */
+#mainStage .commentary-card p {
+  @apply text-blue-100 mb-3;
+}
+
+/* Links */
+#mainStage .commentary-card a {
+  @apply text-blue-300 hover:text-blue-400 underline;
+}
+
+/* Scrollbar styling */
+#mainStage .commentary-card::-webkit-scrollbar {
+  width: 10px;
+}
+#mainStage .commentary-card::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+#mainStage .commentary-card::-webkit-scrollbar-thumb {
+  background: rgba(100, 180, 255, 0.5);
+  border-radius: 10px;
+}
+
+/* Placeholder when commentary is missing */
+#mainStage .commentary-placeholder {
+  @apply bg-blue-950/80 text-blue-200;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2rem;
+  box-shadow: 0 0 20px rgba(100, 180, 255, 0.3);
+  max-width: 90%;
+  margin: 2rem auto;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+#mainStage .commentary-placeholder.visible {
+  opacity: 1;
+}

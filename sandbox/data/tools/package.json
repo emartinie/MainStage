@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "adm-zip": "^0.5.16",
-    "node-unrar-js": "^2.0.2",
-    "pdf-parse": "^1.1.1"
-  }
-}

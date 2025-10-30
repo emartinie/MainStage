@@ -1,7 +1,0 @@
-(() => {
-  // --- your debugger logic goes here ---
-
-  // Example: safe test log
-  console.log("Debugger loaded");
-
-})(); // <-- this closes the IIFE wrapper

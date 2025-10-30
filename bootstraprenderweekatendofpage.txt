@@ -1,8 +1,0 @@
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.renderFloatingPlayer) {
-    window.renderFloatingPlayer("fp-hero-glass-root");
-  }
-  if (window.renderWeek) {
-    window.renderWeek("weekSection");
-  }
-});

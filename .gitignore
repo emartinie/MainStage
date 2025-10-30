@@ -1,13 +1,37 @@
-.env
-apitester.html
-htmlcontainer script.txt
-LatestTest.html
-test-key.js
-.env.txt
-bibleApi.js
-test-bibles.js
-test-one.js
-test-versions.js
-test2.html
-tester.html
-testernew.html
+# Node / system stuff (if any)
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Sandbox / experimental files
+js/sandbox/
+css/sandbox/
+images/sandbox/
+*.tmp
+*.bak
+*.old
+*.txt
+
+# Ignore IDE/editor configs
+.vscode/
+.idea/
+
+# Ignore build artifacts (if any)
+dist/
+build/
+
+# Keep commentary, JSON, main HTML, JS, CSS
+# DO NOT ignore data or commentary folders
+# data/
+# commentary/
+# js/
+# css/
+# index.html
+
+# Optional: ignore old index variants
+index1*.html
+index2*.html
+index*.txt

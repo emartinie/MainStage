@@ -22,6 +22,8 @@
     player.setAttribute("role", "region");
     player.setAttribute("aria-label", "Floating audio player");
 
+        
+
     // ring (svg)
     var ringWrap = document.createElement("div");
     ringWrap.className = "fp-ring";

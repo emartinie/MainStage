@@ -30,7 +30,7 @@
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
 
   <link rel="stylesheet" href="css/cosmicbadass.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/main.css">
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -186,7 +186,7 @@
 
     <!-- Week Selector -->
     <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
-    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-600">
+    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700">
       <!-- Dynamic week options -->
     </select>
     <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
@@ -200,8 +200,7 @@
 </button></header>
 <div id="weekInfo"></div>
 
-
-<!-- Hero/MainStage Card 2-->
+<!-- Hero/MainStage playerCard -->
 <section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
@@ -218,11 +217,9 @@
     <div id="fp-hero-glass-root"></div>
     </div>
     </section>
-    <div id="fp-hero-glass-root"></div> 
 
   <!-- Carousel Wrapper -->
   <section id="bibleCarousel" class="relative">
-
 
     
     <!-- Stage -->
@@ -242,7 +239,7 @@
       <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
       <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
     </div>
- 
+
  
   <!-- Trigger buttons -->
   <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
@@ -275,10 +272,17 @@
     </div>
 
   </section>
-
-  </div>
-
-      
+<img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
+  </div></div> <div class="text-center mt-8"><button id="toggleCommentaryBtn"
+    class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50">
+    📘 Show/Hide Commentary
+  </button>
+<div class="glass-panel fade-slide">
+  <h2 class="section-header text-glow">Weekly Commentary</h2>
+</div>
+  
+</div>
+     <div id="mainStage"></div>  
 
       <div class="bibleCard inactive">
 
@@ -828,9 +832,10 @@ document.getElementById("zipBtn").addEventListener("click", () => {
     50% { box-shadow:0 0 30px rgba(255,255,255,1);}
   }
 </style>
+
 <section id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
 </section>
-</div>
+
 
 </main>
 
@@ -848,7 +853,10 @@ document.getElementById("zipBtn").addEventListener("click", () => {
     <!-- Scripts -->
   <script src="js/mainStageLoader.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="./app.js" defer></script>
+  <script src="js/orbitFloatingPlayer.js" defer></script> 
+  <script src="js/loadCommentary.js" defer></script> 
+  <script src="js/globalAudioManager.js" defer></script> 
+  <script src="./app.js" defer></script> globalAudioManager.js
 
   <script>
 const cards = document.querySelectorAll(".bibleCard");

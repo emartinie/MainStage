@@ -303,6 +303,20 @@ async function loadWeek(weekNum) {
         const data = await res.json();
         await loadMainStageWeek(data);
         renderWeekCards(data);
+        // -------------------------------
+// COMMENTARY HOOKUP — SAFE DROP-IN
+// -------------------------------
+
+// Use the argument passed to loadWeek() or the week selector
+const loadedWeek = typeof weekNum !== "undefined"
+    ? weekNum // use the week number passed to loadWeek
+    : parseInt(document.getElementById("weekSelect").value, 10) || 1; // fallback to selector
+
+// Dispatch the weekChanged event so commentary updates automatically
+document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: loadedWeek } }));
+
+console.log("🌀 Week changed event dispatched for commentary: Week", loadedWeek);
+        
     } catch (err) {
         console.error("Error loading week:", err);
     }
@@ -370,4 +384,3 @@ document.getElementById("closeVideoPopup").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", init);
 setupAdvancedSearch();
 addSearchResetButton();
-
