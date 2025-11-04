@@ -76,15 +76,6 @@
     }
 
 
-/* Optional: force the floating player to scale on small screens */
-.floating-player {
-  max-width: 90vw;
-  max-height: 90vh;
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 9999;
-}
 
     /* RESET STYLES */
     * {
@@ -181,7 +172,7 @@
       </svg>
     </button>
 
-    <!-- Week Selector -->
+    <!-- Week Select -->
     <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
     <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700">
       <!-- Dynamic week options -->
@@ -200,9 +191,9 @@
 <!-- Hero/MainStage playerCard -->
 <section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+ <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
+  </video> -->
 
   <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
@@ -228,9 +219,9 @@
   <!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
+ <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+  </video> -->
 
     <div class="mb-4">
       <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
@@ -240,7 +231,7 @@
  
   <!-- Trigger buttons -->
   <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
-  <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button>
+ <!-- <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button> -->
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
@@ -256,26 +247,30 @@
   </div>
 
   <!-- Video Popup -->
-  <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+ <!-- <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
+  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button> -->
   </div>
       <h2 class="text-2xl font-bold flex items-center gap-2">
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>  <!-- Chapter Outlines (under playlist) -->
     <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"></div>
-    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+   <!-- <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
-    </div>
+    </div> -->
 
   </section>
 <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
   </div></div> <div class="text-center mt-8"><button id="toggleCommentaryBtn"
     class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
     📘 Show/Hide Commentary
-  </button>
+  </button><button id="orbitVideoBtn" class="orbit-btn orbit-video-btn">
+  🎬
+</button>
 <div class="glass-panel fade-slide">
-  <h2 class="section-header text-glow">Weekly Commentary</h2>
+  
+
+<h2 class="section-header text-glow">Weekly Commentary</h2>
 </div>
   
 </div>
@@ -286,10 +281,10 @@
 
 <!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+  <!-- Background video 
+ <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
-  </video>
+  </video> -->
   <h3 class="text-xl font-bold mb-2">Next Holy Day: Pesach/ פֶּסַח (Passover) : Begins April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and April 8–9.. </h3>
 
 <section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
@@ -709,9 +704,9 @@ document.getElementById("zipBtn").addEventListener("click", () => {
 </div>
       <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
   <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+ <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
+  </video> -->
   <section class="podcast-card bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-md mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Header: Podcast Title + Icon -->
   <div class="flex items-center justify-between mb-4">
@@ -771,9 +766,9 @@ document.getElementById("zipBtn").addEventListener("click", () => {
 
 <div id="triviaCard" class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white margin-top: 20px;">
   <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+  <!--<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
+  </video> -->
   <!-- Scoreboard -->
   <div id="scoreBoard" class="border score-wrap flex justify-center gap-6 mb-6 class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
     <div class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
@@ -797,9 +792,9 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   <!-- Question Card -->
   <div id="questionsCard" class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
     <!-- Background video -->
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+   <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
       <source src="videos/bg-motion.mp4" type="video/mp4">
-    </video>
+    </video> -->
     Loading question...
   </div>
 
@@ -833,6 +828,8 @@ document.getElementById("zipBtn").addEventListener("click", () => {
 <section id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
 </section>
 
+<iframe src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/" id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" allow="autoplay; fullscreen" height="315" width="100%"></iframe>
+
 
 </main>
 
@@ -848,12 +845,15 @@ document.getElementById("zipBtn").addEventListener("click", () => {
     <p class="mt-2">&copy; 2025 HGBibleApp</p>
   </footer>
     <!-- Scripts -->
-  <script src="js/mainStageLoader.js" defer></script>
+  
+  <script src="js/mainStageLoaderTEST9.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="js/orbitFloatingPlayer.js" defer></script> 
+  <!-- <script src="js/orbitVideo1.js" defer></script> -->
   <script src="js/loadCommentary.js" defer></script> 
   <script src="js/globalAudioManager.js" defer></script> 
-  <script src="./app.js" defer></script> globalAudioManager.js
+  <script src="./app.js" defer></script> 
+  <script src="js/bullseyeMedia.js" defer></script>
 
   <script>
 const cards = document.querySelectorAll(".bibleCard");
