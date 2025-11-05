@@ -13,22 +13,22 @@
         {
         "label": "Torah",
         "src": "http://audio.esvbible.org/hw/01012001-01017027.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
-        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+        "heb": "http://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "http://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "http://biblehub.com/interlinear/genesis/6.htm"
       },
       {
         "label": "Prophets1",
         "src": "http://audio.esvbible.org/hw/10019001-10019044.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
         "inter": "https://biblehub.com/interlinear/genesis/6.htm"
       },
       {
         "label": "Prophets2",
-        "src": "http://audio.esvbible.org/hw/24003001-24003025.mp3",
+        "src": "https://audio.esvbible.org/hw/24003001-24003025.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
@@ -44,14 +44,14 @@
       },
       {     
         "label": "Writings",
-        "src": "http://audio.esvbible.org/hw/10019001-10019044.mp3",
+        "src": "https://audio.esvbible.org/hw/10019001-10019044.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/40022001-40022045.mp3",
+        "src": "https://audio.esvbible.org/hw/40022001-40022045.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
@@ -59,7 +59,7 @@
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/45007001-45007025.mp3",
+        "src": "https://audio.esvbible.org/hw/45007001-45007025.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
@@ -75,11 +75,12 @@
       },
       {
         "label": "Revelation",
-        "src": "http://audio.esvbible.org/hw/66019001-66019021.mp3",
+        "src": "https://audio.esvbible.org/hw/66019001-66019021.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
         "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      }
     ],
     "scripture_text": {
       "english": "English ScriptureText didn't dynamically parse/ render",
@@ -110,7 +111,7 @@
 	"Mathew 22 | Invitation to the Wedding Feast"
       ],
       "Letters": [
-        "1 Corinthians 7 | Counsel About Marriage"
+        "1 Corinthians 7 | Counsel About Marriage",
         "Hebrews 13 | Brotherly Love in the Community of the Bride",
         "1 John 3 | The Definition of Sin in the “New” Testament is the same as the Old"
 
@@ -119,11 +120,21 @@
        "Revelation 19 | Victory Songs and the wedding feast"
       ]
     },
-    "commentary": {
-      "quote": ""
+     "commentary": ""
     },
-    "deeper_learning": ""
-    "aleph_tav": ""
+    "commentary2": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+
+    "aleph_tav": {
+      "quote": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
     "kids_study": {
       "videos": [
         "https://www.youtube.com/embed/lre-LLz-UzE",
@@ -147,21 +158,16 @@
     "psalms_plan": [
       {
         "day": "Sunday",
-        "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3"
+        "audio": "psalm-sunday.mp3"
       },
       {
         "day": "Monday",
-        "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3"
-      },
-      {
-        "day": "Tuesday",
-        "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
+        "audio": "psalm-monday.mp3"
       }
-    ]
-  },
+    ],
   "first_verse": {
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Lech Lecha | לך לך"
+  "subtitle": ""
 }

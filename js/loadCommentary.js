@@ -1,5 +1,5 @@
 // loadCommentary.js
-async function loadCommentary(week = 1) {
+async function loadCommentary(week = 3) {
   const mainStage = document.getElementById("mainStage");
   if (!mainStage) return console.warn("#mainStage not found");
 

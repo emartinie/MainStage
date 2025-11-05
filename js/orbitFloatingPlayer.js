@@ -33,6 +33,8 @@ function setupFloatingPlayer() {
 
 // Ensure floatingPlayer exists
 if (floatingPlayer) {
+
+
   // --- GLOW EFFECT ---
   let glowGrowing = true;
   setInterval(() => {
@@ -165,7 +167,7 @@ if (floatingPlayer) {
     width:"90%",
     transform:"translateX(-50%)",
     pointerEvents:"none",
-    zIndex:10
+    zIndex:10001
   });
   const fpNowPlaying = document.createElement("p");
   fpNowPlaying.id="fpNowPlaying";
@@ -209,8 +211,17 @@ if (floatingPlayer) {
   let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=true;
   let playlist=[];
 
+  // ---Psalms Playlist ---
+  const psalmsPlaylist = [
+  { title: "Psalms- Sunday- Ch 1-29 Day 1", src: "http://audio.esvbible.org/hw/19001001-19029011.mp3" },
+  { title: "Psalms- Monday- Ch 30-50 Day 2", src: "http://audio.esvbible.org/hw/19030001-19050023.mp3" },
+  { title: "Psalms- Tuesday- Ch 51-72 Day 3", src: "http://audio.esvbible.org/hw/19051001-19072020.mp3" },
+  { title: "Psalms- Wednesday- Ch 73-89 Day 4", src: "http://audio.esvbible.org/hw/19063001-19089052.mp3" },
+  { title: "Psalms- Thursday- Ch 90-106 Day 5", src: "http://audio.esvbible.org/hw/19090001-19106048.mp3" },
+  { title: "Psalms- Friday- Ch 107-119 Day 6", src: "http://audio.esvbible.org/hw/19107001-19119176.mp3" },
+  { title: "Psalms- Saturday- Ch 120-150 Day 7", src: "http://audio.esvbible.org/hw/19120001-19150006.mp3" }
+  ]
   // --- Buttons ---
-    // --- Buttons ---
   const playPauseBtn = btn("▶","Play / Pause",()=>{
     if(!audio.src){ loadTrack(); return; }
     if(audio.paused){
@@ -263,11 +274,12 @@ if (floatingPlayer) {
     speedBtn.textContent = audio.playbackRate+"x";
   });
 
-    const videoBtn = btn("🎬","Open Video (popup)",()=>{ console.log("TODO: video popup"); });
+    const videoBtn = btn("🎬", "Open Video (popup)", () => { toggleOrbitVideo(); })
     const shareBtn = btn("🔗","Share Track",()=>{ console.log("TODO: share logic"); });
     const favBtn   = btn("⭐","Favorite",()=>{ console.log("TODO: favorites logic"); 
 
   });
+
 
   // --- Dock Button ---
 const dockBtn = document.createElement("button");
@@ -373,7 +385,7 @@ dockBtn.addEventListener("click", () => {
     left:"50%",
     top:"50%",
     transform:"translate(-50%,-50%)",
-    zIndex:10
+    zIndex:10001
   });
   center.appendChild(playPauseBtn);
 

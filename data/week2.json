@@ -12,7 +12,7 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/01006009-01011032.mp3",
+        "src": "https://audio.esvbible.org/hw/01006009-01011032.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
@@ -38,13 +38,13 @@
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/51002001-51002023.mp3",
+        "src": "https://audio.esvbible.org/hw/51002001-51002023.mp3",
         "heb": "https://mechon-mamre.org/mp3/t1054.mp",
         "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
       },
     {
        "label": "Revelation",
-        "src": "http://audio.esvbible.org/hw/66021001-66021015.mp3",
+        "src": "https://audio.esvbible.org/hw/66021001-66021015.mp3",
         "heb": "https://mechon-mamre.org/mp3/t1054.mp",
         "grk": "http://www.helding.net/greeklatinaudio/greek/revelation/rev07g.mp3"
      }

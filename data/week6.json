@@ -12,39 +12,75 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "https://audio.esv.org/hw/mq/01025019-01028009.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://emartinie.github.io/MainStage/audio/greek/Matthew01-Greek.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
       },
       {
-        "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "label": "Prophets1",
+        "src": "https://audio.esvbible.org/hw/10019001-10019044.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets2",
+        "src": "https://audio.esvbible.org/hw/24003001-24003025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets3",
+        "src": "http://audio.esvbible.org/hw/23040001-23041001.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {     
+        "label": "Writings",
+        "src": "https://audio.esvbible.org/hw/10019001-10019044.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "https://audio.esvbible.org/hw/40022001-40022045.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
-      }
-    ],
-    "chapter_outlines": {
-      "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
-      ],
-      "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
-      ],
-      "Writings": [],
-      "Gospels": [
-        "3 – Baptism Begins the Mission"
-      ],
-      "Letters": [
-        "James 2 – Faith and Works"
-      ],
-      "Revelation": []
+        "src": "https://audio.esvbible.org/hw/45007001-45007025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Letters",
+        "src": "http://audio.esvbible.org/hw/45007001-45007025.mp3", 
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Revelation",
+        "src": "https://audio.esvbible.org/hw/66019001-66019021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
