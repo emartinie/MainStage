@@ -246,7 +246,7 @@
   </div>
 
   <!-- Video Popup -->
- <!-- <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+ <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
   <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button> -->
   </div>
@@ -254,18 +254,16 @@
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>  <!-- Chapter Outlines (under playlist) -->
     <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"></div>
-   <!-- <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
+    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
-    </div> -->
+    </div>  
 
   </section>
 <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
   </div></div> <div class="text-center mt-8"><button id="toggleCommentaryBtn"
     class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
     📘 Show/Hide Commentary
-  </button><button id="orbitVideoBtn" class="orbit-btn orbit-video-btn">
-  🎬
-</button>
+  </button> 
 <div class="glass-panel fade-slide">
   
 
@@ -273,7 +271,7 @@
 </div>
   
 </div>
-     <div id="mainStageCommentary"></div>  
+     <div id="mainStage"></div>  
 
       <div class="bibleCard inactive">
 
@@ -827,9 +825,19 @@ document.getElementById("zipBtn").addEventListener("click", () => {
 <section id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
 </section>
 
-<iframe src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/" id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" allow="autoplay; fullscreen" height="315" width="100%"></iframe>
-
-
+<div class="prezi-container w-full max-w-3xl mx-auto my-4">
+  <iframe 
+    src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/" 
+    id="iframe_container"
+    class="w-full h-96 rounded-lg border"
+    frameborder="0"
+    allowfullscreen
+    loading="lazy"
+    title="Prezi Presentation"
+    sandbox="allow-scripts allow-same-origin allow-presentation"
+    allow="autoplay; fullscreen">
+  </iframe>
+</div>
 </main>
 
 
@@ -845,14 +853,14 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   </footer>
     <!-- Scripts -->
   
-  <script src="js/mainStageLoaderTEST3.js" defer></script>
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="js/orbitFloatingPlayer.js" defer></script> 
-  <!-- <script src="js/orbitVideo1.js" defer></script> -->
   <script src="js/loadCommentary.js" defer></script> 
   <script src="js/globalAudioManager.js" defer></script> 
   <script src="./app.js" defer></script> 
   <script src="js/bullseyeMedia.js" defer></script> 
+  <script src="js/mainStageLoaderTEST3.js" defer></script>
+
 
   <script>
 const cards = document.querySelectorAll(".bibleCard");
@@ -891,10 +899,6 @@ document.getElementById("bibleNextBtn").addEventListener("click", () => {
 let startX = 0;
 const stage = document.getElementById("bibleStage");
 
-stage.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
-
 stage.addEventListener("touchend", (e) => {
   const endX = e.changedTouches[0].clientX;
   const deltaX = endX - startX;
@@ -910,7 +914,7 @@ stage.addEventListener("touchend", (e) => {
       showCard(nextIndex);
     }
   }
-});
+}); 
 </script>
 
 
