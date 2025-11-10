@@ -94,7 +94,7 @@ document.addEventListener("weekChanged", e => {
   loadStudyContent("commentary", `commentary/week${week}.html`);
 });
 
-const ARTICLE_FOLDER = "/articles/";
+const ARTICLE_FOLDER = "./articles/";
 // --- Article list setup ---
 const articles = [
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
@@ -161,4 +161,5 @@ function loadArticleList() {
 }
 
 // --- Auto-load list on DOM ready ---
+
 document.addEventListener("DOMContentLoaded", loadArticleList);
