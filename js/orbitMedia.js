@@ -10,14 +10,14 @@
   // --- LOGO ---  
   const logo = document.createElement("img");  
   logo.id = "orbitLogo";  
-  logo.src = "/images/logo.png"; // change to your logo path  
+  logo.src = "https://emartinie.github.io/images/HGHouses.png"; // change to your logo path  
   logo.classList.add("orbit-face-item");  
   orbitContainer.appendChild(logo);  
 
   // --- VIDEO ---  
   const video = document.createElement("video");  
   video.id = "orbitVideo";  
-  video.src = "/videos/firevideos.mp4"; // change to your video path  
+  video.src = "https://emartinie.github.io/videos/build_your_kingdom_here.mp4"; // change to your video path  
   video.loop = true;  
   video.playsInline = true;  
   video.autoplay = false;  
