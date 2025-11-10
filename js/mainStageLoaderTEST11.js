@@ -1,20 +1,8 @@
-// --- DOM Elements ---
+document.addEventListener("DOMContentLoaded", () => {
+ 
+    // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, floatingPlayer;
-
-// --- Config ---
-const START_DATE = new Date("2024-10-19T00:00:00Z");
-const TOTAL_WEEKS = 52;
-
-// --- Helper: Current Week ---
-function getCurrentWeekNumber() {
-  const now = new Date();
-  const diffMs = now - START_DATE;
-  if (diffMs < 0) return 1; // before start date
-  return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) % TOTAL_WEEKS + 1;
-}
-
-  if (typeof renderCards === "function") renderCards(window.weeklyCommentary);
 
 // --- Initialize DOM Elements ---
 function cacheDOM() {
@@ -29,6 +17,8 @@ function cacheDOM() {
     mainStagePlaylist = document.getElementById("mainStagePlaylist");
     mainStageChapters = document.getElementById("mainStageChapters");
     mainStageVideo = document.getElementById("mainStageVideo");
+    mainStageIframe = mainStageVideo.querySelector("iframe");
+
 }
 
 if (!window.globalAudio) {
@@ -297,104 +287,92 @@ Object.keys(outlines).forEach(chap => {
 
 // --- Load Week ---
 async function loadWeek(weekNum) {
-  try {
-    const res = await fetch(`data/week${weekNum}.json`);
-    if (!res.ok) throw new Error("Failed to fetch week data");
-    const data = await res.json();
-
-    if (!mainStageTitle || !mainStagePlaylist || !mainStageChapters) {
-      console.warn("⚠️ MainStage elements missing, retrying cacheDOM()");
-      cacheDOM();
+    try {
+        const res = await fetch(`data/week${weekNum}.json`);
+        if (!res.ok) throw new Error("Failed to fetch week data");
+        const data = await res.json();
+        await loadMainStageWeek(data);
+        renderWeekCards(data);
+    } catch (err) {
+        console.error("Error loading week:", err);
     }
-
-    if (mainStageTitle && mainStagePlaylist && mainStageChapters) {
-      await loadMainStageWeek(data);
-      renderWeekCards(data);
-    } else {
-      console.error("❌ Required MainStage elements still missing in DOM.");
-    }
-
-  } catch (err) {
-    console.error("Error loading week:", err);
-  }
 }
 
-// --- Initialize ---
+// --- Init ---
 function init() {
-  cacheDOM();
-  populateWeekSelect();
+    cacheDOM();
+    populateWeekSelect();
+    loadWeek(weekSelect.value);
 
-  // Set initial week globally
-  window.currentWeek = parseInt(weekSelect.value, 10);
-
-  // Load main stage safely
-  loadWeek(window.currentWeek);
-
-  // Trigger commentary load event
-  document.dispatchEvent(
-    new CustomEvent("weekChanged", { detail: { week: window.currentWeek } })
-  );
-
-  // --- Prev/Next buttons ---
-  if (prevBtn && nextBtn && weekSelect) {
     prevBtn.addEventListener("click", () => {
-      let val = parseInt(weekSelect.value, 10);
-      if (val > 1) weekSelect.value = val - 1;
-      window.currentWeek = val - 1;
-      loadWeek(window.currentWeek);
-      document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
+        let val = parseInt(weekSelect.value, 10);
+        if (val > 1) weekSelect.value = val - 1;
+        loadWeek(weekSelect.value);
     });
 
     nextBtn.addEventListener("click", () => {
-      let val = parseInt(weekSelect.value, 10);
-      if (val < TOTAL_WEEKS) weekSelect.value = val + 1;
-      window.currentWeek = val + 1;
-      loadWeek(window.currentWeek);
-      document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
+        let val = parseInt(weekSelect.value, 10);
+        if (val < TOTAL_WEEKS) weekSelect.value = val + 1;
+        loadWeek(weekSelect.value);
     });
 
-    weekSelect.addEventListener("change", () => {
-      window.currentWeek = parseInt(weekSelect.value, 10);
-      loadWeek(window.currentWeek);
-      document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
-    });
-  }
+    weekSelect.addEventListener("change", () => loadWeek(weekSelect.value));
 
-  // Dropdown change
-        weekSelect.addEventListener("change", () => {
-            window.currentWeek = parseInt(weekSelect.value, 10);
-            document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
-        });
-    }
+// --- SCRIPTURE and VIDEO POPUPS ---
+document.getElementById("openVersePopup").addEventListener("click", () => {
+    const iframe = document.getElementById("VerseIframe");
+    // You can load a default scripture page or empty content
+    iframe.src = ""; // default page
+    document.getElementById("langPopup").classList.remove("hidden");
+});
 
-    // Trigger initial load
-    document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
-
-
-  // --- Scripture Popup ---
-  const openVersePopup = document.getElementById("openVersePopup");
-  const verseIframe = document.getElementById("verseIframe");
-  const langPopup = document.getElementById("langPopup");
-
-  if (openVersePopup && verseIframe && langPopup) {
-    openVersePopup.addEventListener("click", () => {
-      verseIframe.src = "";
-      langPopup.classList.remove("hidden");
-    });
-  }
-
-  // --- Language buttons ---
-  document.querySelectorAll(".langOption").forEach(btn => {
+// Example: dynamically change language from buttons inside iframe content
+document.querySelectorAll(".langOption").forEach(btn => {
     btn.addEventListener("click", e => {
-      const lang = e.target.dataset.lang;
-      if (verseIframe) verseIframe.src = `scripture/${lang}.html`;
+        const lang = e.target.dataset.lang;
+        document.getElementById("VerseIframe").src = `scripture/${lang}.html`;
     });
-  });
+});
 
-  // --- Search setup (optional functions) ---
-  if (typeof setupAdvancedSearch === "function") setupAdvancedSearch();
-  if (typeof addSearchResetButton === "function") addSearchResetButton();
+document.getElementById("closeVersePopup").addEventListener("click", () => {
+    const iframe = document.getElementById("verseIframe");
+    iframe.src = ""; // optional: clear
+    document.getElementById("versePopup").classList.add("hidden");
+});
 
+// --- VIDEO POPUP ---
+document.getElementById("openVideoPopup").addEventListener("click", () => {
+    const iframe = document.getElementById("videoIframe");
+    // Load a default video/video page
+    iframe.src = "https://www.youtube.com/embed/sbdJXKqVgtg?si=U-z9wHsPLLjcyOEe";
+    document.getElementById("videoPopup").classList.remove("hidden");
+});
+
+document.getElementById("closeVideoPopup").addEventListener("click", () => {
+    const iframe = document.getElementById("videoIframe");
+    iframe.src = "https://www.youtube.com/embed/sbdJXKqVgtg?si=U-z9wHsPLLjcyOEe"; // optional: clear
+    document.getElementById("videoPopup").classList.add("hidden");
+});
+
+}
 
 // --- Start ---
 document.addEventListener("DOMContentLoaded", init);
+setupAdvancedSearch();
+addSearchResetButton();
+
+// --- Config ---
+const START_DATE = new Date("2024-10-19T00:00:00Z");
+const TOTAL_WEEKS = 52;
+
+// --- Helper: Current Week ---
+function getCurrentWeekNumber() {
+  const now = new Date();
+  const diffMs = now - START_DATE;
+  if (diffMs < 0) return 1; // before start date
+  return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) % TOTAL_WEEKS + 1;
+}
+
+  if (typeof renderCards === "function") renderCards(window.weeklyCommentary);
+
+});

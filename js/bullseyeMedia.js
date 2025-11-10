@@ -23,8 +23,8 @@
     logoEl.style.top = "50%";
     logoEl.style.left = "50%";
     logoEl.style.transform = "translate(-50%, -50%)";
-    logoEl.style.width = "190px";
-    logoEl.style.height = "190px";
+    logoEl.style.width = "150px";
+    logoEl.style.height = "140px";
     logoEl.style.pointerEvents = "none";
     logoEl.style.zIndex = "10000";
     floatingPlayer.appendChild(logoEl);

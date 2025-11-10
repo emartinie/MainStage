@@ -152,7 +152,7 @@ if (floatingPlayer) {
     textShadow:"0 1px 1px rgba(0,0,0,0.5)",
     pointerEvents:"none",
     textAlign:"center",
-    zIndex:10
+    zIndex:100000
   });
   center.appendChild(titleEl);
 

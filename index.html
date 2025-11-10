@@ -164,6 +164,13 @@
       </svg>
     </button>
 
+    <!-- Week Select -->
+    <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
+    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700 animate-pulse">
+      <!-- Dynamic week options -->
+    </select>
+    <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
+
     <button id="bibleNextBtn" 
             class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6">
       <!-- Heroicon: Chevron Right -->
@@ -171,13 +178,6 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
     </button>
-
-    <!-- Week Select -->
-    <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
-    <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700">
-      <!-- Dynamic week options -->
-    </select>
-    <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
   </div>
 
 <button id="installButton" class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
@@ -205,10 +205,9 @@
     </div>
     </section>
 
+
   <!-- Carousel Wrapper -->
   <section id="bibleCarousel" class="relative">
-
-    
     <!-- Stage -->
     <div id="bibleStage" class="relative">
       
@@ -224,7 +223,7 @@
 
     <div class="mb-4">
       <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
-      <p id="mainStageSub" class="text-gray-600 dark:text-gray-300">English / Hebrew / Transliteration</p>
+      <p id="mainStageSub" class="text-gray-600 dark:text-gray-300 text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff">English / Hebrew / Transliteration</p>
     </div>
 
  
@@ -253,27 +252,47 @@
       <h2 class="text-2xl font-bold flex items-center gap-2">
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>  <!-- Chapter Outlines (under playlist) -->
-    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"></div>
+    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">        </div>
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
     <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
     </div>  
-
   </section>
-<img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-  </div></div> <div class="text-center mt-8"><button id="toggleCommentaryBtn"
-    class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
-    📘 Show/Hide Commentary
-  </button> 
-<div class="glass-panel fade-slide">
-  
+  <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
+  </div></div> 
 
-<h2 class="section-header text-glow">Weekly Commentary</h2>
-</div>
-  
-</div>
-     <div id="mainStage"></div>  
 
-      <div class="bibleCard inactive">
+  <div class="glass-panel fade-slide">
+    <img src="images/Commentary.png" alt="logo"
+        class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow animate-pulse w-700 h-30"/>
+    <h2 class="text align-center; section-header text-glow">Weekly Commentary, Articles, Video, Tools, Study Content & More!</h2>
+  </div>
+</div>
+<!-- 📖 Study Content / Commentary / Articles Card -->
+<!-- 📖 Toggle Button -->
+<div class="text-center mt-8">
+  <button id="toggleStudyBtn"
+    class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg
+           transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
+    📘 Show/Hide Study Content
+  </button>
+</div>
+
+<!-- The unified study content card -->
+<div id="studyContent" 
+     class="p-4 bg-gray-800/60 text-gray-100 rounded-xl shadow-lg backdrop-blur-md
+            border border-cyan-600/30 max-w-full transition-all duration-500 ease-in-out opacity-0 scale-95 hidden">
+  <div id="contentInner"></div>
+</div>
+
+<!-- Pagination controls -->
+<div id="paginationControls" class="flex justify-between items-center mt-4 text-sm font-semibold"></div>
+    <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+  Articles to Read
+</h3>
+<!-- Articles list -->
+<div id="articleList" class="flex flex-col gap-2 my-4">
+  <!-- Buttons will be generated dynamically -->
+</div>
 
 
 <!-- Cosmic Badass Calendar Card -->
@@ -285,7 +304,8 @@
   <h3 class="text-xl font-bold mb-2">Next Holy Day: Pesach/ פֶּסַח (Passover) : Begins April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and April 8–9.. </h3>
 
 <section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
-
+</section>
+      <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
   <!-- Hero Header -->
   <header class="flex flex-col items-center gap-2 text-center">
     <h2 class="text-3xl font-extrabold flex items-center gap-3">
@@ -860,6 +880,9 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   <script src="./app.js" defer></script> 
   <script src="js/bullseyeMedia.js" defer></script> 
   <script src="js/mainStageLoaderTEST3.js" defer></script>
+ <! -- <script src="js/studyContentManager.js" defer></script> -->
+  <script src="js/loadArticleList.js" defer></script>
+
 
 
   <script>
