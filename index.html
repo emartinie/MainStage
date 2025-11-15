@@ -42,119 +42,115 @@
 
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
      <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script> 
-  
-  <style>
+<title>MainStage — Swipe Card Manager (Test)</title>
+<style>
+  :root{
+    --bg:#0f172a7e;
+    --card-bg: rgba(255,255,255,0.06);
+    --glass: rgba(255,255,255,0.04);
+    --accent: #06b6d4;
+    --text: #e6eef6;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#071029 0%, #071829 100%);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--text);-webkit-font-smoothing:antialiased}
+  .app {
+    max-width:900px;
+    margin:18px auto;
+    padding:12px;
+  }
 
-    .cosmic-card {
-      display: flex;
-      flex-direction: column;
-      height: 100vh; /* full viewport height for testing */
-      min-height: 300px;
-    }
+  /* Tab bar */
+  #tabBar {
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+    align-items:center;
+  }
+  #tabBar button {
+    background:transparent;
+    color:var(--text);
+    border:1px solid rgba(255,255,255,0.06);
+    padding:8px 12px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:all .18s ease;
+    font-weight:600;
+    backdrop-filter: blur(6px);
+  }
+  #tabBar button.active{
+    background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    color: #032027;
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 6px 20px rgba(2,6,23,0.5), 0 0 18px rgba(6,182,212,0.08) inset;
+  }
 
-    #map {
-      flex-grow: 1;
-    }
+  /* Viewport */
+  #viewport {
+    position:relative;
+    height:70vh;
+    max-height:720px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  }
 
-           /* Extra badass polish */
-    #bibleStage {
-      perspective: 1200px;
-      overflow: hidden;
-    }
-    .bibleCard {
-      flex: 0 0 100%;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      backface-visibility: hidden;
-    }
-    .bibleCard.inactive {
-      opacity: 0;
-      transform: scale(0.9) rotateY(15deg);
-    }
-    .bibleCard.active {
-      opacity: 1;
-      transform: scale(1) rotateY(0deg);
-    }
+  /* cards area (horizontal row) */
+  .cards-row {
+    height:100%;
+    display:flex;
+    transition:transform .32s cubic-bezier(.2,.9,.2,1);
+    will-change: transform;
+    touch-action: pan-y;
+  }
+  .card {
+    min-width:100%;
+    height:100%;
+    padding:18px;
+    box-sizing:border-box;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+  }
 
+  /* glassy card look */
+  .card .card-inner{
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border-radius:12px;
+    height:100%;
+    padding:16px;
+    box-sizing:border-box;
+    border:1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px) saturate(120%);
+  }
 
+  h1,h2{margin:0 0 8px 0}
+  p{margin:8px 0;color: #dfeef8}
 
-    /* RESET STYLES */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  /* nice indicator */
+  .nav-hint {
+    margin-top:10px;
+    color: rgba(255,255,255,0.5);
+    font-size:13px;
+  }
 
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      overflow-x: hidden; /* prevent horizontal scroll from invisible stuff */
-    }
-
-    /* MAIN CONTAINER */
-    #app {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 1rem;
-      gap: 1rem; /* spacing between sections */
-    }
-
-    /* HEADER */
-    header {
-      background: #333;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    /* SECTION / CARD CONTAINER */
-    .section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .card {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      flex: 1 1 calc(33.333% - 1rem); /* 3 cards per row */
-      min-width: 200px;
-    }
-
-    /* FOOTER / FLOATING PLAYER */
-    footer {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    /* REMOVE EMPTY ELEMENTS */
-    .empty {
-      display: none;
-    }
-
-    /* Optional bounce animation for hero card */
-    @keyframes bounce-slow { 0%,100%{transform:translateY(-5%);}50%{transform:translateY(5%);} }
-    .animate-bounce-slow { animation: bounce-slow 2s infinite; }
-
-  </style>
+  /* small responsive */
+  @media (max-width:640px){
+    #tabBar button{padding:8px 10px;font-size:13px}
+    .app{padding:8px}
+    #viewport{height:64vh}
+  }
+</style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg">
-<!-- Header -->
+<body>
+  <!-- Header -->
 <header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
   <div class="flex items-center gap-2">
     <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
   </div>
 
 
-  <!-- Bible Carousel Controls -->
+  <!--  Carousel Controls -->
   <div class="flex items-center gap-2">
     <button id="biblePrevBtn" 
             class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6">
@@ -188,33 +184,17 @@
 </button></header>
 <div id="weekInfo"></div>
 
-<!-- Hero/MainStage playerCard -->
-<section id="mainStageCard2" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video -->
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
-  <div class="relative z-10 space-y-3">  <marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-  </marquee>
-    <h2 class="text-3xl font-extrabold tracking-wide drop-shadow-lg">Bible MainStage</h2>
-    <p class="text-gray-300 text-lg">English / Hebrew / Greek Audio Players + Scripture</p>
+  <div class="app">
+    <div id="tabBar" aria-hidden="false"></div>
 
-    <!-- Floating Player -->
-    <div id="fp-hero-glass-root"></div>
-    </div>
-    </section>
-
-
-  <!-- Carousel Wrapper -->
-  <section id="bibleCarousel" class="relative">
-    <!-- Stage -->
-    <div id="bibleStage" class="relative">
-      
-      <!-- Cards -->
-      <div class="bibleCard active">
-
-  <!-- MainStage Hero Card -->
+    <div id="viewport" role="region" aria-label="Main Stage viewport">
+      <div id="cardsRow" class="cards-row">
+         
+        <section id="mainStageCard" class="card">
+          <div class="card-inner">
+            <h1>Main Stage</h1>
+            <p class="muted">Main stage content placeholder — drop your live content here.</p>
+            <p><!-- MainStage Hero Card -->
   <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
 <!-- Background video -->
  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
@@ -236,68 +216,88 @@
       <h2 class="text-2xl font-bold flex items-center gap-2">
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>AudioVisual Scriptures<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </h2>
-  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
-
-  <!-- Scripture Popup -->
-  <div id="versePopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <iframe id="verseIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVersePopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button>
-  </div>
-
-  <!-- Video Popup -->
- <div id="videoPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <iframe id="videoIframe" class="bg-white dark:bg-gray-800 rounded-lg" style="width:90%; max-width:600px; height:80vh; border:none;"></iframe>
-  <button id="closeVideoPopup" class="absolute top-4 right-4 px-3 py-1 rounded bg-red-400 text-white z-50">Close</button> -->
-  </div>
-      <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-      </h2>  <!-- Chapter Outlines (under playlist) -->
-    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">        </div>
+  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">    
     <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
-    <iframe src="" frameborder="0" allowfullscreen class="w-full h-full rounded-lg"></iframe>
-    </div>  
-  </section>
-  <img src="images/HGHouses.png" alt="Logo" class="h-14 animate-bounce-slow">
-  </div></div> 
+</div>
+</p>
+            <h3 style="color:#ff4500; text-shadow:0 0 15px #ff4500, 0 0 30px #ff6347;">
+  Study and Test the Entire Bible in a Year
+</h3>
 
+<h3 style="color:#ffd700; text-shadow:0 0 10px #ffd700, 0 0 20px #ffec8b;">
+  Study and Test the Entire Bible in a Year
+</h3>
 
-  <div class="glass-panel fade-slide">
-    <img src="images/Commentary.png" alt="logo"
-        class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow animate-pulse w-700 h-30"/>
+<h3 style="color:#00bfff; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+  Study and Test the Entire Bible in a Year
+</h3>
+
+<h3 style="color:#00bfff; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+  Study and Test the Entire Bible in a Year
+</h3>
+          </div>
+        </section>
+
+        <section id="commentaryContainer" class="card">
+          <div class="card-inner">
+            <h1>Commentary</h1>
+            <p>Weekly commentary content will load here. Try swiping left/right or using tabs.</p>
+            <p>paste content here</p>
+             <img src="images/Commentary.png" alt="logo" class="align-center; px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow animate-pulse w-700 h-20"/>
     <h2 class="text align-center; section-header text-glow">Weekly Commentary, Articles, Video, Tools, Study Content & More!</h2>
   </div>
-</div>
-<!-- 📖 Study Content / Commentary / Articles Card -->
-<!-- 📖 Toggle Button -->
-<div class="text-center mt-8">
-  <button id="toggleStudyBtn"
-    class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg
+          </div>
+        </section>
+
+        <section id="articleList" class="card">
+          <div class="card-inner">
+            <h1>Articles</h1>
+            <p>Article list placeholder — clicking an article should call the study/content loader.</p>
+            <p>paste content here</p>
+            <!-- Articles list -->
+              <div id="articleList" class="flex flex-col gap-2 my-4">
+                   <!-- Buttons will be generated dynamically -->
+               </div>
+          </div>
+        </section>
+
+        <section id="studyContent" class="card">
+          <div class="card-inner">
+            <h1>Study Content</h1>
+            <p>Paginated commentary or article view goes here.</p>
+            <p>paste content here</p>
+            <!-- 📖 Study Content / Commentary / Articles Card -->
+            <!-- 📖 Toggle Button -->
+            <div class="text-center mt-8">
+            <button id="toggleStudyBtn"
+            class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg
            transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
-    📘 Show/Hide Study Content
-  </button>
-</div>
+              📘 Show/Hide Study Content
+            </button>
+            </div>
 
-<!-- The unified study content card -->
-<div id="studyContent" 
-     class="p-4 bg-gray-800/60 text-gray-100 rounded-xl shadow-lg backdrop-blur-md
+                <!-- The unified study content card -->
+                <div id="studyContent" 
+                class="p-4 bg-gray-800/60 text-gray-100 rounded-xl shadow-lg backdrop-blur-md
             border border-cyan-600/30 max-w-full transition-all duration-500 ease-in-out opacity-0 scale-95 hidden">
-  <div id="contentInner"></div>
-</div>
+                <div id="contentInner"></div>
+                </div>
 
-<!-- Pagination controls -->
-<div id="paginationControls" class="flex justify-between items-center mt-4 text-sm font-semibold"></div>
-    <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-  Articles to Read
-</h3>
-<!-- Articles list -->
-<div id="articleList" class="flex flex-col gap-2 my-4">
-  <!-- Buttons will be generated dynamically -->
-</div>
+              <!-- Pagination controls -->
+              <div id="paginationControls" class="flex justify-between items-center mt-4 text-sm font-semibold"></div>
+                  <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                    Articles to Read
+                      </h3>
+                        </div>
+                  </section>
 
-
-<!-- Cosmic Badass Calendar Card -->
+        <section id="calendarCard" class="card">
+          <div class="card-inner">
+            <h1>Calendar</h1>
+            <p>Calendar content</p>
+            <p><!-- Cosmic Badass Calendar Card -->
 <section id="calendarCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-  <!-- Background video 
+  <!-- Background video -->
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video> 
@@ -476,17 +476,17 @@
         <p>May 26–27: Eid al-Adha</p>
         <p>June 16–17: Islamic New Year (Hijri)</p>
         <p>Christmas - 12/25/2025</p>
-<section>
-
- <section>
 
     </div>
-  </div>
-  </section>
-
-      <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
-
-  <!-- Cosmic Badass Map Card -->
+  </div></p>
+          </div>
+        </section>
+        
+        <section id="mapCard" class="card">
+          <div class="card-inner">
+            <h1>Map</h1>
+            <p>Map content</p>
+            <p><!-- Cosmic Badass Map Card -->
     <!-- Header -->
     <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
       <h2 class="text-2xl font-bold flex items-center gap-2">
@@ -522,8 +522,7 @@
         <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </p>
     </footer>
-
-<script>
+  <script>
 
     // Initialize map
     const map = L.map("map").setView([39.5, -98.35], 4);
@@ -645,86 +644,19 @@ document.getElementById("zipBtn").addEventListener("click", () => {
   }
 });
 
-</script> 
-
-
-
-<style>
-  .cosmic-card {
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(145deg, #0a0f1c, #1b2138);
-    color: #f1f1f1;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
-    overflow: hidden;
-    margin: 1rem;
-  }
-
-  .cosmic-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background: rgba(20, 25, 40, 0.85);
-    backdrop-filter: blur(6px);
-    border-bottom: 2px solid rgba(138, 43, 226, 0.6);
-  }
-
-  .cosmic-header h2 {
-    margin: 0;
-    font-size: 1.2rem;
-    text-shadow: 0 0 10px #8a2be2;
-  }
-
-  .toolbar {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .cosmic-btn {
-    padding: 0.4rem 0.7rem;
-    border: none;
-    border-radius: 6px;
-    background: rgba(138, 43, 226, 0.2);
-    color: #fff;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .cosmic-btn:hover {
-    background: rgba(138, 43, 226, 0.5);
-    box-shadow: 0 0 10px #8a2be2;
-  }
-
-  .map-placeholder {
-    height: 100%; /* Adjust height */
-    background: #111;
-    position: relative;
-  }
-
-  .cosmic-footer {
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 0.85rem;
-    background: rgba(20, 25, 40, 0.85);
-    border-top: 2px solid rgba(138, 43, 226, 0.6);
-  }
-</style>
-
-  </section>
-</div>
-  <!-- End Cosmic Map Card -->
-
-</section>
-</div>
-      <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
-  <!-- Background video -->
- <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+</script>
+  </p>
+          </div>
+          </section>
+        <section id="podcast-card" class="card">
+          <div class="card-inner">
+            <h1>Podcast</h1>
+            <p>Podcast content</p>
+            <p> <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> -->
-  <section class="podcast-card bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-md mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+  </video> 
+  <div class="podcast-card bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-md mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
   <!-- Header: Podcast Title + Icon -->
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-xl font-bold flex items-center gap-2 text-blue-400">
@@ -771,17 +703,15 @@ document.getElementById("zipBtn").addEventListener("click", () => {
       </svg>
       Share
     </button>
-    <span class="text-gray-400 text-xs mt-1">45 min</span>
-  </div>
-</section>
-
-  </div>
-</section>
-  </div>
-</section>
- 
-
-<div id="triviaCard" class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white margin-top: 20px;">
+    <span class="text-gray-400 text-xs mt-1">45 min</span></p>
+          </div>
+        </section>
+        
+        <section id="triviaCard" class="card">
+          <div class="card-inner">
+            <h1>Trivia</h1>
+            <p>Trivia card</p>
+            <p><div id="triviaCard" class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white margin-top: 20px;">
   <!-- Background video -->
   <!--<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
@@ -841,174 +771,6 @@ document.getElementById("zipBtn").addEventListener("click", () => {
     50% { box-shadow:0 0 30px rgba(255,255,255,1);}
   }
 </style>
-
-<section id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
-</section>
-
-<div class="prezi-container w-full max-w-3xl mx-auto my-4">
-  <iframe 
-    src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/" 
-    id="iframe_container"
-    class="w-full h-96 rounded-lg border"
-    frameborder="0"
-    allowfullscreen
-    loading="lazy"
-    title="Prezi Presentation"
-    sandbox="allow-scripts allow-same-origin allow-presentation"
-    allow="autoplay; fullscreen">
-  </iframe>
-</div>
-</main>
-
-
-
-  <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
-    <div class="flex justify-center gap-2 p-2">
-      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
-    </div>
-    <p class="mt-2">&copy; 2025 HGBibleApp</p>
-  </footer>
-    <!-- Scripts -->
-  
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="js/orbitFloatingPlayer.js" defer></script> 
-  <script src="js/loadCommentary.js" defer></script> 
-  <script src="js/globalAudioManager.js" defer></script> 
-  <script src="./app.js" defer></script> 
-  <script src="js/bullseyeMedia.js" defer></script> 
-  <script src="js/mainStageLoaderTEST3.js" defer></script>
- <! -- <script src="js/studyContentManager.js" defer></script> -->
-  <script src="js/loadArticleList.js" defer></script>
-
-
-
-  <script>
-const cards = document.querySelectorAll(".bibleCard");
-let activeIndex = 0;
-
-// Utility: update active card
-function showCard(newIndex) {
-  if (newIndex === activeIndex) return;
-
-  const current = cards[activeIndex];
-  const next = cards[newIndex];
-
-  // reset current
-  current.classList.remove("active");
-  current.classList.add("absolute", "top-0", "left-0", "opacity-0", "scale-95", "transition", "duration-500");
-
-  // activate next
-  next.classList.add("active");
-  next.classList.remove("absolute", "top-0", "left-0", "opacity-0", "scale-95");
-
-  activeIndex = newIndex;
-}
-
-// Prev/Next button logic
-document.getElementById("biblePrevBtn").addEventListener("click", () => {
-  const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-  showCard(prevIndex);
-});
-
-document.getElementById("bibleNextBtn").addEventListener("click", () => {
-  const nextIndex = (activeIndex + 1) % cards.length;
-  showCard(nextIndex);
-});
-
-// Touch/swipe support
-let startX = 0;
-const stage = document.getElementById("bibleStage");
-
-stage.addEventListener("touchend", (e) => {
-  const endX = e.changedTouches[0].clientX;
-  const deltaX = endX - startX;
-
-  if (Math.abs(deltaX) > 50) {
-    if (deltaX > 0) {
-      // swipe right = prev
-      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-      showCard(prevIndex);
-    } else {
-      // swipe left = next
-      const nextIndex = (activeIndex + 1) % cards.length;
-      showCard(nextIndex);
-    }
-  }
-}); 
-</script>
-
-
-  <script>
-    // Dark mode toggle
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
-  </script>
-
-  <script>
-  // --- Debounce helper ---
-    function debounce(fn, delay = 250) {
-    let timer;
-    return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
-
-// --- Advanced search ---
-function setupAdvancedSearch() {
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput) return;
-    const searchFn = debounce(() => {
-        const query = searchInput.value.toLowerCase();
-        const cards = document.querySelectorAll("#cardsContainer section");
-        let visibleCount = 0;
-        cards.forEach(card => {
-            const text = card.textContent.toLowerCase();
-            if (text.includes(query)) {
-                card.style.display = "";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        // Optional: show "No results" placeholder
-        let noResults = document.getElementById("noResultsPlaceholder");
-        if (!noResults) {
-            noResults = document.createElement("p");
-            noResults.id = "noResultsPlaceholder";
-            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
-            noResults.textContent = "No matching cards found.";
-            cardsContainer.parentNode.appendChild(noResults);
-        }
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-    }, 200);
-
-    searchInput.addEventListener("input", searchFn);
-}
-
-// --- Reset button ---
-function addSearchResetButton() {
-    const searchWrapper = document.getElementById("searchWrapper");
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput || !searchWrapper) return;
-
-    const resetBtn = document.createElement("button");
-    resetBtn.textContent = "Reset";
-    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
-    resetBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
-        const noResults = document.getElementById("noResultsPlaceholder");
-        if (noResults) noResults.style.display = "none";
-    });
-
-    searchWrapper.appendChild(resetBtn); // append inside the flex container
-}
-  </script>
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
   let questions = [];
@@ -1171,10 +933,344 @@ document.addEventListener("DOMContentLoaded", async () => {
   // initial render
   updateScores();
 })();
+</script></p>
+          </div>
+        </section>
+        
+        <section id="quizCard" class="card">
+          <div class="card-inner">
+            <h1>Questions</h1>
+            <p>Quiz content</p>
+            <p>paste content here</p>
+          </div>
+        </section>
+        
+        <section id="jsonContainer" class="card">
+          <div class="card-inner">
+            <h1>Cards</h1>
+            <p>Cards container</p>
+            <p><div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
+</p>
+          </div>
+        </section>
+        
+        <section id="searchCard" class="card">
+          <div class="card-inner">
+            <h1>Search</h1>
+            <p>Search UI</p>
+            <p><script>
+  // --- Debounce helper ---
+    function debounce(fn, delay = 250) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// --- Advanced search ---
+function setupAdvancedSearch() {
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput) return;
+    const searchFn = debounce(() => {
+        const query = searchInput.value.toLowerCase();
+        const cards = document.querySelectorAll("#cardsContainer section");
+        let visibleCount = 0;
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Optional: show "No results" placeholder
+        let noResults = document.getElementById("noResultsPlaceholder");
+        if (!noResults) {
+            noResults = document.createElement("p");
+            noResults.id = "noResultsPlaceholder";
+            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
+            noResults.textContent = "No matching cards found.";
+            cardsContainer.parentNode.appendChild(noResults);
+        }
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+    }, 200);
+
+    searchInput.addEventListener("input", searchFn);
+}
+
+// --- Reset button ---
+function addSearchResetButton() {
+    const searchWrapper = document.getElementById("searchWrapper");
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput || !searchWrapper) return;
+
+    const resetBtn = document.createElement("button");
+    resetBtn.textContent = "Reset";
+    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
+    resetBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
+        const noResults = document.getElementById("noResultsPlaceholder");
+        if (noResults) noResults.style.display = "none";
+    });
+
+    searchWrapper.appendChild(resetBtn); // append inside the flex container
+}
+  </script></p>
+          </div>
+        </section>
+        
+        <section id="outlinesCard" class="card">
+          <div class="card-inner">
+            <h1>Outlines</h1>
+            <p><img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></p>
+            <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">        </div>
+</p>
+          </div>
+        </section>
+        
+        <section id="mediaCard" class="card">
+          <div class="card-inner">
+            <h1>Media</h1>
+          <p>Media & player</p>
+          <p><div id="fp-hero-glass-root"></div></p>
+          <div id="floating-player-root"></div>
+        </div>
+      </section>
+        
+      <section id="bibleCard" class="card">
+        <div class="card-inner">
+          <h1>Bible</h1>
+          <p>Bible content</p>
+          <p>paste content here</p>
+        </div>
+      </section>
+        
+      <section id="preziCard" class="card">
+          <div class="card-inner">
+            <h1>prezi</h1>
+            <p><div class="prezi-container w-full max-w-3xl mx-auto my-4">
+  <iframe 
+    src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/" 
+    id="iframe_container"
+    class="w-full h-96 rounded-lg border"
+    frameborder="0"
+    allowfullscreen
+    loading="lazy"
+    title="Prezi Presentation"
+    sandbox="allow-scripts allow-same-origin allow-presentation"
+    allow="autoplay; fullscreen">
+  </iframe>
+</div></p>
+          </div>
+        </section>
+
+      </div><!-- cardsRow -->
+    </div><!-- viewport -->
+
+    <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab.</div>
+  </div>
+
+<script>
+/* ======== MainStageManager with swipe + keyboard ======== */
+(function(){
+  console.log("🎬 MainStageManager initializing...");
+
+  class MainStageManager {
+    constructor(options = {}) {
+      this.viewport = document.getElementById(options.viewportId || "viewport");
+      this.row = document.getElementById(options.rowId || "cardsRow");
+      this.cards = Array.from(this.row.children || []);
+      this.currentIndex = 0;
+      this.startX = 0;
+      this.currentTranslate = 0;
+      this.isDragging = false;
+      this.threshold = options.threshold || 60; // px to trigger swipe
+      this.transitioning = false;
+
+      if (!this.viewport || !this.row) {
+        console.warn("❌ Viewport or cardsRow not found.");
+        return;
+      }
+
+      // ensure each card has an id
+      this.cards.forEach((c, i) => {
+        if (!c.id) c.id = `card-${i}`;
+      });
+
+      this.updatePosition(); // position initially
+      this.bindEvents();
+      console.log("✅ MainStageManager ready (cards:", this.cards.map(c=>c.id).length, ")");
+    }
+
+    bindEvents(){
+      // Touch
+      this.row.addEventListener("touchstart", (e)=>this.onDragStart(e.touches[0].clientX), {passive:true});
+      this.row.addEventListener("touchmove", (e)=>this.onDragMove(e.touches[0].clientX), {passive:false});
+      this.row.addEventListener("touchend", ()=>this.onDragEnd());
+
+      // Mouse (desktop testing)
+      let mouseDown = false;
+      this.row.addEventListener("mousedown", (e)=>{ mouseDown=true; this.onDragStart(e.clientX); });
+      window.addEventListener("mousemove", (e)=>{ if(mouseDown) this.onDragMove(e.clientX); });
+      window.addEventListener("mouseup", (e)=>{ if(mouseDown){ mouseDown=false; this.onDragEnd(); } });
+
+      // Keyboard
+      window.addEventListener("keydown", (e)=>{
+        if (e.key === "ArrowLeft") this.prev();
+        if (e.key === "ArrowRight") this.next();
+      });
+
+      // Resize: recalc transform
+      window.addEventListener("resize", ()=> this.updatePosition());
+    }
+
+    onDragStart(clientX){
+      if (this.transitioning) return;
+      this.isDragging = true;
+      this.startX = clientX;
+      this.row.style.transition = "none";
+    }
+
+    onDragMove(clientX){
+      if (!this.isDragging) return;
+      const dx = clientX - this.startX;
+      const width = this.viewport.clientWidth;
+      // Allow vertical scrolling if move is mostly vertical -> ignore
+      // But we can't detect vertical here easily because we only get x; using passive touchmove false above to prevent scroll when swiping
+      this.currentTranslate = -this.currentIndex * width + dx;
+      this.row.style.transform = `translateX(${this.currentTranslate}px)`;
+      // prevent page scroll while actively dragging horizontally
+      if (Math.abs(dx) > 8) event.preventDefault();
+    }
+
+
+
+    updatePosition() {
+      const width = this.viewport.clientWidth;
+      this.row.style.transition = "transform .32s cubic-bezier(.2,.9,.2,1)";
+      this.row.style.transform = `translateX(${-this.currentIndex * width}px)`;
+    }
+
+    registerCard(cardId){
+      // keep compatibility with previous registerCard calls
+      const el = document.getElementById(cardId);
+      if (!el) {
+        console.warn("⚠ registerCard: not found", cardId);
+        return;
+      }
+      // if new card exists and not in list, add it
+      if (!this.cards.includes(el)) {
+        this.cards.push(el);
+        this.row.appendChild(el);
+      }
+    }
+
+    showCard(cardId){
+      const idx = this.cards.findIndex(c => c.id === cardId);
+      if (idx === -1) {
+        console.warn("⚠ showCard: not found", cardId);
+        return;
+      }
+      this.goTo(idx);
+    }
+
+    goTo(index){
+      if (index < 0) index = 0;
+      if (index >= this.cards.length) index = this.cards.length - 1;
+      this.currentIndex = index;
+      this.transitioning = true;
+      this.updatePosition();
+      // simple defer to clear transitioning flag after transition
+      setTimeout(()=> this.transitioning = false, 380);
+    }
+
+    next(){ this.goTo(this.currentIndex + 1); }
+    prev(){ this.goTo(this.currentIndex - 1); }
+    getCurrentCard(){ return this.cards[this.currentIndex]?.id || null; }
+    getCurrentIndex(){ return this.currentIndex; }
+  }
+
+  // expose a singleton
+  window.mainStageManager = new MainStageManager({ viewportId: "viewport", rowId: "cardsRow", threshold: 64 });
+
+  // convenience: expose small helpers
+  window.mainStageManager.registerCards = function(ids){
+    ids.forEach(id => window.mainStageManager.registerCard(id));
+  };
+
+  // dynamic tabbar wiring (create tabs & wire to manager)
+  (function buildTabBar(){
+    const friendlyNames = {
+      "mainStageCard": "Main Stage",
+      "commentaryContainer": "Commentary",
+      "articleList": "Articles",
+      "studyContent": "Study",
+      "calendarCard": "Calendar",
+      "mapCard": "Map",
+      "podcast-card": "Podcast",
+      "triviaCard": "Trivia",
+      "questionsCard": "Questions",
+      "jsonContainer": "Cards",
+      "searchCard": "Search",
+      "outlinesCard": "Outlines",
+      "mediaCard": "Media",
+      "bibleCard": "Bible",
+      "preziCard": "prezi"
+    };
+
+    const ids = Object.keys(friendlyNames);
+    const tabBar = document.getElementById("tabBar");
+    if (!tabBar) return;
+
+    ids.forEach((id, idx) => {
+      const btn = document.createElement("button");
+      btn.textContent = friendlyNames[id] || id;
+      btn.dataset.id = id;
+      if (idx === 0) btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        // remove active on others
+        Array.from(tabBar.children).forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        // ensure card registered then show
+        window.mainStageManager.registerCard(id);
+        window.mainStageManager.showCard(id);
+      });
+      tabBar.appendChild(btn);
+    });
+
+    // sync tab active on swipe
+    const observer = new MutationObserver(()=> {
+      const curr = window.mainStageManager.getCurrentCard();
+      Array.from(tabBar.children).forEach(b => b.classList.toggle("active", b.dataset.id === curr));
+    });
+    observer.observe(document.getElementById("cardsRow"), { attributes:true, childList:true, subtree:false });
+  })();
+
+})();
 </script>
-
-
-
-
+   <!-- Footer -->
+  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
+    <div class="flex justify-center gap-2 p-2">
+      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
+      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
+      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
+    </div>
+    <p class="mt-2">&copy; 2025 HGBibleApp</p>
+  </footer>
+    <!-- Scripts -->
+  
+  <script src="js/FloatingPlayerv-3.js" defer></script> 
+  <script src="js/orbitFloatingPlayer.js" defer></script> 
+  <script src="js/loadCommentary.js" defer></script> 
+  <script src="js/globalAudioManager.js" defer></script> 
+  <script src="./app.js" defer></script> 
+  <script src="js/bullseyeMedia.js" defer></script> 
+  <script src="js/mainStageLoaderTEST3.js" defer></script>
+  <script src="studyContentManager.js" defer></script> 
+  <script src="js/loadArticleList.js" defer></script>
 </body>
 </html>
