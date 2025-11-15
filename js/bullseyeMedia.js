@@ -1,8 +1,8 @@
 (function () {
   console.log("🌟 Orbit Logo/Video Toggle Module initializing...");
 
-  const logoSrc = "/images/HGHouses.png"; // path to your logo
-  const videoSrc = "/videos/build_your_kingdom_here.mp4"; // path to your video
+  const logoSrc = "./images/HGHouses.png"; // path to your logo
+  const videoSrc = "./videos/build_your_kingdom_here.mp4"; // path to your video
 
   let logoEl, videoEl;
   let showingVideo = false;
@@ -72,4 +72,7 @@
     window.toggleOrbitVideo = toggleVideo;
     console.log("ℹ Use `toggleOrbitVideo()` in console to switch logo/video.");
   }, 200);
+
 })();
+
+
