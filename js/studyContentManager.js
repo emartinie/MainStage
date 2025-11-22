@@ -1,60 +1,78 @@
 console.log("📖 StudyContentManager initialized");
 
+// CONFIG — Single source of truth
 const STUDY_CONFIG = {
   containerId: "studyContent",
   innerId: "contentInner",
   paginationId: "paginationControls",
-  paragraphsPerPage: 3,
+  paragraphsPerPage: 10,
+  toggleBtnId: "toggleStudyBtn"
 };
 
+// STATE
 let currentPage = 0;
 let totalPages = 0;
-let currentType = null;
+let currentType = null;     // "commentary" or "article"
 let allParagraphs = [];
-let currentSource = "";
+let currentSource = null;
 
+// DOM REFERENCES
 const container = document.getElementById(STUDY_CONFIG.containerId);
 const inner = document.getElementById(STUDY_CONFIG.innerId);
 const pagination = document.getElementById(STUDY_CONFIG.paginationId);
+const toggleBtn = document.getElementById(STUDY_CONFIG.toggleBtnId);
 
-// --- Load Content by Type ---
+// ---------- TOGGLE VISIBILITY ----------
+if (toggleBtn) {
+  toggleBtn.addEventListener("click", () => {
+    container?.classList.toggle("hidden");
+    container?.classList.toggle("opacity-0");
+    container?.classList.toggle("scale-95");
+  });
+}
+
+// ---------- PUBLIC LOAD FUNCTION ----------
 async function loadStudyContent(type, source) {
-  console.log(`🪶 Loading ${type} from:, source`);
+  console.log(`🪶 Loading ${type} from: ${source}`);
+
   currentType = type;
   currentSource = source;
   currentPage = 0;
+  allParagraphs = [];
 
   try {
-    if (type === "commentary" || type === "article") {
-      const res = await fetch(source);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const html = await res.text();
-      parseAndPaginate(html);
-    } else if (type === "iframe") {
-      showHTML(`<iframe src="${source}" frameborder="0" width="100%" height="400"></iframe>`);
-    } else if (type === "video") {
-      showHTML(`<video controls width="100%"><source src="${source}" type="video/mp4"></video>`);
-    } else {
-      console.warn(`Unknown content type: ${type}`);
-    }
+    const res = await fetch(source);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const html = await res.text();
+    parseAndPaginate(html);
+
+    container?.classList.remove("hidden", "opacity-0", "scale-95");
+
   } catch (err) {
     console.error("❌ Error loading content:", err);
-    showHTML("<p>Error loading content. Please try again later.</p>");
+    inner.innerHTML = "<p>Error loading content. Please try again later.</p>";
+    pagination.innerHTML = "";
   }
 }
 
-// --- Pagination ---
+// ---------- PARSE + PAGINATE ----------
 function parseAndPaginate(html) {
   const temp = document.createElement("div");
   temp.innerHTML = html;
 
+  // We keep the same element types as before
   allParagraphs = Array.from(temp.querySelectorAll("p, h2, h3, h4, li"));
+
   totalPages = Math.ceil(allParagraphs.length / STUDY_CONFIG.paragraphsPerPage);
 
   renderPage(0);
 }
 
+// ---------- RENDER ONE PAGE ----------
 function renderPage(page) {
+  currentPage = page;
+
   const start = page * STUDY_CONFIG.paragraphsPerPage;
   const end = start + STUDY_CONFIG.paragraphsPerPage;
 
@@ -64,7 +82,10 @@ function renderPage(page) {
   renderPaginationControls();
 }
 
+// ---------- PAGINATION ----------
 function renderPaginationControls() {
+  if (!pagination) return;
+
   pagination.innerHTML = `
     <button id="prevPage" ${currentPage === 0 ? "disabled" : ""}>⟵</button>
     <span>Page ${currentPage + 1} of ${totalPages}</span>
@@ -72,55 +93,20 @@ function renderPaginationControls() {
   `;
 
   document.getElementById("prevPage")?.addEventListener("click", () => {
-    if (currentPage > 0) {
-      currentPage--;
-      renderPage(currentPage);
-    }
+    if (currentPage > 0) renderPage(currentPage - 1);
   });
 
   document.getElementById("nextPage")?.addEventListener("click", () => {
-    if (currentPage < totalPages - 1) {
-      currentPage++;
-      renderPage(currentPage);
-    }
+    if (currentPage < totalPages - 1) renderPage(currentPage + 1);
   });
 }
 
-// --- Core Display ---
-function showHTML(html) {
-  inner.innerHTML = html;
-  pagination.innerHTML = "";
-  container.classList.remove("hidden");
-  container.classList.remove("opacity-0", "scale-95");
-  container.classList.add("opacity-100", "scale-100");
-}
-
-// --- Toggle Buttons ---
-document.getElementById("toggleStudyBtn")?.addEventListener("click", () => {
-  toggleStudyContent();
-});
-
-document.getElementById("toggleArticlesBtn")?.addEventListener("click", () => {
-  toggleStudyContent();
-});
-
-function toggleStudyContent() {
-  const isHidden = container.classList.toggle("hidden");
-  container.classList.toggle("opacity-0", isHidden);
-  container.classList.toggle("scale-95", isHidden);
-  container.classList.toggle("opacity-100", !isHidden);
-  container.classList.toggle("scale-100", !isHidden);
-}
-
-// --- Week Changed (for commentary) ---
-document.addEventListener("weekChanged", (e) => {
+// ---------- LISTENER FOR WEEK CHANGES ----------
+document.addEventListener("weekChanged", e => {
   const week = e.detail?.week || 1;
-  console.log("📅 Week changed:", week);
+  console.log("📆 Week changed → Load commentary:", week);
+
   loadStudyContent("commentary", `commentary/week${week}.html`);
 });
-
-// --- Expose global functions ---
-window.loadStudyContent = loadStudyContent;
-window.toggleStudyContent = toggleStudyContent;
 
 console.log("✅ StudyContentManager ready");

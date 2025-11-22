@@ -1,114 +1,21 @@
-console.log("📖 StudyContentManager initialized");
-
-// CONFIG
-const STUDY_CONFIG = {
-  containerId: "studyContent",
-  innerId: "contentInner",
-  paginationId: "paginationControls",
-  paragraphsPerPage: 3,
-};
-
-let currentPage = 0;
-let totalPages = 0;
-let currentType = null; // 'commentary' or 'article'
-let allParagraphs = [];
-let currentSource = null;
-
-// DOM
-const container = document.getElementById(STUDY_CONFIG.containerId);
-const inner = document.getElementById(STUDY_CONFIG.innerId);
-const pagination = document.getElementById(STUDY_CONFIG.paginationId);
-const toggleBtn = document.getElementById("toggleStudyBtn");
-
-// --- Toggle Visibility ---
-toggleBtn.addEventListener("click", () => {
-  container.classList.toggle("hidden");
-  container.classList.toggle("opacity-0");
-  container.classList.toggle("scale-95");
-});
-
-// --- Load content ---
-async function loadStudyContent(type, source) {
-  console.log(`🪶 Loading ${type} from:`, source);
-  currentType = type;
-  currentSource = source;
-  currentPage = 0;
-  allParagraphs = [];
-
-  try {
-    const res = await fetch(source);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const html = await res.text();
-
-    parseAndPaginate(html);
-    container.classList.remove("hidden");
-    container.classList.remove("opacity-0");
-    container.classList.remove("scale-95");
-  } catch (err) {
-    console.error("❌ Error loading content:", err);
-    inner.innerHTML = "<p>Error loading content. Please try again later.</p>";
-    pagination.innerHTML = "";
-  }
-}
-
-// --- Parse and paginate ---
-function parseAndPaginate(html) {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-  allParagraphs = Array.from(temp.querySelectorAll("p, h2, h3, h4, li"));
-  totalPages = Math.ceil(allParagraphs.length / STUDY_CONFIG.paragraphsPerPage);
-  renderPage(0);
-}
-
-function renderPage(page) {
-  currentPage = page;
-  const start = page * STUDY_CONFIG.paragraphsPerPage;
-  const end = start + STUDY_CONFIG.paragraphsPerPage;
-  const slice = allParagraphs.slice(start, end);
-  inner.innerHTML = slice.map(el => el.outerHTML).join("");
-  renderPaginationControls();
-}
-
-// --- Pagination controls ---
-function renderPaginationControls() {
-  if (!pagination) return;
-
-  pagination.innerHTML = `
-    <button id="prevPage" ${currentPage === 0 ? "disabled" : ""}>⟵</button>
-    <span>Page ${currentPage + 1} of ${totalPages}</span>
-    <button id="nextPage" ${currentPage === totalPages - 1 ? "disabled" : ""}>⟶</button>
-  `;
-
-  document.getElementById("prevPage")?.addEventListener("click", () => {
-    if (currentPage > 0) renderPage(currentPage - 1);
-  });
-
-  document.getElementById("nextPage")?.addEventListener("click", () => {
-    if (currentPage < totalPages - 1) renderPage(currentPage + 1);
-  });
-}
-
-// --- WeekChanged listener ---
-document.addEventListener("weekChanged", e => {
-  const week = e.detail?.week || 1;
-  loadStudyContent("commentary", `commentary/week${week}.html`);
-});
+// --- loadArticles.js ---
+console.log("🧾 ArticleList loader active");
 
 const ARTICLE_FOLDER = "./articles/";
-// --- Article list setup ---
+
 const articles = [
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
   { title: "Walking in Love", file: "debating_arguing_discussing_and_disagreeing_midrash.html" },
   { title: "First Article", file: "first_blog_post_the_second_commandment_and_the_second_ammendment.html" },
   { title: "Fulfillment of Prophecy", file: "jesus_yeshua_fulfillment_of_prophecy.html" },
-  { title: "Kingdom Mindedness", file: "kingdom_mindedness.html" },  
+  { title: "Kingdom Mindedness", file: "kingdom_mindedness.html" },
   { title: "LTBI24H- Chuck Missler", file: "learn_the_bible_in_24_hours.html" },
   { title: "Letter to a Friend", file: "letter_to_a_friend.html" },
   { title: "List of Sins", file: "list_of_sins.html" },
-  { title: "Marriage", file: "marriage.html" }, 
+  { title: "Marriage", file: "marriage.html" },
   { title: "Misconceptions of ekklesia", file: "misconceptions_of_ekklesia.html" },
-  { title: "Who is Q [for Christians]", file: "qanon_phenomenon_who_is_q_for_christians.html" }, 
-  { title: "Relational Discipleship 101 Notes", file: "relational_discipleship_101_notes.html" },  
+  { title: "Who is Q [for Christians]", file: "qanon_phenomenon_who_is_q_for_christians.html" },
+  { title: "Relational Discipleship 101 Notes", file: "relational_discipleship_101_notes.html" },
   { title: "The holidays- by Wendy Roberts", file: "sola_scriptura_the_holidays.html" },
   { title: "Study Tools", file: "study_tools.html" },
   { title: "Surrendering Anger- by By Wendy Roberts", file: "surrendering_anger.html" },
@@ -120,30 +27,69 @@ const articles = [
   { title: "The Prodigal Son", file: "the_prodigal_son.html" },
   { title: "The Remnant", file: "the_remnant.html" },
   { title: "Torah Commandments- A List", file: "torah_commandments.html" },
-  { title: "The Story", file: "the_story.html" },  
+  { title: "The Story", file: "the_story.html" },
   { title: "Understanding Denominations for Unity Sake", file: "understanding_denominations.html" },
   { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },
-  { title: "Who is Q for Christians?", file: "who_is_q_for_christians.html" },    
-  // add more here as needed
+  { title: "Who is Q for Christians?", file: "who_is_q_for_christians.html" }
 ];
 
-const articleListDiv = document.getElementById("articleList");
-
-articles.forEach(a => {
-  const btn = document.createElement("button");
-  btn.textContent = a.title;
-  btn.className = "px-4 py-2 bg-gray-700/70 text-white rounded hover:bg-cyan-700 transition-all";
-  btn.addEventListener("click", () => loadStudyContent("article", a.file));
-  articleListDiv.appendChild(btn);
-});
-
-console.log("✅ StudyContentManager ready");
-
-// --- Load the article list dynamically into the #articleList container ---
 function loadArticleList() {
-  console.log("🧾 Loading article list...");
+  console.log("🧾 Rendering article list...");
+
   const listContainer = document.getElementById("articleList");
-  if (!listContainer) return console.error("❌ Missing #articleList container");
+  if (!listContainer) {
+    console.error("❌ Missing #articleList container");
+    return;
+  }
+
+  listContainer.innerHTML = "";
+
+  articles.forEach(article => {
+    const btn = document.createElement("button");
+    btn.textContent = article.title;
+
+    btn.className =
+      "glass-panel text-left px-4 py-2 bg-cyan-700/80 hover:bg-cyan-600 text-white rounded-lg shadow-md " +
+      "transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/50";
+
+    // ✅ When clicked → fetch the HTML → open the modal
+    btn.addEventListener("click", async () => {
+      console.log(`📖 Fetching /articles/${article.file}`);
+
+      try {
+        const res = await fetch(`/articles/${article.file}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        const html = await res.text();
+
+        // Convert HTML into plain paragraphs
+        const div = document.createElement("div");
+        div.innerHTML = html;
+        const paragraphs = [...div.querySelectorAll("p")].map(p => p.textContent.trim());
+
+        openReaderModal(article.title, paragraphs);
+      } catch (err) {
+        console.error("❌ Failed to load article:", err);
+      }
+    });
+
+    listContainer.appendChild(btn);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadArticleList);
+
+console.log("✅ ArticleList ready");
+
+function loadArticleList() {
+  console.log("🧾 Rendering article list...");
+
+  const listContainer = document.getElementById("articleList");
+  if (!listContainer) {
+    console.error("❌ Missing #articleList container");
+    return;
+  }
+
   listContainer.innerHTML = "";
 
   articles.forEach(article => {
@@ -152,14 +98,29 @@ function loadArticleList() {
     btn.className =
       "glass-panel text-left px-4 py-2 bg-cyan-700/80 hover:bg-cyan-600 text-white rounded-lg shadow-md " +
       "transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/50";
+
+    // ✅ FIXED CLICK EVENT
     btn.addEventListener("click", () => {
-      console.log(`📰 Loading article: ${ARTICLE_FOLDER + article.file}`);
-      loadStudyContent("article", ARTICLE_FOLDER + article.file);
+      loadArticleIntoModal(article.title, "/articles/" + article.file);
     });
-    listContainer.appendChild(btn);
+
+    // Load the HTML file → then show in modal
+    fetch(ARTICLE_FOLDER + article.file)
+      .then(response => response.text())
+      .then(html => {
+        // Convert the HTML file into paragraphs
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Extract all <p> tags into an array
+        const paragraphs = [...doc.querySelectorAll("p")].map(p => p.innerHTML);
+
+        // Open in your modal reader
+        openReaderModal(article.title, paragraphs);
+      })
+      .catch(err => console.error("❌ Error loading article:", err));
   });
+
+  listContainer.appendChild(btn);
+});
 }
-
-// --- Auto-load list on DOM ready ---
-
-document.addEventListener("DOMContentLoaded", loadArticleList);
