@@ -260,50 +260,55 @@ Object.assign(dockBtn.style, {
 });
 player.appendChild(dockBtn);
 
-dockBtn.addEventListener("click", () => {
-  docked = !docked;
-  const dockContainer = document.getElementById("floating-player-root");
-  
-  if (docked && dockContainer) {
-    // Move player into dock container
-    dockContainer.appendChild(player);
-    Object.assign(player.style, {
-      position: "relative",
-      width: "100%",
-      maxWidth: "520px",
-      height: "72px",
-      borderRadius: "14px",
-      left: "0",
-      bottom: "0",
-      right: "0",
-      top: "0",
-      transform: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      padding: "0 10px"
-    });
+// Support both click + touch
+["click", "touchstart"].forEach(evt => {
+  dockBtn.addEventListener(evt, (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-  } else {
-    // Move player back to floating
-    document.body.appendChild(player);
-    Object.assign(player.style, {
-      position: "fixed",
-      width: "190px",
-      height: "190px",
-      bottom: "1rem",
-      right: "1rem",
-      borderRadius: "50%",
-      left: "auto",
-      top: "auto",
-      transform: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "0"
-    });
+    docked = !docked;
+    const dockContainer = document.getElementById("floating-player-root");
 
-  }
+    if (docked && dockContainer) {
+      // Move player into dock container
+      dockContainer.appendChild(player);
+      Object.assign(player.style, {
+        position: "relative",
+        width: "100%",
+        maxWidth: "520px",
+        height: "72px",
+        borderRadius: "14px",
+        left: "0",
+        bottom: "0",
+        right: "0",
+        top: "0",
+        transform: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 10px"
+      });
+
+    } else {
+      // Return to floating mode
+      document.body.appendChild(player);
+      Object.assign(player.style, {
+        position: "fixed",
+        width: "190px",
+        height: "190px",
+        bottom: "1rem",
+        right: "1rem",
+        borderRadius: "50%",
+        left: "auto",
+        top: "auto",
+        transform: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "0"
+      });
+    }
+  });
 });
 
 
