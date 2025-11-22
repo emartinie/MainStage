@@ -1,0 +1,132 @@
+/* ===== MODAL BACKDROP ===== */
+#readerModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 20, 0.65);
+  backdrop-filter: blur(12px) saturate(160%);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.35s ease;
+}
+#readerModal.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* ===== MODAL CARD ===== */
+#readerModalContent {
+  width: 90%;
+  max-width: 780px;
+  max-height: 84vh;
+  overflow: hidden;
+  padding: 0;
+  background: rgba(22, 28, 48, 0.55);
+  backdrop-filter: blur(22px) saturate(200%);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 40px rgba(0, 150, 255, 0.3),
+              0 0 80px rgba(0, 80, 255, 0.15) inset;
+  transform: translateY(40px) scale(0.92);
+  opacity: 0;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#readerModal.active #readerModalContent {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== HEADER ===== */
+.modal-header {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-shadow: 0 0 12px #00bfff;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.7px;
+}
+
+/* slick close button */
+#closeReaderModal {
+  background: rgba(0, 255, 200, 0.18);
+  border: 1px solid rgba(0, 255, 255, 0.45);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: cyan;
+  font-weight: bold;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: 0.25s ease;
+}
+#closeReaderModal:hover {
+  background: rgba(0, 255, 255, 0.35);
+  transform: scale(1.07);
+}
+
+/* ===== CONTENT AREA ===== */
+.modal-body {
+  padding: 24px 28px;
+  overflow-y: auto;
+  max-height: calc(84vh - 88px);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #e7f5ff;
+}
+
+/* auto-style paragraphs */
+.modal-body p {
+  margin-bottom: 18px;
+  text-shadow: 0 0 8px rgba(0, 200, 255, 0.25);
+}
+
+/* ===== PAGINATION ===== */
+.modal-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.page-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.page-dot:hover {
+  transform: scale(1.2);
+}
+.page-dot.active {
+  background: cyan;
+  box-shadow: 0 0 12px cyan, 0 0 30px rgba(0, 255, 255, 0.5);
+  transform: scale(1.25);
+}
+
+/* ===== PAGE CHANGE ANIMATION ===== */
+.page-fade {
+  animation: fadePage 0.35s ease;
+}
+@keyframes fadePage {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

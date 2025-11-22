@@ -1,0 +1,281 @@
+/* ===== UNIVERSAL STYLE FILE ===== */
+/*(Fresh CSS file)*/
+/* ===== UNIVERSAL STYLE FILE ===== */
+
+.card {
+  width: 100%;
+  max-width: 100%vw;    /* You can change this */
+  margin: 20px auto;   /* Centers it */
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Header with logos + buttons */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+/* Title area centered */
+.card-title {
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Consistent glass buttons */
+.card-header .btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.card-header .btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* ===== UNIVERSAL VIEWPORT ===== */
+/* viewport + row */
+#viewport {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--app-bg, #0b0b0c);
+    /* change as needed */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: pan-y;
+    /* allow vertical scroll inside cards */
+}
+
+#cardsRow {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    will-change: transform;
+    /* default row transition (used for snap-backs) */
+    transition: transform .38s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Each card fills viewport */
+.card {
+    flex: 0 0 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--card-bg, linear-gradient(180deg, #060606 0%, #0f0f13 100%));
+}
+
+
+/* internal scroll region (body) */
+.card-body::before {
+    content: '';
+    display: block;
+    height: 40px; /* same as header height */
+    background: var(--card-bg, linear-gradient(180deg, #060606 0%, #0f0f13 100%));
+ /* optional */
+}
+
+.card-body {
+    padding: 18px;
+    padding-top: 96px;
+    /* leave room for floating header */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    color: var(--header-color, #fff);
+
+}
+
+/* Floating frosted header (centered pill) */
+.card-header {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(980px, calc(100% - 40px));
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--header-color, #fff);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 14px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(4, 4, 6, 0.45);
+    pointer-events: none;
+    /* prevents header from intercepting swipes; inner controls opt-in */
+}
+
+/* If you want header buttons to be interactive, give them pointer-events:auto */
+.card-header .btn {
+    pointer-events: auto;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    flex: 1 1 auto;
+    text-align: left;
+    color: var(--header-color, #fff);
+}
+
+/* discoverability hint (right edge) */
+.swipe-hint {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+    pointer-events: none;
+    opacity: 0.95;
+    transition: opacity 0.5s ease;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.swipe-hint.hidden {
+    opacity: 0;
+}
+
+/* ---------- Anim styles (randomized) ---------- */
+
+/* Slide is default handled by translateX on row; we can add subtle mask easing */
+.anim-slide #cardsRow {
+    transition: transform .38s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Fade + slide: fade target card in */
+.anim-fade .card {
+    transition: opacity .34s ease, transform .34s ease;
+}
+
+.anim-fade .card {
+    opacity: 0.9;
+    transform: translateX(10px) scale(.995);
+}
+
+.anim-fade .card.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+/* Scale */
+.anim-scale .card {
+    transition: transform .38s cubic-bezier(.2, .85, .26, 1), opacity .28s ease;
+    transform-origin: center;
+}
+
+.anim-scale .card {
+    transform: scale(0.992);
+    opacity: 0.98;
+}
+
+.anim-scale .card.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* subtle spring (simulate using cubic-bezier) */
+.anim-spring #cardsRow {
+    transition: transform .6s cubic-bezier(.23, 1.1, .3, 1);
+}
+
+/* active state helper — mark the visible card */
+.card.active {
+    /* a no-op to be toggled by JS so CSS transitions above apply */
+}
+
+/* small responsive adjustments */
+@media (max-width:600px) {
+    .card-header {
+        width: calc(100% - 28px);
+        padding: 8px 12px;
+        border-radius: 12px;
+        top: 10px;
+    }
+
+    .card-body {
+        padding: 12px;
+        padding-top: 84px;
+    }
+}
+
+/* optional: make header text adapt to dark/light backgrounds */
+.card-header .logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #fff2, #ffffff22);
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* Optional: Add a subtle orbiting ring around the player */
+#floatingPlayer::before {
+    content: '';
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    width: 130%;
+    height: 130%;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 200, 255, 0.4);
+    animation: orbitRing 5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes orbitRing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Optional fade-in animation for mode transitions */
+.video-face,
+.video-full {
+    transition: all 0.4s ease-in-out;
+}
+
+#floatingPlayer {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.😎, 0 0 40px rgba(0, 255, 255, 0.6);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+
