@@ -12,39 +12,51 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/05001001-05003022.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/23001001-23001027.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/41014001-41014016.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/66022001-66022021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Deuteronomy 1:9 | Appointment of Tribal Leaders",
+        "Deuteronomy 1:19 | Israel's Refusal to Enter the Land",
+        "Deuteronomy 1:34 | The Penalty for Israel's Rebellion"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Elijah and Elisha",
+        "Isaiah 1:2 | The Wickedness of Judah"
       ],
-      "Writings": [],
+      "Writings": [
+        "Hosea 9 | Ephraimites, the Prophetic Watcmen return to eating unclean food"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Mark 14 | Passover Annointing"
       ],
       "Letters": [
         "James 2 – Faith and Works"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 22 | Yeshua Is Coming"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",

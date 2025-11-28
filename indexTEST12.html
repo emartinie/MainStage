@@ -34,14 +34,14 @@
     <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
 
     <head>
+        <!-- TAILWIND (only one!) -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
         <!-- GLOBAL APP STYLE -->
         <link rel="stylesheet" href="css/NewStyle.css">
 
         <!-- READER SYSTEM (modal) -->
         <!--<link rel="stylesheet" href="css/readerSystem.css">-->
-
-        <!-- TAILWIND (only one!) -->
-        <script src="https://cdn.tailwindcss.com"></script>
 
         <!-- LEAFLET CORE -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -58,43 +58,45 @@
     </head>
 
     <!-- Header -->
-    <header
-        class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
+<header
+    class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md px-4 py-2 z-50">
+
+    <div class="flex justify-between items-center w-full">
+
+        <!-- LEFT SIDE -->
         <div class="flex items-center gap-2">
             <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
         </div>
 
-
-        <!--  Carousel Controls -->
+        <!-- MIDDLE CONTROLS -->
         <div class="flex items-center gap-2">
-            <button id="biblePrevBtn"
-                class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6">
-                <!-- Heroicon: Chevron Left -->
+            <button id="biblePrevBtn" class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
 
-            <!-- Week Select -->
             <button id="prevWeek"
                 class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
-            <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700 animate-pulse">
-                <!-- Dynamic week options -->
-            </select>
+
+            <select id="weekSelect" class="px-2 py-1 border rounded text-blue-700 animate-pulse"></select>
+
             <button id="nextWeek"
                 class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
 
             <button id="bibleNextBtn"
                 class="bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6">
-                <!-- Heroicon: Chevron Right -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 5l7 7-7 7" />
                 </svg>
             </button>
         </div>
 
+        <!-- RIGHT SIDE -->
         <button id="installButton"
             class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -104,7 +106,9 @@
             </svg>
             <span>Install App</span>
         </button>
-    </header>
+
+    </div>
+</header>
 
 <body>
 
@@ -117,1469 +121,1555 @@
         <div id="cardsRow" style="min-height: 800px;">
             <!-- -----------------------
    END HTML CARD STRUCTURE
-  (VM408:7 Total cards found: 26
-23:14:11.389 VM408:13 Duplicate IDs found: (4) [Array(2), Array(2), Array(2), Array(2)
-23:14:11.423 VM408:21 Nested sections/cards inside "mainStageCard": 1
-23:14:11.424 VM408:21 Nested sections/cards inside "calendarCard": 5
-23:14:11.425 VM408:21 Nested sections/cards inside "mapCard": 1
-23:14:11.425 VM408:21 Nested sections/cards inside "triviaCard": 1
-23:14:11.426 VM408:21 Nested sections/cards inside "jsonCard": 9
-23:14:11.429 VM408:21 Nested sections/cards inside "articleList": 1
-23:14:11.439 VM408:32 Card "triviaCard" missing .card-header
-23:14:11.440 VM408:33 Card "triviaCard" missing .card-body
-23:14:11.444 VM408:32 Card "studyCard" missing .card-header
-23:14:11.444 VM408:33 Card "studyCard" missing .card-body)
   ----------------------- -->
 
             <section id="mainStageCard" class="card active">
-  <!-- Floating header -->
-  <div class="card-header" data-card-id="mainStageCard">
-    <button class="btn prev-btn" title="Previous" aria-label="Previous">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <div class="card-title">
-      Main Stage
-      <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-        AudioVisual Scriptures
-      </h3>
-    </div>
-
-    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-
-    <button class="btn next-btn" title="Next" aria-label="Next">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Card body -->
-  <div class="card-body flex flex-col items-center gap-6 px-6 py-4">
-    
-    <!-- Hero / background video -->
-    <div class="relative w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl">
-      <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30">
-        <source src="videos/bg-motion.mp4" type="video/mp4"/>
-      </video>
-      <div class="relative z-10 flex flex-col items-center gap-4 p-6 text-white">
-        <h2 id="mainStageTitle" class="text-3xl font-bold">Weekly Bible Studies</h2>
-        <p id="mainStageSub" class="text-lg text-gray-200 text-center" style="text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-          English / Hebrew / Transliteration
-        </p>
-        
-      </div>
-    </div>
-
-    <!-- Now Playing marquee -->
-    <marquee behavior="scroll" direction="right" class="w-full text-blue-400 text-sm">
-      <p id="nowPlaying"></p>
-    </marquee>
-
-    <!-- Playlist and video -->
-    
-    <div id="mainStagePlaylist" class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-4xl">
-      <div id="mainStageVideo" class="w-full aspect-video hidden max-w-full"></div>
-    </div>
-
-    <!-- Commentary button -->
-    <button id="openCommentaryBtn" class="glass-panel px-6 py-3 rounded-lg bg-cyan-700/80 hover:bg-cyan-600 text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/50">
-      Open Commentary
-    </button>
-
-  </div>
-</section>
-
-<script>
-  // Commentary data
-  const commentaryData = {
-    title: "Today's Commentary",
-    paragraphs: [
-      "This is paragraph 1 of today's commentary...",
-      "Here is paragraph 2 with insights...",
-      "Final paragraph 3 for today."
-    ]
-  };
-
-  // Hook the button to the modal
-  document.getElementById("openCommentaryBtn").addEventListener("click", () => {
-    openReaderModal(commentaryData.title, commentaryData.paragraphs);
-  });
-</script>
-
-            <!-- -----------------------
-   END HTML CARD STRUCTURE
-  (EVERYTHING ABOVE MUST BE CORRECT)
-  ----------------------- -->
-            <!-- Calendar card 2 -->
-            <section id="calendarCard" class="card">
-                <div class="card-header" data-card-id="calendarCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
+                <!-- Floating header -->
+                <div class="card-header" data-card-id="mainStageCard">
+                    <button class="btn prev-btn" title="Previous" aria-label="Previous">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </button>
 
-                    <div class="card-title">Calendar<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Prophetic Dates & Events
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="card-body">
-                    <section id="calendarFeastCard"
-                        class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-
-                        <!-- Background Video -->
-                        <video autoplay muted loop playsinline
-                            class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                            <source src="videos/firevideos.mp4" type="video/mp4">
-                        </video>
-
-                        <!-- Hero Header -->
-                        <header class="flex flex-col items-center gap-2 text-center mb-6">
-                            <h1 class="text-4xl font-extrabold">Prophecy Calendar</h1>
-                            <h2 class="text-xl font-semibold text-blue-400">Current Calculation: Hillel</h2>
-                            <p class="text-sm text-gray-300">Next Holy Day: Pesach (Passover) begins April 1, 2026 at
-                                sundown</p>
-                        </header>
-
-                        <!-- Calendar Filters -->
-                        <div class="calendar-filters flex flex-wrap gap-2 justify-center mb-6">
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('Hillel')">
-                                <h3
-                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                                    Hillel
-                                </h3>
-                            </button>
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('Enochian')">Enochian</button>
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('Zedokian')">Zedokian</button>
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('Eastern Orthodox')">Eastern Orthodox</button>
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('Western Orthodox / Catholic')">Western Orthodox /
-                                Catholic</button>
-                            <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                                onclick="setCalendarType('MS Christian')">MS Christian</button>
-                        </div>
-
-                        <!-- Cards Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                            <!-- Astronomical Info Card -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2">
-                                    🌞 Astronomical Info
-                                </h3>
-                                <p>Sunrise / Sunset: 06:23 / 18:15</p>
-                                <p>Moon Phase: Waxing Crescent</p>
-                                <p>Visible Constellations: Orion, Cassiopeia</p>
-                                <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
-                            </div>
-
-                            <!-- Holy Days / Feasts Card -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2">📅 Holy Days / Feasts</h3>
-                                <ul class="list-disc pl-5 space-y-1">
-                                    <li>
-                                        Passover Sundown: April 1, 2026
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Passover, The same day Jesus died.')">Info</button>
-                                    </li>
-                                    Feast of Unleavened Bread
-                                    <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                        onclick="alert('Feast of Unleavened Bread, fasting and prayer.')">Info</button>
-
-                                    <li>
-                                        Yom Kippur: Oct 1–2, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Yom Kippur: Day of Atonement, fasting and prayer.')">Info</button>
-                                    </li>
-                                    <li>
-                                        Sukkot: Oct 6–13, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Sukkot: Feast of Tabernacles, lasts 7 days.')">Info</button>
-                                    </li>
-                                    <li>
-                                        Shemini Atzeret: Oct 13–14, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
-                                    </li>
-                                    <li>
-                                        Shemini Atzeret: Oct 13–14, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
-
-                                    </li>
-                                    <li>
-                                        Shemini Atzeret: Oct 13–14, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
-
-                                    </li>
-                                    <li>
-                                        Shemini Atzeret: Oct 13–14, 2025
-                                        <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
-                                            onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
-
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- 2026 Calendar Dates Card -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2">📆 2026 Calendar Dates</h3>
-                                <p></p>
-                                <p>April 2–8: </p>
-                                <p>September 12: Feast of Trumpets</p>
-                                <p>October 1–2: Yom Kippur</p>
-                                <p>October 6–13: Sukkot</p>
-                                <p>Shemini Atzeret:</p>>
-                                <p>December 14–22: Hanukkah</p>
-
-                                <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
-                            </div>
-
-                            <!-- Other Religious Observances -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Other Religions</h3>
-                                <p>Feb 17–Mar 18: Ramadan</p>
-                                <p>May 26–27: Eid al-Adha</p>
-                                <p>June 16–17: Islamic New Year</p>
-                                <p>Jan 3: Mahayana New Year</p>
-                                <p>Oct 20: Diwali</p>
-                            </div>
-                            <!-- Fulfillment -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fulfillment</h3>
-                                <ul class="list-disc pl-5 space-y-1">
-                                    <li>
-                                        Passover: Jesus' death on the cross is seen as the fulfillment (happened on the
-                                        same-day, anniversary) of the Passover
-                                        lamb, where his blood provides redemption.
-                                    </li>
-                                    <li>
-                                        Feast of Unleavened Bread: Jesus' burial is fulfilled (happened on the same-day,
-                                        anniversary) during this feast, which
-                                        symbolizes his sinless life being buried with him as the "bread of life".
-                                    </li>
-                                    <li>
-                                        Feast of First Fruits: His resurrection on this day marked him (happened on the
-                                        same-day, anniversary) as the
-                                        firstfruits of those who will be resurrected.
-                                    </li>
-                                    <li>Pentecost: The Holy Spirit was given to believers 50 days after the
-                                        resurrection, fulfilling (happened on the same-day, anniversary) the promise of
-                                        the new covenant sealed in Jesus' blood. This was/ is also the anniversary of
-                                        the first Covenant at Mt. Sinai.
-                                    </li>
-                                    <li>
-                                        Feasts fulfilled by Jesus' second coming:
-                                    </li>
-                                    <li>Feast of Trumpets: This is seen as a signal for his return, potentially marking
-                                        the rapture of believers.
-                                    </li>
-                                    <li>
-                                        Day of Atonement: This feast is associated with the final judgment and his
-                                        second coming as king.
-                                    </li>
-                                    <li>
-                                        Feast of Tabernacles: This represents the 1,000-year Messianic kingdom on earth,
-                                        which will be established when he returns as king
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Fulfillment -->
-                            <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                                <h3 class="text-2xl font-bold flex items-center gap-2"></h3>
-                                <ul class="list-disc pl-5 space-y-1">
-                                    Spring Feasts
-                                    <li>
-                                        Pesach (Passover): The first spring feast, commemorating the liberation of the
-                                        Israelites from Egyptian slavery.:
-                                    <li>
-                                        Matzot (Unleavened Bread): Follows Passover and celebrates the hasty departure
-                                        from Egypt, with no time for bread to rise.
-                                    </li>
-                                    <li>
-                                        Bikkurim (First Fruits): Celebrates the first harvest and the resurrection of
-                                        the Messiah as the first fruits from the dead.
-
-                                    </li>
-                                    Summer Feast
-                                    <li>
-                                        Pentecost:
-                                        Shavuot (Pentecost): Also known as the Feast of Weeks, it celebrates the second
-                                        grain harvest and commemorates the giving of the Torah to Moses.
-                                    </li>
-                                    Fall Feasts
-                                    <li>
-                                        Yom Teruah (Trumpets): Also called Rosh Hashanah, it marks the Jewish New Year
-                                        and is a time of sounding trumpets.
-
-                                    </li>
-                                    <li>
-                                        Yom Kippur (Day of Atonement): A day of fasting, repentance, and atonement for
-                                        sins.
-
-                                    </li>
-                                    <li>
-                                        Sukkot (Feast of Tabernacles/Booths): A week-long festival commemorating the
-                                        Israelites' 40 years of wandering in the desert, living in temporary shelters.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                </div>
-            </section>
-            <!-- -----------------------
-   END HTML CARD STRUCTURE
-  (EVERYTHING ABOVE MUST BE CORRECT)
-  ----------------------- -->
-            <!-- Map card 3 -->
-            <section id="mapCard" class="card">
-                <div class="card-header" data-card-id="mapCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-
-                    <div class="card-title">Map<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Prophecy & Scriptures Map
+                    <div class="card-title">
+                        Main Stage
+                        <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                            AudioVisual Scriptures
                         </h3>
                     </div>
+
                     <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                    <button class="btn next-btn" title="Next" aria-label="Next">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </button>
                 </div>
 
-                <div class="card-body p-6 space-y-12">
-                    <!-- Inner section -->
-                    <section
-                        class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 max-w-6xl mx-auto transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                <!-- Card body -->
+                <div class="card-body flex flex-col items-center gap-6 px-6 py-4">
 
-                        <!-- Toolbar -->
-                        <div
-                            class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700 rounded-t-3xl">
-                            <button id="locateBtn"
-                                class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍
-                                My Location</button>
-                            <button id="searchBtn"
-                                class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍
-                                Search</button>
-                            <button id="filtersBtn"
-                                class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️
-                                Filters</button>
-                        </div>
-
-                        <!-- Map Container -->
-                        <div id="cosmic-map"
-                            class="flex-1 relative rounded-b-3xl shadow-inner border border-gray-700 mt-4">
-                            <div id="map" class="min-h-[400px] rounded-b-3xl"></div>
-                        </div>
-
-                        <!-- Footer -->
-                        <footer class="cosmic-footer bg-gray-800/80 text-center text-white rounded-b-3xl mt-4 p-2">
-                            <p class="flex items-center justify-center gap-2 text-sm">
-                                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-                                ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
-                                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                    <!-- Hero / background video -->
+                    <div class="relative w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl">
+                        <video autoplay muted loop playsinline
+                            class="absolute inset-0 w-full h-full object-cover opacity-30">
+                            <source src="videos/bg-motion.mp4" type="video/mp4" />
+                        </video>
+                        <div id="fp-hero-glass-root"></div>
+                        <div id="floating-player-root"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-4 p-6 text-white">
+                            <h2 id="mainStageTitle" class="text-3xl font-bold">Weekly Bible Studies</h2>
+                            <p id="mainStageSub" class="text-lg text-gray-200 text-center"
+                                style="text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                English / Hebrew / Transliteration
                             </p>
-                        </footer>
-                    </section>
+
+                        </div>
+                    </div>
+
+                    <!-- Now Playing marquee -->
+                    <marquee behavior="scroll" direction="right" class="w-full text-blue-400 text-sm">
+                        <p id="nowPlaying"></p>
+                    </marquee>
+
+                    <!-- Playlist and video -->
+
+                    <div id="mainStagePlaylist" class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-4xl">
+                        <div id="mainStageVideo" class="w-full aspect-video hidden max-w-full"></div>
+                    </div>
+
+                    <!-- Commentary button -->
+                    <!-- <button id="openCommentaryBtn"
+                        class="glass-panel px-6 py-3 rounded-lg bg-cyan-700/80 hover:bg-cyan-600 text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-cyan-400/50">
+                        Open Commentary
+                    </button> -->
+                    <button id="openCommentaryBtn" class="glass-panel px-4 py-2 bg-blue-700/80 text-white rounded-lg shadow-md 
+         hover:bg-blue-600 transition-all duration-300 hover:scale-105">
+                        📖 Open Commentary
+                    </button>
+                    <button id="openScriptureBtn" type="" onclick="loadAndOpenScripture()">📖 Open Scripture</button>
+ 
+                            Advanced Learning from writings of Sages and Church Fathers
+                            <button id="toggleStudyBtn" class="align-center;" mt-6 px-4 py-2 rounded bg-gray-700/80
+                                hover:bg-gray-600 text-white transition">
+                                Hide / Show Reader
+                            </button>
+                            <div id="paginationControls" class="flex items-center gap-4 mt-6"></div>
+                            Change the week to Auto-load Commentary.
+
+                            <div id="contentInner" class="prose prose-invert max-w-none"></div>
+            
                 </div>
             </section>
-            <!-- -----------------------
+
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- Trivia card 4 -->
-            <section id="triviaCard" class="card">
-                <div class="card-header" data-card-id="triviaCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- Calendar card 2 -->
+                    <section id="calendarCard" class="card">
+                        <div class="card-header" data-card-id="calendarCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Trivia<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Learning Game!
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                            <div class="card-title">Calendar<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Prophetic Dates & Events
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
-                    <div id="triviaCard" class="card">
-                        <div id="triviaBorder"
-                            class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white margin-top: 20px;">
-                            <!-- Background video -->
-                            <video autoplay muted loop playsinline
-                                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                                <source src="videos/bg-motion.mp4" type="video/mp4">
-                            </video>
-                            <!-- Scoreboard -->
-                            <div id="scoreBoard" class="border score-wrap flex justify-center gap-6 mb-6 class="
-                                relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800
-                                to-charcoal-900 text-2xl font-bold shadow-2xl">
-                                <div
-                                    class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
-                                    <h3 class="border text-blue-400 font-bold mb-1">Team A</h3>
-                                    <div id="scoreA" class="border text-2xl font-extrabold text-white">0</div>
-                                    <div class="controls flex justify-center gap-2 mt-2">
-                                        <button id="btnAup" class="border btn btn-up">+1</button>
-                                        <button id="btnAdown" class="border btn btn-down">-1</button>
-                                    </div>
-                                </div>
-                                <div
-                                    class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
-                                    <h3 class="border text-blue-400 font-bold mb-1">Team B</h3>
-                                    <div id="scoreB" class="border text-2xl font-extrabold text-white">0</div>
-                                    <div class="controls flex justify-center gap-2 mt-2">
-                                        <button id="btnBup" class="border btn btn-up">+1</button>
-                                        <button id="btnBdown" class="border btn btn-down">-1</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Question Card -->
-                            <div id="questionsCard"
-                                class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
-                                <!-- Background video -->
+                        <div class="card-body">
+                            <section id="calendarFeastCard"
+                                class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+
+                                <!-- Background Video -->
                                 <video autoplay muted loop playsinline
                                     class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                                    <source src="videos/firevideos.mp4" type="video/mp4">
                                 </video>
-                                Loading question...
-                            </div>
 
-                            <!-- Answer -->
-                            <div id="answerCard"
-                                class="relative rounded-3xl p-8 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
-                                <em id="answerText"></em>
-                            </div>
+                                <!-- Hero Header -->
+                                <header class="flex flex-col items-center gap-2 text-center mb-6">
+                                    <h1 class="text-4xl font-extrabold">Prophecy Calendar</h1>
+                                    <h2 class="text-xl font-semibold text-blue-400">Current Calculation: Hillel</h2>
+                                    <p class="text-sm text-gray-300">Next Holy Day: Pesach (Passover) begins April 1,
+                                        2026 at
+                                        sundown</p>
+                                </header>
 
-                            <!-- Controls -->
-                            <div class="flex justify-between mt-6">
-                                <button id="prevBtn"
-                                    class="px-4 py-2 rounded-lg bg-blue-600 text-white-800 font-semibold shadow hover:bg-gray-300">◀
-                                    Previous</button>
-                                <button id="revealBtn"
-                                    class="px-4 py-2 rounded-lg bg-glass-600 text-white font-bold shadow hover:bg-yellow-300">✨
-                                    Reveal Answer ✨</button>
-                                <button id="nextBtn"
-                                    class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-700">Next
-                                    ▶</button>
+                                <!-- Calendar Filters -->
+                                <div class="calendar-filters flex flex-wrap gap-2 justify-center mb-6">
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('Hillel')">
+                                        <h3
+                                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                            Hillel
+                                        </h3>
+                                    </button>
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('Enochian')">Enochian</button>
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('Zedokian')">Zedokian</button>
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('Eastern Orthodox')">Eastern Orthodox</button>
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('Western Orthodox / Catholic')">Western Orthodox /
+                                        Catholic</button>
+                                    <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                                        onclick="setCalendarType('MS Christian')">MS Christian</button>
+                                </div>
+
+                                <!-- Cards Grid -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                                    <!-- Astronomical Info Card -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2">
+                                            🌞 Astronomical Info
+                                        </h3>
+                                        <p>Sunrise / Sunset: 06:23 / 18:15</p>
+                                        <p>Moon Phase: Waxing Crescent</p>
+                                        <p>Visible Constellations: Orion, Cassiopeia</p>
+                                        <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn
+                                            More</button>
+                                    </div>
+
+                                    <!-- Holy Days / Feasts Card -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2">📅 Holy Days / Feasts
+                                        </h3>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>
+                                                Passover Sundown: April 1, 2026
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Passover, The same day Jesus died.')">Info</button>
+                                            </li>
+                                            Feast of Unleavened Bread
+                                            <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                onclick="alert('Feast of Unleavened Bread, fasting and prayer.')">Info</button>
+
+                                            <li>
+                                                Yom Kippur: Oct 1–2, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Yom Kippur: Day of Atonement, fasting and prayer.')">Info</button>
+                                            </li>
+                                            <li>
+                                                Sukkot: Oct 6–13, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Sukkot: Feast of Tabernacles, lasts 7 days.')">Info</button>
+                                            </li>
+                                            <li>
+                                                Shemini Atzeret: Oct 13–14, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
+                                            </li>
+                                            <li>
+                                                Shemini Atzeret: Oct 13–14, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
+
+                                            </li>
+                                            <li>
+                                                Shemini Atzeret: Oct 13–14, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
+
+                                            </li>
+                                            <li>
+                                                Shemini Atzeret: Oct 13–14, 2025
+                                                <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                                                    onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- 2026 Calendar Dates Card -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2">📆 2026 Calendar Dates
+                                        </h3>
+                                        <p></p>
+                                        <p>April 2–8: </p>
+                                        <p>September 12: Feast of Trumpets</p>
+                                        <p>October 1–2: Yom Kippur</p>
+                                        <p>October 6–13: Sukkot</p>
+                                        <p>Shemini Atzeret:</p>>
+                                        <p>December 14–22: Hanukkah</p>
+
+                                        <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn
+                                            More</button>
+                                    </div>
+
+                                    <!-- Other Religious Observances -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Other Religions</h3>
+                                        <p>Feb 17–Mar 18: Ramadan</p>
+                                        <p>May 26–27: Eid al-Adha</p>
+                                        <p>June 16–17: Islamic New Year</p>
+                                        <p>Jan 3: Mahayana New Year</p>
+                                        <p>Oct 20: Diwali</p>
+                                    </div>
+                                    <!-- Fulfillment -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fulfillment</h3>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>
+                                                Passover: Jesus' death on the cross is seen as the fulfillment (happened
+                                                on the
+                                                same-day, anniversary) of the Passover
+                                                lamb, where his blood provides redemption.
+                                            </li>
+                                            <li>
+                                                Feast of Unleavened Bread: Jesus' burial is fulfilled (happened on the
+                                                same-day,
+                                                anniversary) during this feast, which
+                                                symbolizes his sinless life being buried with him as the "bread of
+                                                life".
+                                            </li>
+                                            <li>
+                                                Feast of First Fruits: His resurrection on this day marked him (happened
+                                                on the
+                                                same-day, anniversary) as the
+                                                firstfruits of those who will be resurrected.
+                                            </li>
+                                            <li>Pentecost: The Holy Spirit was given to believers 50 days after the
+                                                resurrection, fulfilling (happened on the same-day, anniversary) the
+                                                promise of
+                                                the new covenant sealed in Jesus' blood. This was/ is also the
+                                                anniversary of
+                                                the first Covenant at Mt. Sinai.
+                                            </li>
+                                            <li>
+                                                Feasts fulfilled by Jesus' second coming:
+                                            </li>
+                                            <li>Feast of Trumpets: This is seen as a signal for his return, potentially
+                                                marking
+                                                the rapture of believers.
+                                            </li>
+                                            <li>
+                                                Day of Atonement: This feast is associated with the final judgment and
+                                                his
+                                                second coming as king.
+                                            </li>
+                                            <li>
+                                                Feast of Tabernacles: This represents the 1,000-year Messianic kingdom
+                                                on earth,
+                                                which will be established when he returns as king
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Fulfillment -->
+                                    <div
+                                        class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                                        <h3 class="text-2xl font-bold flex items-center gap-2"></h3>
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            Spring Feasts
+                                            <li>
+                                                Pesach (Passover): The first spring feast, commemorating the liberation
+                                                of the
+                                                Israelites from Egyptian slavery.:
+                                            <li>
+                                                Matzot (Unleavened Bread): Follows Passover and celebrates the hasty
+                                                departure
+                                                from Egypt, with no time for bread to rise.
+                                            </li>
+                                            <li>
+                                                Bikkurim (First Fruits): Celebrates the first harvest and the
+                                                resurrection of
+                                                the Messiah as the first fruits from the dead.
+
+                                            </li>
+                                            Summer Feast
+                                            <li>
+                                                Pentecost:
+                                                Shavuot (Pentecost): Also known as the Feast of Weeks, it celebrates the
+                                                second
+                                                grain harvest and commemorates the giving of the Torah to Moses.
+                                            </li>
+                                            Fall Feasts
+                                            <li>
+                                                Yom Teruah (Trumpets): Also called Rosh Hashanah, it marks the Jewish
+                                                New Year
+                                                and is a time of sounding trumpets.
+
+                                            </li>
+                                            <li>
+                                                Yom Kippur (Day of Atonement): A day of fasting, repentance, and
+                                                atonement for
+                                                sins.
+
+                                            </li>
+                                            <li>
+                                                Sukkot (Feast of Tabernacles/Booths): A week-long festival commemorating
+                                                the
+                                                Israelites' 40 years of wandering in the desert, living in temporary
+                                                shelters.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                        </div>
+                    </section>
+                    <!-- -----------------------
+   END HTML CARD STRUCTURE
+  (EVERYTHING ABOVE MUST BE CORRECT)
+  ----------------------- -->
+                    <!-- Map card 3 -->
+                    <section id="mapCard" class="card">
+                        <div class="card-header" data-card-id="mapCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+
+                            <div class="card-title">Map<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Prophecy & Scriptures Map
+                                </h3>
+                            </div>
+                            <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="card-body p-6 space-y-12">
+                            <!-- Inner section -->
+                            <section
+                                class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 max-w-6xl mx-auto transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+
+                                <!-- Toolbar -->
+                                <div
+                                    class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700 rounded-t-3xl">
+                                    <button id="locateBtn"
+                                        class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍
+                                        My Location</button>
+                                    <button id="searchBtn"
+                                        class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍
+                                        Search</button>
+                                    <button id="filtersBtn"
+                                        class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️
+                                        Filters</button>
+                                </div>
+
+                                <!-- Map Container -->
+                                <div id="cosmic-map"
+                                    class="flex-1 relative rounded-b-3xl shadow-inner border border-gray-700 mt-4">
+                                    <div id="map" class="min-h-[400px] rounded-b-3xl"></div>
+                                </div>
+
+                                <!-- Footer -->
+                                <footer
+                                    class="cosmic-footer bg-gray-800/80 text-center text-white rounded-b-3xl mt-4 p-2">
+                                    <p class="flex items-center justify-center gap-2 text-sm">
+                                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                                        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
+                                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                                    </p>
+                                </footer>
+                            </section>
+                        </div>
+                    </section>
+                    <!-- -----------------------
+   END HTML CARD STRUCTURE
+  (EVERYTHING ABOVE MUST BE CORRECT)
+  ----------------------- -->
+                    <!-- Trivia card 4 -->
+                    <section id="triviaCard" class="card">
+                        <div class="card-header" data-card-id="triviaCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+
+                            <div class="card-title">Trivia<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Learning Game!
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="triviaCard" class="card">
+                                <div id="triviaBorder"
+                                    class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white margin-top: 20px;">
+                                    <!-- Background video -->
+                                    <video autoplay muted loop playsinline
+                                        class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                                        <source src="videos/bg-motion.mp4" type="video/mp4">
+                                    </video>
+                                    <!-- Scoreboard -->
+                                    <div id="scoreBoard" class="border score-wrap flex justify-center gap-6 mb-6 class="
+                                        relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800
+                                        to-charcoal-900 text-2xl font-bold shadow-2xl">
+                                        <div
+                                            class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
+                                            <h3 class="border text-blue-400 font-bold mb-1">Team A</h3>
+                                            <div id="scoreA" class="border text-2xl font-extrabold text-white">0</div>
+                                            <div class="controls flex justify-center gap-2 mt-2">
+                                                <button id="btnAup" class="border btn btn-up">+1</button>
+                                                <button id="btnAdown" class="border btn btn-down">-1</button>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
+                                            <h3 class="border text-blue-400 font-bold mb-1">Team B</h3>
+                                            <div id="scoreB" class="border text-2xl font-extrabold text-white">0</div>
+                                            <div class="controls flex justify-center gap-2 mt-2">
+                                                <button id="btnBup" class="border btn btn-up">+1</button>
+                                                <button id="btnBdown" class="border btn btn-down">-1</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Question Card -->
+                                    <div id="questionsCard"
+                                        class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
+                                        <!-- Background video -->
+                                        <video autoplay muted loop playsinline
+                                            class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                                            <source src="videos/bg-motion.mp4" type="video/mp4">
+                                        </video>
+                                        Loading question...
+                                    </div>
+
+                                    <!-- Answer -->
+                                    <div id="answerCard"
+                                        class="relative rounded-3xl p-8 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
+                                        <em id="answerText"></em>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <div class="flex justify-between mt-6">
+                                        <button id="prevBtn"
+                                            class="px-4 py-2 rounded-lg bg-blue-600 text-white-800 font-semibold shadow hover:bg-gray-300">◀
+                                            Previous</button>
+                                        <button id="revealBtn"
+                                            class="px-4 py-2 rounded-lg bg-glass-600 text-white font-bold shadow hover:bg-yellow-300">✨
+                                            Reveal Answer ✨</button>
+                                        <button id="nextBtn"
+                                            class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-700">Next
+                                            ▶</button>
+                                    </div>
+                                </div>
+                                <style>
+                                    .btn {
+                                        padding: 0.4rem 0.7rem;
+                                        border-radius: 8px;
+                                        font-weight: 600;
+                                        cursor: pointer;
+                                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                                    }
+
+                                    .btn-up {
+                                        background: linear-gradient(180deg, #10b981, #059669);
+                                        color: white;
+                                    }
+
+                                    .btn-down {
+                                        background: linear-gradient(180deg, #ef4444, #b91c1c);
+                                        color: white;
+                                    }
+
+                                    .score-wrap .team h3 {
+                                        margin: 0;
+                                    }
+
+                                    .animate-pulse {
+                                        animation: pulseGlow 1.5s infinite;
+                                    }
+
+                                    @keyframes pulseGlow {
+
+                                        0%,
+                                        100% {
+                                            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+                                        }
+
+                                        50% {
+                                            box-shadow: 0 0 30px rgba(255, 255, 255, 1);
+                                        }
+                                    }
+                                </style>
                             </div>
                         </div>
-                        <style>
-                            .btn {
-                                padding: 0.4rem 0.7rem;
-                                border-radius: 8px;
-                                font-weight: 600;
-                                cursor: pointer;
-                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-                            }
-
-                            .btn-up {
-                                background: linear-gradient(180deg, #10b981, #059669);
-                                color: white;
-                            }
-
-                            .btn-down {
-                                background: linear-gradient(180deg, #ef4444, #b91c1c);
-                                color: white;
-                            }
-
-                            .score-wrap .team h3 {
-                                margin: 0;
-                            }
-
-                            .animate-pulse {
-                                animation: pulseGlow 1.5s infinite;
-                            }
-
-                            @keyframes pulseGlow {
-
-                                0%,
-                                100% {
-                                    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-                                }
-
-                                50% {
-                                    box-shadow: 0 0 30px rgba(255, 255, 255, 1);
-                                }
-                            }
-                        </style>
-                    </div>
-                </div>
-            </section>
-            <!-- -----------------------
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- json card 5 -->
-            <section id="jsonCard" class="card">
-                <div class="card-header" data-card-id="jsonCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- json card 5 -->
+                    <section id="jsonCard" class="card">
+                        <div class="card-header" data-card-id="jsonCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Takeaways<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Weekly Updates
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                            <div class="card-title">Takeaways<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Weekly Updates
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
-                    <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
-                    </div>
-                </div>
-            </section>
-            <!-- -----------------------
+                        <div class="card-body">
+                            <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
+                            </div>
+                        </div>
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- media card 6 -->
-            <section id="mediaCard" class="card">
-                <div class="card-header" data-card-id="mediaCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- Prezi card 7 -->
+                    <section id="preziCard" class="card">
+                        <div class="card-header" data-card-id="preziCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Media Players<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Floating AudioVisual Tools
-                        </h3>
-                    </div>
+                            <div class="card-title">Prezi<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Learning Presentations
+                                </h3>
+                                </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
-                    <div id="fp-hero-glass-root"></div>
-                    <div id="floating-player-root"></div>
-                </div>
-            </section>
-
-            <!-- -----------------------
+                        <div class="card-body">
+                            <div class="prezi-container w-full max-w-3xl mx-auto my-4">
+                                <iframe src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/"
+                                    style="width:100%; height:500px; border:0;" loading="lazy"
+                                    referrerpolicy="no-referrer"
+                                    sandbox="allow-scripts allow-same-origin allow-presentation"
+                                    allow="fullscreen; autoplay"
+                                    permissions-policy="payment=(), interest-cohort=(), browsing-topics=(), microphone=(), camera=(), geolocation=()">
+                                </iframe>
+                            </div>
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- Prezi card 7 -->
-            <section id="preziCard" class="card">
-                <div class="card-header" data-card-id="preziCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- Outlines card 8 -->
+                    <section id="outlinesCard" class="card">
+                        <div class="card-header" data-card-id="outlinesCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Prezi<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Learning Presentations
-                        </h3>
-                    </div>
+                            <div class="card-title">Outlines<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Weekly Bible Chapter Outlines
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
-                    <div class="prezi-container w-full max-w-3xl mx-auto my-4">
-                        <iframe src="https://prezi.com/p/embed/l4j7kOnlesYqgikEKTQ0/"
-                            style="width:100%; height:500px; border:0;" loading="lazy" referrerpolicy="no-referrer"
-                            sandbox="allow-scripts allow-same-origin allow-presentation" allow="fullscreen; autoplay"
-                            permissions-policy="payment=(), interest-cohort=(), browsing-topics=(), microphone=(), camera=(), geolocation=()">
-                        </iframe>
-                    </div>
-            </section>
-            <!-- -----------------------
+                        <div class="card-body">
+                            <div id="mainStageChapters"
+                                class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+
+                            </div>
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- Outlines card 8 -->
-            <section id="outlinesCard" class="card">
-                <div class="card-header" data-card-id="outlinesCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- Articles card 9 -->
+                    <section id="articleListCard" class="card">
+                        <div class="card-header" data-card-id="articleListCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Outlines<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Weekly Bible Chapter Outlines
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                            <div class="card-title">Posts (old)<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Articles to Read
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
-                    <div id="mainStageChapters"
-                        class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                        <div class="card-body">
+                            <!-- Article List -->
+                            <div id="articleList" class="flex flex-col gap-2 my-4"></div>
+                        </div>
 
-                    </div>
-            </section>
-            <!-- -----------------------
+
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-            <!-- Articles card 9 -->
-            <section id="articleListCard" class="card">
-                <div class="card-header" data-card-id="articleListCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
+                    <!-- Teachings card 10 -->
+                    <section id="podcast-card" class="card">
+                        <div class="card-header" data-card-id="podcast-card">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                    <div class="card-title">Posts (old)<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Articles to Read
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                            <div class="card-title">Teachings<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    AudioVisual Teachings & Podcasts
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
 
-                <div class="card-body">
- <!-- Article List -->
-<div id="articleList" class="flex flex-col gap-2 my-4"></div>
-                </div>
+                        <div class="card-body">
+                            <div
+                                class="podcast-card bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-lg mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                                <!-- Header: Podcast Title + Icon -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <h2 class="text-xl font-bold flex items-center gap-2 text-blue-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Bible Teaching
+                                    </h2>
+                                    <span class="text-sm text-gray-400">Episode 12</span>
+                                </div>
+                                <!-- Background video -->
+                                <video autoplay muted loop playsinline
+                                    class="border absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                                </video>
+                                <!-- Cover Art -->
+                                <div class="relative mb-4">
+                                    <img src="images/HGHouses.png"
+                                        class="w-full h-48 object-cover rounded-xl shadow-lg">
+                                    <!-- Floating Play Button -->
+                                    <button
+                                        class="absolute bottom-3 right-3 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.32v7.36a1 1 0 001.234.972l6.518-1.944a1 1 0 00.75-.972v-1.74a1 1 0 00-.75-.972z" />
+                                        </svg>
+                                    </button>
+                                </div>
 
-    
-        </section>
-        <!-- -----------------------
+                                <!-- Description -->
+                                <p class="text-gray-300 mb-3 text-sm line-clamp-3">
+                                    Dive into cosmic mysteries, ancient scriptures, and audio-visual meditations. This
+                                    episode
+                                    explores the prophecies of Passover.
+                                </p>
+
+                                <!-- Progress Bar -->
+                                <div class="w-full bg-gray-700 rounded-full h-2 mb-3 overflow-hidden">
+                                    <div class="bg-blue-500 h-2 w-1/3"></div> <!-- Example: 33% played -->
+                                </div>
+
+                                <!-- Actions / Tags -->
+                                <div class="flex items-center justify-between gap-2 flex-wrap">
+                                    <button
+                                        class="px-3 py-1 border rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Favorite
+                                    </button>
+                                    <button
+                                        class="px-3 py-1 border rounded bg-green-600 hover:bg-green-500 text-white flex items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 10l4.553-4.553a2 2 0 012.828 0l.172.172a2 2 0 010 2.828L18 14" />
+                                        </svg>
+                                        Share
+                                    </button>
+                                    <span class="text-gray-400 text-xs mt-1">45 min</span></p>
+                                </div>
+                    </section>
+                    <!-- -----------------------
    END HTML CARD STRUCTURE
   (EVERYTHING ABOVE MUST BE CORRECT)
   ----------------------- -->
-        <!-- Teachings card 10 -->
-        <section id="podcast-card" class="card">
-            <div class="card-header" data-card-id="podcast-card">
-                <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
+                    <!-- Commentary card 11 -->
+                    <section id="commentaryCard" class="card">
+                        <div class="card-header" data-card-id="commentaryCard">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
 
-                <div class="card-title">Teachings<h3
-                        style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                        AudioVisual Teachings & Podcasts
-                    </h3>
-                </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                            <div class="card-title">Commentary<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Weekly Advanced Insights
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
 
-                <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <p class="text-gray-300">
+                                Select a week or change the week and commentary will load automatically.
+                            </p>
+
+                            <button id="manualCommentaryBtn"
+                                class="px-4 py-2 rounded bg-indigo-700/80 hover:bg-indigo-600 text-white mt-4">
+                                Reload Commentary
+                            </button>
+                        </div>
+                    </section>
+                    <!-- -----------------------
+   END HTML CARD STRUCTURE
+  (EVERYTHING ABOVE MUST BE CORRECT)
+  ----------------------- -->
+                    <!-- Study Content Viewer Card 12-->
+                    <section id="studyContent" class="card hidden opacity-0 scale-95 transition-all">
+                        <div class="card-header" data-card-id="studyContent">
+                            <button class="btn prev-btn" title="Previous" aria-label="Previous"
+                                style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+
+                            <div class="card-title">Reader<h3
+                                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                                    Study Content Viewer
+                                </h3>
+                            </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+
+                            <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="card-body p-4">
+                            Advanced Learning from writings of Sages and Church Fathers
+                            <button id="toggleStudyBtn" class="align-center;" mt-6 px-4 py-2 rounded bg-gray-700/80
+                                hover:bg-gray-600 text-white transition">
+                                Hide / Show Reader
+                            </button>
+                            <div id="paginationControls" class="flex items-center gap-4 mt-6"></div>
+                            Change the week to Auto-load Commentary.
+
+                            <div id="contentInner" class="prose prose-invert max-w-none"></div>
+                        </div>
+                    </section>
+                    <!-- add more cards matching 100%... -->
+                </div>
+                <!-- -----------------------
+   END HTML CARD STRUCTURE
+  (EVERYTHING ABOVE MUST BE CORRECT)
+  ----------------------- -->
+                <!-- Small discoverability hint (global) -->
+                <div id="swipeHint" class="swipe-hint" aria-hidden="true">
+                    <span style="opacity:0.95;">Swipe →</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                </button>
-            </div>
-
-            <div class="card-body">
-                <div
-                    class="podcast-card bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-lg mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-                    <!-- Header: Podcast Title + Icon -->
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-xl font-bold flex items-center gap-2 text-blue-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
-                            </svg>
-                            Bible Teaching
-                        </h2>
-                        <span class="text-sm text-gray-400">Episode 12</span>
-                    </div>
-                    <!-- Background video -->
-                    <video autoplay muted loop playsinline
-                        class="border absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                        <source src="videos/bg-motion.mp4" type="video/mp4">
-                    </video>
-                    <!-- Cover Art -->
-                    <div class="relative mb-4">
-                        <img src="images/HGHouses.png" class="w-full h-48 object-cover rounded-xl shadow-lg">
-                        <!-- Floating Play Button -->
-                        <button
-                            class="absolute bottom-3 right-3 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.32v7.36a1 1 0 001.234.972l6.518-1.944a1 1 0 00.75-.972v-1.74a1 1 0 00-.75-.972z" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-gray-300 mb-3 text-sm line-clamp-3">
-                        Dive into cosmic mysteries, ancient scriptures, and audio-visual meditations. This episode
-                        explores the prophecies of Passover.
-                    </p>
-
-                    <!-- Progress Bar -->
-                    <div class="w-full bg-gray-700 rounded-full h-2 mb-3 overflow-hidden">
-                        <div class="bg-blue-500 h-2 w-1/3"></div> <!-- Example: 33% played -->
-                    </div>
-
-                    <!-- Actions / Tags -->
-                    <div class="flex items-center justify-between gap-2 flex-wrap">
-                        <button
-                            class="px-3 py-1 border rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            Favorite
-                        </button>
-                        <button
-                            class="px-3 py-1 border rounded bg-green-600 hover:bg-green-500 text-white flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 10l4.553-4.553a2 2 0 012.828 0l.172.172a2 2 0 010 2.828L18 14" />
-                            </svg>
-                            Share
-                        </button>
-                        <span class="text-gray-400 text-xs mt-1">45 min</span></p>
-                    </div>
-        </section>
-        <!-- -----------------------
-   END HTML CARD STRUCTURE
-  (EVERYTHING ABOVE MUST BE CORRECT)
-  ----------------------- -->
-        <!-- Commentary card 11 -->
-            <section id="commentaryCard" class="card">
-                <div class="card-header" data-card-id="commentaryCard">
-                    <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-
-                    <div class="card-title">Commentary<h3
-                            style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Weekly Advanced Insights
-                        </h3>
-                    </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-
-                    <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
                 </div>
-
-                <div class="card-body">
-                    <p class="text-gray-300">
-                        Select a week or change the week and commentary will load automatically.
-                    </p>
-
-                    <button id="manualCommentaryBtn"
-                        class="px-4 py-2 rounded bg-indigo-700/80 hover:bg-indigo-600 text-white mt-4">
-                        Reload Commentary
-                    </button>
-                </div>
-            </section> 
-        <!-- -----------------------
-   END HTML CARD STRUCTURE
-  (EVERYTHING ABOVE MUST BE CORRECT)
-  ----------------------- -->
-        <!-- Study Content Viewer Card 12-->
-        <section id="studyContent" class="card hidden opacity-0 scale-95 transition-all">
-            <div class="card-header" data-card-id="studyContent">
-                <button class="btn prev-btn" title="Previous" aria-label="Previous" style="pointer-events:auto;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-
-                <div class="card-title">Reader<h3
-                        style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                        Study Content Viewer
-                    </h3>
-                </div><img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-
-                <button class="btn next-btn" title="Next" aria-label="Next" style="pointer-events:auto;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
             </div>
-            <div class="card-body p-4">
-                Advanced Learning from writings of Sages and Church Fathers
-                <button id="toggleStudyBtn" class="align-center;" mt-6 px-4 py-2 rounded bg-gray-700/80
-                    hover:bg-gray-600 text-white transition">
-                    Hide / Show Reader
-                </button>
-                <div id="paginationControls" class="flex items-center gap-4 mt-6"></div>
-                Change the week to Auto-load Commentary.
+            <script>
+                (function () {
+                    // ---------- CONFIG: change paths if needed ----------
+                    const audioFiles = {
+                        up: 'assets/sounds/score-down.mp3',    // replace with your real path
+                        down: 'assets/sounds/score-up.mp3' // replace with your real path
+                    };
 
-                <div id="contentInner" class="prose prose-invert max-w-none"></div>
-            </div>
-        </section>
-        <!-- add more cards matching 100%... -->
-    </div>
-    <!-- -----------------------
-   END HTML CARD STRUCTURE
-  (EVERYTHING ABOVE MUST BE CORRECT)
-  ----------------------- -->
-    <!-- Small discoverability hint (global) -->
-    <div id="swipeHint" class="swipe-hint" aria-hidden="true">
-        <span style="opacity:0.95;">Swipe →</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </div>
-    </div>
-    <script>
-        (function () {
-            // ---------- CONFIG: change paths if needed ----------
-            const audioFiles = {
-                up: 'assets/sounds/score-down.mp3',    // replace with your real path
-                down: 'assets/sounds/score-up.mp3' // replace with your real path
-            };
-
-            // ---------- Load audio objects safely ----------
-            const sounds = {};
-            for (const k of Object.keys(audioFiles)) {
-                try {
-                    const a = new Audio();
-                    a.src = audioFiles[k];
-                    a.preload = 'auto';
-                    a.load();
-                    sounds[k] = a;
-                } catch (e) {
-                    console.warn('Audio load failed for', k, e);
-                }
-            }
+                    // ---------- Load audio objects safely ----------
+                    const sounds = {};
+                    for (const k of Object.keys(audioFiles)) {
+                        try {
+                            const a = new Audio();
+                            a.src = audioFiles[k];
+                            a.preload = 'auto';
+                            a.load();
+                            sounds[k] = a;
+                        } catch (e) {
+                            console.warn('Audio load failed for', k, e);
+                        }
+                    }
 
 
-            // ---------- playSound: try file then fallback ----------
-            function playSound(name) {
-                const a = sounds[name];
-                if (a && a.src) {
-                    const p = a.play();
-                    if (p && typeof p.then === 'function') {
-                        p.catch(err => {
-                            // autoplay blocked or file problem -> fallback beep
-                            console.warn('Audio play failed, fallback to beep:', err);
-                            beepFallback(name === 'up' ? 880 : 440, 0.12);
+                    // ---------- playSound: try file then fallback ----------
+                    function playSound(name) {
+                        const a = sounds[name];
+                        if (a && a.src) {
+                            const p = a.play();
+                            if (p && typeof p.then === 'function') {
+                                p.catch(err => {
+                                    // autoplay blocked or file problem -> fallback beep
+                                    console.warn('Audio play failed, fallback to beep:', err);
+                                    beepFallback(name === 'up' ? 880 : 440, 0.12);
+                                });
+                            }
+                            return;
+                        }
+                        // no audio file -> fallback
+                        beepFallback(name === 'up' ? 880 : 440, 0.12);
+                    }
+
+                    // ---------- unlock audio on first user gesture (mobile) ----------
+                    function unlockAudio() {
+                        // resume WebAudio context if created
+                        if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
+                            window.__beepAudioCtx.resume().catch(() => { });
+                        }
+                        // try to play & pause each HTMLAudio to unlock
+                        Object.values(sounds).forEach(a => {
+                            if (!a) return;
+                            a.muted = true;
+                            a.play().then(() => { a.pause(); a.muted = false; }).catch(() => { a.muted = false; });
                         });
+                        document.removeEventListener('pointerdown', unlockAudio);
+                        document.removeEventListener('touchstart', unlockAudio);
                     }
-                    return;
-                }
-                // no audio file -> fallback
-                beepFallback(name === 'up' ? 880 : 440, 0.12);
-            }
+                    document.addEventListener('pointerdown', unlockAudio, { once: true });
+                    document.addEventListener('touchstart', unlockAudio, { once: true });
 
-            // ---------- unlock audio on first user gesture (mobile) ----------
-            function unlockAudio() {
-                // resume WebAudio context if created
-                if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
-                    window.__beepAudioCtx.resume().catch(() => { });
+                    // ---------- Score logic ----------
+                    let scoreA = 0, scoreB = 0;
+                    const elScoreA = document.getElementById('scoreA');
+                    const elScoreB = document.getElementById('scoreB');
+
+                    function updateScores() {
+                        if (elScoreA) elScoreA.textContent = String(scoreA);
+                        if (elScoreB) elScoreB.textContent = String(scoreB);
+                    }
+
+                    // ---------- Attach handlers safely (no crash if element missing) ----------
+                    function button(id, cb) {
+                        const el = document.getElementById(id);
+                        if (!el) {
+                            console.warn('Button not found:', id);
+                            return;
+                        }
+                        el.addEventListener('click', cb);
+                        // also support keyboard activation for accessibility
+                        el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
+                    }
+
+                    button('btnAup', () => { scoreA++; updateScores(); playSound('up'); });
+                    button('btnAdown', () => { if (scoreA > 0) scoreA--; updateScores(); playSound('down'); });
+
+                    button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
+                    button('btnBdown', () => { if (scoreB > 0) scoreB--; updateScores(); playSound('down'); });
+
+                    // Expose for debug
+                    window._scoreboard = { getScores: () => ({ scoreA, scoreB }), incA: () => { scoreA++; updateScores() }, incB: () => { scoreB++; updateScores() } };
+
+                    // initial render
+                    updateScores();
+                })();
+            </script>
+            <script>
+
+                // Initialize map
+                const map = L.map("map").setView([39.5, -98.35], 4);
+
+                // Base layer
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution: "&copy; OpenStreetMap contributors",
+                }).addTo(map);
+
+
+                // Cluster group
+                const markers = L.markerClusterGroup();
+
+                // Load your GeoJSON
+                fetch("./HomeGroupsMap.geojson")
+                    .then((response) => {
+                        if (!response.ok) throw new Error("HTTP " + response.status);
+                        return response.json();
+                    })
+                    .then((data) => {
+                        data.features.forEach((feature, idx) => {
+                            const coordsStr = feature.properties.Coordinates;
+                            if (!coordsStr) {
+                                console.warn`(Feature ${idx} missing Coordinates)`;
+                                return;
+                            }
+                            const coords = coordsStr.split(",").map(Number);
+                            if (coords.length < 2) {
+                                console.warn`(Feature ${idx} has invalid Coordinates)`;
+                                return;
+                            }
+                            const [lon, lat] = coords;
+
+                            // Create marker using coordinates
+                            const marker = L.marker([lat, lon]);
+
+                            // Bind popup (name + optional extra info)
+                            marker.bindPopup(
+                                `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+                            );
+
+                            markers.addLayer(marker);
+                        });
+
+                        // Add cluster group to map
+                        map.addLayer(markers);
+                    })
+                    .catch((err) => console.error("Error loading GeoJSON:", err));
+
+                // Optional: locate me button logic
+
+                <!-- new locateme -->
+                function onLocationFound(e) {
+                    var radius = e.accuracy;
+
+                    L.marker(e.latlng).addTo(map)
+                        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+                    L.circle(e.latlng, radius).addTo(map);
                 }
-                // try to play & pause each HTMLAudio to unlock
-                Object.values(sounds).forEach(a => {
-                    if (!a) return;
-                    a.muted = true;
-                    a.play().then(() => { a.pause(); a.muted = false; }).catch(() => { a.muted = false; });
+
+                map.on('locationfound', onLocationFound);
+
+                function onLocationError(e) {
+                    alert(e.message);
+                }
+
+
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const { latitude, longitude } = pos.coords;
+                    map.setView([latitude, longitude], 12);
+                    L.marker([latitude, longitude])
+                        .addTo(map)
+                        .bindPopup("📍 You are here")
+                        .openPopup();
                 });
-                document.removeEventListener('pointerdown', unlockAudio);
-                document.removeEventListener('touchstart', unlockAudio);
-            }
-            document.addEventListener('pointerdown', unlockAudio, { once: true });
-            document.addEventListener('touchstart', unlockAudio, { once: true });
-
-            // ---------- Score logic ----------
-            let scoreA = 0, scoreB = 0;
-            const elScoreA = document.getElementById('scoreA');
-            const elScoreB = document.getElementById('scoreB');
-
-            function updateScores() {
-                if (elScoreA) elScoreA.textContent = String(scoreA);
-                if (elScoreB) elScoreB.textContent = String(scoreB);
-            }
-
-            // ---------- Attach handlers safely (no crash if element missing) ----------
-            function button(id, cb) {
-                const el = document.getElementById(id);
-                if (!el) {
-                    console.warn('Button not found:', id);
-                    return;
-                }
-                el.addEventListener('click', cb);
-                // also support keyboard activation for accessibility
-                el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
-            }
-
-            button('btnAup', () => { scoreA++; updateScores(); playSound('up'); });
-            button('btnAdown', () => { if (scoreA > 0) scoreA--; updateScores(); playSound('down'); });
-
-            button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
-            button('btnBdown', () => { if (scoreB > 0) scoreB--; updateScores(); playSound('down'); });
-
-            // Expose for debug
-            window._scoreboard = { getScores: () => ({ scoreA, scoreB }), incA: () => { scoreA++; updateScores() }, incB: () => { scoreB++; updateScores() } };
-
-            // initial render
-            updateScores();
-        })();
-    </script>
-    <script>
-
-        // Initialize map
-        const map = L.map("map").setView([39.5, -98.35], 4);
-
-        // Base layer
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution: "&copy; OpenStreetMap contributors",
-        }).addTo(map);
 
 
-        // Cluster group
-        const markers = L.markerClusterGroup();
+                // Dummy food layer
+                const foodLayer = L.layerGroup([
+                    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
+                    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
+                    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
+                ]).addTo(map);
 
-        // Load your GeoJSON
-        fetch("./HomeGroupsMap.geojson")
-            .then((response) => {
-                if (!response.ok) throw new Error("HTTP " + response.status);
-                return response.json();
-            })
-            .then((data) => {
-                data.features.forEach((feature, idx) => {
-                    const coordsStr = feature.properties.Coordinates;
-                    if (!coordsStr) {
-                        console.warn`(Feature ${idx} missing Coordinates)`;
-                        return;
+                // Search
+                document.getElementById("searchBtn").addEventListener("click", async () => {
+                    const query = prompt("Enter a place or address:");
+                    if (!query) return;
+
+                    try {
+                        const res = await fetch(
+                            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+
+                        const data = await res.json();
+
+                        if (data.length) {
+                            const { lat, lon, display_name } = data[0];
+                            const latLng = [parseFloat(lat), parseFloat(lon)];
+                            map.setView(latLng, 14);
+                            L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+                        } else {
+                            alert("Place not found");
+                        }
+                    } catch (err) {
+                        console.error("Search failed:", err);
                     }
-                    const coords = coordsStr.split(",").map(Number);
-                    if (coords.length < 2) {
-                        console.warn`(Feature ${idx} has invalid Coordinates)`;
-                        return;
-                    }
-                    const [lon, lat] = coords;
-
-                    // Create marker using coordinates
-                    const marker = L.marker([lat, lon]);
-
-                    // Bind popup (name + optional extra info)
-                    marker.bindPopup(
-                        `<strong>${feature.properties.Name || "Unnamed"}</strong>`
-                    );
-
-                    markers.addLayer(marker);
                 });
 
-                // Add cluster group to map
-                map.addLayer(markers);
-            })
-            .catch((err) => console.error("Error loading GeoJSON:", err));
-
-        // Optional: locate me button logic
-
-        <!-- new locateme -->
-        function onLocationFound(e) {
-            var radius = e.accuracy;
-
-            L.marker(e.latlng).addTo(map)
-                .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-            L.circle(e.latlng, radius).addTo(map);
-        }
-
-        map.on('locationfound', onLocationFound);
-
-        function onLocationError(e) {
-            alert(e.message);
-        }
-
-
-        navigator.geolocation.getCurrentPosition((pos) => {
-            const { latitude, longitude } = pos.coords;
-            map.setView([latitude, longitude], 12);
-            L.marker([latitude, longitude])
-                .addTo(map)
-                .bindPopup("📍 You are here")
-                .openPopup();
-        });
-
-
-        // Dummy food layer
-        const foodLayer = L.layerGroup([
-            L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
-            L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
-            L.marker([37.784, -122.409]).bindPopup("Burger Joint")
-        ]).addTo(map);
-
-        // Search
-        document.getElementById("searchBtn").addEventListener("click", async () => {
-            const query = prompt("Enter a place or address:");
-            if (!query) return;
-
-            try {
-                const res = await fetch(
-                    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-
-                const data = await res.json();
-
-                if (data.length) {
-                    const { lat, lon, display_name } = data[0];
-                    const latLng = [parseFloat(lat), parseFloat(lon)];
-                    map.setView(latLng, 14);
-                    L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
-                } else {
-                    alert("Place not found");
-                }
-            } catch (err) {
-                console.error("Search failed:", err);
-            }
-        });
-
-        // Filter zipcode logic
-        document.getElementById("zipBtn").addEventListener("click", () => {
-            const zip = document.getElementById("zipInput").value.trim();
-            if (!zip) return;
-            const filtered = markerData.filter(item => item.zipcode === zip);
-            renderMarkers(filtered);
-            if (filtered.length > 0) {
-                map.fitBounds(filtered.map(f => [f.lat, f.lng]));
-            }
-        });
-
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            let questions = [];
-            let currentIndex = 0;
-
-            // Load questions from JSON
-            async function loadQuestions() {
-                try {
-                    const res = await fetch("./bible_questions.json");
-                    questions = await res.json();
-                    if (!questions.length) {
-                        document.getElementById("questionsCard").innerText = "No questions found.";
-                        return;
+                // Filter zipcode logic
+                document.getElementById("zipBtn").addEventListener("click", () => {
+                    const zip = document.getElementById("zipInput").value.trim();
+                    if (!zip) return;
+                    const filtered = markerData.filter(item => item.zipcode === zip);
+                    renderMarkers(filtered);
+                    if (filtered.length > 0) {
+                        map.fitBounds(filtered.map(f => [f.lat, f.lng]));
                     }
-                    showQuestion();
-                } catch (err) {
-                    console.error(err);
-                    document.getElementById("questionsCard").innerText = "Failed to load questions.";
+                });
+
+            </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", async () => {
+                    let questions = [];
+                    let currentIndex = 0;
+
+                    // Load questions from JSON
+                    async function loadQuestions() {
+                        try {
+                            const res = await fetch("./bible_questions.json");
+                            questions = await res.json();
+                            if (!questions.length) {
+                                document.getElementById("questionsCard").innerText = "No questions found.";
+                                return;
+                            }
+                            showQuestion();
+                        } catch (err) {
+                            console.error(err);
+                            document.getElementById("questionsCard").innerText = "Failed to load questions.";
+                        }
+                    }
+
+                    function showQuestion() {
+                        const q = questions[currentIndex];
+                        const card = document.getElementById("questionsCard");
+                        const answerCard = document.getElementById("answerCard");
+                        const answerText = document.getElementById("answerText");
+
+                        // Animate
+                        card.style.transform = "scale(0.95)";
+                        card.style.opacity = 0;
+                        setTimeout(() => {
+                            card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
+                            card.style.transform = "scale(1)";
+                            card.style.opacity = 1;
+                            answerText.innerText = q.answer;
+                            answerCard.classList.add("hidden");
+                        }, 150);
+                    }
+
+                    document.getElementById("nextBtn").addEventListener("click", () => {
+                        if (currentIndex < questions.length - 1) currentIndex++;
+                        showQuestion();
+                    });
+                    document.getElementById("prevBtn").addEventListener("click", () => {
+                        if (currentIndex > 0) currentIndex--;
+                        showQuestion();
+                    });
+                    document.getElementById("revealBtn").addEventListener("click", () => {
+                        const answerCard = document.getElementById("answerCard");
+                        answerCard.classList.toggle("hidden");
+                    });
+
+                    // Score logic
+                    let scoreA = 0, scoreB = 0;
+                    const elScoreA = document.getElementById("scoreA");
+                    const elScoreB = document.getElementById("scoreB");
+                    function updateScores() {
+                        elScoreA.textContent = scoreA;
+                        elScoreB.textContent = scoreB;
+                    }
+                    document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
+                    document.getElementById("btnAdown").addEventListener("click", () => { if (scoreA > 0) scoreA--; updateScores(); });
+                    document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
+                    document.getElementById("btnBdown").addEventListener("click", () => { if (scoreB > 0) scoreB--; updateScores(); });
+
+                    updateScores();
+                    loadQuestions();
+                });
+            </script>
+            <script>
+                function setCalendarType(type) {
+                    alert("Calendar type set to: " + type);
+                    // Placeholder: swap data dynamically here later
                 }
-            }
-
-            function showQuestion() {
-                const q = questions[currentIndex];
-                const card = document.getElementById("questionsCard");
-                const answerCard = document.getElementById("answerCard");
-                const answerText = document.getElementById("answerText");
-
-                // Animate
-                card.style.transform = "scale(0.95)";
-                card.style.opacity = 0;
-                setTimeout(() => {
-                    card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
-                    card.style.transform = "scale(1)";
-                    card.style.opacity = 1;
-                    answerText.innerText = q.answer;
-                    answerCard.classList.add("hidden");
-                }, 150);
-            }
-
-            document.getElementById("nextBtn").addEventListener("click", () => {
-                if (currentIndex < questions.length - 1) currentIndex++;
-                showQuestion();
-            });
-            document.getElementById("prevBtn").addEventListener("click", () => {
-                if (currentIndex > 0) currentIndex--;
-                showQuestion();
-            });
-            document.getElementById("revealBtn").addEventListener("click", () => {
-                const answerCard = document.getElementById("answerCard");
-                answerCard.classList.toggle("hidden");
-            });
-
-            // Score logic
-            let scoreA = 0, scoreB = 0;
-            const elScoreA = document.getElementById("scoreA");
-            const elScoreB = document.getElementById("scoreB");
-            function updateScores() {
-                elScoreA.textContent = scoreA;
-                elScoreB.textContent = scoreB;
-            }
-            document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
-            document.getElementById("btnAdown").addEventListener("click", () => { if (scoreA > 0) scoreA--; updateScores(); });
-            document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
-            document.getElementById("btnBdown").addEventListener("click", () => { if (scoreB > 0) scoreB--; updateScores(); });
-
-            updateScores();
-            loadQuestions();
-        });
-    </script>
-    <script>
-        function setCalendarType(type) {
-            alert("Calendar type set to: " + type);
-            // Placeholder: swap data dynamically here later
-        }
-    </script>
-    <!-- -----------------------
+            </script>
+            <!-- -----------------------
   REPLACED: Script (mainStageManager)
   ----------------------- -->
-    <script>
-        (function () {
-            console.log("🎬 mainStageManager (patched) initializing...");
+            <script>
+                (function () {
+                    console.log("🎬 mainStageManager (patched) initializing...");
 
-            class MainStageManager {
-                constructor(options = {}) {
-                    this.viewport = document.getElementById(options.viewportId || "viewport");
-                    this.row = document.getElementById(options.rowId || "cardsRow");
-                    this.cards = Array.from(this.row.children || []);
-                    this.currentIndex = 0;
-                    this.startX = 0;
-                    this.startY = 0;
-                    this.currentTranslate = 0;
-                    this.isDragging = false;
-                    this.threshold = options.threshold || 64; // px to trigger swipe
-                    this.transitioning = false;
-                    this.minMoveToConsider = options.minMoveToConsider || 10; // tiny moves ignored
+                    class MainStageManager {
+                        constructor(options = {}) {
+                            this.viewport = document.getElementById(options.viewportId || "viewport");
+                            this.row = document.getElementById(options.rowId || "cardsRow");
+                            this.cards = Array.from(this.row.children || []);
+                            this.currentIndex = 0;
+                            this.startX = 0;
+                            this.startY = 0;
+                            this.currentTranslate = 0;
+                            this.isDragging = false;
+                            this.threshold = options.threshold || 64; // px to trigger swipe
+                            this.transitioning = false;
+                            this.minMoveToConsider = options.minMoveToConsider || 10; // tiny moves ignored
 
-                    if (!this.viewport || !this.row) {
-                        console.warn("❌ Viewport or cardsRow not found.");
-                        return;
+                            if (!this.viewport || !this.row) {
+                                console.warn("❌ Viewport or cardsRow not found.");
+                                return;
+                            }
+
+                            // ensure each card has an id
+                            this.cards.forEach((c, i) => {
+                                if (!c.id) c.id = `card-${i}`;
+                            });
+
+                            // mark initial active card
+                            this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
+
+                            this.updatePosition(); // position initially
+                            this.bindEvents();
+                            console.log("✅ MainStageManager ready (cards:", this.cards.length, ")");
+                        }
+
+                        bindEvents() {
+                            // Touch
+                            this.row.addEventListener("touchstart", (e) => {
+                                const t = e.touches[0];
+                                this.onDragStart(t.clientX, t.clientY);
+                            }, { passive: true });
+
+                            this.row.addEventListener("touchmove", (e) => {
+                                // We need to inspect both x and y so set passive:false where needed.
+                                const t = e.touches[0];
+                                this.onDragMove(t.clientX, t.clientY, e);
+                            }, { passive: false });
+
+                            this.row.addEventListener("touchend", () => this.onDragEnd());
+
+                            // Mouse (desktop)
+                            let mouseDown = false;
+                            this.row.addEventListener("mousedown", (e) => {
+                                mouseDown = true;
+                                this.onDragStart(e.clientX, e.clientY);
+                            });
+                            window.addEventListener("mousemove", (e) => { if (mouseDown) this.onDragMove(e.clientX, e.clientY); });
+                            window.addEventListener("mouseup", (e) => { if (mouseDown) { mouseDown = false; this.onDragEnd(); } });
+
+                            // Keyboard
+                            window.addEventListener("keydown", (e) => {
+                                if (e.key === "ArrowLeft") this.prev();
+                                if (e.key === "ArrowRight") this.next();
+                            });
+
+                            // Resize: recalc transform
+                            window.addEventListener("resize", () => this.updatePosition());
+
+                            // Wire header buttons (previous / next) inside any card header
+                            // Use event delegation to avoid adding listeners to every button
+                            this.viewport.addEventListener("click", (e) => {
+                                const p = e.target.closest('.prev-btn');
+                                const n = e.target.closest('.next-btn');
+                                if (p) { this.prev(); return; }
+                                if (n) { this.next(); return; }
+                            });
+
+                            // keep cards list current if other code adds smaller elements
+                            const observer = new MutationObserver(() => {
+                                this.cards = Array.from(this.row.children || []);
+                            });
+                            observer.observe(this.row, { childList: true, subtree: false });
+                        }
+
+                        onDragStart(clientX, clientY) {
+                            if (this.transitioning) return;
+                            this.isDragging = true;
+                            this.startX = clientX;
+                            this.startY = clientY;
+                            // clear transition to allow following finger
+                            this.row.style.transition = "none";
+                            // compute initial translate
+                            const width = this.viewport.clientWidth;
+                            this.currentTranslate = -this.currentIndex * width;
+                        }
+
+                        onDragMove(clientX, clientY, originalEvent) {
+                            if (!this.isDragging) return;
+
+                            const dx = clientX - this.startX;
+                            const dy = clientY - this.startY;
+
+                            // if vertical move dominates, let native vertical scroll happen
+                            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+                                // allow vertical scroll; cancel horizontal dragging
+                                return;
+                            }
+
+                            const width = this.viewport.clientWidth;
+                            this.currentTranslate = -this.currentIndex * width + dx;
+                            this.row.style.transform = `translateX(${this.currentTranslate}px)`;
+
+                            // Prevent page scrolling once we determined it's a horizontal drag
+                            if (originalEvent && Math.abs(dx) > 6) {
+                                originalEvent.preventDefault();
+                            }
+                        }
+
+                        onDragEnd() {
+                            if (!this.isDragging) return;
+                            this.isDragging = false;
+
+                            const width = this.viewport.clientWidth;
+                            // dx is how far finger moved horizontally from start
+                            const dx = this.currentTranslate + this.currentIndex * width; // positive when dragged right
+
+                            // IGNORE tiny moves (taps/clicks)
+                            if (Math.abs(dx) < this.minMoveToConsider) {
+                                this.goTo(this.currentIndex);
+                                return;
+                            }
+
+                            if (dx > this.threshold) {
+                                this.prev();
+                            } else if (dx < -this.threshold) {
+                                this.next();
+                            } else {
+                                this.goTo(this.currentIndex);
+                            }
+                        }
+
+                        // choose a random animation class (keeps CSS small)
+                        _pickRandomAnim() {
+                            const arr = ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'];
+                            const idx = Math.floor(Math.random() * arr.length);
+                            return arr[idx];
+                        }
+
+                        updatePosition() {
+                            const width = this.viewport.clientWidth;
+                            // ensure we always have some transition for snap-backs
+                            this.row.style.transition = "transform .38s cubic-bezier(.22,.61,.36,1)";
+                            this.row.style.transform = `translateX(${-this.currentIndex * width}px)`;
+                            // mark active card for CSS hooks
+                            this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
+                        }
+
+                        registerCard(cardId) {
+                            const el = document.getElementById(cardId);
+                            if (!el) {
+                                console.warn("⚠ registerCard: not found", cardId);
+                                return;
+                            }
+                            if (!this.cards.includes(el)) {
+                                this.cards.push(el);
+                                this.row.appendChild(el);
+                            }
+                        }
+
+                        showCard(cardId) {
+                            const idx = this.cards.findIndex(c => c.id === cardId);
+                            if (idx === -1) {
+                                console.warn("⚠ showCard: not found", cardId);
+                                return;
+                            }
+                            this.goTo(idx);
+                        }
+
+                        goTo(index) {
+                            if (index < 0) index = 0;
+                            if (index >= this.cards.length) index = this.cards.length - 1;
+                            if (index === this.currentIndex) {
+                                this.updatePosition();
+                                return;
+                            }
+
+                            this.currentIndex = index;
+                            this.transitioning = true;
+
+                            // randomized animation class: add to viewport wrapper (only briefly)
+                            const anim = this._pickRandomAnim();
+                            // remove any previous animation classes
+                            ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'].forEach(c => document.body.classList.remove(c));
+                            document.body.classList.add(anim);
+
+                            // Force layout read so the class take effect before transform (helps with CSS transitions)
+                            void this.row.offsetWidth;
+
+                            // update transform
+                            this.updatePosition();
+
+                            // clear animation class after transition completes
+                            setTimeout(() => {
+                                document.body.classList.remove(anim);
+                                this.transitioning = false;
+                            }, 620); // a little more than CSS durations to be safe
+                        }
+
+                        next() { this.goTo(this.currentIndex + 1); }
+                        prev() { this.goTo(this.currentIndex - 1); }
+                        getCurrentCard() { return this.cards[this.currentIndex]?.id || null; }
+                        getCurrentIndex() { return this.currentIndex; }
                     }
 
-                    // ensure each card has an id
-                    this.cards.forEach((c, i) => {
-                        if (!c.id) c.id = `card-${i}`;
-                    });
-
-                    // mark initial active card
-                    this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
-
-                    this.updatePosition(); // position initially
-                    this.bindEvents();
-                    console.log("✅ MainStageManager ready (cards:", this.cards.length, ")");
-                }
-
-                bindEvents() {
-                    // Touch
-                    this.row.addEventListener("touchstart", (e) => {
-                        const t = e.touches[0];
-                        this.onDragStart(t.clientX, t.clientY);
-                    }, { passive: true });
-
-                    this.row.addEventListener("touchmove", (e) => {
-                        // We need to inspect both x and y so set passive:false where needed.
-                        const t = e.touches[0];
-                        this.onDragMove(t.clientX, t.clientY, e);
-                    }, { passive: false });
-
-                    this.row.addEventListener("touchend", () => this.onDragEnd());
-
-                    // Mouse (desktop)
-                    let mouseDown = false;
-                    this.row.addEventListener("mousedown", (e) => {
-                        mouseDown = true;
-                        this.onDragStart(e.clientX, e.clientY);
-                    });
-                    window.addEventListener("mousemove", (e) => { if (mouseDown) this.onDragMove(e.clientX, e.clientY); });
-                    window.addEventListener("mouseup", (e) => { if (mouseDown) { mouseDown = false; this.onDragEnd(); } });
-
-                    // Keyboard
-                    window.addEventListener("keydown", (e) => {
-                        if (e.key === "ArrowLeft") this.prev();
-                        if (e.key === "ArrowRight") this.next();
-                    });
-
-                    // Resize: recalc transform
-                    window.addEventListener("resize", () => this.updatePosition());
-
-                    // Wire header buttons (previous / next) inside any card header
-                    // Use event delegation to avoid adding listeners to every button
-                    this.viewport.addEventListener("click", (e) => {
-                        const p = e.target.closest('.prev-btn');
-                        const n = e.target.closest('.next-btn');
-                        if (p) { this.prev(); return; }
-                        if (n) { this.next(); return; }
-                    });
-
-                    // keep cards list current if other code adds smaller elements
-                    const observer = new MutationObserver(() => {
-                        this.cards = Array.from(this.row.children || []);
-                    });
-                    observer.observe(this.row, { childList: true, subtree: false });
-                }
-
-                onDragStart(clientX, clientY) {
-                    if (this.transitioning) return;
-                    this.isDragging = true;
-                    this.startX = clientX;
-                    this.startY = clientY;
-                    // clear transition to allow following finger
-                    this.row.style.transition = "none";
-                    // compute initial translate
-                    const width = this.viewport.clientWidth;
-                    this.currentTranslate = -this.currentIndex * width;
-                }
-
-                onDragMove(clientX, clientY, originalEvent) {
-                    if (!this.isDragging) return;
-
-                    const dx = clientX - this.startX;
-                    const dy = clientY - this.startY;
-
-                    // if vertical move dominates, let native vertical scroll happen
-                    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
-                        // allow vertical scroll; cancel horizontal dragging
-                        return;
-                    }
-
-                    const width = this.viewport.clientWidth;
-                    this.currentTranslate = -this.currentIndex * width + dx;
-                    this.row.style.transform = `translateX(${this.currentTranslate}px)`;
-
-                    // Prevent page scrolling once we determined it's a horizontal drag
-                    if (originalEvent && Math.abs(dx) > 6) {
-                        originalEvent.preventDefault();
-                    }
-                }
-
-                onDragEnd() {
-                    if (!this.isDragging) return;
-                    this.isDragging = false;
-
-                    const width = this.viewport.clientWidth;
-                    // dx is how far finger moved horizontally from start
-                    const dx = this.currentTranslate + this.currentIndex * width; // positive when dragged right
-
-                    // IGNORE tiny moves (taps/clicks)
-                    if (Math.abs(dx) < this.minMoveToConsider) {
-                        this.goTo(this.currentIndex);
-                        return;
-                    }
-
-                    if (dx > this.threshold) {
-                        this.prev();
-                    } else if (dx < -this.threshold) {
-                        this.next();
+                    // expose singleton (if one already exists, preserve it)
+                    if (window.mainStageManager && window.mainStageManager instanceof MainStageManager) {
+                        console.log("MainStageManager already present — skipping re-init.");
                     } else {
-                        this.goTo(this.currentIndex);
-                    }
-                }
-
-                // choose a random animation class (keeps CSS small)
-                _pickRandomAnim() {
-                    const arr = ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'];
-                    const idx = Math.floor(Math.random() * arr.length);
-                    return arr[idx];
-                }
-
-                updatePosition() {
-                    const width = this.viewport.clientWidth;
-                    // ensure we always have some transition for snap-backs
-                    this.row.style.transition = "transform .38s cubic-bezier(.22,.61,.36,1)";
-                    this.row.style.transform = `translateX(${-this.currentIndex * width}px)`;
-                    // mark active card for CSS hooks
-                    this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
-                }
-
-                registerCard(cardId) {
-                    const el = document.getElementById(cardId);
-                    if (!el) {
-                        console.warn("⚠ registerCard: not found", cardId);
-                        return;
-                    }
-                    if (!this.cards.includes(el)) {
-                        this.cards.push(el);
-                        this.row.appendChild(el);
-                    }
-                }
-
-                showCard(cardId) {
-                    const idx = this.cards.findIndex(c => c.id === cardId);
-                    if (idx === -1) {
-                        console.warn("⚠ showCard: not found", cardId);
-                        return;
-                    }
-                    this.goTo(idx);
-                }
-
-                goTo(index) {
-                    if (index < 0) index = 0;
-                    if (index >= this.cards.length) index = this.cards.length - 1;
-                    if (index === this.currentIndex) {
-                        this.updatePosition();
-                        return;
+                        window.mainStageManager = new MainStageManager({ viewportId: "viewport", rowId: "cardsRow", threshold: 64 });
                     }
 
-                    this.currentIndex = index;
-                    this.transitioning = true;
+                    // convenience: expose small helpers (keeps older API)
+                    window.mainStageManager.registerCards = function (ids) {
+                        ids.forEach(id => window.mainStageManager.registerCard(id));
+                    };
 
-                    // randomized animation class: add to viewport wrapper (only briefly)
-                    const anim = this._pickRandomAnim();
-                    // remove any previous animation classes
-                    ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'].forEach(c => document.body.classList.remove(c));
-                    document.body.classList.add(anim);
+                    // small helper: fade out swipe hint after a few seconds
+                    (function hideSwipeHint() {
+                        const hint = document.getElementById('swipeHint');
+                        if (!hint) return;
+                        setTimeout(() => hint.classList.add('hidden'), 3000);
+                    })();
 
-                    // Force layout read so the class take effect before transform (helps with CSS transitions)
-                    void this.row.offsetWidth;
+                })();
+            </script>
+            <!-- Footer -->
+            <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
+                <div class="flex justify-center gap-2 p-2">
+                    <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..."
+                        class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
+                    <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
+                    <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
+                </div>
+            </footer>
+            <!-- Scripts -->
+            <!--<script src="js/mainStageManager.js" defer></script> -->
+            <!--<script src="js/loadArticleList.js" defer></script>-->
+            <!--<script src="js/FloatingPlayerv-3.js" defer></script>-->
+            <script src="js/orbitFloatingPlayer.js" defer></script>
+            <script src="js/loadCommentary.js" defer></script>
+            <script src="js/globalAudioManager.js" defer></script>
+            <script src="app.js" defer></script>
+            <script src="js/bullseyeMedia.js" defer></script>
+            <script src="js/mainStageLoaderTEST3.js" defer></script>
+            <script src="js/studyContentManager.js" defer></script>
 
-                    // update transform
-                    this.updatePosition();
-
-                    // clear animation class after transition completes
-                    setTimeout(() => {
-                        document.body.classList.remove(anim);
-                        this.transitioning = false;
-                    }, 620); // a little more than CSS durations to be safe
-                }
-
-                next() { this.goTo(this.currentIndex + 1); }
-                prev() { this.goTo(this.currentIndex - 1); }
-                getCurrentCard() { return this.cards[this.currentIndex]?.id || null; }
-                getCurrentIndex() { return this.currentIndex; }
-            }
-
-            // expose singleton (if one already exists, preserve it)
-            if (window.mainStageManager && window.mainStageManager instanceof MainStageManager) {
-                console.log("MainStageManager already present — skipping re-init.");
-            } else {
-                window.mainStageManager = new MainStageManager({ viewportId: "viewport", rowId: "cardsRow", threshold: 64 });
-            }
-
-            // convenience: expose small helpers (keeps older API)
-            window.mainStageManager.registerCards = function (ids) {
-                ids.forEach(id => window.mainStageManager.registerCard(id));
-            };
-
-            // small helper: fade out swipe hint after a few seconds
-            (function hideSwipeHint() {
-                const hint = document.getElementById('swipeHint');
-                if (!hint) return;
-                setTimeout(() => hint.classList.add('hidden'), 3000);
-            })();
-
-        })();
-    </script>
-    <!-- Footer -->
-    <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
-        <div class="flex justify-center gap-2 p-2">
-            <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..."
-                class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-            <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-            <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
-        </div>
-    </footer>
-    <!-- Scripts -->
-    <!--<script src="js/mainStageManager.js" defer></script> -->
-        <!--<script src="js/loadArticleList.js" defer></script>-->
-    <script src="js/FloatingPlayerv-3.js" defer></script>
-    <script src="js/orbitFloatingPlayer.js" defer></script>
-    <script src="js/loadCommentary.js" defer></script>
-    <script src="js/globalAudioManager.js" defer></script>
-    <script src="app.js" defer></script>
-    <script src="js/bullseyeMedia.js" defer></script>
-    <script src="js/mainStageLoaderTEST3.js" defer></script>
-    <script src="js/studyContentManager.js" defer></script>
-
-<!-- ============================= -->
-    <!-- 📘 UNIVERSAL READER MODAL    -->
-    <!-- ============================= -->
-    <div id="readerOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden 
+            <!-- ============================= -->
+            <!-- 📘 UNIVERSAL READER MODAL    -->
+            <!-- ============================= -->
+            <div id="readerOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden 
             items-center justify-center z-50 transition-opacity duration-300">
 
-        <div id="readerModal" class="bg-gray-900/90 text-white max-w-3xl w-full mx-4 
+                <div id="readerModal" class="bg-gray-900/90 text-white max-w-3xl w-full mx-4 
                 rounded-2xl shadow-2xl p-6 transform scale-95 
                 transition-all duration-300">
 
-            <!-- Close Button -->
-            <button id="readerModalClose" class="absolute top-4 right-4 text-gray-300 hover:text-white text-2xl">
-                ✕
-            </button>
+                    <!-- Close Button -->
+                    <button id="readerModalClose"
+                        class="absolute top-4 right-4 text-gray-300 hover:text-white text-2xl">
+                        ✕
+                    </button>
 
-            <!-- Title -->
-            <h2 id="readerModalTitle" class="text-2xl font-bold mb-4 text-center text-cyan-300">
-                Title Goes Here
-            </h2>
+                    <!-- Title -->
+                    <h2 id="readerModalTitle" class="text-2xl font-bold mb-4 text-center text-cyan-300">
+                        Title Goes Here
+                    </h2>
 
-            <!-- Content -->
-            <div id="readerModalBody" class="prose prose-invert max-w-none space-y-4 
+                    <!-- Content -->
+                    <div id="readerModalBody" class="prose prose-invert max-w-none space-y-4 
                     text-gray-200 leading-relaxed overflow-y-auto" style="max-height: 60vh;">
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div class="flex items-center justify-between mt-6">
+
+                        <button id="readerPrev" class="px-4 py-2 rounded bg-gray-700/70 
+                           hover:bg-gray-600 transition text-white">
+                            ◀ Previous
+                        </button>
+
+                        <span id="readerPageNumber" class="text-gray-300 text-sm">
+                            Page 1 / 1
+                        </span>
+
+                        <button id="readerNext" class="px-4 py-2 rounded bg-gray-700/70 
+                           hover:bg-gray-600 transition text-white">
+                            Next ▶
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Pagination Controls -->
-            <div class="flex items-center justify-between mt-6">
+            <script src="js/readerSystem.js" defer></script>
 
-                <button id="readerPrev" class="px-4 py-2 rounded bg-gray-700/70 
-                           hover:bg-gray-600 transition text-white">
-                    ◀ Previous
-                </button>
+                <!-- ============================= -->
+                <!-- 🎧 DOCK C: FLOATING SCRIPTURE -->
+                <!-- ============================= -->
+                <div id="dockC-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] hidden">
+                
+                  <div class="absolute top-[5%] left-1/2 -translate-x-1/2
+                              w-[92vw] max-w-[700px] h-[90vh]
+                              bg-[rgba(0,0,20,0.92)]
+                              rounded-2xl shadow-2xl overflow-hidden
+                              flex flex-col">
+                
+                      <!-- TOP SLOT (floating player docks here) -->
+                      <div id="dockC-playerSlot" class="flex-none p-4"></div>
+                
+                      <!-- CONTENT SLOT (scripture html loads here) -->
+                      <div id="dockC-contentSlot" class="flex-1 overflow-y-auto p-6 text-white"></div>
+                
+                      <!-- Close -->
+                      <button class="absolute top-3 right-4 text-white text-3xl"
+                              onclick="closeDockCModal()">
+                        ✕
+                      </button>
+                
+                  </div>
+                </div>
+                <script>
+                    // Default language (you decide the default)
+let currentLanguage = "english";
+const dockB = document.getElementById("floating-player-root");
 
-                <span id="readerPageNumber" class="text-gray-300 text-sm">
-                    Page 1 / 1
-                </span>
+function dockBintoC() {
+  const slot = document.getElementById("dockC-playerSlot");
+  if (slot && dockB) slot.appendChild(dockB);
+}
 
-                <button id="readerNext" class="px-4 py-2 rounded bg-gray-700/70 
-                           hover:bg-gray-600 transition text-white">
-                    Next ▶
-                </button>
-            </div>
-        </div>
-    </div>
+function dockBintoHero() {
+  const heroSlot = document.getElementById("fp-hero-glass-root");
+  if (heroSlot && dockB) heroSlot.appendChild(dockB);
+}
 
-    <script src="js/readerSystem.js" defer></script>
+async function loadAndOpenScripture() {
+  const week = currentWeek;
+  const lang = currentLanguage;
+
+  const path = `scripture/${lang}/week${week}.html`;
+  const html = await (await fetch(path)).text();
+
+  openDockCModal(html);
+}
+
+function openDockCModal(html) {
+  document.getElementById("dockC-contentSlot").innerHTML = html;
+  dockBintoC();
+  document.getElementById("dockC-modal").classList.remove("hidden");
+}
+
+function closeDockCModal() {
+  document.getElementById("dockC-modal").classList.add("hidden");
+  dockBintoHero();
+}
+            </script>
+
 </body>
 
 </html>

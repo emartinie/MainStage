@@ -13,38 +13,38 @@
       {
         "label": "Torah",
         "src": "http://audio.esvbible.org/hw/05016018-05021009.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
-      },
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+     },
       {
         "label": "Prophets",
         "src": "http://audio.esvbible.org/hw/23051012-23052012.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
-      },
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+     },
       {
         "label": "Writings",
         "src": "https://audio.esv.org/hw/mq/30003001-30004025.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
-      },
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+     },
       {
         "label": "Gospels",
         "src": "http://audio.esvbible.org/hw/40026047-40027010.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
-      },
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+     },
      {
        "label": "Letters",
        "src": "https://audio.esv.org/hw/mq/48003001-48004025.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
      },
     {
        "label": "Revelation",
        "src": "https://audio.esv.org/hw/mq/66001001-66002026.mp3",
-        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
-        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
      }
     ],
     "chapter_outlines": {

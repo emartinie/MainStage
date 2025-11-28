@@ -12,26 +12,41 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/04019001-04022001.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/07011001-07011033.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/44019001-44019042.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/59013001-59013025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Numbers 8:1 | The Seven Lamps",
+        "Numbers 8:5 | Consecration and Service of the Levites",
+        "Numbers 9:1 | The Passover at Sinai",
+        "Numbers 9:15 | The Cloud and the Fire",
+        "Numbers 10:1 | The Silver Trumpets",
+        "Numbers 10:11 | Departure from Sinai",
+        "Numbers 11:1 | Complaining in the Desert",
+        "Numbers 11:16 | The Seventy Elders",
+        "Numbers 11:31 | The Quails",
+        "Numbers 12:1 | Aaron and Miriam Jealous of Moses"
       ],
       "Prophets": [
         "12:12 – Ephraim's Rebellion",

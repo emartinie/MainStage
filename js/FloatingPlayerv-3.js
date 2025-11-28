@@ -28,7 +28,7 @@
     var ringWrap = document.createElement("div");
     ringWrap.className = "fp-ring";
     ringWrap.innerHTML = [
-      '<svg class="fp-orb-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
+      '<svg class="fp-orb-svg" width="160" height="160" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">',
       '  <defs>',
       '    <linearGradient id="fpGrad" x1="0%" y1="0%" x2="100%" y2="0%">',
       '      <stop offset="0%" stop-color="#60a5fa"/>',

@@ -12,38 +12,49 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/03019001-03020027.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/30009007-30009007,30009001-30009015,26002002-26002010.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/43007053-43010021,43010001-43010001,60001013-60001016,60006001-60001020.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/58007001-58007028.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Leviticus 19:1 | Ritual and Moral Holiness",
+        "Leviticus 20:1 | Penalties for Violations of Holiness"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Amos 9:1 | The Destruction of Israel",
+        "Amos 9:11 | The Restoration of David's Kingdom",
+        "Ezekiel 20:2-20 | The house of Israel's Rebellion"
       ],
-      "Writings": [],
+      "Writings": [
+        ""
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "John 7:53-10:21 | The Destruction of Israel"
+
       ],
       "Letters": [
-        "James 2 – Faith and Works"
-      ],
+        "1 Peter 1:13-16 | The Restoration of David's Kingdom",
+        "1 Corinthians 6:9-20 | The Restoration of David's Kingdom"      ],
       "Revelation": []
     },
     "commentary": {

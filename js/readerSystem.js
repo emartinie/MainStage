@@ -31,6 +31,12 @@ const articles = [
   { title: "The Story", file: "the_story.html" }
 ];
 
+// ===== COMMENTARY PATH BUILDER (Matches StudyContentManager) =====
+function getTodaysCommentaryFile() {
+  const week = getCurrentWeekNumber();
+  return `commentary/week${week}.html`;
+}
+
 // ===== Reader State =====
 let readerPages = [];
 let readerIndex = 0;
@@ -82,6 +88,41 @@ function closeReaderModal() {
 
   setTimeout(() => overlay.classList.add("hidden"), 200);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const commentaryBtn = document.getElementById("openCommentaryBtn");
+
+  if (commentaryBtn) {
+    commentaryBtn.addEventListener("click", async () => {
+      
+      const file = getTodaysCommentaryFile();  
+      console.log("📖 Loading modal commentary:", file);
+
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const html = await res.text();
+
+        // Extract <p> tags like your article modal logic
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const paragraphs = Array.from(doc.body.querySelectorAll("p"))
+                                .map(p => p.textContent.trim());
+
+        openReaderModal("Daily Commentary", paragraphs);
+
+      } catch (err) {
+        console.error("❌ Commentary modal load error:", err);
+        openReaderModal("Daily Commentary", [
+          "Commentary could not be loaded.",
+          "Make sure the week file exists in /commentary/."
+        ]);
+      }
+    });
+  }
+});
+
 
 // ===== Load Article List =====
 function loadArticleList() {

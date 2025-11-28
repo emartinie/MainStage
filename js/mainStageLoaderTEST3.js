@@ -256,14 +256,14 @@ const outlines = weekData.sections?.chapter_outlines || {};
 
 Object.keys(outlines).forEach(chap => {
   const p = document.createElement('p');
-  p.className = "flex flex-col px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors shadow-sm";
+  p.className = "hg-outline-card";
 
   const titleSpan = document.createElement('span');
-  titleSpan.className = "font-semibold text-gray-800 dark:text-gray-200 mb-1";
+  titleSpan.className = "hg-outline-title";
   titleSpan.textContent = chap;
 
   const contentUl = document.createElement('ul');
-  contentUl.className = "ml-4 list-disc text-sm text-gray-600 dark:text-gray-300";
+  contentUl.className = "hg-outline-list";
 
   let items = [];
 

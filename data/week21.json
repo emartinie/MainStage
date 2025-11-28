@@ -12,34 +12,58 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/02030011-02034035.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/11018001-11018039.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/40009001-40011030.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/66019001-66019021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Exodus 30:11 | The Half Shekel for the Sanctuary",
+        "Exodus 30:17 | The Bronze Basin",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 31:1 | Bezalel and Oholiab"
+        "Exodus 31:12 | The Sabbath Law",
+        "Exodus 31:18 | The Two Tablets of the Covenant",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 32:1 | The Golden Calf" ,    
+        "Exodus 33:1 | The Command to Leave Sinai",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 33:12 | Moses' Intercession",
+        "Exodus 34:1 | Moses Makes New Tablets",   
+        "Exodus 34:10 | The Covenant Renewed",
+        "Exodus 34:29 | The Shining Face of Moses"           
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "1Ki 18:1 | Elijah's Message to Ahab",
+        "1Ki 18:20 | Elijah's Triumph over the Priests of Baal"
       ],
-      "Writings": [],
+      "Writings": [
+        "1Ki 18:1 | Elijah's Message to Ahab",
+        "1Ki 18:20 | Elijah's Triumph over the Priests of Baal"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Mathew `10-11 | Instructions to the Twelve, Jesus/ Yeshua Teaches the ways of His Father",
+        "John 14 | The Way to the Father’s House and the Helper
+"
       ],
       "Letters": [
         "James 2 – Faith and Works"

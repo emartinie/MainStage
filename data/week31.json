@@ -12,39 +12,55 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/03021001-03024023.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/26044015-26044031.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/40026002-40026075,40009001-40009038,41014012-41014072,41006001-41006056,42002041-42002052,42002001-42002052,42022001-42022071,42001001-42001080,43002013-43002025,43003001-43003036,43006004-43006004,43013001-43013030.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/44002001-44002047,44007001-44007060,44012003-44012025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Leviticus 21:1 | The Holiness of Priests",
+        "Leviticus 23:1 | God's Appointed Festivals",
+        "Leviticus 24:10 | Blasphemy and Its Punishment"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
+        "Eze 44:15-31 | The Levitical Priests",
         "14:4 – Assurance of Forgiveness"
       ],
-      "Writings": [],
+      "Writings": [
+        ""
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Matthew 26:2-19 | Jesus killed on Passover as the Passover Lamb",
+        "Mark 14:12-16 | Jesus prepares for Passover with His disciples",
+        "Luke 2:41-42; Luke 22:1-20 | Judas (Judah) betrays Jesus the day before Passover, Jesus observes Passover in the upper room",
+        "John 2:13-23; John 6:4; John 13:1-30 | Jesus'/ Yeshua's last activities just before Passover"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Acts 2:1-47; Acts 12:3-4; Acts 18:21; Acts 20:16; Acts 27:9 | The Spirit comes at Pentecost (Shavuot). Examples of the apostles observing the feasts after Jesus ascended",
+        "1 Corinthians 5:7-8; 1 Corinthians 11:1 | Paul exhorts both Jewish and Gentile members of the churches and synagogues at Corinth"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Appointed times and seasons | Image of past and future feast fulfillment"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",

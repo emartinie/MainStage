@@ -12,39 +12,51 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/mq/01037001-01040023.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/mq/30002001-30003015.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/mq/43003001-43004054.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/mq/46012001-46013013.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Genesis 37:1 | Joseph Dreams of Greatness",
+        "Genesis 37:12 | Joseph Is Sold by His Brothers",
+        "Genesis 39:1 | Joseph and Potiphar's Wife"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Amo 2:6 | Judgment on Israel",
+        "Amo 3:1 | Israel's Guilt and Punishment"
       ],
-      "Writings": [],
+      "Writings": [
+        ""
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        " John 3 | Seeking Truth from the True Husband by one of Israel's teachers"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "1 Corinthians 13 | Love in the one Temple (Body) of Messiah Jesus/ Yeshua"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 11:1 | Two Witnesses, Two Olive Trees and 2 Menorahs"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",

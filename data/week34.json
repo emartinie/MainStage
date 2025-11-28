@@ -16,39 +16,51 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/04001001-04004020.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/28002001-28002022.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/42016001-42016001,42017010-42017010,40003001-40003001,40002001-40002023,41001008-41001008.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/46012012-46012012,46016001-46016024,45009001-45011036.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Numbers 1:1 | The First Census of Israel",
+        "Numbers 3:1 | The Sons of Aaron",
+        "Numbers 4:1 | The Kohathites"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Hos 2:2 | Israel's Infidelity, Punishment, and Redemption",
+       ],
+      "Writings": [
+        "2 Kings 17 | The 12 Tribes are divided and dispersed"
       ],
-      "Writings": [],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Luke 16:1-17:10, Matthew 3:1-2, Mark 1:8| Baptism in the wilderness, Yeshua teaching"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Romans 9-11 | The instructions are also for those grafted in to the 12 Tribes",
+        "Acts 26 | Paul discusses with Agrippa regarding the 12 Tribes' promises"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 7, 12, 14 | Commandments of God + Faith in Jesus"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",

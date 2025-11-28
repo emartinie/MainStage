@@ -12,39 +12,51 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "https://audio.esv.org/hw/mq/01032003-01036043.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "https://audio.esv.org/hw/mq/28011007-28012012,31001001-31001021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "https://audio.esv.org/hw/mq/40002001-40002023.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "https://audio.esv.org/hw/mq/60001001-60001025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Genesis 32:3 | Jacob Sends Presents to Appease Esau",
+        "Genesis 32:22 | Jacob Wrestles at Peniel",
+        "Genesis 34:1 | The Rape of Dinah"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Hos 11:1 | God's Compassion Despite Israel's Ingratitude",
+        "Hos 12:2 | The Long History of Rebellion"
       ],
-      "Writings": [],
+      "Writings": [
+        "Oba 1:10 | Edom Mistreated His Brother"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        " Mathew 2 | Many Wise Men (Not 3) Follow His Star"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "1 Peter 1:13 | A Call to Be Holy"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 11:19 | Temple of God in heaven was opened"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",

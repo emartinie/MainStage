@@ -12,39 +12,51 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "http://audio.esvbible.org/hw/01047028-01050026.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/11002001-11002012.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/43013001-43013038.mp3,44001001-44001026.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/58007001-58007028.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Leviticus 25:1 | The Sabbatical Year",
+        "Leviticus 25:8 | The Year of Jubilee",
+        "Leviticus 26:1 | Rewards for Obedience"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Jer 32:16 | Jeremiah Prays for Understanding",
+        "Jer 32:26 | God's Assurance of the People's Return"
       ],
-      "Writings": [],
+      "Writings": [
+        "Ezekiel 37:1-28 | Future Reunification of Southern and Northern Kingdoms (all 10 tribes, plus the house of Judah)"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Luke 4:16-21, John 10:22-42 | Jesus/ Yeshua teaching in the synagogue on Sabbath (Friday night to Saturday night)"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Romans 6 | Sin is breaking the law"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelation 20 | Millennial Reign"
+      ]
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
