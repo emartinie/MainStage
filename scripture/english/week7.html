@@ -31,6 +31,7 @@
     }
     .reading-list {
       margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+
       font-size: .95rem;
     }
     .scripture-box {
@@ -78,6 +79,7 @@
 </head>
 <body>
   <main class="week-wrapper">
+         <button class="maximize-btn" onclick="toggleMaximize() absolute top-3 right-4 text-white text-3xl">&#x25A0;</button> <!-- Unicode square symbol -->
 
     <div class="week-label">Week 07</div>
     <h1>And he went out</h1>
@@ -656,7 +658,13 @@ resembled Gomorrah.” [ o ]
 
     <h2>Advanced Learning from writings of Sages and Church Fathers
 </h2>
-    <div class="scripture-box">       
+    <div class="scripture-box">     
+<script>
+    function toggleMaximize() {
+  var windowElem = document.getElementById("scriptureBox");
+  windowElem.classList.toggle("maximized");
+}
+</script>  
                         
   </main>
 </body>

@@ -1,6 +1,19 @@
+
+
 /* ===== UNIVERSAL STYLE FILE ===== */
 /*(Fresh CSS file)*/
 /* ===== UNIVERSAL STYLE FILE ===== */
+/* Each card fills viewport */
+.card {
+    flex: 0 0 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--card-bg, linear-gradient(180deg, #060606 0%, #0f0f13 100%));
+}
 
 .card {
   width: 100%;
@@ -64,18 +77,6 @@
     will-change: transform;
     /* default row transition (used for snap-backs) */
     transition: transform .38s cubic-bezier(.22, .61, .36, 1);
-}
-
-/* Each card fills viewport */
-.card {
-    flex: 0 0 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    -webkit-tap-highlight-color: transparent;
-    background: var(--card-bg, linear-gradient(180deg, #060606 0%, #0f0f13 100%));
 }
 
 
@@ -278,4 +279,374 @@
   transition: box-shadow 0.3s ease-in-out;
 }
 
+.dockC {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 700px);
+  height: 90vh;
+  background: rgba(0,0,20,0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  z-index: 9998;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.dockC.hidden {
+  display: none;
+}
+#dockC-playerSlot {
+  flex: 0 0 auto;
+  padding: 12px;
+}
+#dockC-contentSlot {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
 
+/* ============================================================
+   UNIVERSAL CARD UPGRADE (Matches ReaderModal)
+   Applies to ALL cards using .card, .card-header, .card-body
+   ============================================================ */
+
+.card {
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 18px;
+    padding: 0;                      /* header + body handle their own padding */
+    margin: 1.5rem auto;
+    width: min(95vw, 900px);         /* consistent width with modal */
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+    overflow: hidden;                /* ensures clean edges */
+}
+
+
+/* ============================================================
+   CARD HEADER (floating controls + title)
+   ============================================================ */
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    background: rgba(0,0,0,0.40);
+    padding: 1rem 1.25rem;
+
+    border-bottom: 1px solid rgba(148,163,184,0.25);
+
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+
+.card-header .btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: #93c5fd;
+    transition: 0.2s;
+}
+
+.card-header .btn:hover svg {
+    stroke: #38bdf8;
+    transform: scale(1.15);
+}
+
+/* Title inside header */
+.card-header .card-title {
+    color: #e5e7eb;
+    text-align: center;
+    flex-grow: 1;
+
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: .02em;
+    text-shadow: 0 0 10px rgba(56,189,248,0.4);
+}
+
+
+/* ============================================================
+   CARD BODY (the large area)
+   ============================================================ */
+
+.card-body {
+    padding: 1.75rem;
+    color: #e5e7eb;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+/* Headers inside body */
+.card-body h1,
+.card-body h2,
+.card-body h3,
+.card-body h4 {
+    color: #38bdf8;
+    text-shadow: 0 0 10px rgba(56,189,248,0.5);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.card-body p {
+    margin-bottom: 1rem;
+}
+
+/* Lists */
+.card-body ul,
+.card-body ol {
+    margin: 0.5rem 0 1.25rem 1.25rem;
+}
+
+.card-body li {
+    margin-bottom: 0.45rem;
+}
+
+/* Glow bullets */
+.card-body ul li::marker {
+    color: #38bdf8;
+}
+
+/* Links / scripture buttons */
+.card-body a {
+    display: inline-block;
+    background: rgba(56,189,248,0.15);
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.3);
+    color: #e0faff;
+    font-size: .85rem;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.card-body a:hover {
+    background: rgba(56,189,248,0.35);
+    transform: scale(1.05);
+}
+
+/* Divider lines */
+.card-body hr {
+    border-color: rgba(148,163,184,0.25);
+    margin: 1.75rem 0;
+}
+
+/* ===== DEBUG: make sure hg-outline styles are actually applied ===== */
+
+.card .hg-outline-card {
+  border: 4px solid magenta !important;
+  background: rgba(0, 0, 0, 0.😎 !important;
+  color: #ffffff !important;
+}
+
+/* --- FLIP CARD SYSTEM --- */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+#flipCard {
+    transform: rotateY(0deg);
+}
+
+#flipCard.show-back {
+    transform: rotateY(180deg);
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.modal-back {
+    transform: rotateY(180deg);
+}
+.modal-inner.flipped .modal-back {
+    transform: rotateY(0deg);
+}
+.modal-inner.flipped .modal-front {
+    transform: rotateY(180deg);
+}
+
+.modal-back {
+    transform: rotateY(180deg);
+}
+.modal-inner.flipped .modal-back {
+    transform: rotateY(0deg);
+}
+.modal-inner.flipped .modal-front {
+    transform: rotateY(180deg);
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+#dockC-playerSlot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.flip-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* =========================================
+   FLIP MODAL FOR SCRIPTURE / ARTICLES
+   ========================================= */
+
+/* Outer modal shell (the blue glass box) already exists,
+   we just add perspective to its inner container. */
+#dockC-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* This is the blue box that wraps the flip */
+.dockC-shell {
+  position: relative;
+  width: 92vw;
+  max-width: 700px;
+  height: 90vh;
+  background: rgba(0, 0, 20, 0.92);
+  border-radius: 1rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  padding: 0;
+  perspective: 1400px; /* 🔑 gives us 3D depth */
+}
+
+/* Inner flip wrapper */
+#dockC-flipWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; /* 🔑 keep front/back in one 3D space */
+  transition: transform 0.7s ease;
+}
+
+/* When flipped, rotate the whole wrapper */
+#dockC-flipWrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Common face styles */
+/* 3D flip face — CLEAN, NO GLASS */
+.flip-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    /* NO background, NO border, NO blur */
+}
+
+/* Front face (Scripture / Commentary) */
+.flip-face.front {
+  transform: rotateY(0deg);
+}
+
+/* Back face (Articles) */
+.flip-face.back {
+  transform: rotateY(180deg);
+}
+
+/* Tidy boxes on both sides */
+#scriptureBox,
+#commentaryBox,
+#articleListBox,
+#articleViewer {
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Make scripture / commentary boxes glow by type */
+#scriptureBox {
+  border-color: rgba(56, 189, 248, 0.6);   /* cyan */
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+}
+
+#commentaryBox {
+  border-color: rgba(52, 211, 153, 0.6);   /* emerald */
+  box-shadow: 0 0 18px rgba(52, 211, 153, 0.45);
+}
+
+/* Layout: front stacks scripture + commentary */
+#scriptureBox {
+  margin-bottom: 1rem;
+}
+
+/* Articles labels on back */
+#articleListBox {
+  margin-bottom: 1rem;
+}
+
+/* Optional: smaller text inside these boxes */
+#scriptureBox p,
+#commentaryBox p,
+#articleListBox button,
+#articleViewer p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* Needed for 3D flip */
+.perspective {
+    perspective: 1200px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+/* Flip state */
+.flip-180 {
+    transform: rotateY(180deg);
+}
+
+scriptureBox.maximized {
+  width: 100vw; /* Viewport width */
+  height: 100vh; /* Viewport height */
+  top: 0;
+  left: 0;
+  border-radius: 0;
+  /* Add more fancy effects here */
+}
+
+maximize-btn {
+  background-color: #4CAF50; /* Green color for maximize */
+  border: none;
+  color: white;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.maximize-btn:hover {
+  background-color: #45a049;
+}
