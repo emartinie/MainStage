@@ -1,0 +1,1511 @@
+ <!-- ============================= -->
+                      <!-- ======= Head / Style  ======= -->
+                      <!-- ============================= -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+    <!-- Social Media Preview Meta Tags -->
+    <meta property="og:title" content="MainStage Bible Study App" />
+    <meta property="og:description"
+        content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://emartinie.github.io/MainStage/index.html" />
+    <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+    <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Map.png" />
+    <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+    <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
+    <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MainStage Bible Study App" />
+    <meta name="twitter:description"
+        content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+    <meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <!-- Extra (SEO + universal) -->
+    <meta name="description"
+        content="An interactive Bible study app with an orbital floating media player, weekly Holy day calendar, and prophecy map." />
+    <meta name="author" content="Eddie Martinie" />
+    <meta name="MainStage" content="#Bible">
+    <title>MainStage Bible Study App</title>
+    <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
+
+    <head>
+        <!-- TAILWIND (only one!) -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- GLOBAL APP STYLE -->
+      
+
+        <!-- READER SYSTEM (modal) -->
+        <!--<link rel="stylesheet" href="css/readerSystem.css">-->
+
+        <!-- LEAFLET CORE -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+        <!-- LEAFLET MARKERCLUSTER CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+        <!-- LEAFLET JS -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+        <!-- MARKERCLUSTER JS -->
+        <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+
+  <style>
+    /* ---- Modal inner shell (size + perspective) ---- */
+#dockC-inner {
+  position: relative;
+  width: min(92vw, 700px);
+  height: 90vh;
+  background: rgba(0, 0, 20, 0.96);
+  border-radius: 1.25rem;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  perspective: 1400px; /* 3D depth for flip */
+}
+
+/* Let each face scroll internally */
+.face-scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+}
+
+/* 3D FLIP (you already have pieces, keep them like this) */
+#dockC-flipWrapper {
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#dockC-flipWrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-face.front {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.flip-face.back {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+    /* ---- Cosmic background ---- */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #020617, #020617 40%, #000 100%);
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* ---- Simple card slider ---- */
+    #cardsRow {
+      position: relative;
+      max-width: 1100px;
+      margin: 1rem auto 3rem;
+      padding: 0 1rem;
+    }
+
+    .card {
+      display: none;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+/* ---- Dock C (Scripture Modal Shell) ---- */
+/* We now use Tailwind's hidden class instead of these.
+#dockC-modal {
+  display: none;
+}
+
+#dockC-modal.open {
+  display: flex;
+}
+*/
+
+    /* 3D flip container */
+    #dockC-flipWrapper {
+      transform-style: preserve-3d;
+      transition: transform 0.7s ease;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #dockC-flipWrapper.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .flip-face.front {
+      transform: rotateY(0deg);
+      z-index: 2;
+    }
+
+    .flip-face.back {
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+
+    /* Boxes inside modal */
+    #scriptureBox,
+    #commentaryBox,
+    #articleListBox,
+    #articleViewer {
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.75rem 1rem;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    #scriptureBox {
+      border-color: rgba(56, 189, 248, 0.7);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+    }
+
+    #commentaryBox {
+      border-color: rgba(52, 211, 153, 0.7);
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.4);
+    }
+
+    #articleListBox {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Ensure modal scrolls internally, not whole page */
+    #dockC-innerShell {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(92vw, 700px);
+      height: 90vh;
+      background: rgba(0, 0, 20, 0.96);
+      border-radius: 1.25rem;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    #dockC-flipWrapper .front,
+    #dockC-flipWrapper .back {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+
+    /* Let the inner content scroll, not the whole face */
+    #dockC-flipWrapper .front > .scroll-area,
+    #dockC-flipWrapper .back > .scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow-y: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Small utility for text */
+    .label-pill {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+/* discoverability hint (right edge) */
+.swipe-hint {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+    pointer-events: none;
+    opacity: 0.95;
+    transition: opacity 0.5s ease;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.swipe-hint.hidden {
+    opacity: 0;
+}
+
+#map {
+    height: 400px; /* Example fixed height */
+    width: 100%;  /* Example width */
+}
+  </style>
+</head>
+
+<body class="text-slate-100">
+
+<!-- ============================= -->
+  <!-- Header / Week Selector        -->
+  <!-- ============================= -->
+    <!-- HEADER -->
+  <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 gap-4">
+      <div class="flex items-center gap-2">
+      <!-- Left: Logo / title -->
+        <img src="images/HGHouses.png" alt="HG" class="w-9 h-8" />
+        <div>
+          <div class="text-xs label-pill text-slate-400">HomeGroups • MainStage</div>
+          <div class="text-lg font-bold text-cyan-300 tracking-wide">
+            AudioVisual Scriptures
+          </div>
+        </div>
+      </div>
+
+            <button id="openScriptureHeaderBtn"
+        class="px-3 py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-white"
+        onclick="openDockCModal()">
+        <h3 style="text-align: center; color:#00bfff; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+📖</h3>
+      </button>
+
+      <div class="flex items-center gap-2">
+      <!-- Middle: Week controls -->
+      <div class="flex items-center gap-2">
+        <button id="prevWeekBtn"
+          class="px-2 py-1 rounded-full border border-slate-600 text-xs hover:bg-slate-700 hover:drop-shadow-[0_0_6px_#0f0]">
+          &laquo;
+        </button>
+
+        <select id="weekSelect"
+          class="px-2 py-1 text-sm rounded-md border border-slate-600 bg-slate-900 text-cyan-300 animate-pulse">
+        </select>
+
+        <button id="nextWeekBtn"
+          class="px-2 py-1 rounded-full border border-slate-600 text-xs hover:bg-slate-700 hover:drop-shadow-[0_0_6px_#0f0]">
+          &raquo;
+        </button>
+      </div>
+
+      <button id="installButton"
+        class="px-4 py-1.5 rounded-full bg-cyan-700 hover:bg-cyan-600 text-sm font-semibold shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 4v12m0 0l-4-4m4 4l4-4m-9 8h10" />
+        </svg>      
+      </button>
+    </div>
+    
+  </header>
+
+            <!-- ============================= -->
+            <!-- Viewport / Cards              -->
+            <!-- ============================= -->
+  <main class="pt-4">
+    <div id="viewport">
+    <div id="cardsRow">
+
+<!-- ============================= -->
+<!-- Viewport / Cards              -->
+<!-- ============================= -->
+<main class="pt-4">
+  <div id="viewport">
+    <div id="cardsRow">
+ 
+      <!-- ============================= -->
+      <!-- Card 1: Main Stage           -->
+      <!-- ============================= -->
+      <section id="mainStageCard" class="card active">
+        <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 1</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Main Stage • Weekly Study
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-5 space-y-5">
+ 
+            <!-- Hero video / floating player slot -->
+            <div class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+              <video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4" />
+              </video>
+ 
+              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                <p class="label-pill text-sky-300/90">
+                  Week <span id="headerWeekLabel">1</span> • Torah / Prophets / New Covenant
+                </p>
+                <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
+                  Weekly Bible Study
+                </h3>
+                <p id="mainStageSub" class="text-sm text-slate-200">
+                  English • Hebrew • Greek (Phase 2) – Audio + Visual
+                </p>
+   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">    
+
+
+                </div>
+              </div>
+            </div>
+ 
+            <!-- “Open Scripture” & “Flip” controls -->
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button id="openScriptureAndFlipBtn"
+                      class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                🔁 Open Commentary
+              </button>
+              <button id="openScriptureBtn"
+                      class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                📖 Open Scripture
+              </button>
+                              <!-- Floating player root (existing JS can attach here) -->
+                <div id="floating-player-root" class="mt-2 w-full">
+                  <!-- player mounts here -->
+            </div>
+  <!-- Trigger buttons -->
+  <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
+ <!-- <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button> -->
+  <marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+  </marquee>
+
+
+    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
+</div>
+</p>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+  <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+<!-- Background video -->
+ <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+  </video> 
+
+    <div class="mb-4">
+      <h2 id="mainStageTitle" class="text-2xl font-bold">Weekly Bible Studies</h2>
+      <p id="mainStageSub" class="text-gray-600 dark:text-gray-300 text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff">English / Hebrew / Transliteration</p>
+    </div>
+             <p><img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></p>
+            <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+          </div>
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>AudioVisual Scriptures<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>
+        </div>
+      </section>
+ 
+      <!-- ============================= -->
+      <!-- Card 2: Podcast / D-Cast      -->
+      <!-- ============================= -->
+      <section id="podcastCard" class="card">
+        <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 2</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Bible Teaching • D-Cast
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-5">
+            <div
+              class="podcast-card relative bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-xl mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+ 
+              <!-- Background video -->
+              <video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+ 
+              <!-- Header: Podcast Title + Icon -->
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold flex items-center gap-2 text-blue-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
+                       viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                  </svg>
+                  Bible Teaching
+                </h2>
+                <span class="text-sm text-gray-400">Episode 12</span>
+              </div>
+ 
+              <!-- Cover Art -->
+              <div class="relative mb-4">
+                <img src="images/HGHouses.png" class="w-full h-48 object-cover rounded-xl shadow-lg" alt="Podcast Cover">
+                <!-- Floating Play Button -->
+                <button
+                  class="absolute bottom-3 right-3 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                       viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.32v7.36a1 1 0 001.234.972l6.518-1.944a1 1 0 00.75-.972v-1.74a1 1 0 00-.75-.972z" />
+                  </svg>
+                </button>
+              </div>
+ 
+              <!-- Description -->
+              <p class="text-gray-300 mb-3 text-sm">
+                Dive into cosmic mysteries, ancient scriptures, and audio-visual meditations.
+                This episode explores the prophecies of Passover.
+              </p>
+ 
+              <!-- Progress Bar -->
+              <div class="w-full bg-gray-700 rounded-full h-2 mb-3 overflow-hidden">
+                <div class="bg-blue-500 h-2 w-1/3"></div> <!-- Example: 33% played -->
+              </div>
+ 
+              <!-- Actions / Tags -->
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <button
+                  class="px-3 py-1 border rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                       stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 13l4 4L19 7" />
+                  </svg>
+                  Favorite
+                </button>
+                <button
+                  class="px-3 py-1 border rounded bg-green-600 hover:bg-green-500 text-white flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                       stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15 10l4.553-4.553a2 2 0 012.828 0l.172.172a2 2 0 010 2.828L18 14" />
+                  </svg>
+                  Share
+                </button>
+                <span class="text-gray-400 text-xs mt-1">45 min</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= -->
+      <!-- Card 3: Trivia                -->
+      <!-- ============================= -->
+      <section id="triviaCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 3</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Bible Trivia • Teams
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-6 relative">
+ 
+            <!-- Background video -->
+            <video autoplay muted loop playsinline
+                   class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+              <source src="videos/bg-motion.mp4" type="video/mp4">
+            </video>
+ 
+            <div id="triviaBorder"
+                 class="border p-6 max-w-4xl mx-auto text-center rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white">
+ 
+              <!-- Scoreboard -->
+              <div id="scoreBoard"
+                   class="border score-wrap flex justify-center gap-6 mb-6 relative rounded-3xl p-3 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
+                <div
+                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-36 text-center">
+                  <h3 class="border text-blue-400 font-bold mb-1">Team A</h3>
+                  <div id="scoreA" class="border text-2xl font-extrabold text-white">0</div>
+                  <div class="controls flex justify-center gap-2 mt-2">
+                    <button id="btnAup" class="border btn btn-up">+1</button>
+                    <button id="btnAdown" class="border btn btn-down">-1</button>
+                  </div>
+                </div>
+                <div
+                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-36 text-center">
+                  <h3 class="border text-blue-400 font-bold mb-1">Team B</h3>
+                  <div id="scoreB" class="border text-2xl font-extrabold text-white">0</div>
+                  <div class="controls flex justify-center gap-2 mt-2">
+                    <button id="btnBup" class="border btn btn-up">+1</button>
+                    <button id="btnBdown" class="border btn btn-down">-1</button>
+                  </div>
+                </div>
+              </div>
+ 
+              <!-- Question Card -->
+              <div id="questionsCard"
+                   class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
+                <!-- Background video -->
+                <video autoplay muted loop playsinline
+                       class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                  <source src="videos/bg-motion.mp4" type="video/mp4">
+                </video>
+                <span class="relative z-10">Loading question...</span>
+              </div>
+ 
+              <!-- Answer -->
+              <div id="answerCard"
+                   class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
+                <em id="answerText" class="relative z-10"></em>
+              </div>
+ 
+              <!-- Controls -->
+              <div class="flex justify-between mt-6">
+                <button id="prevBtn"
+                        class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">◀
+                  Previous</button>
+                <button id="revealBtn"
+                        class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
+                  Reveal Answer ✨</button>
+                <button id="nextBtn"
+                        class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">Next
+                  ▶</button>
+
+        </div>
+      </section>
+ 
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            let questions = [];
+            let currentIndex = 0;
+
+            // Load questions from JSON
+            async function loadQuestions() {
+                try {
+                    const res = await fetch("./bible_questions.json");
+                    questions = await res.json();
+                    if (!questions.length) {
+                        document.getElementById("questionsCard").innerText = "No questions found.";
+                        return;
+                    }
+                    showQuestion();
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById("questionsCard").innerText = "Failed to load questions.";
+                }
+            }
+
+            function showQuestion() {
+                currentIndex = Math.floor(Math.random() * questions.length);
+                const q = questions[currentIndex];
+                const card = document.getElementById("questionsCard");
+                const answerCard = document.getElementById("answerCard");
+                const answerText = document.getElementById("answerText");
+
+                // Animate
+                card.style.transform = "scale(0.95)";
+                card.style.opacity = 0;
+                setTimeout(() => {
+                    card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
+                    card.style.transform = "scale(1)";
+                    card.style.opacity = 1;
+                    answerText.innerText = q.answer;
+                    answerCard.classList.add("hidden");
+                }, 150);
+            }
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                if (currentIndex < questions.length - 1) currentIndex++;
+                showQuestion();
+            });
+            document.getElementById("prevBtn").addEventListener("click", () => {
+                if (currentIndex > 0) currentIndex--;
+                showQuestion();
+            });
+            document.getElementById("revealBtn").addEventListener("click", () => {
+                const answerCard = document.getElementById("answerCard");
+                answerCard.classList.toggle("hidden");
+            });
+
+            // Score logic
+            let scoreA = 0, scoreB = 0;
+            const elScoreA = document.getElementById("scoreA");
+            const elScoreB = document.getElementById("scoreB");
+            function updateScores() {
+                elScoreA.textContent = scoreA;
+                elScoreB.textContent = scoreB;
+            }
+            document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
+            document.getElementById("btnAdown").addEventListener("click", () => { if (scoreA > 0) scoreA--; updateScores(); });
+            document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
+            document.getElementById("btnBdown").addEventListener("click", () => { if (scoreB > 0) scoreB--; updateScores(); });
+
+            updateScores();
+            loadQuestions();
+        });
+    </script>
+
+          <script>
+        (function () {
+            // ---------- CONFIG: change paths if needed ----------
+            const audioFiles = {
+                up: 'assets/sounds/score-down.mp3',    // replace with your real path
+                down: 'assets/sounds/score-up.mp3' // replace with your real path
+            };
+
+            // ---------- Load audio objects safely ----------
+            const sounds = {};
+            for (const k of Object.keys(audioFiles)) {
+                try {
+                    const a = new Audio();
+                    a.src = audioFiles[k];
+                    a.preload = 'auto';
+                    a.load();
+                    sounds[k] = a;
+                } catch (e) {
+                    console.warn('Audio load failed for', k, e);
+                }
+            }
+
+
+            // ---------- playSound: try file then fallback ----------
+            function playSound(name) {
+                const a = sounds[name];
+                if (a && a.src) {
+                    const p = a.play();
+                    if (p && typeof p.then === 'function') {
+                        p.catch(err => {
+                            // autoplay blocked or file problem -> fallback beep
+                            console.warn('Audio play failed, fallback to beep:', err);
+                            beepFallback(name === 'up' ? 880 : 440, 0.12);
+                        });
+                    }
+                    return;
+                }
+                // no audio file -> fallback
+                beepFallback(name === 'up' ? 880 : 440, 0.12);
+            }
+
+            // ---------- unlock audio on first user gesture (mobile) ----------
+            function unlockAudio() {
+                // resume WebAudio context if created
+                if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
+                    window.__beepAudioCtx.resume().catch(() => { });
+                }
+                // try to play & pause each HTMLAudio to unlock
+                Object.values(sounds).forEach(a => {
+                    if (!a) return;
+                    a.muted = true;
+                    a.play().then(() => { a.pause(); a.muted = false; }).catch(() => { a.muted = false; });
+                });
+                document.removeEventListener('pointerdown', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            }
+            document.addEventListener('pointerdown', unlockAudio, { once: true });
+            document.addEventListener('touchstart', unlockAudio, { once: true });
+
+            // ---------- Score logic ----------
+            let scoreA = 0, scoreB = 0;
+            const elScoreA = document.getElementById('scoreA');
+            const elScoreB = document.getElementById('scoreB');
+
+            function updateScores() {
+                if (elScoreA) elScoreA.textContent = String(scoreA);
+                if (elScoreB) elScoreB.textContent = String(scoreB);
+            }
+
+            // ---------- Attach handlers safely (no crash if element missing) ----------
+            function button(id, cb) {
+                const el = document.getElementById(id);
+                if (!el) {
+                    console.warn('Button not found:', id);
+                    return;
+                }
+                el.addEventListener('click', cb);
+                // also support keyboard activation for accessibility
+                el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
+            }
+
+            button('btnAup', () => { scoreA++; updateScores(); playSound('up'); });
+            button('btnAdown', () => { if (scoreA > 0) scoreA--; updateScores(); playSound('down'); });
+
+            button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
+            button('btnBdown', () => { if (scoreB > 0) scoreB--; updateScores(); playSound('down'); });
+
+            // Expose for debug
+            window._scoreboard = { getScores: () => ({ scoreA, scoreB }), incA: () => { scoreA++; updateScores() }, incB: () => { scoreB++; updateScores() } };
+
+            // initial render
+            updateScores();
+        })();
+    </script>
+     <!-- ============================= -->
+      <!-- Card 4: Map (1 Map)   -->
+      <!-- ============================= -->
+      <section id="mapCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 4</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Map • Family Explorer
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+        <!-- Card body -->
+          <div class="p-5 space-y-5">
+
+    <!-- Header -->
+    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Prophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </h2>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700">
+      <button id="locateBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍 My Location</button>
+      <button id="searchBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍 Search</button>
+      <button id="filtersBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️ Filters</button>
+
+      <div class="flex items-center gap-2">
+        <label for="zipInput" class="text-sm">Zip:</label>
+        <input id="zipInput" type="text" placeholder="Enter Zipcode" 
+               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
+        <button id="zipBtn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">Filter</button>
+        <button id="resetBtn" class="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white rounded-lg">Reset</button>
+      </div>
+    </div>
+
+    <!-- Map Container -->
+      <div id="map"</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="cosmic-footer bg-gray-800/80 text-center text-white">
+      <p class="flex items-center justify-center gap-2 text-sm">
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </p>
+    </footer>
+
+          </div>
+          </section>
+
+
+     <!-- ============================= -->
+      <!-- Card 5: JSON Cards Container  -->
+      <!-- ============================= -->
+      <section id="jsonCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 5</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Dynamic JSON Cards
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <section id="jsonContainer" class="card">
+            <p><div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
+
+          </div></p>
+
+              <!-- JS will inject JSON-driven cards here -->
+ 
+          </div>
+        </div>
+      </section>
+
+            <!-- ============================= -->
+      <!-- Card 6: Prophecy Calendar     -->
+      <!-- ============================= -->
+      <section id="prophecyCalendarCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 6</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Prophecy Calendar
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-5">
+            <div
+              class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+ 
+              <!-- Background Video -->
+              <video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/firevideos.mp4" type="video/mp4">
+              </video>
+ 
+              <!-- Hero Header -->
+              <header class="flex flex-col items-center gap-2 text-center mb-6 relative z-10">
+                <h1 class="text-4xl font-extrabold">Prophecy Calendar</h1>
+                <h2 class="text-xl font-semibold text-blue-400">Current Calculation: Hillel</h2>
+                <p class="text-sm text-gray-300">
+                  Next Holy Day: Pesach (Passover) begins April 1, 2026 at sundown
+                </p>
+              </header>
+ 
+              <!-- Calendar Filters -->
+              <div class="calendar-filters flex flex-wrap gap-2 justify-center mb-6 relative z-10">
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('Hillel')">
+                  <span
+                    style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                    Hillel
+                  </span>
+                </button>
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('Enochian')">Enochian</button>
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('Zedokian')">Zedokian</button>
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('Eastern Orthodox')">Eastern Orthodox</button>
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('Western Orthodox / Catholic')">Western Orthodox / Catholic</button>
+                <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                        onclick="setCalendarType('MS Christian')">MS Christian</button>
+              </div>
+ 
+              <!-- Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
+ 
+                <!-- Astronomical Info Card -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">
+                    🌞 Astronomical Info
+                  </h3>
+                  <p>Sunrise / Sunset: 06:23 / 18:15</p>
+                  <p>Moon Phase: Waxing Crescent</p>
+                  <p>Visible Constellations: Orion, Cassiopeia</p>
+                  <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+                </div>
+ 
+                <!-- Holy Days / Feasts Card -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">📅 Holy Days / Feasts</h3>
+                  <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>
+                      Passover Sundown: April 1, 2026
+                      <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500 text-xs"
+                              onclick="alert('Passover, the same day Jesus died.')">Info</button>
+                    </li>
+                    <li>
+                      Feast of Unleavened Bread
+                      <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500 text-xs"
+                              onclick="alert('Feast of Unleavened Bread, fasting and prayer.')">Info</button>
+                    </li>
+                    <li>
+                      Yom Kippur: Oct 1–2, 2025
+                      <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500 text-xs"
+                              onclick="alert('Yom Kippur: Day of Atonement, fasting and prayer.')">Info</button>
+                    </li>
+                    <li>
+                      Sukkot: Oct 6–13, 2025
+                      <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500 text-xs"
+                              onclick="alert('Sukkot: Feast of Tabernacles, lasts 7 days.')">Info</button>
+                    </li>
+                    <li>
+                      Shemini Atzeret: Oct 13–14, 2025
+                      <button class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500 text-xs"
+                              onclick="alert('Shemini Atzeret: Eighth day after Sukkot, separate holiday.')">Info</button>
+                    </li>
+                  </ul>
+                </div>
+ 
+                <!-- 2026 Calendar Dates Card -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">📆 2026 Calendar Dates</h3>
+                  <p>April 2–8: Unleavened Bread</p>
+                  <p>September 12: Feast of Trumpets</p>
+                  <p>October 1–2: Yom Kippur</p>
+                  <p>October 6–13: Sukkot</p>
+                  <p>Shemini Atzeret: Oct 13–14</p>
+                  <p>December 14–22: Hanukkah</p>
+                  <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+                </div>
+ 
+                <!-- Other Religious Observances -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Other Religions</h3>
+                  <p>Feb 17–Mar 18: Ramadan</p>
+                  <p>May 26–27: Eid al-Adha</p>
+                  <p>June 16–17: Islamic New Year</p>
+                  <p>Jan 3: Mahayana New Year</p>
+                  <p>Oct 20: Diwali</p>
+                </div>
+ 
+                <!-- Fulfillment -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2 text-sm">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fulfillment in Messiah</h3>
+                  <ul class="list-disc pl-5 space-y-1">
+                    <li>Passover: Jesus’ death fulfills the Passover lamb.</li>
+                    <li>Unleavened Bread: His burial during this feast symbolizes the sinless “bread of life.”</li>
+                    <li>First Fruits: His resurrection as the firstfruits of those raised from the dead.</li>
+                    <li>Pentecost: Spirit given 50 days later, new covenant sealed in His blood.</li>
+                    <li>Trumpets: Often seen as a signal of His return.</li>
+                    <li>Day of Atonement: Linked to final judgment and His coming as King.</li>
+                    <li>Tabernacles: Picture of the 1,000-year Messianic kingdom.</li>
+                  </ul>
+                </div>
+ 
+                <!-- Spring / Fall Feasts Summary -->
+                <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2 text-sm">
+                  <h3 class="text-2xl font-bold flex items-center gap-2">📜 Spring & Fall Feasts</h3>
+                  <ul class="list-disc pl-5 space-y-1">
+                    <li>Pesach (Passover): Deliverance from Egypt; pointing to the Lamb.</li>
+                    <li>Matzot (Unleavened Bread): Hasty departure; purity and humility.</li>
+                    <li>Bikkurim (First Fruits): First harvest and resurrection picture.</li>
+                    <li>Shavuot (Pentecost): Torah given; Spirit poured out.</li>
+                    <li>Yom Teruah (Trumpets): New year; trumpet blast and awakening.</li>
+                    <li>Yom Kippur (Day of Atonement): Fasting, repentance, covering of sin.</li>
+                    <li>Sukkot (Tabernacles): Dwelling in booths; God with His people.</li>
+                  </ul>
+                </div>
+              </div>
+
+      </section>
+ 
+      <!-- ============================= -->
+      <!-- Card 7: Future / Placeholder   -->
+      <!-- ============================= -->
+      <section id="extraCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 7</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Coming Soon
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-6 text-center text-slate-300 text-sm">
+            Placeholder for your next cosmic feature.
+          </div>
+        </div>
+      </section>
+ 
+    </div><!-- /#cardsRow -->
+    <!-- Footer -->
+    <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
+        <div class="flex justify-center gap-2 p-2">
+            <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..."
+                class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
+            <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
+            <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
+        </div>
+    </footer>
+  </div><!-- /#viewport -->
+  <script>
+
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
+
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("./HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
+        });
+
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+
+ // Optional: locate me button logic
+  
+<!-- new locateme -->
+  function onLocationFound(e) {
+    var radius = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
+  function onLocationError(e) {
+    alert(e.message);
+}
+
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+    });
+  
+
+  // Dummy food layer
+  const foodLayer = L.layerGroup([
+    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
+    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
+    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
+  ]).addTo(map);
+
+  // Search
+  document.getElementById("searchBtn").addEventListener("click", async () => {
+    const query = prompt("Enter a place or address:");
+    if (!query) return;
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+ 
+      const data = await res.json();
+
+      if (data.length) {
+        const { lat, lon, display_name } = data[0];
+        const latLng = [parseFloat(lat), parseFloat(lon)];
+        map.setView(latLng, 14);
+        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+      } else {
+        alert("Place not found");
+      }
+    } catch (err) {
+      console.error("Search failed:", err);
+    }
+  });
+
+// Filter zipcode logic
+document.getElementById("zipBtn").addEventListener("click", () => {
+  const zip = document.getElementById("zipInput").value.trim();
+  if (!zip) return;
+  const filtered = markerData.filter(item => item.zipcode === zip);
+  renderMarkers(filtered);
+  if (filtered.length > 0) {
+    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
+  }
+});
+
+</script>
+ 
+
+  <!-- ============================= -->
+  <!-- 🎧 DOCK C — Scripture Modal -->
+  <!-- ============================= -->
+  <div id="dockC-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+    <div id="dockC-inner" class="relative">
+      <!-- FLIP WRAPPER -->
+      <div id="dockC-flipWrapper">
+
+        <!-- FRONT: Scripture + Commentary -->
+        <div class="flip-face front">
+          <div class="flex items-center justify-between mb-1">
+            <h2 class="text-cyan-300 text-lg font-semibold">
+              Scripture & Commentary
+            </h2>
+            <div class="flex gap-3 items-center text-sm text-slate-300">
+              <span id="modalWeekLabel"></span>
+            ></div>
+          </div>
+
+          <div class="face-scroll">
+            <div id="scriptureBox"></div>
+            <div id="commentaryBox"></div>
+          </div>
+        </div>
+
+        <!-- BACK: Articles -->
+        <div class="flip-face back">
+          <div class="flex items-center justify-between mb-1">
+            <h2 class="text-cyan-300 text-lg font-semibold">
+              Articles
+            </h2>
+            <span class="text-xs text-slate-400">
+              (Hook this up to loadArticles.js later)
+            </span>
+          </div>
+
+          <div class="face-scroll">
+            <div id="articleListBox">
+              <!-- TEMP: Just something so the back isn't blank -->
+              <button class="w-full text-left px-4 py-2 rounded bg-slate-800 hover:bg-slate-700 text-sm">
+                Example article – “The Hebrew Roots of Revelation”
+              </button>
+            </div>
+
+            <div id="articleViewer">
+              <p class="text-sm text-slate-300">
+                When you click an article title, you can load its HTML here.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLOSE BUTTON -->
+      <button type="button" onclick="closeDockCModal()"
+        class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+        ✕
+      </button>
+
+      <!-- FLIP BUTTON -->
+      <button type="button" id="flipModalBtn" class="absolute top-2 left-3 text-sm text-cyan-300 hover:text-white">
+        🔁 Flip
+      </button>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!--  JS: CARD NAV + MODAL + LOADING -->
+  <!-- =============================== -->
+  <script>
+    // ---------------------------------
+    // WEEK PICKER (52 weeks)
+    // ---------------------------------
+    (function initWeekSelect() {
+      const sel = document.getElementById("weekSelect");
+      if (!sel) return;
+      for (let i = 1; i <= 52; i++) {
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = "Week " + i;
+        sel.appendChild(opt);
+      }
+      sel.value = "1";
+    })();
+
+    function getSelectedWeekNumber() {
+      const sel = document.getElementById("weekSelect");
+      if (!sel) return 1;
+      return parseInt(sel.value, 10) || 1;
+    }
+
+// ---------------------------------
+// CARD NAV (Prev/Next) – SIMPLE
+// ---------------------------------
+(function initCardNav() {
+  const row = document.getElementById("cardsRow");
+  if (!row) return;
+
+  const cards = Array.from(row.querySelectorAll(".card"));
+  if (!cards.length) return;
+
+  let currentIndex = cards.findIndex(c => c.classList.contains("active"));
+  if (currentIndex < 0) {
+    currentIndex = 0;
+    cards[0].classList.add("active");
+  }
+
+  function showCard(idx) {
+    if (idx < 0 || idx >= cards.length) return;
+    cards[currentIndex].classList.remove("active");
+    currentIndex = idx;
+    cards[currentIndex].classList.add("active");
+  }
+
+  // Delegate clicks from any prev/next button inside cardsRow
+  row.addEventListener("click", (e) => {
+    if (e.target.closest(".next-card-btn")) {
+      showCard(currentIndex + 1);
+    } else if (e.target.closest(".prev-card-btn")) {
+      showCard(currentIndex - 1);
+    }
+  });
+
+  // Arrow keys also work
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") showCard(currentIndex + 1);
+    if (e.key === "ArrowLeft") showCard(currentIndex - 1);
+  });
+})();
+
+// ---------------------------------
+// MODAL OPEN/CLOSE + FLIP
+// ---------------------------------
+function openDockCModal() {
+  const modal = document.getElementById("dockC-modal");
+  if (!modal) return;
+  modal.classList.remove("hidden");          // ✅ show (Tailwind)
+  document.body.style.overflow = "hidden";   // lock background scroll
+}
+
+function closeDockCModal() {
+  const modal = document.getElementById("dockC-modal");
+  if (!modal) return;
+  modal.classList.add("hidden");             // ✅ hide
+  document.body.style.overflow = "";         // restore scroll
+
+  // reset to front when closing
+  const flip = document.getElementById("dockC-flipWrapper");
+  if (flip) flip.classList.remove("is-flipped");
+}
+
+function toggleDockCFace() {
+  const flip = document.getElementById("dockC-flipWrapper");
+  if (!flip) return;
+  flip.classList.toggle("is-flipped");
+}
+
+// Make sure the flip button calls the toggle
+document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFace);
+
+    // ---------------------------------
+    // SCRIPTURE + COMMENTARY LOADER
+    // ---------------------------------
+    const SCRIPTURE_DIR = "scripture/english";
+    const COMMENTARY_DIR = "commentary";
+
+    async function loadScriptureForCurrentWeek() {
+      const week = getSelectedWeekNumber();
+      const scripturePath = `${SCRIPTURE_DIR}/week${week}.html`;
+      const commentaryPath = `${COMMENTARY_DIR}/week${week}.html`;
+
+      const scriptureBox = document.getElementById("scriptureBox");
+      const commentaryBox = document.getElementById("commentaryBox");
+      const weekLabel = document.getElementById("modalWeekLabel");
+
+      if (weekLabel) weekLabel.textContent = `Week ${week}`;
+
+      if (scriptureBox) {
+        scriptureBox.innerHTML = `<p class="text-cyan-300 text-sm">Loading scripture from <code>${scripturePath}</code>...</p>`;
+      }
+      if (commentaryBox) {
+        commentaryBox.innerHTML = `<p class="text-emerald-300 text-sm">Loading commentary from <code>${commentaryPath}</code>...</p>`;
+      }
+
+      // Scripture
+      if (scriptureBox) {
+        try {
+          const res = await fetch(scripturePath);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const html = await res.text();
+          scriptureBox.innerHTML = html;
+        } catch (err) {
+          console.error("Scripture load failed:", err);
+          scriptureBox.innerHTML = `<p class="text-red-400 text-sm">Unable to load scripture file:<br>${scripturePath}</p>`;
+        }
+      }
+
+      // Commentary (optional – don't fail hard)
+      if (commentaryBox) {
+        try {
+          const res = await fetch(commentaryPath);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const html = await res.text();
+          commentaryBox.innerHTML = html;
+        } catch (err) {
+          console.warn("Commentary load failed (this is ok if you don't have files yet):", err);
+          commentaryBox.innerHTML = `<p class="text-slate-300 text-sm italic">
+            No commentary file found for Week ${week} yet.
+          </p>`;
+        }
+      }
+    }
+
+    function loadAndOpenScripture() {
+      loadScriptureForCurrentWeek()
+        .then(openDockCModal)
+        .catch(err => {
+          console.error(err);
+          openDockCModal();
+        });
+    }
+
+    document.getElementById("openScriptureBtn")?.addEventListener("click", loadAndOpenScripture);
+    document.getElementById("openScriptureHeaderBtn")?.addEventListener("click", loadAndOpenScripture);
+
+
+    // Auto-refetch scripture when weekSelect changes
+    document.getElementById("weekSelect")?.addEventListener("change", () => {
+      // If modal is open, update its content when week changes
+      const modal = document.getElementById("dockC-modal");
+      if (modal && modal.classList.contains("hidden")) {
+        loadScriptureForCurrentWeek();
+      }
+    });
+  </script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const scriptureBox = document.getElementById("scriptureBox");
+    if (scriptureBox) {
+      scriptureBox.style.minHeight = "45vh";
+      scriptureBox.style.overflowY = "auto";
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  // Select both the front and back h2 elements
+  const frontLabel = document.querySelector('.flip-face.front h2');
+  const backLabel = document.querySelector('.flip-face.back h2');
+
+  // Apply the centering style
+  [frontLabel, backLabel].forEach(label => {
+    if (label) {
+      label.style.textAlign = "center";
+    }
+  });
+});
+</script>
+             <!-- Scripts -->
+   <!--<script src="js/mainStageManager.js" defer></script> -->
+   <!--<script src="js/loadArticleList.js" defer></script>  -->
+   <!--<script src="js/FloatingPlayerv-3.js" defer></script>-->
+    <script src="js/orbitFloatingPlayer.js" defer></script>
+    <script src="js/loadCommentary.js" defer></script>
+    <script src="js/globalAudioManager.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="js/bullseyeMedia.js" defer></script>
+    <script src="js/mainStageLoaderTEST3.js" defer></script>
+    <!--<script src="js/studyContentManager.js" defer></script>-->
+    <!--<script src="js/readerSystem.js" defer></script>-->
+</main>
+        </body>
+        </html>
