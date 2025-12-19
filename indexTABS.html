@@ -200,14 +200,28 @@
     }
 
     #articleListBox {
-      border-color: rgba(56, 189, 248, 0.7);
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
-    }
+     border-color: rgba(56, 189, 248, 0.7);
+     box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+     height: 600px;
+     overflow-y: auto;
+     column-count: 2;
+     column-gap: 0.75rem;
+   }
+
+     #articleListBox > button {
+      display: block;
+      width: 100%;
+      break-inside: avoid;
+      margin-bottom: 0.5rem;
+}
 
     #articleViewer {
       border-color: rgba(52, 211, 153, 0.7);
       box-shadow: 0 0 18px rgba(52, 211, 153, 0.4);
+      height: 50%;
+
     }
+
 
     #scriptureBox {
       border-color: rgba(56, 189, 248, 0.7);
@@ -239,7 +253,7 @@
       background: rgba(0, 0, 20, 0.96);
       border-radius: 1.25rem;
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
-      overflow: hidden;
+      overflow: auto;
     }
 
     #dockC-flipWrapper .front,
@@ -378,8 +392,12 @@
   text-overflow: ellipsis;
 }
 
-body.modal-open footer {
-  display: none;
+#dockC-modal{
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;      /* ✅ allows scrolling to reach bottom */
+  overflow-x: hidden;
+  padding: 5vh 0;        /* gives the 5% top breathing room */
 }
 </style>
 </head>
@@ -1771,7 +1789,7 @@ function addSearchResetButton() {
 
         <!-- FRONT: Scripture + Commentary -->
         <div class="flip-face front">
-          <div class="flex items-center justify-between mb-1 text-center">
+          <div class="flex items-center justify-between mb-1 text-align:center">
             <h2 class="text-cyan-300 text-lg font-semibold">
               Scripture & Commentary
             </h2>
@@ -1790,26 +1808,28 @@ function addSearchResetButton() {
         <div class="flip-face back">
           <div class="flex items-center justify-between mb-1">
             <h2 class="text-cyan-300 text-lg font-semibold">
-              Articles
+              Articles & Reader
             </h2>
             <span class="text-xs text-slate-400">
-              (Hook this up to loadArticles.js later)
+              (Click An Article to Load It Below the List)
             </span>
           </div>
 
           <div class="face-scroll">
             <div id="articleListBox">
-              <!-- TEMP: Just something so the back isn't blank -->
-              <button class="w-full text-left px-4 py-2 rounded bg-slate-800 hover:bg-slate-700 text-sm">
-                Example article – “The Hebrew Roots of Revelation”
-              </button>
+
+              <div id="articlelist"></div>
             </div>
 
             <div id="articleViewer">
               <p class="text-sm text-slate-300">
                 When you click an article title, you can load its HTML here.
               </p>
+              <div id="articleModal">
+              <h2 id="articleTitle"></h2>
               <div id="articleContent"></div>
+           </div>
+              
 
          <!-- <div id="articlePager" class="pager hidden">
           <button id="articlePrevBtn">◀</button>
@@ -1827,10 +1847,20 @@ function addSearchResetButton() {
         ✕
       </button>
 
-      <!-- FLIP BUTTON -->
-      <button type="button" id="flipModalBtn" class="absolute top-2 left-3 text-sm text-cyan-300 hover:text-white">
-        🔁 Flip
-      </button>
+<button
+  type="button"
+  id="flipModalBtn"
+  class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+  🔁 Flip
+</button>
     </div>
   </div>
 <script>
@@ -2186,7 +2216,7 @@ window.addEventListener("load", () => {
   <script src="./app.js" defer></script> 
   <script src="js/bullseyeMedia.js" defer></script> 
   <script src="js/mainStageLoaderTEST3.js" defer></script>
-  <script src="studyContentManager.js" defer></script> 
+  <!--<script src="studyContentManager.js" defer></script>  -->
   <script src="js/articles.js" defer></script> 
   <script src="js/preziPlaylist.js" defer></script>
 </body>
