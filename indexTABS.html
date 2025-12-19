@@ -276,6 +276,8 @@
     #scriptureBox,
     #commentaryBox {
     max-height: 60vh;        /* adjust: 50–70vh works well */
+
+    max-height: 60vh;        /* adjust: 50–70vh works well */
     overflow-y: auto;
     padding-right: 0.5rem;  /* keeps scrollbar off text */
    }
@@ -561,7 +563,7 @@
             <div class="flex flex-wrap items-center justify-center gap-3">
               <button id="openScriptureAndFlipBtn"
                       class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
-                🔁 Open Commentary
+                🔁 Open Video
               </button>
               <button id="openScriptureBtn"
                       class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
@@ -1742,7 +1744,7 @@ function addSearchResetButton() {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 14</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Prsentations- ALL the Prezis here     <select id="preziCategorySelect"></select>
+                Presentations- ALL the Prezis here     <select id="preziCategorySelect"></select>
 
               </h2>
             </div>
@@ -1770,6 +1772,422 @@ function addSearchResetButton() {
     <button id="preziNextBtn">Next ▶</button>
   </footer>
 </section>
+
+       <!-- ============================= -->
+      <!-- Card 15: Multimap / Placeholder   -->
+      <!-- ============================= -->       
+      <section id="mapViewsCard" class="card">
+ <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 15</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Multimap- ALL the Maps here 
+
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-6 text-center text-slate-300 text-sm">
+
+<!-- Toggle bar -->
+            <div class="relative">
+              <div
+                class="map-toggle relative mx-auto max-w-xl rounded-full bg-slate-900/90 border border-slate-700/80 px-1 py-1 flex items-center justify-between gap-1 overflow-hidden">
+ 
+                <!-- Aurora underline -->
+                <div id="mapToggleUnderline"
+                     class="absolute top-[4px] left-[4px] h-[calc(100%-8px)] rounded-full
+                            bg-gradient-to-r from-cyan-400 via-sky-400 via-purple-400 to-indigo-400
+                            opacity-80 shadow-[0_0_25px_rgba(56,189,248,0.9)]
+                            transition-all duration-300 ease-out
+                            animate-aurora"></div>
+ 
+                <!-- Pills -->
+                <button type="button"
+                        class="map-pill relative flex-1 z-10 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-300"
+                        data-view="mapCosmic">
+                  Cosmic
+                </button>
+                <button type="button"
+                        class="map-pill relative flex-1 z-10 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-300"
+                        data-view="mapProphecy">
+                  Prophecy
+                </button>
+                <button type="button"
+                        class="map-pill relative flex-1 z-10 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-300"
+                        data-view="mapPins">
+                  HomeGroups
+                </button>
+                <button type="button"
+                        class="map-pill relative flex-1 z-10 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-300"
+                        data-view="mapMini">
+                  Mini / Full
+                </button>
+                <button type="button"
+                        class="map-pill relative flex-1 z-10 px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-slate-300"
+                        data-view="mapOrbit">
+                  Orbit
+                </button>
+              </div>
+            </div>
+ 
+            <!-- Map Views -->
+            <!-- Cosmic Map -->
+            <div id="mapCosmic"
+                 class="map-view relative w-full h-[420px] rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border border-slate-800">
+              <video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-20">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+              <img src="images/worldmap_gold.png"
+                   class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-screen"
+                   alt="Cosmic Map">
+              <div class="absolute inset-0 z-10 pointer-events-none"></div>
+              <!-- JS map mounts here -->
+              <div id="cosmicMapRoot" class="absolute inset-0 z-20"></div>
+            </div>
+ 
+            <!-- Prophecy / Feasts Map -->
+            <div id="mapProphecy"
+                 class="map-view hidden relative w-full h-[420px] rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border border-slate-800">
+              <img src="images/ancient_feast_map.jpg"
+                   class="absolute inset-0 w-full h-full object-cover opacity-90"
+                   alt="Feasts Map">
+              <div id="feastMapRoot" class="absolute inset-0 z-20"></div>
+            </div>
+ 
+            <!-- HomeGroups Pins Map -->
+            <div id="mapPins"
+    <!-- Header -->
+    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
+  
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar flex flex-wrap items-center text-center gap-2 p-4 border-b border-gray-700">
+      <button id="locateBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍 My Location</button>
+      <button id="searchBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍 Search</button>
+      <button id="filtersBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️ Filters</button>
+
+      <div class="flex items-center gap-2">
+        <label for="zipInput" class="text-sm">Zip:</label>
+        <input id="zipInput" type="text" placeholder="Enter Zipcode" 
+               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
+        <button id="zipBtn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">Filter</button>
+        <button id="resetBtn" class="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white rounded-lg">Reset</button>
+              <label for="familyInput" class="text-sm">Fam</label>
+        <input id="familyInput" type="text" placeholder="Enter Family" 
+               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
+      </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="cosmic-map" class="flex-1 relative rounded-b-3xl">
+      <div id="map" class="rounded min-h-[400px] rounded-b-3xl"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="cosmic-footer rounded text-center text-white">
+      <p class="flex items-center justify-center gap-2 text-sm">
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
+        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+      </p>
+    </footer>
+ 
+            <!-- Mini Map / Fullscreen -->
+            <div id="mapMini"
+                 class="map-view hidden relative w-100vh h-[100vh] rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border border-slate-800 flex flex-col items-center justify-center gap-4 p-4">
+              <div class="relative w-full h-[230px] rounded-xl overflow-hidden shadow-xl bg-slate-900 cursor-pointer"
+                   onclick="openFullMap()">
+                <img src="images/worldmap_clean.png"
+                     class="absolute inset-0 w-full h-full object-cover"
+                     alt="Mini Map">
+              </div>
+              <p class="text-center text-slate-300 text-sm">
+                Tap to open full interactive map view.
+              </p>
+            </div>
+ 
+            <!-- Orbit Map -->
+            <div id="mapOrbit"
+                 class="map-view hidden relative w-full h-[420px] rounded-3xl overflow-hidden shadow-2xl bg-slate-950 border border-slate-800">
+              <div class="absolute inset-0 z-10 mix-blend-screen opacity-60">
+                <img src="images/orbit_rings.png" class="w-full h-full object-cover" alt="Orbit Rings">
+              </div>
+              <img src="images/worldmap_clean.png"
+                   class="absolute inset-0 w-full h-full object-cover opacity-90"
+                   alt="Orbit Map">
+              <div id="orbitMapRoot" class="absolute inset-0 z-20"></div>
+            </div>
+ 
+          </div>
+        </div>
+ 
+        <!-- Full Map Modal for Mini View -->
+        <div id="fullMapModal"
+             class="fixed inset-0 bg-black/80 backdrop-blur-lg hidden z-50">
+          <button class="absolute top-4 right-4 text-white text-xl" onclick="closeFullMap()">✕</button>
+          <div class="absolute inset-0 p-4">
+            <div id="fullMapRoot"
+                 class="w-full h-full rounded-3xl overflow-hidden shadow-2xl bg-slate-950"></div>
+          </div>
+        </div>
+
+</section>
+
+       <!-- ============================= -->
+      <!-- Card 16: Multimap / Placeholder   -->
+      <!-- ============================= -->       
+      <section id="mapViewsCard" class="card">
+ <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 16</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Be Ready- Emergency Preparedness 
+
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-6 text-center text-slate-300 text-sm">
+            <div class="card-inner">
+  <h2 class="text-xl font-bold text-center mb-3 tracking-wide">
+    🧭 Prepper Library
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center mb-4">
+    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  </p>
+
+  <div class="prepper-shelf">
+    <div class="prepper-item">
+      <span class="prepper-icon">💧</span>
+      <div>
+        <div class="prepper-title">Water Storage & Purification</div>
+        <div class="prepper-meta">PDF • Water • Essentials</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🩺</span>
+      <div>
+        <div class="prepper-title">Field First Aid Manual</div>
+        <div class="prepper-meta">PDF • Medical • Trauma</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🔥</span>
+      <div>
+        <div class="prepper-title">Off-Grid Heating & Cooking</div>
+        <div class="prepper-meta">PDF • Shelter • Energy</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">📻</span>
+      <div>
+        <div class="prepper-title">Emergency Communications</div>
+        <div class="prepper-meta">PDF • Radio • Signals</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+    Library rendering coming soon…
+  </div>
+</div>
+</section>
+
+
+<script>
+        /* ============================================================
+   MAP VIEWS INITIALIZER • Cosmic Explorer
+   Partner-Grade (indestructible) version
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ------------------------------------------------------------
+       GLOBAL MAP OBJECTS (to prevent duplicates)
+    ------------------------------------------------------------ */
+    window.cosmicMap = null;
+    window.feastMap = null;
+    window.homeGroupsMap = null;
+    window.orbitMap = null;
+    window.fullMap = null;
+
+    /* ------------------------------------------------------------
+       UTILITY: Give Leaflet enough time to detect container size
+       (Fixes “only one tile loads” and hidden-card issues)
+    ------------------------------------------------------------ */
+    function safeInvalidate(mapObj) {
+        if (!mapObj) return;
+        setTimeout(() => mapObj.invalidateSize(), 250);
+    }
+
+    /* ------------------------------------------------------------
+       GET ACTIVE CARD ID AND HANDLE VIEW SWITCHING
+    ------------------------------------------------------------ */
+    const mapPills = document.querySelectorAll(".map-pill");
+    const mapViews = document.querySelectorAll(".map-view");
+    const underline = document.getElementById("mapToggleUnderline");
+
+    mapPills.forEach(pill => {
+        pill.addEventListener("click", () => {
+            const view = pill.dataset.view;
+
+            // Hide all map views
+            mapViews.forEach(v => v.classList.add("hidden"));
+
+            // Show selected map
+            const active = document.getElementById(view);
+            active.classList.remove("hidden");
+
+            // Move cyan underline
+            underline.style.left = pill.offsetLeft + "px";
+            underline.style.width = pill.offsetWidth + "px";
+
+            // Initialize map only once, then reuse
+            switch (view) {
+                case "mapCosmic":
+                    initCosmicMap();
+                    break;
+                case "mapProphecy":
+                    initFeastMap();
+                    break;
+                case "mapPins":
+                    initHomeGroupsMap();
+                    break;
+                case "mapMini":
+                    // no map — mini preview only
+                    break;
+                case "mapOrbit":
+                    initOrbitMap();
+                    break;
+            }
+        });
+    });
+
+    /* ============================================================
+       1. COSMIC MAP
+    ============================================================ */
+    function initCosmicMap() {
+        if (window.cosmicMap) {
+            safeInvalidate(window.cosmicMap);
+            return;
+        }
+
+        window.cosmicMap = L.map("cosmicMapRoot", {
+            zoomControl: false,
+            attributionControl: false,
+            minZoom: 1,
+            maxZoom: 4,
+            zoomSnap: 0.1
+        }).setView([20, 0], 2);
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(window.cosmicMap);
+
+        safeInvalidate(window.cosmicMap);
+    }
+
+    /* ============================================================
+       2. FEAST / PROPHECY MAP
+    ============================================================ */
+    function initFeastMap() {
+        if (window.feastMap) {
+            safeInvalidate(window.feastMap);
+            return;
+        }
+
+        window.feastMap = L.map("feastMapRoot", {
+            zoomControl: false,
+            attributionControl: false
+        }).setView([31.8, 35.2], 8); // Jerusalem-center default
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(window.feastMap);
+
+        safeInvalidate(window.feastMap);
+    }
+
+   
+    /* ============================================================
+       4. ORBIT MAP (Cosmic Glow Rings)
+    ============================================================ */
+    function initOrbitMap() {
+        if (window.orbitMap) {
+            safeInvalidate(window.orbitMap);
+            return;
+        }
+
+        window.orbitMap = L.map("orbitMapRoot", {
+            zoomControl: false,
+            attributionControl: false,
+            minZoom: 1,
+            maxZoom: 4
+        }).setView([20, 0], 2);
+
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(window.orbitMap);
+
+        safeInvalidate(window.orbitMap);
+    }
+
+    /* ============================================================
+       5. MINIMAP FULLSCREEN VIEW
+    ============================================================ */
+    window.openFullMap = function () {
+        const modal = document.getElementById("fullMapModal");
+        modal.classList.remove("hidden");
+
+        if (!window.fullMap) {
+            window.fullMap = L.map("fullMapRoot", {
+                zoomControl: true,
+                attributionControl: false
+            }).setView([20, 0], 2);
+
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+                .addTo(window.fullMap);
+        }
+
+        safeInvalidate(window.fullMap);
+    };
+
+    window.closeFullMap = function () {
+        document.getElementById("fullMapModal").classList.add("hidden");
+    };
+
+});
+        </script>
+
+
+
 
       </div><!-- cardsRow -->
     </div><!-- viewport -->
@@ -2148,6 +2566,8 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
       "mediaCard": "Media",
       "bibleCard": "Bible",
       "preziCard": "Prezi"
+      <!--"mapViewCard": "Multimap"-->
+
     };
 
     const ids = Object.keys(friendlyNames);
