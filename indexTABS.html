@@ -739,7 +739,7 @@ window.addEventListener("load", () => {
 
   <div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">
 
-<button class="jesus-btn">
+<button id="openJesusBtn" class="jesus-btn">
     Open  →
   </button>
 </div>
@@ -2112,6 +2112,18 @@ document.getElementById("openAnnouncementsBtn")?.addEventListener("click", (e) =
 
   window.open(
     "listen.html",
+    "ScriptureReader",
+    "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+  );
+});
+</script>
+<script>
+document.getElementById("openJesusBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+   e.stopImmediatePropagation();
+
+  window.open(
+    "jesus.html",
     "ScriptureReader",
     "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
   );
