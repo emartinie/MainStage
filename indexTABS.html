@@ -401,9 +401,234 @@
   overflow-x: hidden;
   padding: 5vh 0;        /* gives the 5% top breathing room */
 }
+
+#splashScreen {
+  position: fixed;
+  inset: 0;
+  background: #020617; /* dark slate */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+
+#splashScreen img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+}
+
+#splashScreen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#splashScreen img {
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+
+#splashScreen {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* blurred background clone */
+.splash-bg {
+  position: absolute;
+  inset: -20%;
+  background: url("./images/bible-sunlight-fire.png") center / cover no-repeat;
+  filter: blur(40px) brightness(0.7);
+  transform: scale(1.2);
+}
+
+/* sharp foreground image */
+.splash-main {
+  position: relative;
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+#splashScreen{
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  overflow: hidden;
+}
+
+.splash-bg{
+  position: absolute;
+  inset: -45vmax;                 /* BIGGER than any screen */
+  background: url("./images/splash.png") center / cover no-repeat;
+  filter: blur(70px) saturate(120%) brightness(0.7);
+  transform: scale(1.25);
+}
+
+.jesus-tile {
+  background: linear-gradient(
+    180deg,
+    rgba(15,23,42,0.85),
+    rgba(2,6,23,0.9)
+  );
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.jesus-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+
+  min-height: 220px;   /* this is the key */
+  padding: 1rem;
+
+  text-align: center;
+}
+
+.jesus-tile .tile-icon {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+
+.jesus-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #67e8f9;
+  opacity: 0.9;
+}
+
+.jesus-content {
+  flex: 1;
+}
+
+.jesus-day {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.jesus-focus {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e5e7eb;
+  opacity: 0.95;
+}
+
+.jesus-btn {
+  align-self: flex-center;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(6,182,212,0.15);
+  border: 1px solid rgba(6,182,212,0.4);
+  color: #e0f2fe;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.jesus-btn:hover {
+  background: rgba(6,182,212,0.25);
+}
+
+.today-btn {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #e5e7eb;
+  font-weight: 600;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: all 0.25s ease;
+}
+
+.today-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.prepper-frame {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100%;
+  gap: 0.75rem;
+}
+
+.prepper-sidebar {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.prepper-viewer {
+  background: rgba(2, 6, 23, 0.9);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  overflow: auto;
+  padding: 0.5rem;
+}
+
+.prepper-viewer iframe,
+.prepper-viewer embed,
+.prepper-viewer object {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  background: #020617;
+}
 </style>
 </head>
 <body>
+<!-- ============================= -->
+  <!-- Splash / Week Image        -->
+  <!-- ============================= -->
+   <!--<div id="splashScreen">
+  <img src="./images/bible-sunlight-fire.png" alt="Loading…" /><div id="splashScreen">
+  <div class="splash-bg"></div>
+  <img src="./images/bible-sunlight-fire.png" alt="Loading…" class="splash-main" />
+</div>
+</div>
+<script>
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splashScreen");
+  if (!splash) return;
+
+  setTimeout(() => {
+    splash.classList.add("fade-out");
+    setTimeout(() => splash.remove(), 400);
+  }, 400); // slight pause feels intentional
+});
+</script>-->
 <!-- ============================= -->
   <!-- Header / Week Selector        -->
   <!-- ============================= -->
@@ -421,12 +646,21 @@
         </div>
       </div>
 
+
             <button id="openScriptureHeaderBtn"
         class="px-3 py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-white"
         onclick="openDockCModal()">
         <h3 style="text-align: center; color:#00bfff; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
 📖</h3>
       </button>
+
+<button
+  id="todayBtn"
+  class="today-btn"
+  aria-label="Just for today">
+  TODAY
+</button>
+
 
       <div class="flex items-center gap-2">
       <!-- Middle: Week controls -->
@@ -478,6 +712,8 @@
     
   </header>
 
+
+
   <!-- Header -->
 <header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
   <div class="flex items-center gap-2">
@@ -497,6 +733,17 @@
 
   <div class="app">
     <div id="tabBar" aria-hidden="false"></div>
+
+<div class="jesus-tile">
+  <div class="jesus-label">Who is Jesus?</div>
+
+  <div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">
+
+<button class="jesus-btn">
+    Open  →
+  </button>
+</div>
+
 
     <div id="viewport" role="region" aria-label="Main Stage viewport">
       <div id="cardsRow" class="cards-row">
@@ -541,14 +788,19 @@
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
-                  Week <span id="headerWeekLabel">1</span> • Torah / Prophets / New Covenant
+                   <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
                 </p>
                 <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
                   Weekly Bible Study
                 </h3>
                 <p id="mainStageSub" class="text-sm text-slate-200">
                   English • Hebrew • Greek (Phase 2) – Audio + Visual
-                </p>  <button id="openVersePopup" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>
+                </p> <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: right;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+  <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+  <video controls class="max-w-[90%] max-h-[90%]">
+    <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+  </video>
+</div>
 
    <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">    
 
@@ -559,22 +811,21 @@
               </div>
             </div>
  
-            <!-- “Open Scripture” & “Flip” controls -->
+            <!-- Open announcements and  controls -->
             <div class="flex flex-wrap items-center justify-center gap-3">
-              <button id="openScriptureAndFlipBtn"
+              <button id="openAnnouncementsBtn"
                       class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
-                🔁 Open Video
+                🔁 Open Announcements
               </button>
-              <button id="openScriptureBtn"
+              <button id="openPrayersBtn"
                       class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
-                📖 Open Scripture
+                📖 Open Prayers
               </button>
                               <!-- Floating player root (existing JS can attach here) -->
                 <div id="floating-player-root" class="mt-2 w-full">
                   <!-- player mounts here -->
             </div>
-  <!-- Trigger buttons -->
- <!-- <button id="openVideoPopup" class="px-2 py-1 border rounded" style="float: right;">Show Video</button> -->
+    
 
 
 
@@ -593,7 +844,7 @@
 
     </div>
                             <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
 
             <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
           </div>
@@ -633,7 +884,7 @@
           <div class="card-inner">
             <h1>Articles</h1>
             <p>Article list placeholder — clicking an article should call the study/content loader.</p>
-            <p>paste content here</p>
+            <p>OR, YOU CAN READ THE ARTICLES IN THE MODAL BY CLICKING THE BIBLE BUTTON IN THE HEADER.</p>
             <!-- Articles list -->
              <!-- <div id="articleList" class="flex flex-col gap-2 my-4"> -->
                    <!-- Buttons will be generated dynamically -->
@@ -977,129 +1228,7 @@
         <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
       </p>
     </footer>
-  <script>
-
-    // Initialize map
-    const map = L.map("map").setView([39.5, -98.35], 4);
-
-    // Base layer
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
-
-
-    // Cluster group
-    const markers = L.markerClusterGroup();
-
-    // Load your GeoJSON
-    fetch("./HomeGroupsMap.geojson")
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .then((data) => {
-        data.features.forEach((feature, idx) => {
-          const coordsStr = feature.properties.Coordinates;
-          if (!coordsStr) {
-            console.warn`(Feature ${idx} missing Coordinates)`;
-            return;
-          }
-          const coords = coordsStr.split(",").map(Number);
-          if (coords.length < 2) {
-            console.warn`(Feature ${idx} has invalid Coordinates)`;
-            return;
-          }
-          const [lon, lat] = coords;
-
-          // Create marker using coordinates
-          const marker = L.marker([lat, lon]);
-
-          // Bind popup (name + optional extra info)
-          marker.bindPopup(
-            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
-          );
-
-          markers.addLayer(marker);
-        });
-
-        // Add cluster group to map
-        map.addLayer(markers);
-      })
-      .catch((err) => console.error("Error loading GeoJSON:", err));
-
- // Optional: locate me button logic
   
-<!-- new locateme -->
-  function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-    L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-
-  function onLocationError(e) {
-    alert(e.message);
-}
-
-
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 12);
-      L.marker([latitude, longitude])
-        .addTo(map)
-        .bindPopup("📍 You are here. Zoom out.")
-        .openPopup();
-    });
-  
-
-  // Dummy food layer
-  const foodLayer = L.layerGroup([
-    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
-    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
-    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
-  ]).addTo(map);
-
-  // Search
-  document.getElementById("searchBtn").addEventListener("click", async () => {
-    const query = prompt("Enter a place or address:");
-    if (!query) return;
-
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
- 
-      const data = await res.json();
-
-      if (data.length) {
-        const { lat, lon, display_name } = data[0];
-        const latLng = [parseFloat(lat), parseFloat(lon)];
-        map.setView(latLng, 14);
-        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
-      } else {
-        alert("Place not found");
-      }
-    } catch (err) {
-      console.error("Search failed:", err);
-    }
-  });
-
-// Filter zipcode logic
-document.getElementById("zipBtn").addEventListener("click", () => {
-  const zip = document.getElementById("zipInput").value.trim();
-  if (!zip) return;
-  const filtered = markerData.filter(item => item.zipcode === zip);
-  renderMarkers(filtered);
-  if (filtered.length > 0) {
-    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
-  }
-});
-
-</script>
   </p>
           </div>
           </section>
@@ -1197,6 +1326,9 @@ document.getElementById("zipBtn").addEventListener("click", () => {
                   Share
                 </button>
                 <span class="text-gray-400 text-xs mt-1">45 min</span>
+
+<iframe src="https://www.youtube.com/embed/?listType=user_uploads&list=HomeGroups.Org" width="480" height="400"></iframe>
+
               </div>
             </div>
           </div>
@@ -1219,7 +1351,7 @@ document.getElementById("zipBtn").addEventListener("click", () => {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 7</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Bible Trivia • Teams
+                Multiple Teams' Bible Trivia • Thousands of Random Questions
               </h2>
             </div>
  
@@ -1291,171 +1423,7 @@ document.getElementById("zipBtn").addEventListener("click", () => {
     50% { box-shadow:0 0 30px rgba(255,255,255,1);}
   }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  let questions = [];
-  let currentIndex = 0;
-
-  // Load questions from JSON
-  async function loadQuestions() {
-    try {
-      const res = await fetch("./bible_questions.json");
-      questions = await res.json();
-      if (!questions.length) {
-        document.getElementById("questionsCard").innerText = "No questions found.";
-        return;
-      }
-      showQuestion();
-    } catch (err) {
-      console.error(err);
-      document.getElementById("questionsCard").innerText = "Failed to load questions.";
-    }
-  }
-
-            function showQuestion() {
-                currentIndex = Math.floor(Math.random() * questions.length);
-                const q = questions[currentIndex];
-                const card = document.getElementById("questionsCard");
-                const answerCard = document.getElementById("answerCard");
-                const answerText = document.getElementById("answerText");map
-
-
-    // Animate
-    card.style.transform = "scale(0.95)";
-    card.style.opacity = 0;
-    setTimeout(() => {
-      card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
-      card.style.transform = "scale(1)";
-      card.style.opacity = 1;
-      answerText.innerText = q.answer;
-      answerCard.classList.add("hidden");
-    }, 150);
-  }
-
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    if (currentIndex < questions.length - 1) currentIndex++;
-    showQuestion();
-  });
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    if (currentIndex > 0) currentIndex--;
-    showQuestion();
-  });
-  document.getElementById("revealBtn").addEventListener("click", () => {
-    const answerCard = document.getElementById("answerCard");
-    answerCard.classList.toggle("hidden");
-  });
-
-  // Score logic
-  let scoreA = 0, scoreB = 0;
-  const elScoreA = document.getElementById("scoreA");
-  const elScoreB = document.getElementById("scoreB");
-  function updateScores() {
-    elScoreA.textContent = scoreA;
-    elScoreB.textContent = scoreB;
-  }
-  document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
-  document.getElementById("btnAdown").addEventListener("click", () => { if(scoreA>0) scoreA--; updateScores(); });
-  document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
-  document.getElementById("btnBdown").addEventListener("click", () => { if(scoreB>0) scoreB--; updateScores(); });
-
-  updateScores();
-  loadQuestions();
-});
-</script>
-<script>
-(function(){
-  // ---------- CONFIG: change paths if needed ----------
-  const audioFiles = {
-    up: 'assets/sounds/score-down.mp3',    // replace with your real path
-    down: 'assets/sounds/score-up.mp3' // replace with your real path
-  };
-
-  // ---------- Load audio objects safely ----------
-  const sounds = {};
-  for (const k of Object.keys(audioFiles)) {
-    try {
-      const a = new Audio();
-      a.src = audioFiles[k];
-      a.preload = 'auto';
-      a.load();
-      sounds[k] = a;
-    } catch (e) {
-      console.warn('Audio load failed for', k, e);
-    }
-  }
-
-
-  // ---------- playSound: try file then fallback ----------
-  function playSound(name) {
-    const a = sounds[name];
-    if (a && a.src) {
-      const p = a.play();
-      if (p && typeof p.then === 'function') {
-        p.catch(err => {
-          // autoplay blocked or file problem -> fallback beep
-          console.warn('Audio play failed, fallback to beep:', err);
-          beepFallback(name === 'up' ? 880 : 440, 0.12);
-        });
-      }
-      return;
-    }
-    // no audio file -> fallback
-    beepFallback(name === 'up' ? 880 : 440, 0.12);
-  }
-
-  // ---------- unlock audio on first user gesture (mobile) ----------
-  function unlockAudio() {
-    // resume WebAudio context if created
-    if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
-      window.__beepAudioCtx.resume().catch(()=>{});
-    }
-    // try to play & pause each HTMLAudio to unlock
-    Object.values(sounds).forEach(a => {
-      if (!a) return;
-      a.muted = true;
-      a.play().then(()=>{ a.pause(); a.muted = false; }).catch(()=>{ a.muted = false; });
-    });
-    document.removeEventListener('pointerdown', unlockAudio);
-    document.removeEventListener('touchstart', unlockAudio);
-  }
-  document.addEventListener('pointerdown', unlockAudio, { once: true });
-  document.addEventListener('touchstart', unlockAudio, { once: true });
-
-  // ---------- Score logic ----------
-  let scoreA = 0, scoreB = 0;
-  const elScoreA = document.getElementById('scoreA');
-  const elScoreB = document.getElementById('scoreB');
-
-  function updateScores() {
-    if (elScoreA) elScoreA.textContent = String(scoreA);
-    if (elScoreB) elScoreB.textContent = String(scoreB);
-  }
-
-  // ---------- Attach handlers safely (no crash if element missing) ----------
-  function button(id, cb) {
-    const el = document.getElementById(id);
-    if (!el) {
-      console.warn('Button not found:', id);
-      return;
-    }
-    el.addEventListener('click', cb);
-    // also support keyboard activation for accessibility
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
-  }
-
-  button('btnAup', () => { scoreA++; updateScores(); playSound('up'); });
-  button('btnAdown', () => { if (scoreA>0) scoreA--; updateScores(); playSound('down'); });
-
-  button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
-  button('btnBdown', () => { if (scoreB>0) scoreB--; updateScores(); playSound('down'); });
-
-  // Expose for debug
-  window._scoreboard = { getScores: () => ({scoreA,scoreB}), incA: ()=>{scoreA++;updateScores()}, incB: ()=>{scoreB++;updateScores()} };
-
-  // initial render
-  updateScores();
-})();
-</script></p>
+</p>
           </div>
         </section>
         
@@ -1475,7 +1443,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 8</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Cards • json Explorer
+                Quizzes • ~20 Thousand NT Quiz Questions
               </h2>
             </div>
  
@@ -1490,9 +1458,47 @@ document.addEventListener("DOMContentLoaded", async () => {
           <div class="card-inner">
 
           <div class="card-inner">
-            <h1>Questions</h1>
-            <p>Quiz content</p>
-            <p>paste content here</p>
+ 📘 Study Check
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
+    Thoughtful questions designed to test understanding, not speed.
+    These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions divided by every chapter in the New Testament. 
+  </p>
+
+  <div class="quiz-stack">
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the biblical meaning of “repentance,” and how does it differ from regret?
+      </div>
+      <div class="quiz-meta">Doctrine • Foundations</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        In Scripture, is faith presented as belief alone, or belief expressed through action?
+      </div>
+      <div class="quiz-meta">Faith & Works • Theology</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        How did the early ekklesia understand community, authority, and accountability?
+      </div>
+      <div class="quiz-meta">Church History • Ekklesia</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the difference between commandments given to Israel and instructions given to believers?
+      </div>
+      <div class="quiz-meta">Law • Covenant</div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+    Interactive quizzes coming soon…
+  </div>
           </div>
         </section>
         
@@ -1546,7 +1552,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 10</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Advanced Search AI Functionality
+                Coming Back Soon- Advanced Search & AI Functionality
               </h2>
             </div>
  
@@ -1562,68 +1568,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h1>Search</h1>
             <p>Search UI</p>
  
-<script>
-  // --- Debounce helper ---
-    function debounce(fn, delay = 250) {
-    let timer;
-    return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
 
-// --- Advanced search ---
-function setupAdvancedSearch() {
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput) return;
-    const searchFn = debounce(() => {
-        const query = searchInput.value.toLowerCase();
-        const cards = document.querySelectorAll("#cardsContainer section");
-        let visibleCount = 0;
-        cards.forEach(card => {
-            const text = card.textContent.toLowerCase();
-            if (text.includes(query)) {
-                card.style.display = "";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        // Optional: show "No results" placeholder
-        let noResults = document.getElementById("noResultsPlaceholder");
-        if (!noResults) {
-            noResults = document.createElement("p");
-            noResults.id = "noResultsPlaceholder";
-            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
-            noResults.textContent = "No matching cards found.";
-            cardsContainer.parentNode.appendChild(noResults);
-        }
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-    }, 200);
-
-    searchInput.addEventListener("input", searchFn);
-}
-
-// --- Reset button ---
-function addSearchResetButton() {
-    const searchWrapper = document.getElementById("searchWrapper");
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput || !searchWrapper) return;
-
-    const resetBtn = document.createElement("button");
-    resetBtn.textContent = "Reset";
-    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
-    resetBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
-        const noResults = document.getElementById("noResultsPlaceholder");
-        if (noResults) noResults.style.display = "none";
-    });
-
-    searchWrapper.appendChild(resetBtn); // append inside the flex container
-}
-  </script></p>
           </div>
         </section>
       <!-- ============================= -->
@@ -1656,7 +1601,7 @@ function addSearchResetButton() {
 
           <div class="card-inner">
             <h1>Outlines</h1>
-            <p><img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></p>
+            <p><img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Temporarily on the Main Stage (Card 1)<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></p>
             <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">        </div>
 </p>
           </div>
@@ -1697,7 +1642,7 @@ function addSearchResetButton() {
         </div>
       </section>
         
-      <section id="bibleCard" class="card">
+      <section id="prepperCard" class="card">
  <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
@@ -1710,7 +1655,7 @@ function addSearchResetButton() {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 13</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Coming Soon
+                Be Ready- Emergency Preparedness
               </h2>
             </div>
  
@@ -1723,11 +1668,74 @@ function addSearchResetButton() {
           <div class="p-6 text-center text-slate-300 text-sm">
 
         <div class="card-inner">
-          <h1>Bible</h1>
-          <p>Bible content</p>
-          <p>paste content here</p>
-        </div>
+🧭 Prepper Library- The largest one on the internet!
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center mb-4">
+    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  </p>
+
+  <div class="prepper-shelf">
+    <div class="prepper-item">
+      <span class="prepper-icon">💧</span>
+      <div>
+        <div class="prepper-title">Water Storage & Purification</div>
+        <div class="prepper-meta">PDF • Water • Essentials</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🩺</span>
+      <div>
+        <div class="prepper-title">Field First Aid Manual</div>
+        <div class="prepper-meta">PDF • Medical • Trauma</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🔥</span>
+      <div>
+        <div class="prepper-title">Off-Grid Heating & Cooking</div>
+        <div class="prepper-meta">PDF • Shelter • Energy</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">📻</span>
+      <div>
+        <div class="prepper-title">Emergency Communications</div>
+        <div class="prepper-meta">PDF • Radio • Signals</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+ 
+  </div>
+<div class="prepper-frame">
+  <aside class="prepper-sidebar">
+    <!-- existing sidebar HTML (list of PDFs) -->
+    <h1 class="text-2xl font-bold mb-4">8TB of PDF Folders</h1>
+
+    <ul id="folder-list" class="p-2"></ul>
+  </aside>
+
+  <main class="prepper-viewer">
+    <!-- existing PDF render area -->
+    <h1 class="text-2xl font-bold mb-4">PDF Library</h1>
+    <div id="pdf-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </main>
+</div>
+<div class="flex h-screen overflow-hidden">
+
+  <!-- Main content -->
+  <main class="flex-1 overflow-y-auto p-4">
+
+  </main>
+</div>
+   
       </section>
+</section>  
        <!-- ============================= -->
       <!-- Card 14: Prezi / Placeholder   -->
       <!-- ============================= -->       
@@ -1771,12 +1779,13 @@ function addSearchResetButton() {
     <div id="preziTitle"></div>
     <button id="preziNextBtn">Next ▶</button>
   </footer>
+<div>
 </section>
 
        <!-- ============================= -->
       <!-- Card 15: Multimap / Placeholder   -->
       <!-- ============================= -->       
-      <section id="mapViewsCard" class="card">
+      <section id="mapViewCard" class="card">
  <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
@@ -1949,159 +1958,447 @@ function addSearchResetButton() {
 
 </section>
 
-       <!-- ============================= -->
-      <!-- Card 16: Multimap / Placeholder   -->
-      <!-- ============================= -->       
-      <section id="mapViewsCard" class="card">
- <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
-              ‹
-            </button>
+      </div><!-- cardsRow -->
+    </div><!-- viewport -->
+<script>
+
+    // Initialize map
+    const map = L.map("map").setView([39.5, -98.35], 4);
+
+    // Base layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+
+    // Cluster group
+    const markers = L.markerClusterGroup();
+
+    // Load your GeoJSON
+    fetch("./HomeGroupsMap.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then((data) => {
+        data.features.forEach((feature, idx) => {
+          const coordsStr = feature.properties.Coordinates;
+          if (!coordsStr) {
+            console.warn`(Feature ${idx} missing Coordinates)`;
+            return;
+          }
+          const coords = coordsStr.split(",").map(Number);
+          if (coords.length < 2) {
+            console.warn`(Feature ${idx} has invalid Coordinates)`;
+            return;
+          }
+          const [lon, lat] = coords;
+
+          // Create marker using coordinates
+          const marker = L.marker([lat, lon]);
+
+          // Bind popup (name + optional extra info)
+          marker.bindPopup(
+            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
+          );
+
+          markers.addLayer(marker);
+        });
+
+        // Add cluster group to map
+        map.addLayer(markers);
+      })
+      .catch((err) => console.error("Error loading GeoJSON:", err));
+
+ // Optional: locate me button logic
+  
+<!-- new locateme -->
+  function onLocationFound(e) {
+    var radius = e.accuracy;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
+  function onLocationError(e) {
+    alert(e.message);
+}
+
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 12);
+      L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup("📍 You are here. Zoom out.")
+        .openPopup();
+    });
+  
+
+  // Dummy food layer
+  const foodLayer = L.layerGroup([
+    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
+    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
+    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
+  ]).addTo(map);
+
+  // Search
+  document.getElementById("searchBtn").addEventListener("click", async () => {
+    const query = prompt("Enter a place or address:");
+    if (!query) return;
+
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
  
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 16</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Be Ready- Emergency Preparedness 
+      const data = await res.json();
 
-              </h2>
-            </div>
- 
-            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
-              ›
-            </button>
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
-            <div class="card-inner">
-  <h2 class="text-xl font-bold text-center mb-3 tracking-wide">
-    🧭 Prepper Library
-  </h2>
+      if (data.length) {
+        const { lat, lon, display_name } = data[0];
+        const latLng = [parseFloat(lat), parseFloat(lon)];
+        map.setView(latLng, 14);
+        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+      } else {
+        alert("Place not found");
+      }
+    } catch (err) {
+      console.error("Search failed:", err);
+    }
+  });
 
-  <p class="text-sm text-slate-300 text-center mb-4">
-    Field manuals, emergency guides, and survival references- EVERYTHING you need
-  </p>
+// Filter zipcode logic
+document.getElementById("zipBtn").addEventListener("click", () => {
+  const zip = document.getElementById("zipInput").value.trim();
+  if (!zip) return;
+  const filtered = markerData.filter(item => item.zipcode === zip);
+  renderMarkers(filtered);
+  if (filtered.length > 0) {
+    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
+  }
+});
 
-  <div class="prepper-shelf">
-    <div class="prepper-item">
-      <span class="prepper-icon">💧</span>
-      <div>
-        <div class="prepper-title">Water Storage & Purification</div>
-        <div class="prepper-meta">PDF • Water • Essentials</div>
-      </div>
-    </div>
+</script>
 
-    <div class="prepper-item">
-      <span class="prepper-icon">🩺</span>
-      <div>
-        <div class="prepper-title">Field First Aid Manual</div>
-        <div class="prepper-meta">PDF • Medical • Trauma</div>
-      </div>
-    </div>
+<script>
+const videoBtn = document.getElementById("openVideoBtn");
+const overlay = document.getElementById("videoOverlay");
+const closeBtn = document.getElementById("closeVideo");
 
-    <div class="prepper-item">
-      <span class="prepper-icon">🔥</span>
-      <div>
-        <div class="prepper-title">Off-Grid Heating & Cooking</div>
-        <div class="prepper-meta">PDF • Shelter • Energy</div>
-      </div>
-    </div>
+videoBtn?.addEventListener("click", () => overlay.classList.remove("hidden"));
+closeBtn?.addEventListener("click", () => overlay.classList.add("hidden"));
+</script>
+<script>
+document.getElementById("openScriptureBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+   e.stopImmediatePropagation();
 
-    <div class="prepper-item">
-      <span class="prepper-icon">📻</span>
-      <div>
-        <div class="prepper-title">Emergency Communications</div>
-        <div class="prepper-meta">PDF • Radio • Signals</div>
-      </div>
-    </div>
-  </div>
+  window.open(
+    "./scripture/english/week1.html",
+    "ScriptureReader",
+    "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+  );
+});
+</script>
+<script>
+document.getElementById("openAnnouncementsBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+   e.stopImmediatePropagation();
 
-  <div class="text-xs text-slate-400 text-center mt-4 italic">
-    Library rendering coming soon…
-  </div>
-</div>
-</section>
+  window.open(
+    "listen.html",
+    "ScriptureReader",
+    "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+  );
+});
+</script>
 
-       <!-- ============================= -->
-      <!-- Card 17: Multimap / Placeholder   -->
-      <!-- ============================= -->       
-      <section id="QuizCard" class="card">
- <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
-              ‹
-            </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 17</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Quizes- Know Your Stuff 
 
-              </h2>
-            </div>
- 
-            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
-              ›
-            </button>
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
+<script>
+  // Load JSON index
+  let pdfIndex = {};
+  fetch('data/flat_index.json')
+    .then(res => res.json())
+    .then(data => {
+      pdfIndex = data;
+      renderFolders(data.folderMap);
+      renderPDFs(data.files);
+    });
 
-<div class="card-inner">
-  <h2 class="text-xl font-bold text-center mb-2 tracking-wide">
-    📘 Study Check
-  </h2>
+  // Render sidebar folders
+  function renderFolders(folderMap) {
+    const folderList = document.getElementById('folder-list');
+    folderList.innerHTML = '';
+    for (const key in folderMap) {
+      const folder = folderMap[key];
+      const li = document.createElement('li');
+      li.className = 'p-2 hover:bg-gray-700 rounded cursor-pointer';
+      li.textContent = `${folder.path} (${folder.pdfCount})`;
+      li.onclick = () => filterFolder(folder.path);
+      folderList.appendChild(li);
+    }
+  }
 
-  <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
-    Thoughtful questions designed to test understanding, not speed.
-    These are for reflection, discussion, and honest self-assessment.
-  </p>
+  // Render PDF cards
+  let currentPDFs = [];
+  function renderPDFs(files) {
+    currentPDFs = files;
+    const pdfContainer = document.getElementById('pdf-cards');
+    pdfContainer.innerHTML = '';
+    files.forEach(file => {
+      const card = document.createElement('div');
+      card.className = 'bg-white p-4 rounded shadow hover:shadow-lg transition';
+      card.innerHTML = `
+        <h2 class="font-bold text-lg">${file.name}</h2>
+        <p class="text-sm text-gray-600">${file.category || ''}</p>
+        <p class="text-sm text-gray-600">Pages: ${file.pdfPages || 'N/A'}</p>
+        <p class="text-sm text-gray-600">Modified: ${file.modified ? new Date(file.modified).toLocaleDateString() : 'N/A'}</p>
+        <button class="mt-2 bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700" onclick="playPDF('${file.path}')">Read</button>
+      `;
+      pdfContainer.appendChild(card);
+    });
+  }
 
-  <div class="quiz-stack">
-    <div class="quiz-item">
-      <div class="quiz-question">
-        What is the biblical meaning of “repentance,” and how does it differ from regret?
-      </div>
-      <div class="quiz-meta">Doctrine • Foundations</div>
-    </div>
+  // Filter by folder
+  function filterFolder(folderPath) {
+    const filtered = pdfIndex.files.filter(f => f.path.startsWith(folderPath));
+    renderPDFs(filtered);
+  }
+</script>
 
-    <div class="quiz-item">
-      <div class="quiz-question">
-        In Scripture, is faith presented as belief alone, or belief expressed through action?
-      </div>
-      <div class="quiz-meta">Faith & Works • Theology</div>
-    </div>
+<script>
+  // --- Debounce helper ---
+    function debounce(fn, delay = 250) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
 
-    <div class="quiz-item">
-      <div class="quiz-question">
-        How did the early ekklesia understand community, authority, and accountability?
-      </div>
-      <div class="quiz-meta">Church History • Ekklesia</div>
-    </div>
+// --- Advanced search ---
+function setupAdvancedSearch() {
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput) return;
+    const searchFn = debounce(() => {
+        const query = searchInput.value.toLowerCase();
+        const cards = document.querySelectorAll("#cardsContainer section");
+        let visibleCount = 0;
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(query)) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
 
-    <div class="quiz-item">
-      <div class="quiz-question">
-        What is the difference between commandments given to Israel and instructions given to believers?
-      </div>
-      <div class="quiz-meta">Law • Covenant</div>
-    </div>
-  </div>
+        // Optional: show "No results" placeholder
+        let noResults = document.getElementById("noResultsPlaceholder");
+        if (!noResults) {
+            noResults = document.createElement("p");
+            noResults.id = "noResultsPlaceholder";
+            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
+            noResults.textContent = "No matching cards found.";
+            cardsContainer.parentNode.appendChild(noResults);
+        }
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+    }, 200);
 
-  <div class="text-xs text-slate-400 text-center mt-4 italic">
-    Interactive quizzes coming soon…
-  </div>
-</div>
+    searchInput.addEventListener("input", searchFn);
+}
 
-</section>
+// --- Reset button ---
+function addSearchResetButton() {
+    const searchWrapper = document.getElementById("searchWrapper");
+    const searchInput = document.getElementById("advancedsearchInput");
+    if (!searchInput || !searchWrapper) return;
 
+    const resetBtn = document.createElement("button");
+    resetBtn.textContent = "Reset";
+    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
+    resetBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
+        const noResults = document.getElementById("noResultsPlaceholder");
+        if (noResults) noResults.style.display = "none";
+    });
+
+    searchWrapper.appendChild(resetBtn); // append inside the flex container
+}
+  </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  let questions = [];
+  let currentIndex = 0;
+
+  // Load questions from JSON
+  async function loadQuestions() {
+    try {
+      const res = await fetch("./bible_questions.json");
+      questions = await res.json();
+      if (!questions.length) {
+        document.getElementById("questionsCard").innerText = "No questions found.";
+        return;
+      }
+      showQuestion();
+    } catch (err) {
+      console.error(err);
+      document.getElementById("questionsCard").innerText = "Failed to load questions.";
+    }
+  }
+
+            function showQuestion() {
+                currentIndex = Math.floor(Math.random() * questions.length);
+                const q = questions[currentIndex];
+                const card = document.getElementById("questionsCard");
+                const answerCard = document.getElementById("answerCard");
+                const answerText = document.getElementById("answerText");map
+
+
+    // Animate
+    card.style.transform = "scale(0.95)";
+    card.style.opacity = 0;
+    setTimeout(() => {
+      card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
+      card.style.transform = "scale(1)";
+      card.style.opacity = 1;
+      answerText.innerText = q.answer;
+      answerCard.classList.add("hidden");
+    }, 150);
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if (currentIndex < questions.length - 1) currentIndex++;
+    showQuestion();
+  });
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentIndex > 0) currentIndex--;
+    showQuestion();
+  });
+  document.getElementById("revealBtn").addEventListener("click", () => {
+    const answerCard = document.getElementById("answerCard");
+    answerCard.classList.toggle("hidden");
+  });
+
+  // Score logic
+  let scoreA = 0, scoreB = 0;
+  const elScoreA = document.getElementById("scoreA");
+  const elScoreB = document.getElementById("scoreB");
+  function updateScores() {
+    elScoreA.textContent = scoreA;
+    elScoreB.textContent = scoreB;
+  }
+  document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
+  document.getElementById("btnAdown").addEventListener("click", () => { if(scoreA>0) scoreA--; updateScores(); });
+  document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
+  document.getElementById("btnBdown").addEventListener("click", () => { if(scoreB>0) scoreB--; updateScores(); });
+
+  updateScores();
+  loadQuestions();
+});
+</script>
+<script>
+(function(){
+  // ---------- CONFIG: change paths if needed ----------
+  const audioFiles = {
+    up: 'assets/sounds/score-down.mp3',    // replace with your real path
+    down: 'assets/sounds/score-up.mp3' // replace with your real path
+  };
+
+  // ---------- Load audio objects safely ----------
+  const sounds = {};
+  for (const k of Object.keys(audioFiles)) {
+    try {
+      const a = new Audio();
+      a.src = audioFiles[k];
+      a.preload = 'auto';
+      a.load();
+      sounds[k] = a;
+    } catch (e) {
+      console.warn('Audio load failed for', k, e);
+    }
+  }
+
+
+  // ---------- playSound: try file then fallback ----------
+  function playSound(name) {
+    const a = sounds[name];
+    if (a && a.src) {
+      const p = a.play();
+      if (p && typeof p.then === 'function') {
+        p.catch(err => {
+          // autoplay blocked or file problem -> fallback beep
+          console.warn('Audio play failed, fallback to beep:', err);
+          beepFallback(name === 'up' ? 880 : 440, 0.12);
+        });
+      }
+      return;
+    }
+    // no audio file -> fallback
+    beepFallback(name === 'up' ? 880 : 440, 0.12);
+  }
+
+  // ---------- unlock audio on first user gesture (mobile) ----------
+  function unlockAudio() {
+    // resume WebAudio context if created
+    if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
+      window.__beepAudioCtx.resume().catch(()=>{});
+    }
+    // try to play & pause each HTMLAudio to unlock
+    Object.values(sounds).forEach(a => {
+      if (!a) return;
+      a.muted = true;
+      a.play().then(()=>{ a.pause(); a.muted = false; }).catch(()=>{ a.muted = false; });
+    });
+    document.removeEventListener('pointerdown', unlockAudio);
+    document.removeEventListener('touchstart', unlockAudio);
+  }
+  document.addEventListener('pointerdown', unlockAudio, { once: true });
+  document.addEventListener('touchstart', unlockAudio, { once: true });
+
+  // ---------- Score logic ----------
+  let scoreA = 0, scoreB = 0;
+  const elScoreA = document.getElementById('scoreA');
+  const elScoreB = document.getElementById('scoreB');
+
+  function updateScores() {
+    if (elScoreA) elScoreA.textContent = String(scoreA);
+    if (elScoreB) elScoreB.textContent = String(scoreB);
+  }
+
+  // ---------- Attach handlers safely (no crash if element missing) ----------
+  function button(id, cb) {
+    const el = document.getElementById(id);
+    if (!el) {
+      console.warn('Button not found:', id);
+      return;
+    }
+    el.addEventListener('click', cb);
+    // also support keyboard activation for accessibility
+    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
+  }
+
+  button('btnAup', () => { scoreA++; updateScores(); playSound('up'); });
+  button('btnAdown', () => { if (scoreA>0) scoreA--; updateScores(); playSound('down'); });
+
+  button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
+  button('btnBdown', () => { if (scoreB>0) scoreB--; updateScores(); playSound('down'); });
+
+  // Expose for debug
+  window._scoreboard = { getScores: () => ({scoreA,scoreB}), incA: ()=>{scoreA++;updateScores()}, incB: ()=>{scoreB++;updateScores()} };
+
+  // initial render
+  updateScores();
+})();
+</script>
 
 <script>
         /* ============================================================
@@ -2265,8 +2562,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-      </div><!-- cardsRow -->
-    </div><!-- viewport -->
+
 
     <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab.</div>
   </div>
@@ -2353,7 +2649,7 @@ document.addEventListener("DOMContentLoaded", () => {
          backdrop-blur
          shadow-md hover:shadow-cyan-500/30
          transition-all">
-  🔁 Flip
+  🔁 FlipOver
 </button>
     </div>
   </div>
@@ -2506,7 +2802,7 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
     constructor(options = {}) {
       this.viewport = document.getElementById(options.viewportId || "viewport");
       this.row = document.getElementById(options.rowId || "cardsRow");
-      this.cards = Array.from(this.row.children || []);
+      this.cards = Array.from(this.row.querySelectorAll(":scope > .card"));
       this.currentIndex = 0;
       this.startX = 0;
       this.currentTranslate = 0;
@@ -2593,7 +2889,10 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
     }
 
     showCard(cardId){
-      const idx = this.cards.findIndex(c => c.id === cardId);
+  // 🔑 resync cards with DOM order every time
+  this.cards = Array.from(this.row.querySelectorAll(":scope > .card"));
+
+  const idx = this.cards.findIndex(c => c.id === cardId);
       if (idx === -1) {
         console.warn("⚠ showCard: not found", cardId);
         return;
@@ -2635,14 +2934,14 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
       "mapCard": "Map",
       "podcast-card": "Podcast",
       "triviaCard": "Trivia",
-      "questionsCard": "Questions",
+      "quizCard": "Quizzes",
       "jsonContainer": "Cards",
       "searchCard": "Search",
       "outlinesCard": "Outlines",
       "mediaCard": "Media",
-      "bibleCard": "Bible",
-      "preziCard": "Prezi"
-      <!--"mapViewCard": "Multimap"-->
+      "prepperCard": "Preparedness",
+      "preziCard": "Prezis",
+      "mapViewCard": "Multimap"
 
     };
 
@@ -2715,5 +3014,13 @@ window.addEventListener("load", () => {
   <!--<script src="studyContentManager.js" defer></script>  -->
   <script src="js/articles.js" defer></script> 
   <script src="js/preziPlaylist.js" defer></script>
+
+<script>
+document.getElementById("todayBtn")?.addEventListener("click", () => {
+  console.log("TODAY clicked");
+  // later: open Today tile / drawer / overlay
+});
+</script>
+
 </body>
 </html>
