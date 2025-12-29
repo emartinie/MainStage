@@ -606,6 +606,109 @@
   border-radius: 0.5rem;
   background: #020617;
 }
+.time span {
+  font-size: 2rem; /* Make the numbers bigger */
+}
+
+.time {
+  padding: 1.5rem; /* Add a bit more padding so it’s nice and roomy */
+}
+
+#countdownWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 100vh; /* This makes it fill the full viewport height */
+  padding: 2.5rem;
+  background:
+    radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 60%),
+    rgba(2, 6, 23, 0.65);
+
+  box-shadow:
+    inset 0 0 120px rgba(0,0,0,0.75),
+    inset 0 0 40px rgba(56,189,248,0.25);
+    animation: glowPulse 4s ease-in-out infinite alternate;
+
+}
+
+  h1 {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    color: #fde68a;
+    text-shadow: 0 0 20px rgba(56,189,248,0.6);
+  }
+
+  #countdown {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+.time {
+  animation: glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 14px rgba(56,189,248,0.25); }
+  to   { box-shadow: 0 0 26px rgba(56,189,248,0.55); }
+}
+
+  .time {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56,189,248,0.6);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    min-width: 90px;
+    box-shadow: 0 0 18px rgba(56,189,248,0.35);
+  }
+
+  .time span {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+
+  .time label {
+    font-size: 1.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+
+.time {
+  animation: glowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from {
+    box-shadow: 0 0 14px rgba(56,189,248,0.25);
+  }
+  to {
+    box-shadow: 0 0 28px rgba(56,189,248,0.55);
+  }
+}
+
+.countdown-group {
+  margin-bottom: 2rem;
+}
+
+.countdown-group h2 {
+  margin-bottom: 0.75rem;
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(253,230,138,0.6);
+}
+
+.countdown {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 </style>
 </head>
 <body>
@@ -732,7 +835,8 @@ window.addEventListener("load", () => {
 <div id="weekInfo"></div>
 
   <div class="app">
-    <div id="tabBar" aria-hidden="false"></div>
+   <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab.</div>
+<div id="tabBar" aria-hidden="false"></div>
 
 <div class="jesus-tile">
   <div class="jesus-label">Who is Jesus?</div>
@@ -985,6 +1089,76 @@ window.addEventListener("load", () => {
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video> 
   <h3 class="text-xl font-bold mb-2">Next Holy Day: Pesach/ פֶּסַח (Passover) : Begins April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and April 8–9.. </h3>
+<button id="downloadBtn" style="
+  margin-top: 2.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(56,189,248,0.2);
+  border: 1px solid rgba(56,189,248,0.6);
+  color: #f8fafc;
+  font-size: 0.9rem;
+  cursor: pointer;
+  hover:drop-shadow-[0_0_8px_#0ff];
+">
+📸 Download and Share Image
+</button>
+<h3>Passover Begins In</h3>  <div class="countdown-group">
+    <div class="countdown" id="startCountdown">
+      <div class="time"><span id="startPDays">0</span><label>Days</label></div>
+      <div class="time"><span id="startPHours">0</span><label>Hours</label></div>
+      <div class="time"><span id="startPMinutes">0</span><label>Minutes</label></div>
+      <div class="time"><span id="startPSeconds">0</span><label>Seconds</label></div>
+    </div>
+  </div>
+
+  <div class="countdown-group">
+    <h2>Ends In</h2>
+    <div class="countdown" id="endCountdown">
+      <div class="time"><span id="endPDays">0</span><label>Days</label></div>
+      <div class="time"><span id="endPHours">0</span><label>Hours</label></div>
+      <div class="time"><span id="endPMinutes">0</span><label>Minutes</label></div>
+      <div class="time"><span id="endPSeconds">0</span><label>Seconds</label></div>
+    </div>
+
+
+
+<script>
+  // Adjust year if needed
+  const passoverStart = new Date("April 1, 2026 18:00:00").getTime();
+  const passoverEnd   = new Date("April 9, 2026 18:00:00").getTime();
+
+  function updateCountdown(targetTime, prefix) {
+    const now = Date.now();
+    const distance = targetTime - now;
+
+    if (distance <= 0) {
+      ["PDays","PHours","PMinutes","PSeconds"].forEach(unit => {
+        const el = document.getElementById(prefix + unit);
+        if (el) el.textContent = "0";
+      });
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    document.getElementById(prefix + "PDays").textContent = days;
+    document.getElementById(prefix + "PHours").textContent = hours;
+    document.getElementById(prefix + "PMinutes").textContent = minutes;
+    document.getElementById(prefix + "PSeconds").textContent = seconds;
+  }
+
+  function tick() {
+    updateCountdown(passoverStart, "start");
+    updateCountdown(passoverEnd, "end");
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+
 
 <section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">
 </section>
@@ -1164,6 +1338,8 @@ window.addEventListener("load", () => {
      
   </div></p>
           </div>
+  </div>
+</div>
         </section>
         
      <!-- ============================= -->
@@ -1369,31 +1545,37 @@ window.addEventListener("load", () => {
     <source src="videos/bg-motion.mp4" type="video/mp4">
   </video> -->
   <!-- Scoreboard -->
-  <div id="scoreBoard" class="border score-wrap flex justify-center gap-6 mb-6 class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
-    <div class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
-      <h3 class="border text-blue-400 font-bold mb-1">Team A</h3>
-      <div id="scoreA" class="border text-2xl font-extrabold text-white">0</div>
-      <div class="controls flex justify-center gap-2 mt-2">
-        <button id="btnAup" class="border btn btn-up">+1</button>
-        <button id="btnAdown" class="border btn btn-down">-1</button>
-      </div>
-    </div>
-    <div class="border team bg-gradient-to-b from-gray-800 to-charcoal-900 p-4 rounded-xl shadow-md w-36 text-center">
-      <h3 class="border text-blue-400 font-bold mb-1">Team B</h3>
-      <div id="scoreB" class="border text-2xl font-extrabold text-white">0</div>
-      <div class="controls flex justify-center gap-2 mt-2">
-        <button id="btnBup" class="border btn btn-up">+1</button>
-        <button id="btnBdown" class="border btn btn-down">-1</button>
-      </div>
-    </div>
-  </div>
+              <!-- Scoreboard -->
+              <div id="scoreBoard"
+                   class="border score-wrap flex justify-center gap-6 mb-6 relative rounded-3xl p-3 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
+                <div
+                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-36 text-center">
+                  <h3 class="border text-blue-400 font-bold mb-1">Team A</h3>
+                  <div id="scoreA" class="border text-2xl font-extrabold text-white">0</div>
+                  <div class="controls flex justify-center gap-2 mt-2">
+                    <button id="btnAup" class="border btn btn-up">+1</button>
+                    <button id="btnAdown" class="border btn btn-down">-1</button>
+                  </div>
+                </div>
+                <div
+                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-36 text-center">
+                  <h3 class="border text-blue-400 font-bold mb-1">Team B</h3>
+                  <div id="scoreB" class="border text-2xl font-extrabold text-white">0</div>
+                  <div class="controls flex justify-center gap-2 mt-2">
+                    <button id="btnBup" class="border btn btn-up">+1</button>
+                    <button id="btnBdown" class="border btn btn-down">-1</button>
+                  </div>
+                </div>
+              </div>
+
+
 
   <!-- Question Card -->
   <div id="questionsCard" class="relative rounded-3xl p-3 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-charcoal-900 text-2xl font-bold shadow-2xl">
     <!-- Background video -->
-   <!-- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
       <source src="videos/bg-motion.mp4" type="video/mp4">
-    </video> -->
+    </video> 
     Loading question...
   </div>
 
@@ -1958,6 +2140,437 @@ window.addEventListener("load", () => {
 
 </section>
 
+     <!-- ============================= -->
+      <!-- Card 16: OT In the NT  -->
+      <!-- ============================= -->
+        <section id="otCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+    <!-- Header (can clip) -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+              ‹
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 16</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                OT In the NT • ~430 Masoretic/ LXX quotes
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn text-slate-300 hover:text-white text-xl" title="Next card">
+              ›
+            </button>
+
+    </div> <!-- ✅ header CLOSED -->
+
+    <!-- Body (must breathe) -->
+
+
+          <div class="card-inner">
+ 📘 The List
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
+    Thoughtful questions designed to test understanding, not speed.
+    These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions divided by every chapter in the New Testament. 
+  </p>
+
+  <div class="quiz-stack">
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the biblical meaning of “repentance,” and how does it differ from regret?
+      </div>
+      <div class="quiz-meta">Doctrine • Foundations</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        In Scripture, is faith presented as belief alone, or belief expressed through action?
+      </div>
+      <div class="quiz-meta">Faith & Works • Theology</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        How did the early ekklesia understand community, authority, and accountability?
+      </div>
+      <div class="quiz-meta">Church History • Ekklesia</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the difference between commandments given to Israel and instructions given to believers?
+      </div>
+      <div class="quiz-meta">Law • Covenant</div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+    Interactive quizzes coming soon…
+  </div>
+          </div>
+        </section>
+
+     <!-- ============================= -->
+      <!-- Card 1: OT In the NT  -->
+      <!-- ============================= -->
+        <section id="otCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+    <!-- Header (can clip) -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 17</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                OT In the NT • ~430 Masoretic/ LXX quotes
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+
+    </div> <!-- ✅ header CLOSED -->
+
+    <!-- Body (must breathe) -->
+
+
+          <div class="card-inner">
+ 📘 The List
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
+    Thoughtful questions designed to test understanding, not speed.
+    These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions divided by every chapter in the New Testament. 
+  </p>
+
+  <div class="quiz-stack">
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the biblical meaning of “repentance,” and how does it differ from regret?
+      </div>
+      <div class="quiz-meta">Doctrine • Foundations</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        In Scripture, is faith presented as belief alone, or belief expressed through action?
+      </div>
+      <div class="quiz-meta">Faith & Works • Theology</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        How did the early ekklesia understand community, authority, and accountability?
+      </div>
+      <div class="quiz-meta">Church History • Ekklesia</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-question">
+        What is the difference between commandments given to Israel and instructions given to believers?
+      </div>
+      <div class="quiz-meta">Law • Covenant</div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+    Interactive quizzes coming soon…
+  </div>
+          </div>
+        </section>
+     <!-- ============================= -->
+      <!-- Card 18: alephbet  -->
+      <!-- ============================= -->
+        <section id="abCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+    <!-- Header (can clip) -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 18</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Hebrew • Learning to Read
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+
+    </div> <!-- ✅ header CLOSED -->
+
+    <!-- Body (must breathe) -->
+  <div class="card-inner">
+
+    <div class="text-center mb-4">
+      <div class="label-pill text-slate-400">Aleph-Bet</div>
+      <h2 class="text-xl font-bold text-cyan-300">
+        The Hebrew Alphabet
+      </h2>
+      <p class="text-sm text-slate-400 mt-1">
+        No rush. No pressure. Just familiarity.
+      </p>
+    </div>
+    
+    <!-- Horizontal pager -->
+    <div class="alephbet-strip">
+
+      <!-- Page 1 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">א</div>
+          <div class="name">Aleph</div>
+          <div class="sound">silent / breath</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ב</div>
+          <div class="name">Bet</div>
+          <div class="sound">b / v</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ג</div>
+          <div class="name">Gimel</div>
+          <div class="sound">g</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ד</div>
+          <div class="name">Dalet</div>
+          <div class="sound">d</div>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ה</div>
+          <div class="name">He</div>
+          <div class="sound">h</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ו</div>
+          <div class="name">Vav</div>
+          <div class="sound">v / o / u</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ז</div>
+          <div class="name">Zayin</div>
+          <div class="sound">z</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ח</div>
+          <div class="name">Chet</div>
+          <div class="sound">kh</div>
+        </div>
+        </div>
+      <!-- Page 3 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ט</div>
+          <div class="name">Tet</div>
+          <div class="sound">T</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">י</div>
+          <div class="name">Yod</div>
+          <div class="sound">Y</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">כ/ך</div>
+          <div class="name">Kaph</div>
+          <div class="sound">K / Kh</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ל</div>
+          <div class="name">Lamed</div>
+          <div class="sound">L</div>
+        </div>
+      </div>
+
+      <!-- Page 4 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">מ/ם</div>
+          <div class="name">Mem</div>
+          <div class="sound">M</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">נ/ן</div>
+          <div class="name">Nun</div>
+          <div class="sound">N/ן</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ס</div>
+          <div class="name">Samekh</div>
+          <div class="sound">S</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ע</div>
+          <div class="name">Aiyin</div>
+          <div class="sound">Silent / NG</div>
+        </div>
+      </div>
+
+      <!-- Page 5 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">פ/ף</div>
+          <div class="name">Pe</div>
+          <div class="sound">P / F</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">צ/ץ</div>
+          <div class="name">Tsadi</div>
+          <div class="sound">Ts</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ק</div>
+          <div class="name">Qof</div>
+          <div class="sound">K</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ר</div>
+          <div class="name">Resh</div>
+          <div class="sound">R</div>
+        </div>
+      </div>
+
+      <!-- Page 6 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ש</div>
+          <div class="name">Shin</div>
+          <div class="sound">Sh / S</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ת</div>
+          <div class="name">Tav</div>
+          <div class="sound">T</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-xs text-slate-500 text-center mt-4 italic">
+      You are not required to learn anything.  
+      Familiarity comes naturally.
+    </p>
+    </div>
+
+    <div class="text-center text-xs text-slate-500 mt-4">
+      Swipe slowly. Let it settle.
+
+    </div>
+  </div>
+</section>
+
+     <!-- ============================= -->
+      <!-- Card 19: AB  -->
+      <!-- ============================= -->
+        <section id="alephbetCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+    <!-- Header (can clip) -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 19</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Hebrew • Learning to Read
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+
+    </div> <!-- ✅ header CLOSED -->
+
+    <!-- Body (must breathe) -->
+  <div class="card-inner text-center">
+
+    <h2 class="text-lg font-semibold text-amber-200 mb-4">
+      The Alephbet
+    </h2>
+<div class="flex justify-center mt-4">
+  <button id="alephAudioBtn"
+          class="px-4 py-2 rounded-full text-sm
+                 bg-amber-500/20 border border-amber-400/40
+                 text-amber-200 hover:bg-amber-500/30 transition">
+    ▶ Play Alephbet Song
+  </button>
+</div>
+
+<audio id="alephAudio" preload="none">
+  <source src="./assets/sounds/heart-and-soul.mp3" type="audio/mpeg">
+</audio>
+<p></p>
+    <div id="alephbetViewer" class="flex items-center justify-center gap-6">
+      <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
+
+      <div id="alephCard"
+           class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+        <div id="alephLetter" class="aleph-letter mb-1">א</div>
+        <div id="alephName" class="text-lg text-amber-100">Aleph</div>
+        <div id="alephSound" class="text-xs text-amber-300 mt-1">
+          Silent / Ah
+        </div>
+      </div>
+
+      <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
+    </div>
+
+    <button id="alephPlay"
+      class="mt-4 text-xs text-amber-300 hover:text-white">
+      🔊 Hear pronunciation
+    </button>
+
+    <div class="text-xs text-slate-500 mt-3 italic">
+      Take your time. Let it settle.
+    </div>
+
+  </div>
+</section>
+
+
  
       </div><!-- cardsRow -->
     </div><!-- viewport -->
@@ -2304,20 +2917,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   let scoreA = 0, scoreB = 0;
   const elScoreA = document.getElementById("scoreA");
   const elScoreB = document.getElementById("scoreB");
+  const elScoreC = document.getElementById("scoreC");
   function updateScores() {
     elScoreA.textContent = scoreA;
     elScoreB.textContent = scoreB;
+    elScoreC.textContent = scoreC;
   }
   document.getElementById("btnAup").addEventListener("click", () => { scoreA++; updateScores(); });
   document.getElementById("btnAdown").addEventListener("click", () => { if(scoreA>0) scoreA--; updateScores(); });
   document.getElementById("btnBup").addEventListener("click", () => { scoreB++; updateScores(); });
   document.getElementById("btnBdown").addEventListener("click", () => { if(scoreB>0) scoreB--; updateScores(); });
+  document.getElementById("btnBup").addEventListener("click", () => { scoreC++; updateScores(); });
+  document.getElementById("btnBdown").addEventListener("click", () => { if(scoreC>0) scoreC--; updateScores(); });
 
   updateScores();
   loadQuestions();
 });
 </script>
 <script>
+
+
 (function(){
   // ---------- CONFIG: change paths if needed ----------
   const audioFiles = {
@@ -2377,14 +2996,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.addEventListener('touchstart', unlockAudio, { once: true });
 
   // ---------- Score logic ----------
-  let scoreA = 0, scoreB = 0;
-  const elScoreA = document.getElementById('scoreA');
-  const elScoreB = document.getElementById('scoreB');
+window._scores ??= { A: 0, B: 0, C: 0 };
 
-  function updateScores() {
-    if (elScoreA) elScoreA.textContent = String(scoreA);
-    if (elScoreB) elScoreB.textContent = String(scoreB);
-  }
+let scoreA = window._scores.A;
+let scoreB = window._scores.B;
+let scoreC = window._scores.C;
+
+
+function updateScores() {
+  window._scores.A = scoreA;
+  window._scores.B = scoreB;
+  window._scores.C = scoreC;
+
+  if (elScoreA) elScoreA.textContent = scoreA;
+  if (elScoreB) elScoreB.textContent = scoreB;
+  if (elScoreC) elScoreC.textContent = scoreC;
+}
 
   // ---------- Attach handlers safely (no crash if element missing) ----------
   function button(id, cb) {
@@ -2404,8 +3031,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   button('btnBup', () => { scoreB++; updateScores(); playSound('up'); });
   button('btnBdown', () => { if (scoreB>0) scoreB--; updateScores(); playSound('down'); });
 
+  button('btnCup', () => { scoreC++; updateScores(); playSound('up'); });
+  button('btnCdown', () => { if (scoreC>0) scoreC--; updateScores(); playSound('down'); });
+
   // Expose for debug
-  window._scoreboard = { getScores: () => ({scoreA,scoreB}), incA: ()=>{scoreA++;updateScores()}, incB: ()=>{scoreB++;updateScores()} };
+  window._scoreboard = { getScores: () => ({scoreA,scoreB,scoreC}), incA: ()=>{scoreA++;updateScores()}, incB: ()=>{scoreB++;updateScores()}, incC: ()=>{scoreC++;updateScores()} };
 
   // initial render
   updateScores();
@@ -2954,6 +3584,7 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
       "prepperCard": "Preparedness",
       "preziCard": "Prezis",
       "mapViewCard": "Multimap"
+      //"otCard": "OT Quotes"
 
     };
 
@@ -3033,6 +3664,21 @@ document.getElementById("todayBtn")?.addEventListener("click", () => {
   // later: open Today tile / drawer / overlay
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  html2canvas(document.getElementById("countdownWrapper"), {
+    scale: 2,
+    backgroundColor: null
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "homegroups-countdown.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
+</script>
+
 
 </body>
 </html>
