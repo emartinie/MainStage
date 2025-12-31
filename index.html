@@ -1073,7 +1073,12 @@ window.addEventListener("load", () => {
         </div>
 
 <div class="jesus-tile">
-  <div class="jesus-label">Coming Soon</div>
+  <div class="jesus-label">Open Scriptural Sources & Witnesses
+</div>
+<button id="open.SourcesBtn" class="sources-btn">
+    Open Sources  →
+  </button>
+</div>
 
   <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
 </div>
@@ -3089,6 +3094,19 @@ document.getElementById("openJesusBtn")?.addEventListener("click", (e) => {
 
   window.open(
     "jesus.html",
+    "ScriptureReader",
+    "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+  );
+});
+</script>
+
+<script>
+document.getElementById("open.SourcesBtn")?.addEventListener("click", (e) => {
+  e.preventDefault();
+   e.stopImmediatePropagation();
+
+  window.open(
+    "sources.html",
     "ScriptureReader",
     "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
   );
