@@ -834,6 +834,17 @@
     0 0 28px rgba(255, 180, 90, 0.35);
 }
 
+.study-link {
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  color: #e5e7eb;
+}
+.study-link:hover {
+  background: rgba(51, 65, 85, 0.3);
+}
+
 </style>
 </head>
 <body>
@@ -860,7 +871,100 @@ window.addEventListener("load", () => {
 <!-- ============================= -->
   <!-- Header / Week Selector        -->
   <!-- ============================= -->
-    <!-- HEADER -->
+   <!-- TODAY Overlay -->
+<div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
+<div>
+    <h2 class="text-xl font-semibold">Today</h2>
+    <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
+  </div>  
+<div
+    id="todayPanel"
+    class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+           w-[90%] max-w-md
+           bg-white dark:bg-slate-900
+           rounded-xl shadow-xl
+           p-6
+           opacity-0 scale-95 transition-all duration-300"
+  >
+    <h2 class="text-xl font-semibold mb-4">Today</h2>
+
+    
+    
+    <!-- Gentle Devotional (placeholder) -->
+<div class="mt-5">
+  <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
+  <p class="text-slate-300 leading-relaxed">
+    Ask God for light for the next step — not the whole staircase.
+    Let the Word be enough for today.
+  </p>
+
+    <!-- Scripture Block -->
+<div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
+  <p class="text-slate-300 text-sm mb-2">Today’s Scripture</p>
+
+  <p class="text-slate-200 font-medium">Psalm 119:105</p>
+  <p class="mt-2 italic text-slate-100 leading-relaxed">
+    “Your word is a lamp to my feet and a light to my path.”
+  </p>
+</div>
+    <p class="mt-2 text-sm text-slate-400">Psalm 119:105</p>
+
+<!-- Primary Action (placeholder only) -->
+<div class="mt-4">
+  <button
+    type="button"
+    class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
+    onclick="alert('Not wired yet — just a placeholder.')"
+  >
+    ▶ Listen
+  </button>
+  <p class="text-xs text-slate-500 mt-2 text-center">
+    Simple. Holy. No pressure.
+  </p>
+</div>
+
+
+</div>
+
+<!-- Go Deeper Toggle -->
+<div class="mt-5 pt-4 border-t border-slate-700">
+  <button
+    id="todayDeeperBtn"
+    type="button"
+    class="text-slate-300 hover:text-white text-sm underline"
+    onclick="document.getElementById('todayDeeper').classList.toggle('hidden')"
+  >
+    Go deeper →
+  </button>
+
+  <div id="todayDeeper" class="hidden mt-3 text-sm text-slate-300">
+    <ul class="space-y-2">
+      <li>
+        • <a class="text-blue-400 hover:text-blue-300 underline" href="nt.html" target="_blank">
+          NT Reader
+        </a>
+      </li>
+      <li>
+        • <a class="text-blue-400 hover:text-blue-300 underline" href="sources.html" target="_blank">
+          Ancient Sources
+        </a>
+      </li>
+      <li>
+        • <a class="text-blue-400 hover:text-blue-300 underline" href="intertext-quotes.html" target="_blank">
+          Intertext Quotes
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+    <button id="todayCloseBtn"
+      class="mt-6 text-sm text-blue-600 underline">
+      Close
+    </button>
+  </div>
+</div>
+ <!-- HEADER -->
   <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 gap-4">
       <div class="flex items-center gap-2">
@@ -949,7 +1053,7 @@ window.addEventListener("load", () => {
 
   <div class="app">
    
-<div id="tabBar" aria-hidden="false"></div>
+<!--<div id="tabBar" aria-hidden="false"></div>-->
 <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you know!</div>
 
 <div class="jesus-tile">
@@ -1188,33 +1292,38 @@ window.addEventListener("load", () => {
           <div class="p-6 text-center text-slate-300 text-sm">
 
           <div class="card-inner">
-            <h1>Study Content</h1>
-            <p>Paginated commentary or article view goes here.</p>
-            <p>paste content here</p>
-            <!-- 📖 Study Content / Commentary / Articles Card -->
-            <!-- 📖 Toggle Button -->
-            <div class="text-center mt-8">
-            <button id="toggleStudyBtn"
-            class="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 text-white font-semibold rounded-full shadow-lg
-           transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 text-glow">
-              📘 Show/Hide Study Content
-            </button>
-            </div>
+           <div class="space-y-4">
+  <h3 class="text-xl font-semibold">Study Content</h3>
 
-                <!-- The unified study content card -->
-                <div id="studyContent" 
-                class="p-4 bg-gray-800/60 text-gray-100 rounded-xl shadow-lg backdrop-blur-md
-            border border-cyan-600/30 max-w-full transition-all duration-500 ease-in-out opacity-0 scale-95 hidden">
-                <div id="contentInner"></div>
-                </div>
+  <p class="text-slate-400 text-sm">
+    Access study tools and reference material. You can enable or disable sections later.
+  </p>
 
-              <!-- Pagination controls -->
-              <div id="paginationControls" class="flex justify-between items-center mt-4 text-sm font-semibold"></div>
-                  <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                    Articles to Read
-                      </h3>
+  <div class="grid gap-3">
+    <a href="#" class="study-link">📖 Scripture Reader</a>
+    <a href="nt.html" class="study-link">🧠 NT Reader</a>
+    <a href="intertext-quotes.html" class="study-link">🔗 Intertext Quotations</a>
+    <a href="#" class="study-link">📝 Commentary</a>
+    <a href="sources.html" class="study-link">📚 Sources</a>
+  </div>
+</div>
                         </div>
                   </section>
+<script>
+function getStudyContext() {
+  const week = typeof getSelectedWeekNumber === "function"
+    ? getSelectedWeekNumber()
+    : 1;
+
+  return {
+    week,
+    // future:
+    // book,
+    // chapter,
+    // cardId
+  };
+}
+</script>
 
             <!-- ============================= -->
       <!-- Card 4: Prophecy Calendar     -->
@@ -2910,7 +3019,7 @@ const ALEPHBET = [
     letterEl.textContent = l.letter;
     nameEl.textContent   = l.name;
     soundEl.textContent  = l.sound;
-    if (audio) audio.pause();
+    if (audio) globalAudio.pause(audio);
     audio = new Audio(l.audio);
   }
 
@@ -2925,7 +3034,7 @@ const ALEPHBET = [
   };
 
   document.getElementById("alephPlay").onclick = () => {
-    if (audio) audio.play();
+    if (audio) globalAudio.play(audio);
   };
 
   render();
@@ -4137,6 +4246,49 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
     link.click();
   });
 });
+</script>
+<script>
+const todayDate = document.getElementById("todayDate");
+if (todayDate) {
+  const d = new Date();
+  todayDate.textContent = d.toLocaleDateString(undefined, {
+    weekday: "long", year: "numeric", month: "long", day: "numeric"
+  });
+}
+
+(function () {
+  const todayBtn = document.getElementById("todayBtn");
+  const todayOverlay = document.getElementById("todayOverlay");
+  const todayPanel = document.getElementById("todayPanel");
+  const todayCloseBtn = document.getElementById("todayCloseBtn");
+
+  if (!todayBtn || !todayOverlay || !todayPanel) return;
+
+  function openToday() {
+    todayOverlay.classList.remove("hidden");
+
+    requestAnimationFrame(() => {
+      todayPanel.classList.remove("opacity-0", "scale-95");
+      todayPanel.classList.add("opacity-100", "scale-100");
+    });
+  }
+
+  function closeToday() {
+    todayPanel.classList.remove("opacity-100", "scale-100");
+    todayPanel.classList.add("opacity-0", "scale-95");
+
+    setTimeout(() => {
+      todayOverlay.classList.add("hidden");
+    }, 250);
+  }
+
+  todayBtn.addEventListener("click", openToday);
+  todayCloseBtn?.addEventListener("click", closeToday);
+
+  todayOverlay.addEventListener("click", e => {
+    if (e.target === todayOverlay) closeToday();
+  });
+})();
 </script>
 
 
