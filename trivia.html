@@ -1069,7 +1069,7 @@ window.addEventListener("load", () => {
 
     <div id="viewport" role="region" aria-label="Main Stage viewport">
       <div id="cardsRow" class="cards-row">     
- <!-- ============================= -->
+      <!-- ============================= -->
       <!-- Card 7: Trivia                -->
       <!-- ============================= -->
       <section id="triviaCard" class="card">
@@ -1105,19 +1105,13 @@ Play together • Discuss • Learn
           <!-- Card body -->
           <div class="p-6 relative">
  
-<p class="text-sm text-slate-400 text-center mt-4">
-  Want to host this with friends? Share this page.
+
   <!-- Background video -->
- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+  <!--<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
-
-
-
-</div>
-
-                <div
-                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-500 text-center">
+  </video> -->
+<div> class="text-sm text-slate-400 text-center mt-4">
+  Want to host this with friends? Share this page.</div>
   <!-- Question Card -->
               <div id="questionsCard"
                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
@@ -1128,6 +1122,20 @@ Play together • Discuss • Learn
                 </video>
                 <span class="relative z-10">Loading question...</span>
               </div>
+                <h4 class="text-cyan-300 font-semibold mb-2">
+    How This Works
+  </h4>
+
+  <ul class="space-y-1">
+    <li>• Answer correctly <strong>without a hint</strong> → <span class="text-emerald-400 font-semibold">+2 points</span></li>
+    <li>• Use the Scripture hint → <span class="text-yellow-400 font-semibold">+1 point</span></li>
+    <li>• Reveal the answer → <span class="text-slate-400 font-semibold">no points, but you still learn</span></li>
+  </ul>
+
+  <p class="mt-3 text-slate-400 italic">
+    For Hints: give a Bible reference only. Then open the Scriptures and search it out.
+  </p>
+</div>
 
               <!-- Hint -->
               <div id="hintCard"
@@ -1163,7 +1171,7 @@ Play together • Discuss • Learn
 <div id="scoreboard-module" class="mt-6">
 
   <div class="flex justify-between items-center mb-3">
-    <h3 class="text-lg font-semibold text-cyan-300">Scoreboard</h3>
+    <h3 class="text-lg font-semibold text-cyan-300">Scoreboard- Type Your Name, Add Unlimited Teams/ People</h3>
     <button id="sb-add-team"
       class="px-3 py-1 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
       + Add Team
@@ -1171,14 +1179,12 @@ Play together • Discuss • Learn
   </div>
 
   <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
+<div id="triviaRules"
+     class="mt-4 p-4 rounded-2xl bg-slate-900/70 border border-slate-700/70 text-slate-300 text-sm leading-relaxed">
 
-</div>    </div>
 
-  </div>
+
           </div>
-        </section>
-
-
         </section>
 
 
