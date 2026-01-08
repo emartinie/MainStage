@@ -875,8 +875,8 @@ window.addEventListener("load", () => {
    <!-- TODAY Overlay -->
 <div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
 <div>
-    <h2 class="text-xl font-semibold">Today Only (relax)</h2>
-    <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
+    <h2 class="text-xl font-semibold">Today</h2>
+    
   </div>  
 <div
     id="todayPanel"
@@ -887,8 +887,8 @@ window.addEventListener("load", () => {
            p-6
            opacity-0 scale-95 transition-all duration-300"
   >
-    <h2 class="text-xl font-semibold mb-4">Today</h2>
-
+    <h2 class="text-xl font-semibold mb-4">Today Only (relax)</h2>
+    <p id="todayDate" class="text-slate-400 text-sm mt-1"></p><p id="todaySabbath" class="text-slate-300 text-sm mb-4"></p>
     
     
     <!-- Gentle Devotional (placeholder) -->
@@ -928,15 +928,7 @@ window.addEventListener("load", () => {
 
 
 </div>
-<script>
-document.getElementById("todayListenBtn")?.addEventListener("click", () => {
-  const player = document.getElementById("todayAudioPlayer");
-  if (!player) return;
 
-  player.src = "https://emartinie.github.io/MainStage/audio/Zack/GN1TLV.m4a"; // 👈 My son's file
-  player.play().catch(err => console.warn("Audio play failed:", err));
-});
-</script>
 
 <!-- Go Deeper Toggle -->
 <div class="mt-5 pt-4 border-t border-slate-700">
@@ -1069,7 +1061,7 @@ document.getElementById("todayListenBtn")?.addEventListener("click", () => {
 <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you know!</div>
 
 <div class="jesus-tile">
-  <div class="jesus-label">Who is Jesus?</div>
+  <div class="jesus-label">Who is Jesus? I want to mke sure you KNOW Him!</div>
 
   <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
 
@@ -1379,6 +1371,13 @@ function getStudyContext() {
   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/firevideos.mp4" type="video/mp4">
   </video> 
+
+   <!-- Calendar: Today (read-only) -->
+<div id="calendarToday" class="mb-6">
+<p class="text-slate-400 text-sm mt-1">
+  Next Sabbath begins Friday at sunset.
+</p>
+</div>
   <h3 class="text-xl font-bold mb-2 flex items-center">Next Holy Day: Pesach/ Passover (פֶּסַח) : Begins April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and April 8–9.. </h3><h2>Begins In</h2>
 <button id="downloadBtn" style="
   display: flex;
@@ -1454,9 +1453,6 @@ function getStudyContext() {
 </script>
 
 
-<section class="calendar-card bg-gray-900/80 backdrop-blur-lg text-white p-6 mx-auto max-w-6xl rounded-3xl shadow-2xl space-y-6">      <h4 class="font-semibold mb-2">Next Sabbath:</h4>
-      <p>Saturday, January 3rd - Starts Friday sunset, ends Saturday sunset</p>
-</section>
       <div class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
   <!-- Hero Header -->
   <header class="flex flex-col items-center gap-2 text-center">
@@ -2044,8 +2040,7 @@ Use any standard 1–75 Bingo card.
     </button>
   </div>
 <!-- Bible Bingo Rules -->
-<div class="mt-6 rounded-2xl border border-slate-700 bg-slate-900/70 p-5 shadow-xl">
-  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
+<div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
     Bible Bingo — How It Works
   </h3>
 
@@ -2112,7 +2107,7 @@ Play together • Discuss • Learn
    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
   </video>  
-<p> class="text-sm text-slate-400 text-center mt-4">
+<p class="text-sm text-slate-400 text-center mt-4">
   Want to host this with friends? Share this page.</p>
   <!-- Question Card -->
               <div id="questionsCard"
@@ -2172,10 +2167,14 @@ Play together • Discuss • Learn
 
 
 <!-- SCOREBOARD MODULE -->
+<!-- Bible Bingo Rules -->
+<div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
+    Scoreboard — How It Works
+  </h3>
 <div id="scoreboard-module" class="mt-6">
 
-  <div class="flex justify-between items-center mb-3">
-    <h3 class="text-lg font-semibold text-cyan-300">Scoreboard- Type Your Name, Add Unlimited Teams/ People</h3>
+  <div class="flex justify-between items-center mb-3 text-center">
+    <h3 class="text-lg font-semibold text-cyan-300">Type Your Name, Add Unlimited Teams/ People</h3>
     <button id="sb-add-team"
       class="px-3 py-1 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
       + Add Team
@@ -2186,7 +2185,7 @@ Play together • Discuss • Learn
 <div id="triviaRules"
      class="mt-4 p-4 rounded-2xl bg-slate-900/70 border border-slate-700/70 text-slate-300 text-sm leading-relaxed">
 
-
+</div>
 </div>
           </div>
         </section>
@@ -3103,9 +3102,7 @@ Play together • Discuss • Learn
   </button>
 </div>
 
-<audio id="alephAudio" preload="none">
-  <source src="./assets/sounds/heart-and-soul.mp3" type="audio/mpeg">
-</audio>
+
 <p></p>
     <div id="alephbetViewer" class="flex items-center justify-center gap-6">
       <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
@@ -4420,13 +4417,9 @@ window.addEventListener("load", () => {
   <script src="js/preziPlaylist.js" defer></script>
   <script src="js/bibleBingo.js" defer></script>
   <script src="js/hostMode.js" defer></script>
+  <script src="js/today.js" defer></script>
 
-<script>
-document.getElementById("todayBtn")?.addEventListener("click", () => {
-  console.log("TODAY clicked");
-  // later: open Today tile / drawer / overlay
-});
-</script>
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
 document.getElementById("downloadBtn").addEventListener("click", () => {
@@ -4441,49 +4434,7 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   });
 });
 </script>
-<script>
-const todayDate = document.getElementById("todayDate");
-if (todayDate) {
-  const d = new Date();
-  todayDate.textContent = d.toLocaleDateString(undefined, {
-    weekday: "long", year: "numeric", month: "long", day: "numeric"
-  });
-}
 
-(function () {
-  const todayBtn = document.getElementById("todayBtn");
-  const todayOverlay = document.getElementById("todayOverlay");
-  const todayPanel = document.getElementById("todayPanel");
-  const todayCloseBtn = document.getElementById("todayCloseBtn");
-
-  if (!todayBtn || !todayOverlay || !todayPanel) return;
-
-  function openToday() {
-    todayOverlay.classList.remove("hidden");
-
-    requestAnimationFrame(() => {
-      todayPanel.classList.remove("opacity-0", "scale-95");
-      todayPanel.classList.add("opacity-100", "scale-100");
-    });
-  }
-
-  function closeToday() {
-    todayPanel.classList.remove("opacity-100", "scale-100");
-    todayPanel.classList.add("opacity-0", "scale-95");
-
-    setTimeout(() => {
-      todayOverlay.classList.add("hidden");
-    }, 250);
-  }
-
-  todayBtn.addEventListener("click", openToday);
-  todayCloseBtn?.addEventListener("click", closeToday);
-
-  todayOverlay.addEventListener("click", e => {
-    if (e.target === todayOverlay) closeToday();
-  });
-})();
-</script>
 <div id="hostOverlay" style="display:none">
   <button id="exitHostOverlay">Exit</button>
 </div>
@@ -4517,5 +4468,16 @@ function present(html) {
   <div id="presentationContent"></div>
 </div>
 <audio id="todayAudioPlayer" preload="none"></audio>
+<audio id="alephAudio" preload="none">
+  <source src="./assets/sounds/heart-and-soul.mp3" type="audio/mpeg">
+</audio>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const calendarToday = document.getElementById("calendarToday");
+  if (calendarToday && window.Today) {
+    Today.render(calendarToday);
+  }
+});
+</script>
 </body>
 </html>
