@@ -875,7 +875,7 @@ window.addEventListener("load", () => {
    <!-- TODAY Overlay -->
 <div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
 <div>
-    <h2 class="text-xl font-semibold">Today</h2>
+    <h2 class="text-xl font-semibold">Today Only (relax)</h2>
     <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
   </div>  
 <div
@@ -908,17 +908,19 @@ window.addEventListener("load", () => {
     “Your word is a lamp to my feet and a light to my path.”
   </p>
 </div>
-    <p class="mt-2 text-sm text-slate-400">Psalm 119:105</p>
+    <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
 
 <!-- Primary Action (placeholder only) -->
 <div class="mt-4">
   <button
+    id="todayListenBtn"
     type="button"
     class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
-    onclick="alert('Not wired yet — just a placeholder.')"
+    onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')"
   >
     ▶ Listen
   </button>
+
   <p class="text-xs text-slate-500 mt-2 text-center">
     Simple. Holy. No pressure.
   </p>
@@ -926,6 +928,15 @@ window.addEventListener("load", () => {
 
 
 </div>
+<script>
+document.getElementById("todayListenBtn")?.addEventListener("click", () => {
+  const player = document.getElementById("todayAudioPlayer");
+  if (!player) return;
+
+  player.src = "https://emartinie.github.io/MainStage/audio/Zack/GN1TLV.m4a"; // 👈 My son's file
+  player.play().catch(err => console.warn("Audio play failed:", err));
+});
+</script>
 
 <!-- Go Deeper Toggle -->
 <div class="mt-5 pt-4 border-t border-slate-700">
@@ -1929,11 +1940,143 @@ https://widgetopia.io/widget/changeable-color-and-background-picture-copy6-s
       </section>
         
       <!-- ============================= -->
-      <!-- Card 7: Trivia                -->
+      <!-- Card 7: HostCard                -->
       <!-- ============================= -->
-      <section id="triviaCard" class="card">
+      <section id="hostCard" class="card">
         <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+<!-- ============================= -->
+      <!-- Card Bingo                -->
+      <!-- ============================= -->
+      <section id="bingoCard" class="card">
+        <div
+          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
+      <!-- Heroicon: Chevron Left -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">hostCard 7- Bingo</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                 Bingo– Auto Caller (Clean Core) 
+...Challenge to Play together • Discuss • Learn
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+          </div>
+ <div class="text-sm text-slate-400 text-center mt-4">
+  Want to host this with friends? Share this page.</div>
+          <!-- Card body -->
+          <div class="p-6 relative">
+ <div id="bingoCaller" class="text-center space-y-4">
+  <div id="bingoDisplay" class="text-4xl font-extrabold text-cyan-300">
+    Ready 
+  </div>
+<div id="bingoCurrent" class="text-6xl font-bold text-cyan-300 mb-4">
+  —
+🅱️🅸🅱️🅻🅴 Bingo
+</div>
+
+<div id="bingoHistory" class="flex flex-wrap gap-2 text-lg">
+</div>
+</div></div>
+
+
+
+
+  <!-- Background video -->
+ <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">
+  </video>
+
+
+<div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700">
+  <h3 class="text-lg font-semibold text-cyan-300 mb-2">
+    Bingo Cards & Call Control
+  </h3>
+<p class="text-slate-400 text-sm mb-3">
+    🖨️ Printable Cards (non-negotiable)
+	•	1 card
+	•	3 cards
+	•	6 cards
+	•	12 cards (serious players)
+Use any standard 1–75 Bingo card.  
+    Printable cards are available below if you need them. Bring your own Bingo cards or print ours — standard 75-ball BINGO rules apply. Cards are designed for standard bingo dobbers. 
+  </p>
+
+  <div class="flex flex-wrap gap-3">
+    <a href="https://emartinie.github.io/MainStage/assets/pdf/BingoCard.pdf" target="_blank"
+       class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
+      Card A (PDF)
+    </a>
+
+    <a href="/bingo/cards/Bible-Bingo-Card-2.pdf" target="_blank"
+       class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
+      Card B (PDF)
+    </a>
+
+    <a href="/bingo/cards/Bible-Bingo-Card-Set.pdf" target="_blank"
+       class="px-4 py-2 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-500">
+      6-Card Print Sheet
+    </a>
+
+  <div class="flex justify-center gap-4">
+    <button id="callNextBtn" class="px-4 py-2 bg-blue-600 text-white rounded">
+      Call Next
+    </button>
+
+
+    <button id="autoCallBtn" class="px-4 py-2 bg-emerald-600 text-white rounded">
+      Auto Call
+    </button>
+  </div>
+<!-- Bible Bingo Rules -->
+<div class="mt-6 rounded-2xl border border-slate-700 bg-slate-900/70 p-5 shadow-xl">
+  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
+    Bible Bingo — How It Works
+  </h3>
+
+  <ul class="text-slate-300 text-sm leading-relaxed space-y-2">
+    <li><strong>B</strong> → Numbers 1–15</li>
+    <li><strong>I</strong> → Numbers 16–30</li>
+    <li><strong>B</strong> → Numbers 31–45</li>
+    <li><strong>L</strong> → Numbers 46–60</li>
+    <li><strong>E</strong> → Numbers 61–75</li>
+  </ul>
+
+  <hr class="my-4 border-slate-700" />
+
+  <ul class="text-slate-300 text-sm leading-relaxed space-y-2">
+    <li>• Numbers are called randomly and never repeated.</li>
+    <li>• Players use their own Bingo cards (printed or handwritten).</li>
+    <li>• The app acts as the caller and scorekeeper only.</li>
+    <li>• No accounts, no syncing, no tracking.</li>
+    <li>• When you have Bingo, call it out clearly.</li>
+  </ul>
+
+  <p class="mt-4 text-slate-400 text-xs italic text-center">
+    Designed for groups, gatherings, and shared spaces.
+  </p>
+</div>
+
+</div>
+  </div>
+</div>
+
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
           <!-- Card header -->
           <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
@@ -1945,7 +2088,7 @@ https://widgetopia.io/widget/changeable-color-and-background-picture-copy6-s
     </button>
  
             <div class="text-center">
-              <div class="label-pill text-slate-400">Card 7</div>
+              <div class="label-pill text-slate-400">hostCard 7- Trivia</div>
               <h2 class="text-xl font-bold text-cyan-300">
                 Weekly Bible Trivia Challenge to
 Play together • Discuss • Learn
@@ -1966,11 +2109,11 @@ Play together • Discuss • Learn
  
 
   <!-- Background video -->
-  <!--<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+   <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
     <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> -->
-<div> class="text-sm text-slate-400 text-center mt-4">
-  Want to host this with friends? Share this page.</div>
+  </video>  
+<p> class="text-sm text-slate-400 text-center mt-4">
+  Want to host this with friends? Share this page.</p>
   <!-- Question Card -->
               <div id="questionsCard"
                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
@@ -2026,6 +2169,8 @@ Play together • Discuss • Learn
                 </div>
               </div>
 
+
+
 <!-- SCOREBOARD MODULE -->
 <div id="scoreboard-module" class="mt-6">
 
@@ -2042,7 +2187,7 @@ Play together • Discuss • Learn
      class="mt-4 p-4 rounded-2xl bg-slate-900/70 border border-slate-700/70 text-slate-300 text-sm leading-relaxed">
 
 
-
+</div>
           </div>
         </section>
         
@@ -4273,6 +4418,8 @@ window.addEventListener("load", () => {
   <!--<script src="studyContentManager.js" defer></script>  -->
   <script src="js/articles.js" defer></script> 
   <script src="js/preziPlaylist.js" defer></script>
+  <script src="js/bibleBingo.js" defer></script>
+  <script src="js/hostMode.js" defer></script>
 
 <script>
 document.getElementById("todayBtn")?.addEventListener("click", () => {
@@ -4337,7 +4484,38 @@ if (todayDate) {
   });
 })();
 </script>
+<div id="hostOverlay" style="display:none">
+  <button id="exitHostOverlay">Exit</button>
+</div>
 
+<div id="hostOverlay" style="display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:9999; display:none; align-items:center; justify-content:center;">
+  <div style="text-align:center;">
+    <h1>Bible Ready</h1>
+    <button id="exitHostOverlay">Exit</button>
+  </div>
+</div>
+<script>
+function present(html) {
+  const screen = document.getElementById("presentationScreen");
+  const content = document.getElementById("presentationContent");
+  if (!screen || !content) return;
 
+  content.innerHTML = html;
+  screen.style.display = "flex";
+}
+</script>
+ <div id="presentationScreen" style="
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+">
+  <div id="presentationContent"></div>
+</div>
+<audio id="todayAudioPlayer" preload="none"></audio>
 </body>
 </html>
