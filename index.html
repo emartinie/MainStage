@@ -846,6 +846,27 @@
   background: rgba(51, 65, 85, 0.3);
 }
 
+.study-link {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(100,200,255,0.25);
+  color: #7dd3fc;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.study-link:hover {
+  background: rgba(0,0,0,0.6);
+  box-shadow: 0 0 12px rgba(0,255,255,0.4);
+  transform: scale(1.03);
+}
+
+
+
 </style>
 </head>
 <body>
@@ -1061,7 +1082,7 @@ window.addEventListener("load", () => {
 <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you know!</div>
 
 <div class="jesus-tile">
-  <div class="jesus-label">Who is Jesus? I want to mke sure you KNOW Him!</div>
+  <div class="jesus-label">Who is Jesus? I want to make sure you KNOW Him!</div>
 
   <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
 
@@ -1279,7 +1300,7 @@ window.addEventListener("load", () => {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 3</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Study Content Area
+                Study Hub- Study Content Area
               </h2>
             </div>
  
@@ -1312,6 +1333,62 @@ window.addEventListener("load", () => {
   </div>
 </div>
                         </div>
+
+
+    <!-- Intro -->
+    <div>
+      <h3 class="text-xl font-semibold text-cyan-300">More</h3>
+      <p class="text-slate-400 text-sm mt-1">
+        Scripture. Context. Understanding. No noise.
+      </p>
+    </div>
+
+    <!-- Scripture Focus -->
+    <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+      <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
+      <p class="text-slate-400 text-sm mb-3">
+        Start with the text itself — clear, structured, distraction-free.
+      </p>
+      <a href="nt.html" class="study-link">Open NT Reader</a>
+    </div>
+
+    <!-- Context & Cross-References -->
+    <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+      <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
+      <p class="text-slate-400 text-sm mb-3">
+        See how the New Testament quotes and reflects the Hebrew Scriptures.
+      </p>
+      <a href="intertext-quotes.html" class="study-link">View Intertext Quotations</a>
+    </div>
+
+    <!-- Commentary -->
+    <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+      <h4 class="text-slate-200 font-semibold mb-2">📝 Commentary</h4>
+      <p class="text-slate-400 text-sm mb-3">
+        Deeper insights and teaching material (when you're ready).
+      </p>
+      <a href="#" class="study-link opacity-50 cursor-not-allowed">
+        Commentary (Coming Soon)
+      </a>
+    </div>
+
+    <!-- Sources -->
+    <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+      <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
+      <p class="text-slate-400 text-sm mb-3">
+        Ancient witnesses, textual references, and historical sources.
+      </p>
+      <a href="sources.html" class="study-link">Open Sources</a>
+    </div>
+
+    <!-- Gentle Footer -->
+    <div class="text-xs text-slate-500 italic">
+      “Let the Word speak first.”
+    </div>
+
+  </div>
+
+</div>
                   </section>
 <script>
 function getStudyContext() {
@@ -1516,7 +1593,7 @@ function getStudyContext() {
       <p>🌙 Moon Phase: Waxing Crescent</p>
       <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
       <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
-https://widgetopia.io/widget/changeable-color-and-background-picture-copy6-s
+ 
 
       <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ 12 Tribes</h3>
       <p>-Judah: Often associated with Leo, the royal lion, based on Genesis 49:9.
@@ -1927,8 +2004,37 @@ https://widgetopia.io/widget/changeable-color-and-background-picture-copy6-s
                 </button>
                 <span class="text-gray-400 text-xs mt-1">45 min</span>
 
-<iframe src="https://www.youtube.com/embed/?listType=user_uploads&list=HomeGroups.Org" width="480" height="400"></iframe>
+<div class="space-y-6 text-slate-300">
 
+  <h3 class="text-xl font-semibold text-cyan-300">
+    Fireside Teaching
+  </h3>
+
+  <p class="text-slate-400 text-sm">
+    A quiet space for Scripture-centered reflection. No rush. No pressure.
+  </p>
+
+  <div class="bg-slate-950/50 border border-slate-700 rounded-xl p-5 space-y-3">
+    <p class="text-sm text-slate-400">Featured Teaching</p>
+
+    <h4 class="text-lg font-medium text-white">
+      Walking in the Light
+    </h4>
+
+    <p class="text-slate-300 text-sm leading-relaxed">
+      A short reflection on Psalm 119:105 and learning to take the next step with God.
+    </p>
+
+    <button class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium">
+      ▶ Listen by the Fire
+    </button>
+  </div>
+
+  <p class="text-xs text-slate-500 text-center italic">
+    “Come, let us reason together.”
+  </p>
+
+</div>
               </div>
             </div>
           </div>
@@ -2433,10 +2539,49 @@ Play together • Discuss • Learn
           <div class="p-6 text-center text-slate-300 text-sm">
 
           <div class="card-inner">
-            <h1>Media</h1>
-          <p>Media & player</p>
           <p><div id="fp-hero-glass-root"></div></p>
           <div id="floating-player-root"></div>
+<div class="p-6 space-y-6 text-slate-200">
+
+  <!-- Fireside intro -->
+  <div class="text-center space-y-2">
+    <h3 class="text-xl font-semibold text-amber-300">Fireside Media</h3>
+    <p class="text-sm text-slate-400">
+      A quiet place to listen, reflect, and rest.
+    </p>
+  </div>
+
+  <!-- Docked Player Area -->
+  <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-4">
+    <p class="text-xs text-slate-400 mb-2">Now Playing</p>
+    <div id="mediaPlayerDock">
+      <!-- Your floating player can be moved here -->
+      <p class="text-slate-500 italic text-sm">Select something to listen to.</p>
+    </div>
+  </div>
+
+  <!-- Featured Content -->
+  <div class="space-y-3">
+    <h4 class="text-sm font-semibold text-slate-300">Featured</h4>
+
+    <button class="w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+      🎧 Quiet Worship Set
+    </button>
+
+    <button class="w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+      🔥 Fireside Teaching
+    </button>
+  </div>
+
+  <!-- Mood Filters -->
+  <div class="flex flex-wrap gap-2 justify-center pt-2">
+    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Worship</button>
+    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Teaching</button>
+    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Documentaries</button>
+    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Movies</button>
+  </div>
+
+</div>
         </div>
       </section>
         
@@ -3130,6 +3275,147 @@ Play together • Discuss • Learn
 
   </div>
 </section>
+
+       <!-- ============================= -->
+      <!-- Card 19: Main Stage           -->
+      <!-- ============================= -->
+      <section id="newCard" class="card">
+        <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+               
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 19</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Main Stage • Weekly Study
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-5 space-y-5">
+
+ 
+            <!-- Hero video / floating player slot -->
+            <div class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+              <video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4" />
+              </video>
+ 
+              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                <p class="label-pill text-sky-300/90">
+  <marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+  </marquee>
+                   <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
+                </p>
+                <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
+                  Weekly Bible Study
+                </h3>
+                <p id="mainStageSub" class="text-sm text-slate-200">
+                  English • Hebrew • Greek (Phase 2) – Audio + Visual
+                </p> <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: right;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+  <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+  <video controls class="max-w-[90%] max-h-[90%]">
+    <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+  </video>
+</div>
+
+   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">    
+
+
+                </div>
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>AudioVisual Scriptures<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+              </div>
+            </div>
+ 
+            <!-- Open announcements and  controls -->
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button id="openAnnouncementsBtn"
+                      class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                🔁 Open Announcements
+              </button>
+              <button id="openPrayersBtn"
+                      class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                📖 Open Prayers
+              </button>
+                              <!-- Floating player root (existing JS can attach here) -->
+                <div id="floating-player-root" class="mt-2 w-full">
+                  <!-- player mounts here -->
+            </div>
+    
+
+
+
+    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
+</div>
+</p>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+  <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+<!-- Background video -->
+ <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">
+  </video> 
+
+    <div class="mb-4">
+
+    </div>
+                            <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
+
+            <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+          </div>
+
+        </div>
+
+<div class="jesus-tile">
+  <div class="jesus-label">Open Scriptural Sources & Witnesses
+</div>
+<button id="open.SourcesBtn" class="sources-btn">
+    Open Sources  →
+  </button>
+</div>
+
+  <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
+</div>
+
+    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
+</div>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+  <div id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+<!-- Background video -->
+ <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+    <source src="videos/bg-motion.mp4" type="video/mp4">
+  </video> 
+
+    <div class="mb-4">
+
+    </div>
+                            <h2 class="text-2xl font-bold flex items-center gap-2">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Updates<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
+
+    <div id="mainStageUpdates" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"><p><iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Feddie.martinie%2Fposts%2Fpfbid02m4f6mBnkY8nXKGztH3JSUF1qjnxxfev42GNg6BqYZozUjSqyJ2cCehDZXe1XcVHvl&show_text=true&width=700" width="700" height="700" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe></p>
+          </div>
+
+        </div>
+
+      </section>
+
 
       </div><!-- cardsRow -->
     </div><!-- viewport -->
