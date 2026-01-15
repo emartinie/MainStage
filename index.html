@@ -865,6 +865,59 @@
   transform: scale(1.03);
 }
 
+/* Popup container */
+.leaflet-popup-content-wrapper {
+  background: #0f172a;   /* deep slate */
+  color: #e5e7eb;        /* light text */
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* Arrow */
+.leaflet-popup-tip {
+  background: #0f172a;
+}
+
+/* Text */
+.leaflet-popup-content {
+  color: #e5e7eb;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Name */
+.leaflet-popup-content strong {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* City */
+.leaflet-popup-content span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* Comment / note */
+.leaflet-popup-content p {
+  color: #e2e8f0;
+  margin-top: 6px;
+}
+
+/* Button */
+.leaflet-popup-content button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.leaflet-popup-content button:hover {
+  background: #1d4ed8;
+}
 
 
 </style>
@@ -1234,12 +1287,12 @@ window.addEventListener("load", () => {
         </div>
 
       </section>
- 
-      <!-- ============================= -->
-      <!-- Card 2: Future / Placeholder   -->
-      <!-- ============================= -->
-        <section id="articleList" class="card">
-           <div
+
+     <!-- ============================= -->
+      <!-- Card 2: NEWMap (Connecting Map)   -->
+      <!-- ============================= --> 
+     <section id="mapCard" class="card">
+        <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
           <!-- Card header -->
@@ -1254,7 +1307,7 @@ window.addEventListener("load", () => {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 2</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Articles
+                Community Map • Family Explorer
               </h2>
             </div>
  
@@ -1266,20 +1319,45 @@ window.addEventListener("load", () => {
     </button>
 
           </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
+        <!-- Card body -->
+          <div class="p-5 space-y-5">
 
-          <div class="card-inner">
-            <h1>Articles</h1>
-            <p>Article list placeholder — clicking an article should call the study/content loader.</p>
-            <p>OR, YOU CAN READ THE ARTICLES IN THE MODAL BY CLICKING THE BIBLE BUTTON IN THE HEADER.</p>
-            <!-- Articles list -->
-             <!-- <div id="articleList" class="flex flex-col gap-2 my-4"> -->
-                   <!-- Buttons will be generated dynamically -->
-               </div>
-          </div>
-        </section>
+  <div class="bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
+
+    <!-- Header -->
+    <div class="text-center px-6 py-4 border-b border-slate-700">
+      <h2 class="text-2xl font-semibold text-cyan-300"><input
+  id="mapSearch"
+  type="text"
+  placeholder="Search by name or city…"
+  class="w-full px-4 py-2 rounded-lg bg-slate-800 text-white border border-slate-600"
+/></h2>
+      <p class="text-slate-400 text-sm">You are not alone.</p>
+    </div>
+
+    <!-- Map -->
+    <div id="map" class="h-[420px] w-full"></div>
+
+    <!-- Footer / Invitation -->
+    <div class="p-5 text-center space-y-3 bg-slate-900/80 border-t border-slate-700">
+      <p class="text-slate-300 text-sm">
+        Find others who walk the same path.
+      </p>
+
+      <button id="joinMapBtn"
+  class="px-5 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+  onclick="openJoin()">
+  🤝 Join the Movement
+</button>
+
+      <p class="text-xs text-slate-500">
+        Your info stays private. You choose how to connect.
+      </p>
+    </div>
+
+  </div>
+</section>
+<?div>
       <!-- ============================= -->
       <!-- Card 3: Study / Placeholder   -->
       <!-- ============================= -->
@@ -1829,14 +1907,15 @@ function getStudyContext() {
 </div>
         </section>
         
+ 
      <!-- ============================= -->
-      <!-- Card 5: Map (1 Map)   -->
+      <!-- Card 5: AB  -->
       <!-- ============================= -->
-      <section id="mapCard" class="card">
+        <section id="alephbetCard" class="card">
         <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
  
-          <!-- Card header -->
+    <!-- Header (can clip) -->
           <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
             <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
       <!-- Heroicon: Chevron Left -->
@@ -1848,7 +1927,7 @@ function getStudyContext() {
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 5</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Map • Family Explorer
+                Language • Learning to Read & Write Biblical Hebrew
               </h2>
             </div>
  
@@ -1859,49 +1938,211 @@ function getStudyContext() {
       </svg>
     </button>
 
-          </div>
-        <!-- Card body -->
-          <div class="p-5 space-y-5">
 
-    <!-- Header -->
-    <header class="cosmic-header flex items-center justify-between border-b border-gray-700 justify-center mx-auto w-full">
-      <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Prophecy Map<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-      </h2>
-    </header>
+    </div> <!-- ✅ header CLOSED -->
 
-    <!-- Toolbar -->
-    <div class="toolbar flex flex-wrap items-center gap-2 p-4 bg-gray-800/70 border-b border-gray-700">
-      <button id="locateBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow">📍 My Location</button>
-      <button id="searchBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-green-600 hover:bg-green-500 text-white shadow">🔍 Search</button>
-      <button id="filtersBtn" class="cosmic-btn px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow">⚙️ Filters</button>
+    <!-- Body (must breathe) -->
+  <div class="card-inner text-center">
 
-      <div class="flex items-center gap-2">
-        <label for="zipInput" class="text-sm">Zip:</label>
-        <input id="zipInput" type="text" placeholder="Enter Zipcode" 
-               class="px-2 py-1 text-black rounded-lg border border-gray-400"/>
-        <button id="zipBtn" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg">Filter</button>
-        <button id="resetBtn" class="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white rounded-lg">Reset</button>
+    <h2 class="text-lg font-semibold text-amber-200 mb-4">
+      The Alephbet
+    </h2>
+<div class="flex justify-center mt-4">
+  <button id="alephAudioBtn"
+          class="px-4 py-2 rounded-full text-sm
+                 bg-amber-500/20 border border-amber-400/40
+                 text-amber-200 hover:bg-amber-500/30 transition">
+    ▶ Play Alephbet Song
+  </button>
+</div>
+
+
+<p></p>
+    <div id="alephbetViewer" class="flex items-center justify-center gap-6">
+      <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
+
+      <div id="alephCard"
+           class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+        <div id="alephLetter" class="aleph-letter mb-1">א</div>
+        <div id="alephName" class="text-lg text-amber-100">Aleph</div>
+        <div id="alephSound" class="text-xs text-amber-300 mt-1">
+          Silent / Ah
+        </div>
       </div>
+
+      <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
     </div>
 
-    <!-- Map Container -->
-    <div id="cosmic-map" class="flex-1 relative rounded-b-3xl">
-      <div id="map" class="min-h-[400px] rounded-b-3xl"></div>
+    <button id="alephPlay"
+      class="mt-4 text-xs text-amber-300 hover:text-white">
+      🔊 Hear pronunciation
+    </button>
+
+    <div class="text-xs text-slate-500 mt-3 italic">
+      Take your time. Let it settle.
     </div>
 
-    <!-- Footer -->
-    <footer class="cosmic-footer bg-gray-800/80 text-center text-white">
-      <p class="flex items-center justify-center gap-2 text-sm">
-        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-        ✨ Explore the universe of like-hearted believers in-gathering the scattered! ✨
-        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
+         <div class="text-center mb-4">
+      <div class="label-pill text-slate-400">Practice writing">
+        
+      </h2>
+      <p class="text-sm text-slate-400 mt-1">
+        No rush. No pressure. Just familiarity.
       </p>
-    </footer>
-  
-  </p>
-          </div>
-          </section>
+    </div>
+    
+    <!-- Horizontal pager -->
+    <div class="alephbet-strip">
+
+      <!-- Page 1 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">א</div>
+          <div class="name">Aleph</div>
+          <div class="sound">silent / breath</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ב</div>
+          <div class="name">Bet</div>
+          <div class="sound">b / v</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ג</div>
+          <div class="name">Gimel</div>
+          <div class="sound">g</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ד</div>
+          <div class="name">Dalet</div>
+          <div class="sound">d</div>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ה</div>
+          <div class="name">He</div>
+          <div class="sound">h</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ו</div>
+          <div class="name">Vav</div>
+          <div class="sound">v / o / u</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ז</div>
+          <div class="name">Zayin</div>
+          <div class="sound">z</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ח</div>
+          <div class="name">Chet</div>
+          <div class="sound">kh</div>
+        </div>
+        </div>
+      <!-- Page 3 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ט</div>
+          <div class="name">Tet</div>
+          <div class="sound">T</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">י</div>
+          <div class="name">Yod</div>
+          <div class="sound">Y</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">כ/ך</div>
+          <div class="name">Kaph</div>
+          <div class="sound">K / Kh</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ל</div>
+          <div class="name">Lamed</div>
+          <div class="sound">L</div>
+        </div>
+      </div>
+
+      <!-- Page 4 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">מ/ם</div>
+          <div class="name">Mem</div>
+          <div class="sound">M</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">נ/ן</div>
+          <div class="name">Nun</div>
+          <div class="sound">N/ן</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ס</div>
+          <div class="name">Samekh</div>
+          <div class="sound">S</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ע</div>
+          <div class="name">Aiyin</div>
+          <div class="sound">Silent / NG</div>
+        </div>
+      </div>
+
+      <!-- Page 5 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">פ/ף</div>
+          <div class="name">Pe</div>
+          <div class="sound">P / F</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">צ/ץ</div>
+          <div class="name">Tsadi</div>
+          <div class="sound">Ts</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ק</div>
+          <div class="name">Qof</div>
+          <div class="sound">K</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ר</div>
+          <div class="name">Resh</div>
+          <div class="sound">R</div>
+        </div>
+      </div>
+
+      <!-- Page 6 -->
+      <div class="alephbet-page">
+        <div class="letter-card">
+          <div class="hebrew">ש</div>
+          <div class="name">Shin</div>
+          <div class="sound">Sh / S</div>
+        </div>
+        <div class="letter-card">
+          <div class="hebrew">ת</div>
+          <div class="name">Tav</div>
+          <div class="sound">T</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-xs text-slate-500 text-center mt-4 italic">
+      You are not required to learn anything.  
+      Familiarity comes naturally.
+    </p>
+    </div>
+
+    <div class="text-center text-xs text-slate-500 mt-4">
+      Swipe slowly. Let it settle.
+
+    </div>
+  </div>
+
+  </div>
+</section>
       <!-- ============================= -->
       <!-- Card 6: Podcast / D-Cast      -->
       <!-- ============================= -->
@@ -2419,171 +2660,7 @@ Play together • Discuss • Learn
 </p>
           </div>
         </section>
-      <!-- ============================= -->
-      <!-- Card 10: Future / Placeholder   -->
-      <!-- ============================= -->        
-        <section id="searchCard" class="card">
-           <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 10</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Advanced Search & AI Functionality
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
 
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
-
-          <div class="card-inner">
-            <h1>Search</h1>
-            <p>Search UI</p>
- 
-
-          </div>
-        </section>
-      <!-- ============================= -->
-      <!-- Card 11: Outlines / Placeholder   -->
-      <!-- ============================= -->        
-        <section id="outlinesCard" class="card">
- <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 11</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Detailed Chapter Outlines
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
-
-          <div class="card-inner">
-            <h1>Outlines</h1>
-            <p><img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>Temporarily on the Main Stage (Card 1)<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></p>
-            <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">        </div>
-</p>
-          </div>
-        </section>
-       <!-- ============================= -->
-      <!-- Card 12: Media / Placeholder   -->
-      <!-- ============================= -->       
-        <section id="mediaCard" class="card">
-           <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 12</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Coming Back Soon- Media Card
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
-
-          <div class="card-inner">
-          <p><div id="fp-hero-glass-root"></div></p>
-          <div id="floating-player-root"></div>
-<div class="p-6 space-y-6 text-slate-200">
-
-  <!-- Fireside intro -->
-  <div class="text-center space-y-2">
-    <h3 class="text-xl font-semibold text-amber-300">Fireside Media</h3>
-    <p class="text-sm text-slate-400">
-      A quiet place to listen, reflect, and rest.
-    </p>
-  </div>
-
-  <!-- Docked Player Area -->
-  <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-4">
-    <p class="text-xs text-slate-400 mb-2">Now Playing</p>
-    <div id="mediaPlayerDock">
-      <!-- Your floating player can be moved here -->
-      <p class="text-slate-500 italic text-sm">Select something to listen to.</p>
-    </div>
-  </div>
-
-  <!-- Featured Content -->
-  <div class="space-y-3">
-    <h4 class="text-sm font-semibold text-slate-300">Featured</h4>
-
-    <button class="w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
-      🎧 Quiet Worship Set
-    </button>
-
-    <button class="w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
-      🔥 Fireside Teaching
-    </button>
-  </div>
-
-  <!-- Mood Filters -->
-  <div class="flex flex-wrap gap-2 justify-center pt-2">
-    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Worship</button>
-    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Teaching</button>
-    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Documentaries</button>
-    <button class="px-3 py-1 rounded-full bg-slate-800 text-xs">Movies</button>
-  </div>
-
-</div>
-        </div>
-      </section>
         
       <section id="prepperCard" class="card">
  <div
@@ -2599,7 +2676,7 @@ Play together • Discuss • Learn
     </button>
  
             <div class="text-center">
-              <div class="label-pill text-slate-400">Card 13</div>
+              <div class="label-pill text-slate-400">Card 10</div>
               <h2 class="text-xl font-bold text-cyan-300">
                 Be Ready- Emergency Preparedness
               </h2>
@@ -2687,7 +2764,7 @@ Play together • Discuss • Learn
       </section>
 </section>  
        <!-- ============================= -->
-      <!-- Card 14: Prezi / Placeholder   -->
+      <!-- Card 11: Prezi / Placeholder   -->
       <!-- ============================= -->       
       <section id="preziCard" class="card">
  <div
@@ -2703,7 +2780,7 @@ Play together • Discuss • Learn
     </button>
  
             <div class="text-center">
-              <div class="label-pill text-slate-400">Card 14</div>
+              <div class="label-pill text-slate-400">Card 11</div>
               <h2 class="text-xl font-bold text-cyan-300">
                 Presentations- ALL the Prezis here     <select id="preziCategorySelect"></select>
 
@@ -2740,7 +2817,7 @@ Play together • Discuss • Learn
 </section>
 
        <!-- ============================= -->
-      <!-- Card 15: Multimap / Placeholder   -->
+      <!-- Card 12: Multimap / Placeholder   -->
       <!-- ============================= -->       
       <section id="mapViewCard" class="card">
  <div
@@ -2756,7 +2833,7 @@ Play together • Discuss • Learn
     </button>
  
             <div class="text-center">
-              <div class="label-pill text-slate-400">Card 15</div>
+              <div class="label-pill text-slate-400">Card 12</div>
               <h2 class="text-xl font-bold text-cyan-300">
                 Multimap- ALL the Maps here 
 
@@ -2922,500 +2999,6 @@ Play together • Discuss • Learn
 
 </section>
 
-     <!-- ============================= -->
-      <!-- Card 16: OT In the NT  -->
-      <!-- ============================= -->
-        <section id="otCard" class="card">
-        <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-    <!-- Header (can clip) -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 16</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                OT In the NT • ~430 Masoretic/ LXX quotes
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-
-    </div> <!-- ✅ header CLOSED -->
-
-    <!-- Body (must breathe) -->
-
-
-          <div class="card-inner">
- 📘 The List
-  </h2>
-
-  <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
-    Thoughtful questions designed to test understanding, not speed.
-    These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions divided by every chapter in the New Testament. 
-  </p>
-
-  <div class="quiz-stack">
-    <div class="quiz-item">
-      <div class="quiz-question">
-        What is the biblical meaning of “repentance,” and how does it differ from regret?
-      </div>
-      <div class="quiz-meta">Doctrine • Foundations</div>
-    </div>
-
-    <div class="quiz-item">
-      <div class="quiz-question">
-        In Scripture, is faith presented as belief alone, or belief expressed through action?
-      </div>
-      <div class="quiz-meta">Faith & Works • Theology</div>
-    </div>
-
-    <div class="quiz-item">
-      <div class="quiz-question">
-        How did the early ekklesia understand community, authority, and accountability?
-      </div>
-      <div class="quiz-meta">Church History • Ekklesia</div>
-    </div>
-
-    <div class="quiz-item">
-      <div class="quiz-question">
-        What is the difference between commandments given to Israel and instructions given to believers?
-      </div>
-      <div class="quiz-meta">Law • Covenant</div>
-    </div>
-  </div>
-
-  <div class="text-xs text-slate-400 text-center mt-4 italic">
-    Interactive quizzes coming soon…
-  </div>
-          </div>
-        </section>
-     <!-- ============================= -->
-      <!-- Card 17: alephbet  -->
-      <!-- ============================= -->
-        <section id="abCard" class="card">
-        <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-    <!-- Header (can clip) -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 17</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Hebrew • Learning to Read
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-
-    </div> <!-- ✅ header CLOSED -->
-
-    <!-- Body (must breathe) -->
-  <div class="card-inner">
-
-    <div class="text-center mb-4">
-      <div class="label-pill text-slate-400">Aleph-Bet</div>
-      <h2 class="text-xl font-bold text-cyan-300">
-        The Hebrew Alphabet
-      </h2>
-      <p class="text-sm text-slate-400 mt-1">
-        No rush. No pressure. Just familiarity.
-      </p>
-    </div>
-    
-    <!-- Horizontal pager -->
-    <div class="alephbet-strip">
-
-      <!-- Page 1 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">א</div>
-          <div class="name">Aleph</div>
-          <div class="sound">silent / breath</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ב</div>
-          <div class="name">Bet</div>
-          <div class="sound">b / v</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ג</div>
-          <div class="name">Gimel</div>
-          <div class="sound">g</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ד</div>
-          <div class="name">Dalet</div>
-          <div class="sound">d</div>
-        </div>
-      </div>
-
-      <!-- Page 2 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">ה</div>
-          <div class="name">He</div>
-          <div class="sound">h</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ו</div>
-          <div class="name">Vav</div>
-          <div class="sound">v / o / u</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ז</div>
-          <div class="name">Zayin</div>
-          <div class="sound">z</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ח</div>
-          <div class="name">Chet</div>
-          <div class="sound">kh</div>
-        </div>
-        </div>
-      <!-- Page 3 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">ט</div>
-          <div class="name">Tet</div>
-          <div class="sound">T</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">י</div>
-          <div class="name">Yod</div>
-          <div class="sound">Y</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">כ/ך</div>
-          <div class="name">Kaph</div>
-          <div class="sound">K / Kh</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ל</div>
-          <div class="name">Lamed</div>
-          <div class="sound">L</div>
-        </div>
-      </div>
-
-      <!-- Page 4 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">מ/ם</div>
-          <div class="name">Mem</div>
-          <div class="sound">M</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">נ/ן</div>
-          <div class="name">Nun</div>
-          <div class="sound">N/ן</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ס</div>
-          <div class="name">Samekh</div>
-          <div class="sound">S</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ע</div>
-          <div class="name">Aiyin</div>
-          <div class="sound">Silent / NG</div>
-        </div>
-      </div>
-
-      <!-- Page 5 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">פ/ף</div>
-          <div class="name">Pe</div>
-          <div class="sound">P / F</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">צ/ץ</div>
-          <div class="name">Tsadi</div>
-          <div class="sound">Ts</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ק</div>
-          <div class="name">Qof</div>
-          <div class="sound">K</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ר</div>
-          <div class="name">Resh</div>
-          <div class="sound">R</div>
-        </div>
-      </div>
-
-      <!-- Page 6 -->
-      <div class="alephbet-page">
-        <div class="letter-card">
-          <div class="hebrew">ש</div>
-          <div class="name">Shin</div>
-          <div class="sound">Sh / S</div>
-        </div>
-        <div class="letter-card">
-          <div class="hebrew">ת</div>
-          <div class="name">Tav</div>
-          <div class="sound">T</div>
-        </div>
-      </div>
-
-    </div>
-
-    <p class="text-xs text-slate-500 text-center mt-4 italic">
-      You are not required to learn anything.  
-      Familiarity comes naturally.
-    </p>
-    </div>
-
-    <div class="text-center text-xs text-slate-500 mt-4">
-      Swipe slowly. Let it settle.
-
-    </div>
-  </div>
-</section>
-
-     <!-- ============================= -->
-      <!-- Card 18: AB  -->
-      <!-- ============================= -->
-        <section id="alephbetCard" class="card">
-        <div
-          class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-    <!-- Header (can clip) -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6" title="Prev card">
-      <!-- Heroicon: Chevron Left -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 18</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Hebrew • Learning to Read
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-
-    </div> <!-- ✅ header CLOSED -->
-
-    <!-- Body (must breathe) -->
-  <div class="card-inner text-center">
-
-    <h2 class="text-lg font-semibold text-amber-200 mb-4">
-      The Alephbet
-    </h2>
-<div class="flex justify-center mt-4">
-  <button id="alephAudioBtn"
-          class="px-4 py-2 rounded-full text-sm
-                 bg-amber-500/20 border border-amber-400/40
-                 text-amber-200 hover:bg-amber-500/30 transition">
-    ▶ Play Alephbet Song
-  </button>
-</div>
-
-
-<p></p>
-    <div id="alephbetViewer" class="flex items-center justify-center gap-6">
-      <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
-
-      <div id="alephCard"
-           class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
-        <div id="alephLetter" class="aleph-letter mb-1">א</div>
-        <div id="alephName" class="text-lg text-amber-100">Aleph</div>
-        <div id="alephSound" class="text-xs text-amber-300 mt-1">
-          Silent / Ah
-        </div>
-      </div>
-
-      <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
-    </div>
-
-    <button id="alephPlay"
-      class="mt-4 text-xs text-amber-300 hover:text-white">
-      🔊 Hear pronunciation
-    </button>
-
-    <div class="text-xs text-slate-500 mt-3 italic">
-      Take your time. Let it settle.
-    </div>
-
-  </div>
-</section>
-
-       <!-- ============================= -->
-      <!-- Card 19: Main Stage           -->
-      <!-- ============================= -->
-      <section id="newCard" class="card">
-        <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
- 
-          <!-- Card header -->
-          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
-               
-            </button>
- 
-            <div class="text-center">
-              <div class="label-pill text-slate-400">Card 19</div>
-              <h2 class="text-xl font-bold text-cyan-300">
-                Main Stage • Weekly Study
-              </h2>
-            </div>
- 
-            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
-      <!-- Heroicon: Chevron Right -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-          </div>
- 
-          <!-- Card body -->
-          <div class="p-5 space-y-5">
-
- 
-            <!-- Hero video / floating player slot -->
-            <div class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
-              <video autoplay muted loop playsinline
-                     class="absolute inset-0 w-full h-full object-cover opacity-30">
-                <source src="videos/bg-motion.mp4" type="video/mp4" />
-              </video>
- 
-              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
-                <p class="label-pill text-sky-300/90">
-  <marquee behavior="scroll" direction="right">
-  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-  </marquee>
-                   <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
-                </p>
-                <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
-                  Weekly Bible Study
-                </h3>
-                <p id="mainStageSub" class="text-sm text-slate-200">
-                  English • Hebrew • Greek (Phase 2) – Audio + Visual
-                </p> <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: right;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
-  <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
-  <video controls class="max-w-[90%] max-h-[90%]">
-    <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
-  </video>
-</div>
-
-   <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">    
-
-
-                </div>
-                <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>AudioVisual Scriptures<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>
-              </div>
-            </div>
- 
-            <!-- Open announcements and  controls -->
-            <div class="flex flex-wrap items-center justify-center gap-3">
-              <button id="openAnnouncementsBtn"
-                      class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
-                🔁 Open Announcements
-              </button>
-              <button id="openPrayersBtn"
-                      class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
-                📖 Open Prayers
-              </button>
-                              <!-- Floating player root (existing JS can attach here) -->
-                <div id="floating-player-root" class="mt-2 w-full">
-                  <!-- player mounts here -->
-            </div>
-    
-
-
-
-    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
-</div>
-</p>
-            <div class="muted"></div>
-            <p><!-- MainStage Hero Card -->
-  <section id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-<!-- Background video -->
- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
-
-    <div class="mb-4">
-
-    </div>
-                            <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Chapter Outlines<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
-
-            <p>    <div id="mainStageChapters" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
-          </div>
-
-        </div>
-
-<div class="jesus-tile">
-  <div class="jesus-label">Open Scriptural Sources & Witnesses
-</div>
-<button id="open.SourcesBtn" class="sources-btn">
-    Open Sources  →
-  </button>
-</div>
-
-  <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
-</div>
-
-    <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%"> 
-</div>
-            <div class="muted"></div>
-            <p><!-- MainStage Hero Card -->
-  <div id="mainStageCard" class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-<!-- Background video -->
- <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video> 
-
-    <div class="mb-4">
-
-    </div>
-                            <h2 class="text-2xl font-bold flex items-center gap-2">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Updates<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
-
-    <div id="mainStageUpdates" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"><p><iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Feddie.martinie%2Fposts%2Fpfbid02m4f6mBnkY8nXKGztH3JSUF1qjnxxfev42GNg6BqYZozUjSqyJ2cCehDZXe1XcVHvl&show_text=true&width=700" width="700" height="700" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe></p>
-          </div>
-
-        </div>
-
-      </section>
-
 
       </div><!-- cardsRow -->
     </div><!-- viewport -->
@@ -3480,130 +3063,143 @@ const ALEPHBET = [
   };
 
   render();
-})();</script>
+})();
+</script>
 
 <script>
+  // 1. Create the map
+  const map = L.map("map", {
+    zoomControl: true,
+    scrollWheelZoom: true
+  }).setView([39.5, -98.35], 4);
 
-    // Initialize map
-    const map = L.map("map").setView([39.5, -98.35], 4);
+  // 2. Base layer
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
 
-    // Base layer
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+  // 3. Marker group
+  const communityLayer = L.layerGroup().addTo(map);
 
+  // 4. Helper: parse description text
+  function parseDescription(text = "") {
+    const cityMatch = text.match(/City:\s*([^\n<]+)/i);
+    const noteMatch = text.match(/Comments:\s*([^\n<]+)/i);
 
-    // Cluster group
-    const markers = L.markerClusterGroup();
+    return {
+      city: cityMatch ? cityMatch[1].trim() : "",
+      note: noteMatch ? noteMatch[1].trim() : "Walking the same path."
+    };
+  }
 
-    // Load your GeoJSON
-    fetch("./HomeGroupsMap.geojson")
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .then((data) => {
-        data.features.forEach((feature, idx) => {
-          const coordsStr = feature.properties.Coordinates;
-          if (!coordsStr) {
-            console.warn`(Feature ${idx} missing Coordinates)`;
-            return;
-          }
-          const coords = coordsStr.split(",").map(Number);
-          if (coords.length < 2) {
-            console.warn`(Feature ${idx} has invalid Coordinates)`;
-            return;
-          }
-          const [lon, lat] = coords;
+  // 5. Store people for search
+  const people = [];
 
-          // Create marker using coordinates
-          const marker = L.marker([lat, lon]);
+  // 6. Load community data
+  fetch("./HomeGroupsMap.geojson")
+    .then(res => res.json())
+    .then(data => {
+      data.features.forEach(person => {
+        const coords = person.properties.Coordinates?.split(",").map(Number);
+        if (!coords || coords.length < 2) return;
 
-          // Bind popup (name + optional extra info)
-          marker.bindPopup(
-            `<strong>${feature.properties.Name || "Unnamed"}</strong>`
-          );
+        const [lon, lat] = coords;
 
-          markers.addLayer(marker);
+        const name =
+          person.properties.Name?.split(" ")[0] || "A Friend";
+
+        const desc = person.properties.description || "";
+        const parsed = parseDescription(desc);
+
+        const popupHTML = `
+          <div style="max-width:220px; color:#e5e7eb">
+            <strong>${name}</strong><br>
+            <span style="color:#94a3b8">${parsed.city}</span>
+            <p style="margin-top:6px; font-size:13px;">${parsed.note}</p>
+            <button
+              style="
+                margin-top:8px;
+                padding:6px 10px;
+                border-radius:8px;
+                background:#2563eb;
+                color:white;
+                border:none;
+                cursor:pointer;
+                font-size:12px;
+              "
+              onclick="openMessage('${name}')">
+              🤝 Send Message
+            </button>
+          </div>
+        `;
+
+        const marker = L.circleMarker([lat, lon], {
+          radius: 8,
+          color: "#38bdf8",
+          fillColor: "#0ea5e9",
+          fillOpacity: 0.85,
+          weight: 2
+        }).bindPopup(popupHTML);
+
+        communityLayer.addLayer(marker);
+
+        // Save for search
+        people.push({
+          name: name.toLowerCase(),
+          city: parsed.city.toLowerCase(),
+          marker
         });
+      });
+    })
+    .catch(err => console.error("Map load error:", err));
 
-        // Add cluster group to map
-        map.addLayer(markers);
-      })
-      .catch((err) => console.error("Error loading GeoJSON:", err));
-
- // Optional: locate me button logic
-  
-<!-- new locateme -->
-  function onLocationFound(e) {
-    var radius = e.accuracy;
-
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-    L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-
-  function onLocationError(e) {
-    alert(e.message);
-}
-
-
-    navigator.geolocation.getCurrentPosition((pos) => {
+  // 7. Location centering
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
       const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 12);
-      L.marker([latitude, longitude])
+      map.setView([latitude, longitude], 10);
+
+      L.circleMarker([latitude, longitude], {
+        radius: 10,
+        color: "#22c55e",
+        fillColor: "#4ade80",
+        fillOpacity: 0.9
+      })
         .addTo(map)
-        .bindPopup("📍 You are here. Zoom out.")
+        .bindPopup("📍 You are here")
         .openPopup();
     });
-  
+  }
 
-  // Dummy food layer
-  const foodLayer = L.layerGroup([
-    L.marker([37.779, -122.419]).bindPopup("Pizza Place"),
-    L.marker([37.769, -122.429]).bindPopup("Sushi Spot"),
-    L.marker([37.784, -122.409]).bindPopup("Burger Joint")
-  ]).addTo(map);
+  // 8. Placeholder message system
+  function openMessage(name) {
+    alert(`Send Message To ${name} (coming soon)`);
+  }
 
-  // Search
-  document.getElementById("searchBtn").addEventListener("click", async () => {
-    const query = prompt("Enter a place or address:");
-    if (!query) return;
+  // 9. Search filter
+  document.getElementById("mapSearch")?.addEventListener("input", e => {
+    const query = e.target.value.toLowerCase();
 
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
- 
-      const data = await res.json();
+    people.forEach(p => {
+      const match =
+        p.name.includes(query) ||
+        p.city.includes(query);
 
-      if (data.length) {
-        const { lat, lon, display_name } = data[0];
-        const latLng = [parseFloat(lat), parseFloat(lon)];
-        map.setView(latLng, 14);
-        L.marker(latLng).addTo(map).bindPopup(display_name).openPopup();
+      if (match) {
+        communityLayer.addLayer(p.marker);
       } else {
-        alert("Place not found");
+        communityLayer.removeLayer(p.marker);
       }
-    } catch (err) {
-      console.error("Search failed:", err);
-    }
+    });
   });
 
-// Filter zipcode logic
-document.getElementById("zipBtn").addEventListener("click", () => {
-  const zip = document.getElementById("zipInput").value.trim();
-  if (!zip) return;
-  const filtered = markerData.filter(item => item.zipcode === zip);
-  renderMarkers(filtered);
-  if (filtered.length > 0) {
-    map.fitBounds(filtered.map(f => [f.lat, f.lng]));
-  }
-});
-
+  // 10. Join Map button
+  document.getElementById("joinMapBtn")?.addEventListener("click", () => {
+    alert(
+      "Join the Movement... form coming soon. 🌱"
+    );
+  });
 </script>
 
 <script>
@@ -4690,6 +4286,70 @@ window.addEventListener("load", () => {
   }, 0);
 });
 </script>
+
+<!-- Join Map Overlay -->
+<div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+
+  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+    <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
+
+    <p class="text-slate-400 text-sm">
+      You don’t have to share everything.  
+      Just enough to say hello.
+    </p>
+
+    <form class="space-y-3">
+
+      <input 
+        type="text" 
+        placeholder="Your name (or nickname)" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <input 
+        type="text" 
+        placeholder="City or region" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <textarea 
+        rows="3"
+        placeholder="A short note (optional)"
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      ></textarea>
+
+      <button 
+        type="button"
+        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+        onclick="alert('Submission coming soon 🌱')"
+      >
+        🌱 Submit
+      </button>
+
+    </form>
+
+    <button 
+      class="text-sm text-blue-400 underline mt-2"
+      onclick="closeJoin()"
+    >
+      Close
+    </button>
+
+  </div>
+</div>
+
+<script>
+function openJoin() {
+  document.getElementById("joinOverlay").classList.remove("hidden");
+}
+
+function closeJoin() {
+  document.getElementById("joinOverlay").classList.add("hidden");
+}
+</script>
+  
+
   
   <script src="js/FloatingPlayerv-3.js" defer></script> 
   <script src="js/orbitFloatingPlayer.js" defer></script> 
