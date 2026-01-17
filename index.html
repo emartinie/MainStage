@@ -1024,7 +1024,30 @@
 .orbit-btn:nth-of-type(3) { animation-delay: 4s; }
 .orbit-btn:nth-of-type(4) { animation-delay: 6s; }
 
+.prepper-card {
+  background: rgba(30,41,59,0.8);
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  color: #e2e8f0;
+  font-size: 14px;
+  transition: 0.2s;
+}
 
+.prepper-card:hover {
+  background: rgba(51,65,85,0.9);
+  transform: scale(1.03);
+}
+
+.prepper-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(30,41,59,0.6);
+}
 
 
 </style>
@@ -1149,91 +1172,59 @@ window.addEventListener("load", () => {
     </button>
   </div>
 </div>
- <!-- HEADER -->
-  <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
-    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 gap-4">
-      <div class="flex items-center gap-2">
-      <!-- Left: Logo / title -->
-        <img src="images/HGHouses.png" alt="HG" class="w-9 h-8" />
-        <div>
-          <div class="text-xs label-pill text-slate-400">HomeGroups • MainStage</div>
-          <div class="text-lg font-bold text-cyan-300 tracking-wide">
-            AudioVisual Scriptures
-          </div>
+<header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between px-3 py-2 gap-2">
+
+    <!-- Left -->
+    <div class="flex items-center gap-2 min-w-0">
+      <img src="images/HGHouses.png" alt="HG" class="w-8 h-8 shrink-0" />
+      <div class="min-w-0">
+        <div class="text-[10px] sm:text-xs text-slate-400 truncate">
+          HomeGroups • MainStage
+        </div>
+        <div class="text-base sm:text-lg font-bold text-cyan-300 tracking-wide truncate">
+          MainStage
         </div>
       </div>
+    </div>
 
-
-            <button id="openScriptureHeaderBtn"
-        class="px-3 py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-white"
-        onclick="openDockCModal()">
-        <h3 style="text-align: center; color:#00bfff; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-📖</h3>
+    <!-- Middle -->
+    <div class="flex items-center justify-center gap-2 flex-wrap">
+      <button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+        &laquo;
       </button>
 
-<button
-  id="todayBtn"
-  class="today-btn"
-  aria-label="Just for today">
-  TODAY
-</button>
+      <select id="weekSelect"
+        class="px-2 py-1 text-xs sm:text-sm rounded-md border bg-slate-900 text-cyan-300 w-[120px] sm:w-auto">
+      </select>
 
+      <button id="nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+        &raquo;
+      </button>
 
-      <div class="flex items-center gap-2">
-      <!-- Middle: Week controls -->
-      <div class="flex items-center gap-2">
-        <button id="prevWeekBtn"
-          class="px-2 py-1 rounded-full border border-slate-600 text-xs hover:bg-slate-700 hover:drop-shadow-[0_0_6px_#0f0]">
-          &laquo;
-        </button>
-    
-
-    <!-- Week Select -->
-    <button id="prevWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&laquo;</button>
-
-        <select id="weekSelect"
-          class="px-2 py-1 text-sm rounded-md border border-slate-600 bg-slate-900 text-cyan-300 animate-pulse">
-        </select>
-
-
-    <button id="nextWeek" class="px-2 py-1 border rounded transition transform hover:scale-105 hover:bg-gray-700 hover:drop-shadow-[0_0_6px_#0f0]">&raquo;</button>
-
-   
-        <button id="nextWeekBtn"
-          class="px-2 py-1 rounded-full border border-slate-600 text-xs hover:bg-slate-700 hover:drop-shadow-[0_0_6px_#0f0]">
-          &raquo;
-        </button>
-      </div>
-
-      <button id="installButton"
-        class="px-4 py-1.5 rounded-full bg-cyan-700 hover:bg-cyan-600 text-sm font-semibold shadow">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 4v12m0 0l-4-4m4 4l4-4m-9 8h10" />
-        </svg>      
+      <button id="todayBtn"
+        class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
+        TODAY
       </button>
     </div>
-    
-  </header>
 
+    <!-- Right -->
+    <div class="flex items-center justify-end gap-2">
+      <button id="openScriptureHeaderBtn"
+        class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
+        onclick="openDockCModal()">
+        📖
+      </button>
 
-
-  <!-- Header -->
-<header class="sticky top-0 bg-gray-900/80 backdrop-blur-sm shadow-md flex justify-between items-center px-4 py-2 z-50">
-  <div class="flex items-center gap-2">
-    <h1 class="text-2xl font-extrabold tracking-wide text-blue-400"></h1>
-  </div>
-
-
-  <!--  Carousel Controls -->
-  <div class="flex items-center gap-2">
-
-
+      <button id="installButton"
+        class="p-2 rounded-full bg-cyan-700 hover:bg-cyan-600 shadow">
+        ⬇
+      </button>
+    </div>
 
   </div>
-
 </header>
+
 <div id="weekInfo"></div>
 
   <div class="app">
@@ -1303,7 +1294,7 @@ window.addEventListener("load", () => {
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
 
-<button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: right;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+<button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: center;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: center;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
   <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
   <video controls class="max-w-[90%] max-h-[90%]">
     <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
@@ -3489,7 +3480,7 @@ const ALEPHBET = [
         fillOpacity: 0.9
       })
         .addTo(map)
-        .bindPopup("📍 You are here")
+        .bindPopup("📍 You are here. Zoom out.")
         .openPopup();
     });
   }
