@@ -508,7 +508,7 @@
 
 .jesus-tile .tile-icon {
   font-size: 2rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 5.25rem;
   opacity: 0.9;
 }
 
@@ -919,6 +919,113 @@
   background: #1d4ed8;
 }
 
+#frontPorch {
+      background: radial-gradient(circle at top, #020617, #000000);
+    }
+
+.orbit {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 0 auto;
+    }
+
+    .orbit-btn {
+      position: absolute;
+      min-width: 90px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      background: rgba(30, 41, 59, 0.8);
+      color: #e2e8f0;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+
+    .orbit-btn:hover {
+      background: rgba(51, 65, 85, 0.9);
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .top    { top: -20px; left: 50%; transform: translateX(-50%); }
+    .right  { right: -40px; top: 50%; transform: translateY(-50%); }
+    .bottom { bottom: -10px; left: 50%; transform: translateX(-50%); }
+    .left   { left: -40px; top: 50%; transform: translateY(-50%); }
+
+    .roundorbit-btn {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      background: rgba(30, 41, 59, 0.8);
+      color: #e2e8f0;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .roundorbit-btn:hover {
+      background: rgba(51, 65, 85, 0.9);
+      transform: scale(1.05);
+    }
+
+.top-left {
+  top: 0;
+  left: 0;
+  transform: translate(30%, 30%);
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  transform: translate(-30%, 30%);
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(-30%, -30%);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(30%, -30%);
+}
+
+@keyframes porchBreath {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.orbit {
+  animation: porchBreath 9s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+.orbit-btn {
+  animation: softPulse 6s ease-in-out infinite;
+}
+
+.orbit-btn:nth-of-type(1) { animation-delay: 0s; }
+.orbit-btn:nth-of-type(2) { animation-delay: 2s; }
+.orbit-btn:nth-of-type(3) { animation-delay: 4s; }
+.orbit-btn:nth-of-type(4) { animation-delay: 6s; }
+
+
+
 
 </style>
 </head>
@@ -1134,10 +1241,10 @@ window.addEventListener("load", () => {
 <!--<div id="tabBar" aria-hidden="false"></div>-->
 <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you know!</div>
 
-<div class="jesus-tile">
+<div class="jesus-tile mb-6">
   <div class="jesus-label">Who is Jesus? I want to make sure you KNOW Him!</div>
 
-  <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
+  <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus mb-6">-->
 
 <button id="openJesusBtn" class="jesus-btn">
     Open  →
@@ -1147,6 +1254,162 @@ window.addEventListener("load", () => {
 
     <div id="viewport" role="region" aria-label="Main Stage viewport">
       <div id="cardsRow" class="cards-row">
+
+            <!-- ============================= -->
+      <!-- Card 0: FrontPorch           -->
+      <!-- ============================= -->
+      <section id="frontPorchCard" class="card active">
+        <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+ 
+          <!-- Card header -->
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn text-slate-300 hover:text-white text-xl" title="Prev card">
+               
+            </button>
+ 
+            <div class="text-center">
+              <div class="label-pill text-slate-400">Card 0</div>
+              <h2 class="text-xl font-bold text-cyan-300">
+                Front Porch • Get Comfy
+              </h2>
+            </div>
+ 
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
+      <!-- Heroicon: Chevron Right -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+          </div>
+ 
+          <!-- Card body -->
+          <div class="p-5 space-y-5">
+
+ 
+            <!-- Hero video / floating player slot -->
+            <div id= "frontPorch" class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+              <!--<video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4" />
+              </video>-->
+ 
+              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">    <!-- Welcome -->
+    <header class="space-y-2">
+      <h1 class="text-2xl font-semibold text-white">Welcome, friends.</h1>
+      <p class="text-slate-400 text-sm">Sit. Listen. Breathe.</p>
+    </header>
+                <p class="label-pill text-sky-300/90">
+  <marquee behavior="scroll" direction="right">
+  <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+  </marquee>
+
+<button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show Verses</button>   <button id="openVideoBtn" class="px-2 py-1 border rounded" style="float: right;">Show Video</button></p><div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+  <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+  <video controls class="max-w-[90%] max-h-[90%]">
+    <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+  </video>
+</div>
+
+
+
+    <!-- Video -->
+    <div class="aspect-video w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/Q95FO1e1HGU"
+        title="Welcome"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Gentle Text -->
+    <p class="text-xs text-slate-500">
+      No rush. No pressure.  
+      Stay as long as you like.
+    </p>
+ 
+    <!-- Porch Orbit -->
+    <div class="orbit mt-6">
+
+      <!-- Center Player -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-36 h-36 rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner">
+          <div id="floating-player-root" class="mt-2 w-full text-slate-400 text-sm text-center">
+            🎧 5. Listen<br>Media<br>Player
+          </div>
+        </div>
+      </div>
+      
+      <!-- Gentle Options -->
+      <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top. ')">🪑 1. Rest</button>
+      <button class="roundorbit-btn top-right" onclick="alert('Start at the Beginning. ')">Scripture</button>
+      <button class="orbit-btn right" onclick="goToCard('mapCard')">🤝 2. Join</button>
+      <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">Games</button>
+      <button class="orbit-btn bottom" onclick="location.href='index.html'">🗣️ 3. Speak</button>
+      <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">Calendar</button>
+      <button class="orbit-btn left" onclick=" onclick="openDockCModal()">📖 4. Learn</button>
+      <button class="roundorbit-btn top-left" onclick="alert('About')">About</button>
+    </div>
+
+        <!-- Scripture -->
+    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6">
+      <h1 class="text-2xl font-semibold">My Vision for the App</h1>
+      <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much You Care"</p>
+      <p class="mt-3 italic text-slate-200">
+        “	🌿 Pastoral first
+	•	🪑 Porch before library
+	•	🕊️ Peace before precision
+	•	🔥 Warmth before wisdom”
+
+      </p>
+      <p>
+      -The 5 Doors That Cover 90% of Needs-</p>
+
+
+<p class="text-slate-400 text-sm">
+🪑 1. Sit & Rest
+
+(Today / Porch / Fireside / Calm content)</p>
+<p class="text-slate-400 text-sm">
+🤝 2. Join
+
+(Map participation, visible community, easy entry, group prayer and games)</p>
+<p class="text-slate-400 text-sm">
+🗣️ 3. Speak
+
+(Feedback, stories, voice, contributions)</p>
+<p class="text-slate-400 text-sm">
+📖 4. Learn
+
+(Study, scripture, deeper tools)</p>
+<p class="text-slate-400 text-sm">
+🎧 5. Listen
+
+(Audio, video, simple explanations)</p>
+<p class="text-slate-400 text-sm">
+If each of these feels warm, clear, and accessible,
+people will say:
+
+“This App has everything I need.”</p>
+          </div>
+
+        </div>
+        <!-- Quiet Word -->
+    <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3">
+      <h2 class="text-lg font-medium text-cyan-300">A quiet word</h2>
+      <p class="text-slate-300 leading-relaxed">
+        Ask God for light for the next step — not the whole staircase.
+        Let the Word be enough for today.
+      </p>
+</div>
+
+</section>
+
+
+
+      
+
          
       <!-- ============================= -->
       <!-- Card 1: Main Stage           -->
@@ -1225,7 +1488,7 @@ window.addEventListener("load", () => {
                 📖 Open Prayers
               </button>
                               <!-- Floating player root (existing JS can attach here) -->
-                <div id="floating-player-root" class="mt-2 w-full">
+                <div id="">
                   <!-- player mounts here -->
             </div>
     
@@ -1319,45 +1582,101 @@ window.addEventListener("load", () => {
     </button>
 
           </div>
-        <!-- Card body -->
-          <div class="p-5 space-y-5">
+<!-- Card body -->
+<div class="p-5 space-y-5">
 
-  <div class="bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
+  <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
 
     <!-- Header -->
     <div class="text-center px-6 py-4 border-b border-slate-700">
-      <h2 class="text-2xl font-semibold text-cyan-300"><input
-  id="mapSearch"
-  type="text"
-  placeholder="Search by name or city…"
-  class="w-full px-4 py-2 rounded-lg bg-slate-800 text-white border border-slate-600"
-/></h2>
+      <h2 class="text-2xl font-semibold text-cyan-300">Our Community</h2>
       <p class="text-slate-400 text-sm">You are not alone.</p>
     </div>
 
-    <!-- Map -->
-    <div id="map" class="h-[420px] w-full"></div>
+    <!-- Map Container -->
+    <div class="relative">
+
+      <!-- Floating Search Bar -->
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-sm">
+        <input
+          id="mapSearch"
+          type="text"
+          placeholder="Search by name or city…"
+          class="w-full px-4 py-2 rounded-full bg-slate-900/90 text-white border border-slate-600 backdrop-blur shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+        />
+      </div>
+
+      <!-- Map -->
+      <div id="map" class="h-[420px] w-full rounded-b-3xl overflow-hidden"></div>
+
+      <!-- Soft glow overlay -->
+      <div class="pointer-events-none absolute inset-0 rounded-b-3xl ring-1 ring-cyan-400/20"></div>
+    </div>
 
     <!-- Footer / Invitation -->
     <div class="p-5 text-center space-y-3 bg-slate-900/80 border-t border-slate-700">
+
       <p class="text-slate-300 text-sm">
         Find others who walk the same path.
       </p>
 
-      <button id="joinMapBtn"
-  class="px-5 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
-  onclick="openJoin()">
-  🤝 Join the Movement
-</button>
+      <button
+        id="joinMapBtn"
+        class="px-5 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition shadow-lg hover:shadow-cyan-500/30"
+        onclick="openJoin()"
+      >
+        🤝 Join the Movement
+      </button>
 
       <p class="text-xs text-slate-500">
         Your info stays private. You choose how to connect.
       </p>
     </div>
 
+<div id="porchPanel" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center shadow-2xl">
+
+    <h2 id="porchTitle" class="text-xl font-semibold text-cyan-300 mb-2">
+      Welcome
+    </h2>
+
+    <p id="porchMessage" class="text-slate-300 leading-relaxed mb-4">
+      You're not alone here.
+    </p>
+
+    <button
+      onclick="closePorch()"
+      class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white"
+    >
+      Close
+    </button>
   </div>
+</div>
+
+  </div>
+</div>
 </section>
-<?div>
+
+<script>
+function openJoin() {
+  openPorch(
+    "Join the Movement",
+    "Soon you'll be able to add yourself to the map and connect with others who walk the same path."
+  );
+}
+
+function openPorch(title, message) {
+  document.getElementById("porchTitle").innerText = title;
+  document.getElementById("porchMessage").innerText = message;
+  document.getElementById("porchPanel").classList.remove("hidden");
+}
+
+function closePorch() {
+  document.getElementById("porchPanel").classList.add("hidden");
+}
+</script>
+
+
       <!-- ============================= -->
       <!-- Card 3: Study / Placeholder   -->
       <!-- ============================= -->
@@ -2435,6 +2754,7 @@ Use any standard 1–75 Bingo card.
                 Weekly Bible Trivia Challenge to
 Play together • Discuss • Learn
               </h2>
+              
             </div>
  
             <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"  title="Next card">
@@ -2464,6 +2784,7 @@ Play together • Discuss • Learn
                        class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
                   <source src="videos/bg-motion.mp4" type="video/mp4">
                 </video>
+                <div id="choices" class="grid gap-3 mt-4"></div
                 <span class="relative z-10">Loading question...</span>
               </div>
                 <h4 class="text-cyan-300 font-semibold mb-2">
@@ -2518,10 +2839,21 @@ Play together • Discuss • Learn
 <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
     Scoreboard — How It Works
   </h3>
+<div class="flex justify-between items-center mb-3">
+  <h3 class="text-lg font-semibold">Trivia</h3>
+  <div class="text-cyan-300 font-bold">
+    Top Score: <span id="scoreDisplay">0</span>
+  </div>
+  <div class="text-cyan-300 font-bold">
+    Top Team/ Name: <span id="scoreDisplay">Zack</span>
+  </div>
+</div>
 <div id="scoreboard-module" class="mt-6">
 
   <div class="flex justify-between items-center mb-3 text-center">
-    <h3 class="text-lg font-semibold text-cyan-300">Type Your Name, Add Unlimited Teams/ People</h3>
+    <h3 class="text-lg font-semibold text-cyan-300">Type Your Name, Add Unlimited Teams/ People</h3><button onclick="playSound('assets/sounds/score-up.mp3')">
+  Test Sound
+</button>
     <button id="sb-add-team"
       class="px-3 py-1 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
       + Add Team
@@ -2692,76 +3024,52 @@ Play together • Discuss • Learn
           </div>
  
           <!-- Card body -->
-          <div class="p-6 text-center text-slate-300 text-sm">
+          <div class="p-5 space-y-5">
 
-        <div class="card-inner">
-🧭 Prepper Library- The largest one on the internet!
+  <h2 class="text-xl font-semibold text-cyan-300 text-center">
+    🧭 Prepper Library
   </h2>
 
-  <p class="text-sm text-slate-300 text-center mb-4">
-    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  <p class="text-sm text-slate-300 text-center">
+    Field manuals, emergency guides, and survival references
   </p>
 
-  <div class="prepper-shelf">
-    <div class="prepper-item">
-      <span class="prepper-icon">💧</span>
-      <div>
-        <div class="prepper-title">Water Storage & Purification</div>
-        <div class="prepper-meta">PDF • Water • Essentials</div>
-      </div>
-    </div>
+  <!-- Category Shelf -->
+  <div class="grid grid-cols-2 gap-3">
 
-    <div class="prepper-item">
-      <span class="prepper-icon">🩺</span>
-      <div>
-        <div class="prepper-title">Field First Aid Manual</div>
-        <div class="prepper-meta">PDF • Medical • Trauma</div>
-      </div>
-    </div>
+    <button class="prepper-card">💧 Water</button>
+    <button class="prepper-card">🩺 Medical</button>
+    <button class="prepper-card">🔥 Heating</button>
+    <button class="prepper-card">📻 Comms</button>
 
-    <div class="prepper-item">
-      <span class="prepper-icon">🔥</span>
-      <div>
-        <div class="prepper-title">Off-Grid Heating & Cooking</div>
-        <div class="prepper-meta">PDF • Shelter • Energy</div>
-      </div>
-    </div>
-
-    <div class="prepper-item">
-      <span class="prepper-icon">📻</span>
-      <div>
-        <div class="prepper-title">Emergency Communications</div>
-        <div class="prepper-meta">PDF • Radio • Signals</div>
-      </div>
-    </div>
   </div>
 
-  <div class="text-xs text-slate-400 text-center mt-4 italic">
- 
+  <!-- Featured PDFs -->
+  <div class="space-y-3">
+
+    <div class="prepper-item">
+      <span>💧</span>
+      <div>
+        <div class="font-medium">Water Storage</div>
+        <div class="text-xs text-slate-400">PDF • Essentials</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span>🩺</span>
+      <div>
+        <div class="font-medium">First Aid Manual</div>
+        <div class="text-xs text-slate-400">PDF • Medical</div>
+      </div>
+    </div>
+
   </div>
-<div class="prepper-frame">
-  <aside class="prepper-sidebar">
-    <!-- existing sidebar HTML (list of PDFs) -->
-    <h1 class="text-2xl font-bold mb-4">8TB of PDF Folders</h1>
 
-    <ul id="folder-list" class="p-2"></ul>
-  </aside>
+  <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700">
+    📂 Browse Full Library
+  </button>
 
-  <main class="prepper-viewer">
-    <!-- existing PDF render area -->
-    <h1 class="text-2xl font-bold mb-4">PDF Library</h1>
-    <div id="pdf-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-  </main>
 </div>
-<div class="flex h-screen overflow-hidden">
-
-  <!-- Main content -->
-  <main class="flex-1 overflow-y-auto p-4">
-
-  </main>
-</div>
-   
-      </section>
 </section>  
        <!-- ============================= -->
       <!-- Card 11: Prezi / Placeholder   -->
@@ -3089,7 +3397,7 @@ const ALEPHBET = [
 
     return {
       city: cityMatch ? cityMatch[1].trim() : "",
-      note: noteMatch ? noteMatch[1].trim() : "Walking the same path."
+      note: noteMatch ? noteMatch[1].trim() : "Walking a similar path."
     };
   }
 
@@ -3114,7 +3422,7 @@ const ALEPHBET = [
 
         const popupHTML = `
           <div style="max-width:220px; color:#e5e7eb">
-            <strong>${name}</strong><br>
+            <strong>${name}</strong><br>Message/ Comment:
             <span style="color:#94a3b8">${parsed.city}</span>
             <p style="margin-top:6px; font-size:13px;">${parsed.note}</p>
             <button
@@ -3129,7 +3437,21 @@ const ALEPHBET = [
                 font-size:12px;
               "
               onclick="openMessage('${name}')">
-              🤝 Send Message
+              🗣️ Say Hello!
+            </button>
+            <button
+              style="
+                margin-top:8px;
+                padding:6px 10px;
+                border-radius:8px;
+                background:#2563eb;
+                color:white;
+                border:none;
+                cursor:pointer;
+                font-size:12px;
+              "
+              onclick="openMessage('${name}')">
+              🤝 Info
             </button>
           </div>
         `;
@@ -3377,6 +3699,22 @@ function addSearchResetButton() {
   </script>
 
 <script>
+let audioUnlocked = false;
+
+document.addEventListener("pointerdown", () => {
+  audioUnlocked = true;
+}, { once: true });
+
+function playSound(src) {
+  if (!audioUnlocked) return;
+
+  const a = new Audio(src);
+  a.play().catch(e => console.warn("Audio blocked:", e));
+}
+</script>
+
+
+<script>
         document.addEventListener("DOMContentLoaded", async () => {
             let questions = [];
             let currentIndex = 0;
@@ -3384,7 +3722,7 @@ function addSearchResetButton() {
             // Load questions from JSON
             async function loadQuestions() {
                 try {
-                    const res = await fetch("./bible_questions.json");
+                    const res = await fetch("./bible_questions_with_hints.json");
                     questions = await res.json();
                     if (!questions.length) {
                         document.getElementById("questionsCard").innerText = "No questions found.";
@@ -3518,7 +3856,6 @@ function addSearchResetButton() {
             // initial render
         })();
     </script>
-
 
 <script>
 (function () {
@@ -3736,12 +4073,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </script>
 
 
-
-
-
-
-    <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab.</div>
-  </div>
    <!-- ============================= -->
    <!--  Modal Script    -->
   <!-- ============================= -->
@@ -4258,15 +4589,7 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
 })();
 </script>
 
-   <!-- Footer -->
-  <footer class="sticky bottom-0 bg-gray-900/80 backdrop-blur-sm text-center py-2 shadow-inner">
-    <div class="flex justify-center gap-2 p-2">
-      <input id="advancedsearchInput" type="text" placeholder="Search Scriptures..." class="px-2 py-1 rounded flex-1 bg-gray-800 text-white border border-gray-600">
-      <button id="darkModeToggle" class="px-3 py-1 bg-gray-700 text-white rounded">Dark</button>
-      <button id="searchResetBtn" class="px-3 py-1 bg-gray-700 text-white rounded">Reset</button>
-    </div>
-    <p class="mt-2">&copy; 2025 HGBibleApp</p>
-  </footer>
+
     <!-- Scripts -->
      <script>
 window.addEventListener("load", () => {
@@ -4425,5 +4748,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+<script>
+function goToCard(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+</script>
+
 </body>
 </html>
