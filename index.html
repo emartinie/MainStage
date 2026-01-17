@@ -1050,6 +1050,35 @@
   background: rgba(30,41,59,0.6);
 }
 
+.orbit {
+  position: relative;
+  width: 80vw;
+  max-width: 260px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.orbit-btn {
+  min-width: 72px;
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
+.roundorbit-btn {
+  width: 52px;
+  height: 52px;
+  font-size: 11px;
+}
+
+.top-left { transform: translate(20%, 20%); }
+.top-right { transform: translate(-20%, 20%); }
+.bottom-right { transform: translate(-20%, -20%); }
+.bottom-left { transform: translate(20%, -20%); }
+
+.top    { top: -12px; left: 50%; transform: translateX(-50%); }
+.right  { right: -20px; top: 50%; transform: translateY(-50%); }
+.bottom { bottom: -12px; left: 50%; transform: translateX(-50%); }
+.left   { left: -20px; top: 50%; transform: translateY(-50%); }
 
 </style>
 </head>
@@ -1328,8 +1357,9 @@ window.addEventListener("load", () => {
     <div class="orbit mt-6">
 
       <!-- Center Player -->
+
       <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-36 h-36 rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner">
+        <div class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner">
           <div id="floating-player-root" class="mt-2 w-full text-slate-400 text-sm text-center">
             🎧 5. Listen<br>Media<br>Player
           </div>
