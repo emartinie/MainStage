@@ -979,7 +979,7 @@
 .top-left {
   top: 0;
   left: 0;
-  transform: translate(30%, 30%);
+  transform: translate(50%, 50%);
 }
 
 .top-right {
@@ -1352,33 +1352,36 @@ window.addEventListener("load", () => {
       No rush. No pressure.  
       Stay as long as you like.
     </p>
- 
-    <!-- Porch Orbit -->
+   
+<!-- Porch Orbit -->
     <div class="orbit mt-6">
 
       <!-- Center Player -->
 
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner">
-          <div id="floating-player-root" class="mt-2 w-full text-slate-400 text-sm text-center">
-            🎧 5. Listen<br>Media<br>Player
+            <p>🎧 5. Listen<br>
+              <button onclick="openPlayerPanel()">▶</button></p>
+
+      <!-- Gentle Options -->
+      <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top. ')">🪑 1. Rest</button>
+      <button class="roundorbit-btn top-right" onclick="openHtmlPanel('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
+  Scripture
+</button>
+      <button class="orbit-btn right" onclick="goToCard('mapCard')">🤝 2. Join</button>
+      <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">Games</button>
+      <button class="orbit-btn bottom" onclick="openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">🗣️ 3. Speak</button>
+      <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">Calendar</button>
+      <button class="orbit-btn left" onclick="openDockCModal()">📖 4. Learn</button>
+      <button class="roundorbit-btn top-left" onclick="openPorchPanel('Sharing Information', '<p>2-way forms coming soon 🌱</p>')">Panel</button>
+    
           </div>
         </div>
       </div>
-      
-      <!-- Gentle Options -->
-      <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top. ')">🪑 1. Rest</button>
-      <button class="roundorbit-btn top-right" onclick="alert('Start at the Beginning. ')">Scripture</button>
-      <button class="orbit-btn right" onclick="goToCard('mapCard')">🤝 2. Join</button>
-      <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">Games</button>
-      <button class="orbit-btn bottom" onclick="location.href='index.html'">🗣️ 3. Speak</button>
-      <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">Calendar</button>
-      <button class="orbit-btn left" onclick=" onclick="openDockCModal()">📖 4. Learn</button>
-      <button class="roundorbit-btn top-left" onclick="alert('About')">About</button>
-    </div>
-
+     </div> 
+   </div>
         <!-- Scripture -->
-    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6">
+    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
       <h1 class="text-2xl font-semibold">My Vision for the App</h1>
       <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much You Care"</p>
       <p class="mt-3 italic text-slate-200">
@@ -1389,7 +1392,7 @@ window.addEventListener("load", () => {
 
       </p>
       <p>
-      -The 5 Doors That Cover 90% of Needs-</p>
+      -The 5 Doors That Cover 90% of Needs (things I have built to meet them)-</p>
 
 
 <p class="text-slate-400 text-sm">
@@ -1419,9 +1422,8 @@ people will say:
 “This App has everything I need.”</p>
           </div>
 
-        </div>
         <!-- Quiet Word -->
-    <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3">
+    <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3 text-center">
       <h2 class="text-lg font-medium text-cyan-300">A quiet word</h2>
       <p class="text-slate-300 leading-relaxed">
         Ask God for light for the next step — not the whole staircase.
@@ -1613,29 +1615,32 @@ people will say:
 <!-- Card body -->
 <div class="p-5 space-y-5">
 
-  <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
-
-    <!-- Header -->
-    <div class="text-center px-6 py-4 border-b border-slate-700">
-      <h2 class="text-2xl font-semibold text-cyan-300">Our Community</h2>
-      <p class="text-slate-400 text-sm">You are not alone.</p>
-    </div>
+  <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl">
 
     <!-- Map Container -->
-    <div class="relative">
+<div class="relative h-[420px]">
 
-      <!-- Floating Search Bar -->
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-sm">
-        <input
-          id="mapSearch"
-          type="text"
-          placeholder="Search by name or city…"
-          class="w-full px-4 py-2 rounded-full bg-slate-900/90 text-white border border-slate-600 backdrop-blur shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-        />
-      </div>
+  <!-- Floating Search -->
+  <div class="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] w-[90%] max-w-sm ">
+    <input
+      id="mapSearch"
+      type="text"
+      placeholder="Search by name or city…"
+      class="w-full px-4 py-2 rounded-full 
+       bg-black/50 text-white 
+       border border-slate-500/40 
+       backdrop-blur-md 
+       shadow-lg 
+       focus:outline-none 
+       focus:ring-2 focus:ring-cyan-500 
+       placeholder:text-slate-300"
+    />
+  </div>
 
-      <!-- Map -->
-      <div id="map" class="h-[420px] w-full rounded-b-3xl overflow-hidden"></div>
+  <!-- Map -->
+  <div id="map" class="h-full w-full rounded-2xl"></div>
+
+</div>
 
       <!-- Soft glow overlay -->
       <div class="pointer-events-none absolute inset-0 rounded-b-3xl ring-1 ring-cyan-400/20"></div>
@@ -1645,9 +1650,9 @@ people will say:
     <div class="p-5 text-center space-y-3 bg-slate-900/80 border-t border-slate-700">
 
       <p class="text-slate-300 text-sm">
-        Find others who walk the same path.
+        Find others who walk a similar path.<br>You are not alone.
       </p>
-
+          <div class="text-center px-6 py-4 border-b border-slate-700">
       <button
         id="joinMapBtn"
         class="px-5 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition shadow-lg hover:shadow-cyan-500/30"
@@ -1655,6 +1660,7 @@ people will say:
       >
         🤝 Join the Movement
       </button>
+    </div>
 
       <p class="text-xs text-slate-500">
         Your info stays private. You choose how to connect.
@@ -3090,13 +3096,69 @@ Play together • Discuss • Learn
         <div class="text-xs text-slate-400">PDF • Medical</div>
       </div>
     </div>
+ <div class="card-inner">
+🧭 Prepper Library- The largest one on the internet!
+  </h2>
 
+  <p class="text-sm text-slate-300 text-center mb-4">
+    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  </p>
+
+  <div class="prepper-shelf">
+    <div class="prepper-item">
+      <span class="prepper-icon">💧</span>
+      <div>
+        <div class="prepper-title">Water Storage & Purification</div>
+        <div class="prepper-meta">PDF • Water • Essentials</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🩺</span>
+      <div>
+        <div class="prepper-title">Field First Aid Manual</div>
+        <div class="prepper-meta">PDF • Medical • Trauma</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">🔥</span>
+      <div>
+        <div class="prepper-title">Off-Grid Heating & Cooking</div>
+        <div class="prepper-meta">PDF • Shelter • Energy</div>
+      </div>
+    </div>
+
+    <div class="prepper-item">
+      <span class="prepper-icon">📻</span>
+      <div>
+        <div class="prepper-title">Emergency Communications</div>
+        <div class="prepper-meta">PDF • Radio • Signals</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-xs text-slate-400 text-center mt-4 italic">
+ 
+  </div>
   </div>
 
   <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700">
     📂 Browse Full Library
   </button>
+  <main class="prepper-viewer">
+    <!-- existing PDF render area -->
+    <h1 class="text-2xl font-bold mb-4">PDF Library</h1>
+    <div id="pdf-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </main>
+</div>
+<div class="flex h-screen overflow-hidden">
 
+  <!-- Main content -->
+  <main class="flex-1 overflow-y-auto p-4">
+
+  </main>
+</div>
 </div>
 </section>  
        <!-- ============================= -->
@@ -3342,6 +3404,7 @@ Play together • Discuss • Learn
 
 
 <script>
+
 const ALEPHBET = [
   { letter: "א", name: "Aleph", sound: "Silent / A" },
   { letter: "ב", name: "Bet", sound: "B / V" },
@@ -3402,155 +3465,6 @@ const ALEPHBET = [
 })();
 </script>
 
-<script>
-  // 1. Create the map
-  const map = L.map("map", {
-    zoomControl: true,
-    scrollWheelZoom: true
-  }).setView([39.5, -98.35], 4);
-
-  // 2. Base layer
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: "© OpenStreetMap"
-  }).addTo(map);
-
-  // 3. Marker group
-  const communityLayer = L.layerGroup().addTo(map);
-
-  // 4. Helper: parse description text
-  function parseDescription(text = "") {
-    const cityMatch = text.match(/City:\s*([^\n<]+)/i);
-    const noteMatch = text.match(/Comments:\s*([^\n<]+)/i);
-
-    return {
-      city: cityMatch ? cityMatch[1].trim() : "",
-      note: noteMatch ? noteMatch[1].trim() : "Walking a similar path."
-    };
-  }
-
-  // 5. Store people for search
-  const people = [];
-
-  // 6. Load community data
-  fetch("./HomeGroupsMap.geojson")
-    .then(res => res.json())
-    .then(data => {
-      data.features.forEach(person => {
-        const coords = person.properties.Coordinates?.split(",").map(Number);
-        if (!coords || coords.length < 2) return;
-
-        const [lon, lat] = coords;
-
-        const name =
-          person.properties.Name?.split(" ")[0] || "A Friend";
-
-        const desc = person.properties.description || "";
-        const parsed = parseDescription(desc);
-
-        const popupHTML = `
-          <div style="max-width:220px; color:#e5e7eb">
-            <strong>${name}</strong><br>Message/ Comment:
-            <span style="color:#94a3b8">${parsed.city}</span>
-            <p style="margin-top:6px; font-size:13px;">${parsed.note}</p>
-            <button
-              style="
-                margin-top:8px;
-                padding:6px 10px;
-                border-radius:8px;
-                background:#2563eb;
-                color:white;
-                border:none;
-                cursor:pointer;
-                font-size:12px;
-              "
-              onclick="openMessage('${name}')">
-              🗣️ Say Hello!
-            </button>
-            <button
-              style="
-                margin-top:8px;
-                padding:6px 10px;
-                border-radius:8px;
-                background:#2563eb;
-                color:white;
-                border:none;
-                cursor:pointer;
-                font-size:12px;
-              "
-              onclick="openMessage('${name}')">
-              🤝 Info
-            </button>
-          </div>
-        `;
-
-        const marker = L.circleMarker([lat, lon], {
-          radius: 8,
-          color: "#38bdf8",
-          fillColor: "#0ea5e9",
-          fillOpacity: 0.85,
-          weight: 2
-        }).bindPopup(popupHTML);
-
-        communityLayer.addLayer(marker);
-
-        // Save for search
-        people.push({
-          name: name.toLowerCase(),
-          city: parsed.city.toLowerCase(),
-          marker
-        });
-      });
-    })
-    .catch(err => console.error("Map load error:", err));
-
-  // 7. Location centering
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 10);
-
-      L.circleMarker([latitude, longitude], {
-        radius: 10,
-        color: "#22c55e",
-        fillColor: "#4ade80",
-        fillOpacity: 0.9
-      })
-        .addTo(map)
-        .bindPopup("📍 You are here. Zoom out.")
-        .openPopup();
-    });
-  }
-
-  // 8. Placeholder message system
-  function openMessage(name) {
-    alert(`Send Message To ${name} (coming soon)`);
-  }
-
-  // 9. Search filter
-  document.getElementById("mapSearch")?.addEventListener("input", e => {
-    const query = e.target.value.toLowerCase();
-
-    people.forEach(p => {
-      const match =
-        p.name.includes(query) ||
-        p.city.includes(query);
-
-      if (match) {
-        communityLayer.addLayer(p.marker);
-      } else {
-        communityLayer.removeLayer(p.marker);
-      }
-    });
-  });
-
-  // 10. Join Map button
-  document.getElementById("joinMapBtn")?.addEventListener("click", () => {
-    alert(
-      "Join the Movement... form coming soon. 🌱"
-    );
-  });
-</script>
 
 <script>
 const videoBtn = document.getElementById("openVideoBtn");
@@ -3663,68 +3577,6 @@ document.getElementById("open.SourcesBtn")?.addEventListener("click", (e) => {
   }
 </script>
 
-<script>
-  // --- Debounce helper ---
-    function debounce(fn, delay = 250) {
-    let timer;
-    return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
-
-// --- Advanced search ---
-function setupAdvancedSearch() {
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput) return;
-    const searchFn = debounce(() => {
-        const query = searchInput.value.toLowerCase();
-        const cards = document.querySelectorAll("#cardsContainer section");
-        let visibleCount = 0;
-        cards.forEach(card => {
-            const text = card.textContent.toLowerCase();
-            if (text.includes(query)) {
-                card.style.display = "";
-                visibleCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        // Optional: show "No results" placeholder
-        let noResults = document.getElementById("noResultsPlaceholder");
-        if (!noResults) {
-            noResults = document.createElement("p");
-            noResults.id = "noResultsPlaceholder";
-            noResults.className = "text-center text-gray-400 dark:text-gray-300 mt-4";
-            noResults.textContent = "No matching cards found.";
-            cardsContainer.parentNode.appendChild(noResults);
-        }
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-    }, 200);
-
-    searchInput.addEventListener("input", searchFn);
-}
-
-// --- Reset button ---
-function addSearchResetButton() {
-    const searchWrapper = document.getElementById("searchWrapper");
-    const searchInput = document.getElementById("advancedsearchInput");
-    if (!searchInput || !searchWrapper) return;
-
-    const resetBtn = document.createElement("button");
-    resetBtn.textContent = "Reset";
-    resetBtn.className = "ml-2 px-2 py-1 bg-gray-300 dark:bg-gray-600 rounded hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200";
-    resetBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        document.querySelectorAll("#cardsContainer section").forEach(card => card.style.display = "");
-        const noResults = document.getElementById("noResultsPlaceholder");
-        if (noResults) noResults.style.display = "none";
-    });
-
-    searchWrapper.appendChild(resetBtn); // append inside the flex container
-}
-  </script>
 
 <script>
 let audioUnlocked = false;
@@ -4638,72 +4490,8 @@ window.addEventListener("load", () => {
 });
 </script>
 
-<!-- Join Map Overlay -->
-<div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
-
-  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
-
-    <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
-
-    <p class="text-slate-400 text-sm">
-      You don’t have to share everything.  
-      Just enough to say hello.
-    </p>
-
-    <form class="space-y-3">
-
-      <input 
-        type="text" 
-        placeholder="Your name (or nickname)" 
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      />
-
-      <input 
-        type="text" 
-        placeholder="City or region" 
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      />
-
-      <textarea 
-        rows="3"
-        placeholder="A short note (optional)"
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      ></textarea>
-
-      <button 
-        type="button"
-        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
-        onclick="alert('Submission coming soon 🌱')"
-      >
-        🌱 Submit
-      </button>
-
-    </form>
-
-    <button 
-      class="text-sm text-blue-400 underline mt-2"
-      onclick="closeJoin()"
-    >
-      Close
-    </button>
-
-  </div>
-</div>
-
-<script>
-function openJoin() {
-  document.getElementById("joinOverlay").classList.remove("hidden");
-}
-
-function closeJoin() {
-  document.getElementById("joinOverlay").classList.add("hidden");
-}
-</script>
   
-
-  
-  <script src="js/FloatingPlayerv-3.js" defer></script> 
-  <script src="js/orbitFloatingPlayer.js" defer></script> 
+  <script src="js/SAVEorbitFloatingPlayer.js" defer></script>
   <script src="js/loadCommentary.js" defer></script> 
   <script src="js/globalAudioManager.js" defer></script> 
   <script src="./app.js" defer></script> 
@@ -4785,6 +4573,369 @@ function goToCard(id) {
     behavior: "smooth",
     block: "center"
   });
+}
+</script>
+<div id="panelRoot">
+  <!-- panels go under here -->
+<div id="porchPanelOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-[90%] text-center space-y-4 shadow-xl">
+    
+    <h2 id="porchPanelTitle" class="text-xl font-semibold text-cyan-300"></h2>
+    
+    <div id="porchPanelContent" class="text-slate-300"></div>
+    
+    <button onclick="closePorchPanel()" class="mt-4 px-4 py-2 rounded-lg bg-cyan-600 text-white">
+      Close
+    </button>
+    
+  </div>
+</div>
+
+
+<!-- Join Map Overlay -->
+<div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+
+  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+    <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
+
+    <p class="text-slate-400 text-sm">
+      You don’t have to share everything.  
+      Just enough to say hello.
+    </p>
+
+    <form class="space-y-3">
+
+      <input 
+        type="text" 
+        placeholder="Your name (or nickname)" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <input 
+        type="text" 
+        placeholder="City or region" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <textarea 
+        rows="3"
+        placeholder="A short note (optional)"
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      ></textarea>
+
+      <button 
+        type="button"
+        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+        onclick="alert('Submission coming soon 🌱')"
+      >
+        🌱 Submit
+      </button>
+
+    </form>
+
+    <button 
+      class="text-sm text-blue-400 underline mt-2"
+      onclick="closeJoin()"
+    >
+      Close
+    </button>
+
+  </div>
+</div>  
+
+<!-- Player Overlay -->
+<div id="playerPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
+
+  <div class="relative w-[92%] max-w-md h-[70vh] bg-slate-900/90 rounded-2xl shadow-2xl border border-slate-700 flex flex-col">
+
+    <!-- Close Button -->
+    <button
+      onclick="closePlayerPanel()"
+      class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl"
+      aria-label="Close player"
+    >
+      ✕
+    </button>
+
+    <!-- Player Mount Point -->
+    <div id="playerHost" class="flex-1 flex items-center justify-center">
+      <!-- Player will be injected here -->
+    </div>
+</div>
+</div>
+
+<!-- html loader -->
+
+<div id="htmlPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
+
+  <div class="relative w-[95%] max-w-4xl h-[85vh] bg-slate-900/90 rounded-2xl shadow-2xl border border-slate-700 flex flex-col">
+
+    <button
+      onclick="closeHtmlPanel()"
+      class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl"
+      aria-label="Close"
+    >✕</button>
+
+    <iframe
+      id="htmlPanelFrame"
+      class="w-full h-full rounded-b-2xl"
+      src=""
+      frameborder="0"
+      allow="autoplay; fullscreen"
+    ></iframe>
+
+  </div>
+</div>
+</div>
+</div>
+
+</div><!-- root end div -->
+<script>
+function openPorchPanel(title, html) {
+  const overlay = document.getElementById("porchPanelOverlay");
+  const titleEl = document.getElementById("porchPanelTitle");
+  const contentEl = document.getElementById("porchPanelContent");
+
+  if (!overlay || !titleEl || !contentEl) {
+    console.error("PorchPanel elements missing");
+    return;
+  }
+
+  titleEl.innerHTML = title;
+  contentEl.innerHTML = html;
+
+  overlay.classList.remove("hidden");
+}
+
+function closePorchPanel() {
+  document.getElementById("porchPanelOverlay")?.classList.add("hidden");
+}
+</script>
+
+<script>
+function openPlayerPanel() {
+  const panel = document.getElementById("playerPanel");
+  const host = document.getElementById("playerHost");
+  const player = document.getElementById("floatingPlayer");
+
+  panel.classList.remove("hidden");
+
+  if (player && host) {
+    host.appendChild(player);
+
+    // Optional: adjust styling for panel mode
+    Object.assign(player.style, {
+      position: "relative",
+      width: "100%",
+      height: "100%",
+      maxWidth: "420px",
+      maxHeight: "420px",
+      borderRadius: "16px",
+      bottom: "auto",
+      right: "auto",
+      left: "auto",
+      top: "auto"
+    });
+  }
+}
+
+function closePlayerPanel() {
+  const panel = document.getElementById("playerPanel");
+  const player = document.getElementById("floatingPlayer");
+
+  panel.classList.add("hidden");
+
+  // Move it back to the page (or body)
+  if (player) {
+    document.body.appendChild(player);
+
+    // Restore floating style
+    Object.assign(player.style, {
+      position: "fixed",
+      width: "190px",
+      height: "190px",
+      bottom: "1rem",
+      right: "1rem",
+      borderRadius: "50%"
+    });
+  }
+}
+</script>
+
+<script>
+  // 1. Create the map
+  const map = L.map("map", {
+    zoomControl: true,
+    scrollWheelZoom: true
+  }).setView([39.5, -98.35], 4);
+
+  // 2. Base layer
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  // 3. Marker group
+  const communityLayer = L.layerGroup().addTo(map);
+
+  // 4. Helper: parse description text
+  function parseDescription(text = "") {
+    const cityMatch = text.match(/City:\s*([^\n<]+)/i);
+    const noteMatch = text.match(/Comments:\s*([^\n<]+)/i);
+
+    return {
+      city: cityMatch ? cityMatch[1].trim() : "",
+      note: noteMatch ? noteMatch[1].trim() : "Walking a similar path."
+    };
+  }
+
+  // 5. Store people for search
+  const people = [];
+
+  // 6. Load community data
+  fetch("./HomeGroupsMap.geojson")
+    .then(res => res.json())
+    .then(data => {
+      data.features.forEach(person => {
+        const coords = person.properties.Coordinates?.split(",").map(Number);
+        if (!coords || coords.length < 2) return;
+
+        const [lon, lat] = coords;
+
+        const name =
+          person.properties.Name?.split(" ")[0] || "A Friend";
+
+        const desc = person.properties.description || "";
+        const parsed = parseDescription(desc);
+
+        const popupHTML = `
+          <div style="max-width:220px; color:#e5e7eb">
+            <strong>${name}</strong><br>Message/ Comment:
+            <span style="color:#94a3b8">${parsed.city}</span>
+            <p style="margin-top:6px; font-size:13px;">${parsed.note}</p>
+            <button
+              style="
+                margin-top:8px;
+                padding:6px 10px;
+                border-radius:8px;
+                background:#2563eb;
+                color:white;
+                border:none;
+                cursor:pointer;
+                font-size:12px;
+              "
+              onclick="openMessage('${name}')">
+              🗣️ Say Hello!
+            </button>
+            <button
+              style="
+                margin-top:8px;
+                padding:6px 10px;
+                border-radius:8px;
+                background:#2563eb;
+                color:white;
+                border:none;
+                cursor:pointer;
+                font-size:12px;
+              "
+              onclick="openMessage('${name}')">
+              🤝 Info
+            </button>
+          </div>
+        `;
+
+        const marker = L.circleMarker([lat, lon], {
+          radius: 8,
+          color: "#38bdf8",
+          fillColor: "#0ea5e9",
+          fillOpacity: 0.85,
+          weight: 2
+        }).bindPopup(popupHTML);
+
+        communityLayer.addLayer(marker);
+
+        // Save for search
+        people.push({
+          name: name.toLowerCase(),
+          city: parsed.city.toLowerCase(),
+          marker
+        });
+      });
+    })
+    .catch(err => console.error("Map load error:", err));
+
+  // 7. Location centering
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(pos => {
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 10);
+
+      L.circleMarker([latitude, longitude], {
+        radius: 10,
+        color: "#22c55e",
+        fillColor: "#4ade80",
+        fillOpacity: 0.9
+      })
+        .addTo(map)
+        .bindPopup("📍 You are here. Zoom out.")
+        .openPopup();
+    });
+  }
+
+  // 8. Placeholder message system
+  function openMessage(name) {
+    alert(`Send Message To ${name} (coming soon)`);
+  }
+
+  // 9. Search filter
+  document.getElementById("mapSearch")?.addEventListener("input", e => {
+    const query = e.target.value.toLowerCase();
+
+    people.forEach(p => {
+      const match =
+        p.name.includes(query) ||
+        p.city.includes(query);
+
+      if (match) {
+        communityLayer.addLayer(p.marker);
+      } else {
+        communityLayer.removeLayer(p.marker);
+      }
+    });
+  });
+
+  // 10. Join Map button
+  document.getElementById("joinMapBtn")?.addEventListener("click", () => {
+    alert(
+      "Join the Movement... form coming next. 🌱"
+    );
+  });
+</script>
+<script>
+function openJoin() {
+  document.getElementById("joinOverlay").classList.remove("hidden");
+}
+function closeJoin() {
+  document.getElementById("joinOverlay").classList.add("hidden");
+}
+</script>
+
+<script>
+function openHtmlPanel(url) {
+  const panel = document.getElementById("htmlPanel");
+  const frame = document.getElementById("htmlPanelFrame");
+
+  frame.src = url;
+  panel.classList.remove("hidden");
+}
+
+function closeHtmlPanel() {
+  const panel = document.getElementById("htmlPanel");
+  const frame = document.getElementById("htmlPanelFrame");
+
+  frame.src = ""; // stop audio/video
+  panel.classList.add("hidden");
 }
 </script>
 
