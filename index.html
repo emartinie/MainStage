@@ -1080,6 +1080,35 @@
 .bottom { bottom: -12px; left: 50%; transform: translateX(-50%); }
 .left   { left: -20px; top: 50%; transform: translateY(-50%); }
 
+@media (max-width: 640px) {
+  .orbit {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .orbit-btn,
+  .roundorbit-btn {
+    position: static;
+    width: 100%;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .orbit .absolute {
+    display: none; /* hide center circle on mobile */
+  }
+}
+
+@media (max-width: 640px) {
+  .orbit {
+    display: none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1354,33 +1383,74 @@ window.addEventListener("load", () => {
     </p>
    
 <!-- Porch Orbit -->
-    <div class="orbit mt-6">
+<div class="orbit mt-6 relative">
 
-      <!-- Center Player -->
+  <!-- Center Player -->
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner text-center text-sm text-slate-200">
+      <p>
+        🎧 5. Listen<br>
+        <button onclick="openPlayerPanel()" class="mt-1 text-cyan-400 hover:text-cyan-300">
+          ▶
+        </button>
+      </p>
+    </div>
+  </div>
 
-      <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner">
-            <p>🎧 5. Listen<br>
-              <button onclick="openPlayerPanel()">▶</button></p>
+  <!-- Orbit Buttons -->
+  <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top.')">
+    🪑 1. Rest
+  </button>
 
-      <!-- Gentle Options -->
-      <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top. ')">🪑 1. Rest</button>
-      <button class="roundorbit-btn top-right" onclick="openHtmlPanel('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
-  Scripture
-</button>
-      <button class="orbit-btn right" onclick="goToCard('mapCard')">🤝 2. Join</button>
-      <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">Games</button>
-      <button class="orbit-btn bottom" onclick="openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">🗣️ 3. Speak</button>
-      <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">Calendar</button>
-      <button class="orbit-btn left" onclick="openDockCModal()">📖 4. Learn</button>
-      <button class="roundorbit-btn top-left" onclick="openPorchPanel('Sharing Information', '<p>2-way forms coming soon 🌱</p>')">Panel</button>
-    
-          </div>
-        </div>
-      </div>
-     </div> 
-   </div>
-        <!-- Scripture -->
+  <button class="roundorbit-btn top-right"
+    onclick="openHtmlPanel('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
+    Scripture
+  </button>
+
+  <button class="orbit-btn right" onclick="goToCard('mapCard')">
+    🤝 2. Join
+  </button>
+
+  <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">
+    Games
+  </button>
+
+  <button class="orbit-btn bottom"
+    onclick="openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">
+    🗣️ 3. Speak
+  </button>
+
+  <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">
+    Calendar
+  </button>
+
+  <button class="orbit-btn left" onclick="goToCard('studyContent')">
+    📖 4. Learn
+  </button>
+
+  <button class="roundorbit-btn top-left"
+    onclick="openPorchPanel('Sharing Information', '<p>2-way forms coming soon 🌱</p>')">
+    Panel
+  </button>
+
+</div> 
+       
+
+
+<div class="mobile-doors md:hidden space-y-3">
+
+  <button class="door-btn" onclick="openToday()">🪑 Rest</button>
+  <button class="door-btn" onclick="goToCard('mapCard')">🤝 Join</button>
+  <button class="door-btn" onclick="openPorchPanel(...)">🗣️ Speak</button>
+  <button class="door-btn" onclick="goToCard('studyContent')">📖 Learn</button>
+  <button class="door-btn" onclick="openPlayerPanel()">🎧 Listen</button>
+
+</div>
+
+</div>        
+</div>        
+
+         <!-- Scripture -->
     <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
       <h1 class="text-2xl font-semibold">My Vision for the App</h1>
       <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much You Care"</p>
@@ -4878,7 +4948,7 @@ function closePlayerPanel() {
         fillOpacity: 0.9
       })
         .addTo(map)
-        .bindPopup("📍 You are here. Zoom out.")
+        .bindPopup("📍 You are here.<br> Zoom out to find people nearby.")
         .openPopup();
     });
   }
