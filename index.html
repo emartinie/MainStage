@@ -1372,73 +1372,18 @@ window.addEventListener("load", () => {
                 <source src="videos/bg-motion.mp4" type="video/mp4" />
               </video>-->
  
-              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">    <!-- Welcome -->
+              <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">    
+        <!-- Welcome -->
     <header class="space-y-2">
       <h1 class="text-2xl font-semibold text-white">Welcome, friends.</h1>
       <p class="text-slate-400 text-sm">Sit. Listen. Breathe.</p>
     </header>
- 
-
-</div>        
-</div>   
-    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
 
 <button onclick="openJourney()"
   class="mt-4 px-5 py-3 rounded-xl bg-cyan-700/90 text-white font-medium shadow-lg text-center">
   🌿 Want a Guided Journey?
-</button>     
-
-         <!-- Scripture -->
-    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
-      <h1 class="text-2xl font-semibold">My Vision for the App</h1>
-      <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much You Care"</p>
-      <p class="mt-3 italic text-slate-200">
-        “	🌿 Pastoral first
-	•	🪑 Porch before library
-	•	🕊️ Peace before precision
-	•	🔥 Warmth before wisdom”
-
-      </p>
-      <p>
-      -The 5 Doors That Cover 90% of Needs (things I have built to meet them)-</p>
-
-
-<p class="text-slate-400 text-sm">
-🪑 1. Sit & Rest
-
-(Today / Porch / Fireside / Calm content)</p>
-<p class="text-slate-400 text-sm">
-🤝 2. Join
-
-(Map participation, visible community, easy entry, group prayer and games)</p>
-<p class="text-slate-400 text-sm">
-🗣️ 3. Speak
-
-(Feedback, stories, voice, contributions)</p>
-<p class="text-slate-400 text-sm">
-📖 4. Learn
-
-(Study, scripture, deeper tools)</p>
-<p class="text-slate-400 text-sm">
-🎧 5. Listen
-
-(Audio, video, simple explanations)</p>
-<p class="text-slate-400 text-sm">
-If each of these feels warm, clear, and accessible,
-people will say:
-
-“This App has everything I need.”</p>
-          </div>
-
-        <!-- Quiet Word -->
-    <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3 text-center">
-      <h2 class="text-lg font-medium text-cyan-300">A quiet word</h2>
-      <p class="text-slate-300 leading-relaxed">
-        Ask God for light for the next step — not the whole staircase.
-        Let the Word be enough for today.
-      </p>
-</div>
-               <p class="label-pill text-sky-300/90">
+</button> 
+                <p class="label-pill text-sky-300/90">
   <marquee behavior="scroll" direction="right">
   <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
   </marquee>
@@ -1532,8 +1477,62 @@ people will say:
   <button class="door-btn" onclick="goToCard('studyContent')">📖 Learn</button>
   <button class="door-btn" onclick="openPlayerPanel()">🎧 Listen</button>
 
+  </div>
+
+         <!-- Scripture -->
+    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+      <h1 class="text-2xl font-semibold">My Vision for the App</h1>
+      <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much You Care"</p>
+      <p class="mt-3 italic text-slate-200">
+        “	🌿 Pastoral first
+	•	🪑 Porch before library
+	•	🕊️ Peace before precision
+	•	🔥 Warmth before wisdom”
+
+      </p>
+      <p>
+      -The 5 Doors That Cover 90% of Needs (things I have built to meet them)-</p>
+
+
+<p class="text-slate-400 text-sm">
+🪑 1. Sit & Rest
+
+(Today / Porch / Fireside / Calm content)</p>
+<p class="text-slate-400 text-sm">
+🤝 2. Join
+
+(Map participation, visible community, easy entry, group prayer and games)</p>
+<p class="text-slate-400 text-sm">
+🗣️ 3. Speak
+
+(Feedback, stories, voice, contributions)</p>
+<p class="text-slate-400 text-sm">
+📖 4. Learn
+
+(Study, scripture, deeper tools)</p>
+<p class="text-slate-400 text-sm">
+🎧 5. Listen
+
+(Audio, video, simple explanations)</p>
+<p class="text-slate-400 text-sm">
+If each of these feels warm, clear, and accessible,
+people will say:
+
+“This App has everything I need.”</p>
+</section>
+
+        <!-- Quiet Word -->
+    <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3 text-center">
+      <h2 class="text-lg font-medium text-cyan-300">A quiet word</h2>
+      <p class="text-slate-300 leading-relaxed">
+        Ask God for light for the next step — not the whole staircase.
+        Let the Word be enough for today.
+      </p>
 </div>
 </div>
+
+</div>        
+</div> 
 
 </section>
 
@@ -5102,11 +5101,10 @@ const journeySteps = [
     id: "join",
     title: "🤝 Join",
     html: `
-      <p>You don’t have to walk alone, you're not. </p>
+      <p>You don’t have to walk alone.</p>
       <button onclick="softMinimizeThen(() => goToCard('mapCard'))">
         Open Map
       </button>
-      <p>Add yourself to the map so others can find you like you can find others. </p>
     `,
     arrow: "#mapCard"
   },
@@ -5115,11 +5113,11 @@ const journeySteps = [
     id: "speak",
     title: "🗣️ Speak",
     html: `
-      <p>Your voice matters here.</p>
+      <p>Your voice matters.</p>
       <button onclick="softMinimizeThen(() => 
   openPorchPanel('Speak', '<p>Messaging coming soon 🌱</p>')
 )">
-  Say something
+  Try Speaking
 </button>
     `
   },
@@ -5128,9 +5126,9 @@ const journeySteps = [
     id: "learn",
     title: "📖 Learn",
     html: `
-      <p>Grow at your own pace. Study what you want.</p>
-      <button onclick="softMinimizeThen(() => goToCard('studyContent'))">
-        Study
+      <p>Grow at your own pace.</p>
+      <button onclick="softMinimizeThen(() => openDockCModal())">
+        Open Learning
       </button>
     `,
     arrow: "#openScriptureHeaderBtn"
