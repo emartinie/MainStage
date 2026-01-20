@@ -1109,6 +1109,32 @@
   }
 }
 
+.journey-highlight {
+  outline: 3px solid cyan;
+  box-shadow: 0 0 15px cyan;
+  border-radius: 12px;
+}
+
+/* Soft-minimized state for Guided Journey (CENTERED) */
+
+#journeyPanel.journey-soft-minimized {
+  background: transparent !important;      
+  backdrop-filter: none !important;        
+  pointer-events: none;                   
+  align-items: center;                    
+  justify-content: center;                
+}
+
+/* Shrink the panel box, keep it centered */
+#journeyPanel.journey-soft-minimized > div {
+  transform: scale(0.7);
+  opacity: 0.9;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  pointer-events: auto;                  
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
 </style>
 </head>
 <body>
@@ -1448,7 +1474,13 @@ window.addEventListener("load", () => {
 </div>
 
 </div>        
-</div>        
+</div>   
+    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+
+<button onclick="openJourney()"
+  class="mt-4 px-5 py-3 rounded-xl bg-cyan-700/90 text-white font-medium shadow-lg text-center">
+  🌿 Want a Guided Journey?
+</button>     
 
          <!-- Scripture -->
     <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
@@ -4760,6 +4792,37 @@ function goToCard(id) {
 </div>
 </div>
 
+   <!-- guided journey panel -->
+<div id="journeyPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center space-y-4 shadow-2xl">
+
+    <h2 id="journeyTitle" class="text-xl font-semibold text-cyan-300"></h2>
+    <p id="journeyText" class="text-slate-300 leading-relaxed"></p>
+
+    <button id="journeyNext"
+      class="w-full py-2 rounded-lg bg-cyan-600 text-white font-medium">
+      Continue →
+    </button>
+
+    <button onclick="closeJourney()" class="text-sm text-blue-400 underline">
+      Exit Journey
+    </button>
+  </div>
+</div>
+
+
+<!--mini guided journey-->
+<div id="journeyMini" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2
+  bg-slate-900/90 border border-slate-700 rounded-full px-4 py-2
+  shadow-xl flex items-center gap-3 z-50">
+
+  <span class="text-slate-300 text-sm">🌿 Guided Journey</span>
+
+  <button onclick="resumeJourney()" class="text-cyan-400 underline text-sm">
+    Resume →
+  </button>
+</div>
+
 </div><!-- root end div -->
 <script>
 function openPorchPanel(title, html) {
@@ -5007,6 +5070,160 @@ function closeHtmlPanel() {
   frame.src = ""; // stop audio/video
   panel.classList.add("hidden");
 }
+</script>
+<script>
+const journeySteps = [
+  {
+    id: "welcome",
+    title: "Welcome",
+    html: `
+      <p>You’re not here by accident.</p>
+      <p>This is a space to rest, learn, and connect.</p>
+    `,
+    nextLabel: "Begin"
+  },
+
+  {
+    id: "rest",
+    title: "🪑 Rest",
+    html: `
+      <p>Start with peace.</p>
+      <p>Tap TODAY whenever you need calm and grounding.</p>
+      <button onclick="highlight('#todayBtn'); softMinimizeThen(() => {})">
+        Show Me
+      </button>
+    `,
+    arrow: "#todayBtn"
+  },
+
+  {
+    id: "join",
+    title: "🤝 Join",
+    html: `
+      <p>You don’t have to walk alone, you're not. </p>
+      <button onclick="softMinimizeThen(() => goToCard('mapCard'))">
+        Open Map
+      </button>
+      <p>Add yourself to the map so others can find you like you can find others. </p>
+    `,
+    arrow: "#mapCard"
+  },
+
+  {
+    id: "speak",
+    title: "🗣️ Speak",
+    html: `
+      <p>Your voice matters here.</p>
+      <button onclick="softMinimizeThen(() => 
+  openPorchPanel('Speak', '<p>Messaging coming soon 🌱</p>')
+)">
+  Say something
+</button>
+    `
+  },
+
+  {
+    id: "learn",
+    title: "📖 Learn",
+    html: `
+      <p>Grow at your own pace. Study what you want.</p>
+      <button onclick="softMinimizeThen(() => goToCard('studyContent'))">
+        Study
+      </button>
+    `,
+    arrow: "#openScriptureHeaderBtn"
+  },
+
+  {
+    id: "listen",
+    title: "🎧 Listen",
+    html: `
+      <p>Sometimes, it’s best to just listen.</p>
+      <button onclick="softMinimizeThen(() => openPlayerPanel())">
+        Open Player
+      </button>
+    `
+  },
+
+  {
+    id: "customize",
+    title: "Make It Yours",
+    html: `
+      <p>You can explore however you like.</p>
+      <p>There’s no wrong path here.</p>
+    `
+  },
+
+  {
+    id: "finish",
+    title: "You're Ready",
+    html: `
+      <p>You’ve seen the doors.</p>
+      <p>Now walk freely.</p>
+    `,
+    nextLabel: "Finish"
+  }
+];
+
+let journeyIndex = 0;
+
+function highlight(selector) {
+  document.querySelectorAll(".journey-highlight")
+    .forEach(el => el.classList.remove("journey-highlight"));
+
+  const el = document.querySelector(selector);
+  if (el) el.classList.add("journey-highlight");
+}
+
+function openJourney() {
+  const saved = localStorage.getItem("journeyStep");
+  journeyIndex = saved ? Number(saved) : 0;
+
+  updateJourney();
+  document.getElementById("journeyPanel").classList.remove("hidden");
+}
+
+function softMinimizeThen(actionFn, delay = 400) {
+  const panel = document.getElementById("journeyPanel");
+  panel.classList.add("journey-soft-minimized");
+
+  setTimeout(() => {
+    actionFn();
+  }, delay);
+}
+
+function resumeJourney() {
+  document.getElementById("journeyPanel")
+    .classList.remove("journey-soft-minimized");
+}
+
+function closeJourney() {
+  document.getElementById("journeyPanel").classList.add("hidden");
+}
+
+function updateJourney() {
+  const step = journeySteps[journeyIndex];
+  const nextBtn = document.getElementById("journeyNext");
+
+  nextBtn.innerText = step.nextLabel || "Continue →";
+  document.getElementById("journeyTitle").innerText = step.title;
+  document.getElementById("journeyText").innerHTML = step.html;
+
+  localStorage.setItem("journeyStep", journeyIndex);
+
+  if (step.arrow) highlight(step.arrow);
+}
+
+document.getElementById("journeyNext").onclick = () => {
+  journeyIndex++;
+
+  if (journeyIndex < journeySteps.length) {
+    updateJourney();
+  } else {
+    localStorage.removeItem("journeyStep");
+    closeJourney();
+  }
+};
 </script>
 
 </body>
