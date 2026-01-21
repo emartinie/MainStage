@@ -1135,6 +1135,96 @@
   border-color: rgba(148, 163, 184, 0.3);
 }
 
+/* ===== Reader Skin (gentle + mobile-first) ===== */
+
+/* Use this on containers that render chapter text / intro / panel content */
+.reader-skin{
+  line-height: 1.75;
+  font-size: 0.98rem;
+  color: rgb(226 232 240); /* slate-200 */
+}
+
+/* Headings inside reader areas */
+.reader-skin h1,
+.reader-skin h2,
+.reader-skin h3{
+  color: rgb(165 243 252); /* cyan-200 */
+  letter-spacing: .2px;
+  margin: 0.75rem 0 0.5rem;
+}
+
+/* Paragraph rhythm */
+.reader-skin p{
+  margin: 0.65rem 0;
+  color: rgb(226 232 240);
+}
+
+/* Subtle emphasis */
+.reader-skin strong{
+  color: rgb(255 255 255);
+}
+
+/* Links */
+.reader-skin a{
+  color: rgb(34 211 238); /* cyan-400 */
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reader-skin a:hover{
+  color: rgb(103 232 249); /* cyan-300 */
+}
+
+/* Code/pre blocks (for rawText) */
+.reader-skin pre{
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: rgba(2,6,23,.55); /* slate-950-ish */
+  border: 1px solid rgba(51,65,85,.7); /* slate-700 */
+  border-radius: 14px;
+  padding: 14px;
+  margin: 0.75rem 0;
+  color: rgb(226 232 240);
+}
+
+/* Nice “card” section blocks */
+.reader-block{
+  background: rgba(2,6,23,.35);
+  border: 1px solid rgba(51,65,85,.65);
+  border-radius: 16px;
+  padding: 14px 14px;
+  box-shadow: 0 12px 24px rgba(0,0,0,.25);
+}
+
+/* Compact toolbar buttons used above sections */
+.reader-chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.7);
+  border: 1px solid rgba(51,65,85,.8);
+  color: rgb(226 232 240);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+.reader-chip:hover{
+  background: rgba(30,41,59,.85);
+}
+
+/* Review questions look nicer as a list */
+.reader-skin ol{
+  margin: 0.75rem 0 0.75rem 1.25rem;
+  padding: 0;
+}
+.reader-skin li{
+  margin: 0.5rem 0;
+  color: rgb(226 232 240);
+}
+.reader-skin li::marker{
+  color: rgb(34 211 238);
+}
+
 </style>
 </head>
 <body>
@@ -1859,13 +1949,116 @@ function closePorch() {
   </p>
 
   <div class="grid gap-3">
-    <a href="#" class="study-link">📖 Scripture Reader</a>
-    <a href="nt.html" class="study-link">🧠 NT Reader</a>
-    <a href="intertext-quotes.html" class="study-link">🔗 Intertext Quotations</a>
-    <a href="#" class="study-link">📝 Commentary</a>
-    <a href="sources.html" class="study-link">📚 Sources</a>
-  </div>
-</div>
+<button
+  class="study-link"
+  onclick="openPorchPanel(
+    '🧠 NT Reader',
+    `
+      <p>Read the New Testament in a clean, distraction-free layout.</p>
+      <p class='mt-2 text-slate-400 text-sm'>
+        Perfect for slow study, note-taking, and reflection.
+      </p>
+      <button
+        onclick=&quot;openHtmlPanel('nt.html')&quot;
+        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+      >
+        Open NT Reader
+      </button>
+    `
+  )">
+
+  🧠 NT Reader
+</button>
+
+<button
+  class="study-link"
+  onclick="openPorchPanel(
+    '📖 Scripture Reader',
+    `
+      <p>Start with the Word itself.</p>
+    <p class='mt-2 text-slate-400 text-sm'>
+      No commentary. No noise. Just Scripture.
+    </p>
+      <button
+        onclick=&quot;openHtmlPanel('scripture.html')&quot;
+        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+      >
+        Open NT Reader
+      </button>
+    `
+  )">
+
+ 📖 Scripture Reader
+</button>
+
+ 
+
+
+<button
+  class="study-link"
+  onclick="openPorchPanel(
+    '🔗 Intertext Quotations',
+    `
+      <p>Read the New Testament in a clean, distraction-free layout.</p>
+      <p class='mt-2 text-slate-400 text-sm'>
+        Perfect for slow study, note-taking, and reflection.
+      </p>
+      <button
+        onclick=&quot;openHtmlPanel('intertext-quotes.html')&quot;
+        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+      >
+        Open Intertext Quotations
+      </button>
+    `
+  )">
+
+  🔗 Intertext Quotations
+</button>
+
+<button
+  class="study-link"
+  onclick="openPorchPanel(
+    '📝 Commentary',
+    `
+      <p>A commentary is, at its simplest, a study companion for the Bible.</p>
+      <p class='mt-2 text-slate-400 text-sm'>
+        It's your easy way to dip into the academic world of scholars and experts.
+      </p>
+      <button
+        onclick=&quot;openHtmlPanel('#')&quot;
+        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+      >
+        Open Commentary 
+      </button>
+    `
+  )">
+
+  📝 Commentary
+</button>
+ 
+<button
+  class="study-link"
+  onclick="openPorchPanel(
+    '📝 Commentary',
+    `
+      <p>A commentary is, at its simplest, a study companion for the Bible.</p>
+      <p class='mt-2 text-slate-400 text-sm'>
+        It's your easy way to dip into the academic world of scholars and experts.
+      </p>
+      <button
+        onclick=&quot;openHtmlPanel('sources.html')&quot;
+        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+      >
+        Open Sources
+      </button>
+    `
+  )">
+
+  📚 Sources
+</button>     
+
+                        </div>
+                        </div>
                         </div>
 
 
