@@ -5017,6 +5017,37 @@ function goToCard(id) {
   </button>
 </div>
 
+<div id="playerCourtesyPanel" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur flex items-center justify-center">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center space-y-4 shadow-2xl">
+
+    <h2 class="text-xl font-semibold text-cyan-300">
+      A Quick Heads-Up 🌿
+    </h2>
+
+    <p class="text-slate-300 text-sm leading-relaxed">
+      We can gently move the media player out of the way so you can explore the app without distraction.
+    </p>
+
+    <div class="flex gap-3 justify-center pt-2">
+      <button onclick="confirmDockPlayer()"
+        class="px-4 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white">
+        Yes, please
+      </button>
+
+      <button onclick="cancelDockPlayer()"
+        class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white">
+        Keep it visible
+      </button>
+
+      <button onclick="hidePlayerWithPause()">
+      OK
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
 </div><!-- root end div -->
 <script>
 function openPorchPanel(title, html) {
@@ -5038,6 +5069,20 @@ function openPorchPanel(title, html) {
 function closePorchPanel() {
   document.getElementById("porchPanelOverlay")?.classList.add("hidden");
 }
+
+function pauseAllMedia() {
+  const audios = document.querySelectorAll("audio, video");
+
+  audios.forEach(media => {
+    if (!media.paused) {
+      media.pause();
+      media.currentTime = media.currentTime;
+    }
+  });
+
+  console.log("⏸ All media paused:", audios.length);
+}
+
 </script>
 
 <script>
@@ -5418,6 +5463,109 @@ document.getElementById("journeyNext").onclick = () => {
   }
 };
 </script>
+<script>
+/** Safely finds and clicks the dock button once */
+function dockPlayerOnce() {
+  const player = document.getElementById("floatingPlayer");
+  if (!player) return false;
 
+  const dockBtn =
+    player.querySelector("#dockBtn") ||
+    Array.from(player.querySelectorAll("button")).find(b =>
+      (b.textContent || "").includes("⫶") ||
+      (b.textContent || "").toLowerCase().includes("dock")
+    );
+
+  if (!dockBtn) {
+    console.warn("Dock button not found.");
+    return false;
+  }
+
+  dockBtn.click();
+  return true;
+}
+
+function pauseAllMedia() {
+  const audios = document.querySelectorAll("audio, video");
+
+  audios.forEach(media => {
+    if (!media.paused) {
+      media.pause();
+      media.currentTime = media.currentTime;
+    }
+  });
+
+  console.log("⏸ All media paused:", audios.length);
+}
+
+/** Shows the courtesy panel */
+function showPlayerCourtesyPanel() {
+  const html = `
+    <div class="space-y-3 text-left">
+      <p class="text-slate-200 font-semibold">Quick heads-up</p>
+      <p class="text-slate-300 text-sm">
+        I’m going to tuck the player out of your way so you can explore the app easier. What would you prefer?
+      </p>
+
+      <div class="flex gap-2">
+        <button id="pcpOk"
+          class="flex-1 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-medium">
+          Hide Player
+        </button>
+
+        <button id="pcpCancel"
+          class="flex-1 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700">
+          Keep Playing
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500">
+        You can bring it back anytime.
+      </p>
+    </div>
+  `;
+
+  openPorchPanel("Player", html);
+
+  // Wire buttons AFTER panel renders
+  function hidePlayerWithPause() {
+  pauseFloatingPlayer();        // 1️⃣ Stop audio first
+  autoDockOrHidePlayer();      // 2️⃣ Then move / hide it
+  savePlayerPreference();      // 3️⃣ Remember choice (optional)
+}
+
+  function savePlayerPreference() {
+  localStorage.setItem("playerCourtesyDismissed", "true");
+}
+
+  setTimeout(() => {
+    const ok = document.getElementById("pcpOk");
+    const cancel = document.getElementById("pcpCancel");
+
+    if (ok) ok.onclick = () => {
+      closePorchPanel();
+      dockPlayerOnce();
+    };
+
+    if (cancel) cancel.onclick = () => {
+      closePorchPanel();
+    };
+  }, 50);
+}
+
+/** Run on page load */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    showPlayerCourtesyPanel();
+  }, 1200); // wait for player to exist
+});
+
+window.addEventListener("load", () => {
+  const dismissed = localStorage.getItem("playerCourtesyDismissed");
+  if (!dismissed) {
+    showPlayerCourtesyPanel();
+  }
+});
+</script>
 </body>
 </html>
