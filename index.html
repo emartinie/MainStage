@@ -1324,7 +1324,7 @@ window.addEventListener("load", () => {
     <ul class="space-y-2">
       <li>
         • <a class="text-blue-400 hover:text-blue-300 underline" href="nt.html" target="_blank">
-          NT Reader
+          NT Notes
         </a>
       </li>
       <li>
@@ -1411,8 +1411,10 @@ window.addEventListener("load", () => {
   <div class="jesus-label">Who is Jesus? I want to make sure you KNOW Him!</div>
 
   <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus mb-6">-->
-
-<button id="openJesusBtn" class="jesus-btn">
+    
+  </button>
+  <button class="jesus-btn inline-block mx-auto"
+    onclick="openHtmlPanel('https://emartinie.github.io/MainStage/jesus.html')">
     Open  →
   </button>
 </div>
@@ -1952,7 +1954,7 @@ function closePorch() {
 <button
   class="study-link"
   onclick="openPorchPanel(
-    '🧠 NT Reader',
+    '🧠 NT Notes',
     `
       <p>Read the New Testament in a clean, distraction-free layout.</p>
       <p class='mt-2 text-slate-400 text-sm'>
@@ -1962,12 +1964,12 @@ function closePorch() {
         onclick=&quot;openHtmlPanel('nt.html')&quot;
         class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
       >
-        Open NT Reader
+        Open NT Notes
       </button>
     `
   )">
 
-  🧠 NT Reader
+  🧠 NT Notes
 </button>
 
 <button
@@ -1983,7 +1985,7 @@ function closePorch() {
         onclick=&quot;openHtmlPanel('scripture.html')&quot;
         class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
       >
-        Open NT Reader
+        Open NT Notes
       </button>
     `
   )">
@@ -2076,7 +2078,7 @@ function closePorch() {
       <p class="text-slate-400 text-sm mb-3">
         Start with the text itself — clear, structured, distraction-free.
       </p>
-      <a href="nt.html" class="study-link">Open NT Reader</a>
+      <a href="nt.html" class="study-link">Open NT Notes</a>
     </div>
 
     <!-- Context & Cross-References -->
@@ -3084,8 +3086,7 @@ function getStudyContext() {
             <div class="text-center">
               <div class="label-pill text-slate-400">hostCard 7- Trivia</div>
               <h2 class="text-xl font-bold text-cyan-300 text-center">
-                Weekly Bible Trivia Challenge to
-Play together • Discuss • Learn
+                Bingo
               </h2>
               
             </div>
@@ -3512,8 +3513,7 @@ Use any standard 1–75 Bingo card.
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 11</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Presentations- ALL the Prezis here     <select id="preziCategorySelect"></select>
-
+                Presentations- Over 100 visually stimulating presentations
               </h2>
             </div>
  
@@ -3528,6 +3528,13 @@ Use any standard 1–75 Bingo card.
  
           <!-- Card body -->
           <div class="p-6 text-center text-slate-300 text-sm">
+  <footer class="prezi-controls">
+    <button id="preziPrevBtn">◀ Prev</button><span class="prepper-icon">Title:</span>
+    <div id="preziTitle"></div><span class="prepper-icon">Categories</span>
+    <select id="preziCategorySelect">Category</select>
+
+    <button id="preziNextBtn">Next ▶</button>
+  </footer>
 
             <p><div class="prezi-container w-full max-w-3xl mx-auto my-4">
   <header class="card-header">
@@ -3538,11 +3545,7 @@ Use any standard 1–75 Bingo card.
     <div id="preziFrameHost"></div>
   </div>
 
-  <footer class="prezi-controls">
-    <button id="preziPrevBtn">◀ Prev</button>
-    <div id="preziTitle"></div>
-    <button id="preziNextBtn">Next ▶</button>
-  </footer>
+
 <div>
 </section>
 
