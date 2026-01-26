@@ -1,4 +1,10 @@
 // orbitFloatingPlayer.js
+import { registerResource } from "/js/core/resourceManager.js";
+
+let player = null;
+let audio = null;
+let glowInterval = null;
+let orbitInterval = null;
 
 if (window.__floatingPlayerLoaded) {
   console.warn("Floating player already loaded — skipping.");
@@ -47,7 +53,7 @@ if (floatingPlayer) {
   setInterval(() => {
     floatingPlayer.style.boxShadow = glowGrowing
       ? "0 0 30px rgba(0,255,255,1), 0 0 50px rgba(0,255,255,0.5) inset"
-      : "0 0 20px rgba(0,255,255,0.😎, 0 0 40px rgba(0,255,255,0.4) inset";
+      : "0 0 20px rgba(0,255,255,0.8, 0 0 40px rgba(0,255,255,0.4) inset";
     glowGrowing = !glowGrowing;
   }, 800); // pulses every 0.8s
 
@@ -271,11 +277,37 @@ if (floatingPlayer) {
     speedBtn.textContent = audio.playbackRate+"x";
   });
 
-    const videoBtn = btn("🎬","Open Video (popup)",()=>{ console.log("TODO: video popup"); });
-    const shareBtn = btn("🔗","Share Track",()=>{ console.log("TODO: share logic"); });
-    const favBtn   = btn("⭐","Favorite",()=>{ console.log("TODO: favorites logic"); 
+    const videoBtn = btn("🎬", "Open Video (popup)", () => { toggleOrbitVideo(); })
+const shareBtn = btn("🔗","Share Track",()=>{
+  const url = window.location.href;
+  const title = document.title || "Now Playing";
 
-  });
+  if (navigator.share) {
+    navigator.share({
+      title,
+      text: "Check out this track:",
+      url
+    }).catch(err => console.warn("Share cancelled", err));
+  } else {
+    navigator.clipboard.writeText(url);
+    alert("Link copied to clipboard!");
+  }
+});
+    const favBtn = btn("⭐","Favorite",()=>{
+  const track = audio?.src;
+  if (!track) return alert("Nothing playing");
+
+  let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (!favs.includes(track)) {
+    favs.push(track);
+    localStorage.setItem("favorites", JSON.stringify(favs));
+    favBtn.textContent = "★";
+    console.log("Favorited:", track);
+  } else {
+    alert("Already in favorites");
+  }
+}); 
 
 
   // --- Dock Button ---
@@ -496,6 +528,28 @@ const applyOrbitGlow = () => {
 applyOrbitGlow();
 
 // Repeat every 500ms to catch new buttons dynamically
-setInterval(applyOrbitGlow, 500);
+//setInterval(applyOrbitGlow, 500);
 
 }
+
+function destroyFloatingPlayer() {
+  if (audio) {
+    audio.pause();
+    audio.src = "";
+    audio.remove();
+    audio = null;
+  }
+
+  if (player) {
+    player.remove();
+    player = null;
+  }
+
+  if (glowInterval) clearInterval(glowInterval);
+  if (orbitInterval) clearInterval(orbitInterval);
+}
+
+registerResource("player", {
+  //init: setupFloatingPlayer,
+  destroy: destroyFloatingPlayer
+})
