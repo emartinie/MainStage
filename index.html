@@ -29,28 +29,40 @@
 <meta name="theme-color" content="#4a5568">
   <title>MainStage Bible Study App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
+      <!-- Link the external CSS file -->
+    <link rel="stylesheet" href="css/core/core.css">
+    <link rel="stylesheet" href="css/core/debugger.css">
+    <link rel="stylesheet" href="/css/resources/porchPanel.css">
+    <link rel="stylesheet" href="/css/resources/journeyPanel.css">
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet MarkerCluster CSS + JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
-
-    <!--core CSS-->
-   <link rel="stylesheet" href="/css/core/core.css">
-   <link rel="stylesheet" href="/css/core/debugger.css">
-
-   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
      <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script> 
- 
+
+
+<title>MainStage</title>
+</head>
 <style>
 :root {
   color-scheme: dark;
 }
+
+/* Popup container */
+.leaflet-popup-content-wrapper {
+  background: #0f172a;   /* deep slate */
+  color: #e5e7eb;        /* light text */
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
 </style>
-</head>
 <body>
 <!-- ============================= -->
   <!-- Splash / Week Image        -->
@@ -148,7 +160,7 @@ window.addEventListener("load", () => {
     <ul class="space-y-2">
       <li>
         • <a class="text-blue-400 hover:text-blue-300 underline" href="nt.html" target="_blank">
-          NT Notes
+          NT Reader
         </a>
       </li>
       <li>
@@ -232,15 +244,11 @@ window.addEventListener("load", () => {
 <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you know!</div>
 
 <div class="jesus-tile mb-6">
-  <div class="jesus-label">Who is Jesus? I want to make sure you KNOW Him!</div>
+  
 
   <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus mb-6">-->
-    
-  </button>
-  <button class="jesus-btn inline-block mx-auto"
-    onclick="openHtmlPanel('https://emartinie.github.io/MainStage/jesus.html')">
-    Open  →
-  </button>
+
+<button class="jesus-btn mx-auto" onclick="getResource('htmlPanel')?.open('jesus.html', 'To Know')">✝️ Who is Jesus?</button><div class="jesus-label">Do you know the Father and the Son? I want to make sure you KNOW Them!</div>
 </div>
 
 
@@ -295,7 +303,8 @@ window.addEventListener("load", () => {
       <p class="text-slate-400 text-sm">Sit. Listen. Breathe.</p>
     </header>
 
-<button onclick="openJourney()"
+
+<button onclick="getResource('journey')?.openJourney()"
   class="mt-4 px-5 py-3 rounded-xl bg-cyan-700/90 text-white font-medium shadow-lg text-center">
   🌿 Want a Guided Journey?
 </button> 
@@ -314,7 +323,7 @@ window.addEventListener("load", () => {
 
 
     <!-- Video -->
-    <div class="aspect-video w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
+    <!-- <div class="aspect-video w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
       <iframe
         class="w-full h-full"
         src="https://www.youtube.com/embed/Q95FO1e1HGU"
@@ -322,7 +331,7 @@ window.addEventListener("load", () => {
         allow="autoplay; encrypted-media"
         allowfullscreen>
       </iframe>
-    </div>
+    </div>-->
 
     <!-- Gentle Text -->
     <p class="text-xs text-slate-500">
@@ -346,12 +355,12 @@ window.addEventListener("load", () => {
   </div>
 
   <!-- Orbit Buttons -->
-  <button class="orbit-btn top" onclick="alert('Start by simply clicking the TODAY button at the top.')">
+  <button class="orbit-btn top" onclick="openToday()">
     🪑 1. Rest
   </button>
 
   <button class="roundorbit-btn top-right"
-    onclick="openHtmlPanel('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
+    onclick="getResource('htmlPanel')?.open('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
     Scripture
   </button>
 
@@ -364,7 +373,7 @@ window.addEventListener("load", () => {
   </button>
 
   <button class="orbit-btn bottom"
-    onclick="openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">
+    onclick="getResource('porchPanel')?.openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">
     🗣️ 3. Speak
   </button>
 
@@ -376,12 +385,15 @@ window.addEventListener("load", () => {
     📖 4. Learn
   </button>
 
-  <button class="roundorbit-btn top-left"
-    onclick="openPorchPanel('Sharing Information', '<p>2-way forms coming soon 🌱</p>')">
-    Panel
-  </button>
-
-</div> 
+  <button class="roundorbit-btn top-left" onclick="
+  getResource('porchPanel')?.openPorchPanel(
+    'Sharing Information',
+    '<p>2-way forms coming soon 🌱</p>'
+  )
+">
+  Panel
+</button>
+</div>
        
 
 
@@ -389,7 +401,7 @@ window.addEventListener("load", () => {
 
   <button class="door-btn" onclick="openToday()">🪑 Rest</button>
   <button class="door-btn" onclick="goToCard('mapCard')">🤝 Join</button>
-  <button class="door-btn" onclick="openPorchPanel(...)">🗣️ Speak</button>
+  <button class="door-btn" onclick="getResource('porchPanel')?.openPorchPanel(...)">🗣️ Speak</button>
   <button class="door-btn" onclick="goToCard('studyContent')">📖 Learn</button>
   <button class="door-btn" onclick="openPlayerPanel()">🎧 Listen</button>
 
@@ -590,10 +602,11 @@ people will say:
     <div class="mb-4">
 
     </div>
-                            <h2 class="text-2xl font-bold flex items-center gap-2">
+                            <h2 class="text-2xl font-bold flex text-center gap-2">
       <img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/>This Week's Updates<img src="images/HGHouses.png" alt="logo" class="w-8 h-7"/></h2>
 
-    <div id="mainStageUpdates" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"><p><iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Feddie.martinie%2Fposts%2Fpfbid02m4f6mBnkY8nXKGztH3JSUF1qjnxxfev42GNg6BqYZozUjSqyJ2cCehDZXe1XcVHvl&show_text=true&width=700" width="700" height="700" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe></p>
+    <div id="mainStageUpdates" class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%"><p><div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
+</p>
           </div>
 
         </div>
@@ -619,7 +632,7 @@ people will say:
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 2</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Community Map • Family Explorer
+                Community Map • Family Explorer 
               </h2>
             </div>
  
@@ -637,7 +650,7 @@ people will say:
   <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl">
 
     <!-- Map Container -->
-<div class="relative h-[420px]">
+<div class="relative h-[420px] rounded">
 
   <!-- Floating Search -->
   <div class="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] w-[90%] max-w-sm ">
@@ -645,7 +658,7 @@ people will say:
       id="mapSearch"
       type="text"
       placeholder="Search by name or city…"
-      class="w-full px-4 py-2 rounded-full 
+      class="w-56 px-4 py-2 rounded-full 
        bg-black/50 text-white 
        border border-slate-500/40 
        backdrop-blur-md 
@@ -657,7 +670,40 @@ people will say:
   </div>
 
   <!-- Map -->
-  <div id="map" class="h-full w-full rounded-2xl"></div>
+   
+   <div id="mapWrapper" class="relative w-full h-full">
+  <div id="mapContainer" class="w-full h-full rounded-3xl shadow-2xl"></div>
+   </p><button class ="float-left" onclick="PrayerMap.openPrayer()">🙏 Pray for others</button><button class ="float-right" onclick="PrayerMap.openPrayer()">🙏 Add Prayer Request</button>
+
+  <!-- Community Panel -->
+<div
+  id="communityPanel"
+  class="absolute top-4 right-4 w-60 max-h-[44vh]
+         bg-slate-900/70 backdrop-blur-md
+         border border-slate-700/60
+         rounded-2xl shadow-2xl
+         flex flex-col
+         z-[1000]"
+
+  <!-- Search -->
+  <div class="p-3 border-b border-slate-700/60">
+    <input
+      id="mapSearch"
+      placeholder="Search community…"
+      class=" w-56 px-3 py-2 rounded-lg
+             bg-slate-800/70 text-slate-200 text-sm
+             placeholder:text-slate-400
+             focus:outline-none focus:ring focus:ring-cyan-500/30"
+    />
+  </div>
+
+  <!-- Community List -->
+  <div
+    id="communityList"
+    class="flex-1 overflow-y-auto p-2 space-y-2 text-sm"
+  ></div>
+</div>
+</div>
 
 </div>
 
@@ -666,24 +712,19 @@ people will say:
     </div>
 
     <!-- Footer / Invitation -->
-    <div class="p-5 text-center space-y-3 bg-slate-900/80 border-t border-slate-700">
-
-      <p class="text-slate-300 text-sm">
-        Find others who walk a similar path.<br>You are not alone.
-      </p>
-          <div class="text-center px-6 py-4 border-b border-slate-700">
-      <button
+    <div class="p-5 text-center space-y-3 bg-slate-900/80 border-t border-slate-700"><p class="text-slate-300 text-sm float-left">Find others who walk a similar path.You are not alone.</p>
+            <button
         id="joinMapBtn"
         class="px-5 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition shadow-lg hover:shadow-cyan-500/30"
         onclick="openJoin()"
       >
-        🤝 Join the Movement
-      </button>
-    </div>
-
-      <p class="text-xs text-slate-500">
+        🤝 Join the Revival!
+      </button><div class="text-center px-6 py-4 border-b border-slate-700"><p class="text-xs text-slate-500">
         Your info stays private. You choose how to connect.
-      </p>
+      </p>     
+
+    </div>
+      
     </div>
 
 <div id="porchPanel" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
@@ -710,7 +751,10 @@ people will say:
 </div>
 </section>
 
-<script>
+<script type="module">
+import { getResource } from "/js/core/resourceManager.js";
+window.getResource = getResource;
+
 function openJoin() {
   openPorch(
     "Join the Movement",
@@ -773,119 +817,22 @@ function closePorch() {
   <p class="text-slate-400 text-sm">
     Access study tools and reference material. You can enable or disable sections later.
   </p>
-
-  <div class="grid gap-3">
-<button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700" onclick="openHtmlPanel('https://emartinie.github.io/MainStage/intertext-quotes.html')">
-    🔗 Intertext Quotations
-  </button>
-
-<button
-  class="study-link"
-  onclick="openPorchPanel(
-    '🧠 NT Notes',
-    `
-      <p>Read the New Testament in a clean, distraction-free layout.</p>
-      <p class='mt-2 text-slate-400 text-sm'>
-        Perfect for slow study, note-taking, and reflection.
-      </p>
-      <button
-        onclick=&quot;openHtmlPanel('nt.html')&quot;
-        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
-      >
-        Open NT Notes
-      </button>
-    `
-  )">
-
-  🧠 NT Notes
-</button>
-
-<button
-  class="study-link"
-  onclick="openPorchPanel(
-    '📖 Scripture Reader',
-    `
-      <p>Start with the Word itself.</p>
-    <p class='mt-2 text-slate-400 text-sm'>
-      No commentary. No noise. Just Scripture.
-    </p>
-      <button
-        onclick=&quot;openHtmlPanel('scripture.html')&quot;
-        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
-      >
-        Open NT Notes
-      </button>
-    `
-  )">
-
- 📖 Scripture Reader
-</button>
-
- 
+<div class="grid gap-3">
 
 
-<button
-  class="study-link"
-  onclick="openPorchPanel(
-    '🔗 Intertext Quotations',
-    `
-      <p>Read the New Testament in a clean, distraction-free layout.</p>
-      <p class='mt-2 text-slate-400 text-sm'>
-        Perfect for slow study, note-taking, and reflection.
-      </p>
-      <button
-        onclick=&quot;openHtmlPanel('intertext-quotes.html')&quot;
-        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
-      >
-        Open Intertext Quotations
-      </button>
-    `
-  )">
-
-  🔗 Intertext Quotations
-</button>
-
-<button
-  class="study-link"
-  onclick="openPorchPanel(
-    '📝 Commentary',
-    `
-      <p>A commentary is, at its simplest, a study companion for the Bible.</p>
-      <p class='mt-2 text-slate-400 text-sm'>
-        It's your easy way to dip into the academic world of scholars and experts.
-      </p>
-      <button
-        onclick=&quot;openHtmlPanel('#')&quot;
-        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
-      >
-        Open Commentary 
-      </button>
-    `
-  )">
-
-  📝 Commentary
-</button>
- 
-<button
-  class="study-link"
-  onclick="openPorchPanel(
-    '📝 Commentary',
-    `
-      <p>A commentary is, at its simplest, a study companion for the Bible.</p>
-      <p class='mt-2 text-slate-400 text-sm'>
-        It's your easy way to dip into the academic world of scholars and experts.
-      </p>
-      <button
-        onclick=&quot;openHtmlPanel('sources.html')&quot;
-        class=&quot;mt-4 w-full py-2 bg-cyan-600 rounded text-white&quot;
+<button onclick="
+  getResource('porchPanel')?.openPorchPanel(
+    'Test',
+    '<p>Hello from PorchPanel</p>'
+          <button class='mt-4 w-full py-2 bg-cyan-600 rounded text-white'
+        onclick='getResource('htmlPanel')?.open('https://example.com', 'Scripture')'
       >
         Open Sources
       </button>
-    `
-  )">
-
-  📚 Sources
-</button>     
+  )
+">
+  Open Panel
+</button>
 
                         </div>
                         </div>
@@ -906,7 +853,7 @@ function closePorch() {
       <p class="text-slate-400 text-sm mb-3">
         Start with the text itself — clear, structured, distraction-free.
       </p>
-      <a href="nt.html" class="study-link">Open NT Notes</a>
+      <a href="nt.html" class="study-link">Open NT Reader</a>
     </div>
 
     <!-- Context & Cross-References -->
@@ -915,7 +862,7 @@ function closePorch() {
       <p class="text-slate-400 text-sm mb-3">
         See how the New Testament quotes and reflects the Hebrew Scriptures.
       </p>
-      <a href="sources.html" class="study-link">View Intertext Quotations</a>
+      <a href="intertext-quotes.html" class="study-link">View Intertext Quotations</a>
     </div>
 
     <!-- Commentary -->
@@ -947,6 +894,7 @@ function closePorch() {
 
 </div>
                   </section>
+
 <script>
 function getStudyContext() {
   const week = typeof getSelectedWeekNumber === "function"
@@ -1013,7 +961,7 @@ function getStudyContext() {
 </p>
 </div>
   <h3 class="text-xl font-bold mb-2 flex items-center">Next Holy Day: Pesach/ Passover (פֶּסַח) : Begins April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and April 8–9.. </h3><h2>Begins In</h2>
-<button id="downloadBtn" style="
+<!--<button id="downloadBtn" style="
   display: flex;
   justify-content: center; /* Horizontal center */
   align-items: center;  
@@ -1028,7 +976,7 @@ function getStudyContext() {
   hover:drop-shadow-[0_0_8px_#0ff];
 ">
 📸 Download and Share Image
-</button>
+</button>-->
 <h3></h3>  <div class="countdown-group">
     <div class="countdown" id="startCountdown">
       <div class="time"><span id="startPDays">0</span><label>Days</label></div>
@@ -1047,6 +995,7 @@ function getStudyContext() {
       <div class="time"><span id="endPSeconds">0</span><label>Seconds</label></div>
     </div>
 
+    </div>
 
 
 <script>
@@ -1098,7 +1047,17 @@ function getStudyContext() {
     
   </header>
 
-  <!-- Calendar Filters -->
+
+
+  </div>
+
+  <!-- Placeholder / In Progress -->
+  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+    <h2 class="text-2xl font-bold flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+        <!-- Calendar Filters -->
   <div class="calendar-filters flex flex-wrap gap-2 justify-center">
     <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1119,21 +1078,12 @@ function getStudyContext() {
                                     style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
                                     Hillel
                                 </h3>
-
-  </div>
-
-  <!-- Placeholder / In Progress -->
-  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-    <h2 class="text-2xl font-bold flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-      </svg>
-      In Progress
-    </h2>
+    <!--</h2>
     <p>🎵 Placeholder: Music / voice interaction panel</p>
     <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
-    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>-->
 </section>
+  <div class="calendar-filters flex flex-wrap gap-2 justify-center">
 
   <!-- Horizontal Section Example -->
   <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1761,6 +1711,7 @@ function getStudyContext() {
         </div>
       </section>
         
+ 
       <!-- ============================= -->
       <!-- Card 7: HostCard                -->
       <!-- ============================= -->
@@ -1901,7 +1852,7 @@ function getStudyContext() {
 </div>
                 </div>
 <button class="px-2 py-1 border rounded" style="float: center;"
-  onclick="openPorchPanel('How It Works', '<p>Answer correctly <strong>without a hint</strong> → +2 points<br>Use the Scripture hint → +1 point<br>Reveal the answer → no points, but you still learn<br>    For Hints: give a Bible reference only. Then open the Scriptures and search it out.</p>')">
+  onclick="getResource('porchPanel')?.openPorchPanel('How It Works', '<p>Answer correctly <strong>without a hint</strong> → +2 points<br>Use the Scripture hint → +1 point<br>Reveal the answer → no points, but you still learn<br>    For Hints: give a Bible reference only. Then open the Scriptures and search it out.</p>')">
   🗣️ How This Works
 </button>
               </div>
@@ -2023,8 +1974,7 @@ Use any standard 1–75 Bingo card.
 </div>
 </div>
           </div>
-        </section>
-        
+        </section>        
      <!-- ============================= -->
       <!-- Card 8: Quiz Cards Container  -->
       <!-- ============================= -->
@@ -2126,7 +2076,7 @@ Use any standard 1–75 Bingo card.
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 9</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Cards • json Explorer
+                Other Teachers Card • Chuck Missler, KHouse
               </h2>
             </div>
  
@@ -2144,12 +2094,214 @@ Use any standard 1–75 Bingo card.
 
           <div class="card-inner">
 
-            <p><div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">      
-</p>
-          </div>
+           <!-- Chuck Missler Card -->
+<div id="misslerCard" class="card-inner"> 
+  <h3 class="text-lg font-semibold mb-2">Learn the Bible in 24 Hours- the best whole overview ever taught</h3>
+    <p class="text-xs opacity-70 mt-3">
+    Teaching by Chuck Missler – Koinonia House; A complete overview of Scripture from Genesis to Revelation in 24 hours.
+  </p>
+  <p class="text-xs mt-1 opacity-60">
+    Chuck is one of my most beloved and respected teachers of my entire life. Find out why...<br> 
+  </p>
+  <div>
+
+  <!-- YouTube iframe player -->
+  <iframe
+    id="misslerPlayer"
+    width="100%"
+    height="300"
+    src=""
+    title="Chuck Missler – Learn the Bible in 24 Hours"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    class="rounded mb-3"
+  ></iframe>
+
+  <!-- Carousel container -->
+  <div id="misslerCarousel" class="flex overflow-x-auto gap-2 mt-3 pb-2"></div>
+        </div>
+      </div>
+
+   <!-- Source Toggles -->
+    <section class="mb-10">
+      <h2 class="text-xl font-medium mb-4">
+        Other Available Teachers
+      </h2>
+      
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          id="toggleJewish"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          Messianic<br> Whole Bible
+        </button>
+
+        <button
+          id="toggleNT"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          New Testament Teachers
+        </button>
+
+        <button
+          id="toggleFathers"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          Early Christian
+        </button>
+
+        <button id="toggleDSS"
+        class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+         Cutting Edge
+        </button>
+
+        <button id="togglePeople"
+        class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+         >
+        Prophetic
+         </button>
+         
+    </section>
+    <p class="text-xs text-slate-400 mt-3">
+        Each source may be explored independently. Nothing is shown unless you choose it.
+      </p>
+    <!-- Jewish Sources -->
+    <section id="jewishSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        Jewish Sources
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+        <p class="text-slate-300 mb-2">
+          Jewish tradition preserves centuries of reflection on the Hebrew Scriptures.
+          When available, select passages from these sources will appear here.
+        </p>
+        
+
+        <div id="sefariaBox" class="text-slate-200">
+          <p class="italic text-slate-400">
+            This source is being carefully integrated and will appear here once stable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NT Usage -->
+    <section id="ntSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        New Testament Usage of the Hebrew Scriptures
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm">
+        <p class="text-slate-300 mb-2">
+          The New Testament frequently quotes and alludes to the Hebrew Scriptures,
+          sometimes following the Masoretic Text and sometimes the Septuagint.
+        </p>
+
+        <div id="ntQuoteBox">
+          <p class="italic text-slate-400">
+            References will appear here as they are added.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Church Fathers -->
+    <section id="fathersSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        Early Christian Witness
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm">
+        <p class="text-slate-300 mb-2">
+          Early Christian writers often reflect on Scripture in ways shaped by
+          both Jewish tradition and the apostolic writings.
+        </p>
+
+        <p class="italic text-slate-400">
+          This section is under careful development.
+        </p>
+      </div>
+    </section>
+
+<section id="dssSection" class="mb-12 hidden">
+  <h3 class="text-lg font-medium mb-3">
+    Dead Sea Scrolls Witness
+  </h3>
+
+  <div class="bg-slate-800 rounded-lg p-4 text-sm">
+    <p class="text-slate-300 mb-2">
+      The Dead Sea Scrolls preserve some of the earliest known manuscripts
+      of the Hebrew Scriptures, copied centuries before the New Testament.
+    </p>
+
+    <div id="dssBox">
+      <p class="italic text-slate-400">
+        References from the Dead Sea Scrolls will appear here as they are
+        carefully compiled.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="peopleSection" class="mb-12 hidden">
+  <h3 class="text-lg font-medium mb-3">
+    Witness of the People of God
+  </h3>
+
+  <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+
+    <p class="text-slate-300 mb-4">
+      Scripture has been recognized, confessed, prayed, translated,
+      and preserved within the life of God’s people across generations.
+      This witness reflects lived faithfulness rather than scholarly analysis.
+    </p>
+
+    <ul class="space-y-3 text-slate-200">
+      <li>
+        <span class="font-medium">Canon</span> — These writings were received
+        as Scripture through use and trust, not imposed by force.
+      </li>
+
+      <li>
+        <span class="font-medium">Creeds</span> — Core truths were confessed
+        publicly, often under persecution, as a summary of shared faith.
+      </li>
+
+      <li>
+        <span class="font-medium">Prayer & Liturgy</span> — Scripture shaped
+        daily prayer, worship, and communal life.
+      </li>
+
+      <li>
+        <span class="font-medium">Translation</span> — God’s Word crossed
+        languages so that people might hear and understand.
+      </li>
+
+      <li>
+        <span class="font-medium">Preservation</span> — The text endured because
+        it mattered enough to be copied, protected, and suffered for.
+      </li>
+    </ul>
+
+    <p class="mt-4 italic text-slate-400">
+      This witness reflects how Scripture was lived before it was analyzed.
+    </p>
+
+  </div>
+</section>
+
+      </div>
+
+
+</div>
         </section>
 
-        
+        <!-- ============================= -->
+      <!--      Card 10: Be Ready         -->
+      <!-- ============================= -->     
       <section id="prepperCard" class="card">
  <div
           class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
@@ -2182,13 +2334,15 @@ Use any standard 1–75 Bingo card.
           <!-- Card body -->
           <div class="p-5 space-y-5">
 
-  <h2 class="text-xl font-semibold text-cyan-300 text-center">
-🧭 Prepper Library- The largest one on the internet!
+  
+ <div class="card-inner">
+
+<h2 class="text-xl font-semibold text-cyan-300 text-center">
+    🧭 Prepper Library- The largest one on the internet!
   </h2>
 
-
-  <p class="text-sm text-slate-300 text-center mb-4">
-    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  <p class="text-sm text-slate-300 text-center">
+    Field manuals, emergency guides, and survival references
   </p>
 
   <!-- Category Shelf -->
@@ -2198,48 +2352,34 @@ Use any standard 1–75 Bingo card.
     <button class="prepper-card">🩺 Medical</button>
     <button class="prepper-card">🔥 Heating</button>
     <button class="prepper-card">📻 Comms</button>
+  </div>
+         <!-- Scripture -->
+    <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+      <h1 class="text-2xl font-semibold">Two is one, and one is none.</h1>
+      <p class="mt-2 text-lg font-medium">"By failing to prepare, you are preparing to fail"</p>
+      <p class="mt-3 italic text-slate-200">
+        “	Food & Water
+	•	Healthy Excercise
+	•	Herbal Remedies
+	•	Home Canning, Food Storage, etc.
+	•	Homesteading
+	•	Natural Disaster & Environment Survival
+	•	Off-Grid Living
+	•	Survival Retreats and Shelters
+	•	Ultimate Survival Information
+	•	Link to Preparedness Google Docs
+	•	Personal Documents (that I have prepared for my own family and you should too)”
 
+      </p>
+      <p>
+.
   </div>
 
-<div class="p-5 space-y-4">
-
-  <h2 class="text-xl font-semibold text-cyan-300 text-center">
-    🧭 ZIP FILE Library
-  </h2>
-
-  <p class="text-sm text-slate-300 text-center">
-    Emergency manuals and survival references
-  </p>
-
-  <!-- MAIN VIEW -->
-  <div class="flex h-[65vh] overflow-hidden rounded-xl border border-slate-700">
-
-    <!-- ASIDE METADATA -->
-    <aside class="w-56 bg-slate-800 text-slate-200 overflow-y-auto">
-      <div class="p-3 text-sm font-bold border-b border-slate-700">
-        Library Info
-      </div>
-      <ul class="p-2 space-y-2 text-xs text-slate-400">
-        <li>📦 Terabytes of PDFs</li>
-        <li>🗂 Survival categories</li>
-        <li>📜 Field manuals</li>
-        <li>🔥 Off-grid guides</li>
-        <li>💊 Medical</li>
-      </ul>
-    </aside>
-
-    <!-- PDF / DRIVE VIEW -->
-    <main class="flex-1 overflow-hidden bg-black">
-      <iframe
-        src="https://drive.google.com/embeddedfolderview?id=0ByBj5IHFJFzvUVk4U1pGenczLUE#grid"
-        class="w-full h-full border-0"
-        loading="lazy"
-      ></iframe>
-    </main>
-
+    <div class="space-y-3">
+  <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700" onclick="getResource('htmlPanel')?.open('https://emartinie.github.io/MainStage/2-prepper/index.html')">
+    📂 Browse Full Library
+  </button>
   </div>
-
-</div>
 
   <!-- Featured PDFs -->
   <div class="space-y-3">
@@ -2259,10 +2399,10 @@ Use any standard 1–75 Bingo card.
         <div class="text-xs text-slate-400">PDF • Medical</div>
       </div>
     </div>
- <div class="card-inner">
-  </h2>
 
-
+  <p class="text-sm text-slate-300 text-center mb-4">
+    Field manuals, emergency guides, and survival references- EVERYTHING you need
+  </p>
 
   <div class="prepper-shelf">
     <div class="prepper-item">
@@ -2302,23 +2442,49 @@ Use any standard 1–75 Bingo card.
  
   </div>
   </div>
-   <main class="prepper-viewer text-center">
-    <!-- existing PDF render area -->
-    <h1 class="text-2xl font-bold mb-4">PDF Library</h1>
-    <div id="pdf-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-  </main>
 
-  <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700" onclick="openHtmlPanel('https://emartinie.github.io/MainStage/2-prepper/index.html')">
+  <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700">
     📂 Browse Full Library
   </button>
- 
+  <div class="p-5 space-y-4">
+
+  <h2 class="text-xl font-semibold text-cyan-300 text-center">
+    🧭 Prepper Library
+  </h2>
+
+  <p class="text-sm text-slate-300 text-center">
+    Emergency manuals and survival references
+  </p>
+
+  <!-- MAIN VIEW -->
+  <div class="flex h-[65vh] overflow-hidden rounded-xl border border-slate-700">
+
+    <!-- ASIDE METADATA -->
+    <aside class="w-56 bg-slate-800 text-slate-200 overflow-y-auto">
+      <div class="p-3 text-sm font-bold border-b border-slate-700">
+        Library Info
+      </div>
+      <ul class="p-2 space-y-2 text-xs text-slate-400">
+        <li>📦 Terabytes of PDFs</li>
+        <li>🗂 Survival categories</li>
+        <li>📜 Field manuals</li>
+        <li>🔥 Off-grid guides</li>
+        <li>💊 Medical</li>
+      </ul>
+    </aside>
+
+    <!-- PDF / DRIVE VIEW -->
+    <main class="flex-1 overflow-hidden bg-black">
+      <iframe
+        src="https://drive.google.com/embeddedfolderview?id=0ByBj5IHFJFzvUVk4U1pGenczLUE#grid"
+        class="w-full h-full border-0"
+        loading="lazy"
+      ></iframe>
+    </main>
+
+  </div>
+
 </div>
-<div class="flex h-screen overflow-hidden">
-
-  <!-- Main content -->
-  <main class="flex-1 overflow-y-auto p-4">
-
-  </main>
 </div>
 </div>
 </section>  
@@ -2341,7 +2507,8 @@ Use any standard 1–75 Bingo card.
             <div class="text-center">
               <div class="label-pill text-slate-400">Card 11</div>
               <h2 class="text-xl font-bold text-cyan-300">
-                Presentations- Over 100 visually stimulating presentations
+                Presentations- ALL the Prezis here     <select id="preziCategorySelect"></select>
+
               </h2>
             </div>
  
@@ -2356,13 +2523,6 @@ Use any standard 1–75 Bingo card.
  
           <!-- Card body -->
           <div class="p-6 text-center text-slate-300 text-sm">
-  <footer class="prezi-controls">
-    <button id="preziPrevBtn">◀ Prev</button><span class="prepper-icon">Title:</span>
-    <div id="preziTitle"></div><span class="prepper-icon">Categories</span>
-    <select id="preziCategorySelect">Category</select>
-
-    <button id="preziNextBtn">Next ▶</button>
-  </footer>
 
             <p><div class="prezi-container w-full max-w-3xl mx-auto my-4">
   <header class="card-header">
@@ -2373,7 +2533,11 @@ Use any standard 1–75 Bingo card.
     <div id="preziFrameHost"></div>
   </div>
 
-
+  <footer class="prezi-controls">
+    <button id="preziPrevBtn">◀ Prev</button>
+    <div id="preziTitle"></div>
+    <button id="preziNextBtn">Next ▶</button>
+  </footer>
 <div>
 </section>
 
@@ -3290,300 +3454,7 @@ document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFa
   });
 });
 </script>
-
-
 <script>
-/* ======== MainStageManager with swipe + keyboard ======== */
-       (function () {
-            console.log("🎬 mainStageManager (patched) initializing...");
-
-            class MainStageManager {
-                constructor(options = {}) {
-                    this.viewport = document.getElementById(options.viewportId || "viewport");
-                    this.row = document.getElementById(options.rowId || "cardsRow");
-                    this.cards = Array.from(this.row.children || []);
-                    this.currentIndex = 0;
-                    this.startX = 0;
-                    this.startY = 0;
-                    this.currentTranslate = 0;
-                    this.isDragging = false;
-                    this.threshold = options.threshold || 64; // px to trigger swipe
-                    this.transitioning = false;
-                    this.minMoveToConsider = options.minMoveToConsider || 10; // tiny moves ignored
-
-                    if (!this.viewport || !this.row) {
-                        console.warn("❌ Viewport or cardsRow not found.");
-                        return;
-                    }
-
-                    // ensure each card has an id
-                    this.cards.forEach((c, i) => {
-                        if (!c.id) c.id = `card-${i}`;
-                    });
-
-                    // mark initial active card
-                    this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
-
-                    this.updatePosition(); // position initially
-                    this.bindEvents();
-                    console.log("✅ MainStageManager ready (cards:", this.cards.length, ")");
-                }
-
-                bindEvents() {
-                    // Touch
-                    this.row.addEventListener("touchstart", (e) => {
-                        const t = e.touches[0];
-                        this.onDragStart(t.clientX, t.clientY);
-                    }, { passive: true });
-
-                    this.row.addEventListener("touchmove", (e) => {
-                        // We need to inspect both x and y so set passive:false where needed.
-                        const t = e.touches[0];
-                        this.onDragMove(t.clientX, t.clientY, e);
-                    }, { passive: false });
-
-                    this.row.addEventListener("touchend", () => this.onDragEnd());
-
-                    // Mouse (desktop)
-                    let mouseDown = false;
-                    this.row.addEventListener("mousedown", (e) => {
-                        mouseDown = true;
-                        this.onDragStart(e.clientX, e.clientY);
-                    });
-                    window.addEventListener("mousemove", (e) => { if (mouseDown) this.onDragMove(e.clientX, e.clientY); });
-                    window.addEventListener("mouseup", (e) => { if (mouseDown) { mouseDown = false; this.onDragEnd(); } });
-
-                    // Keyboard
-                    window.addEventListener("keydown", (e) => {
-                        if (e.key === "ArrowLeft") this.prev();
-                        if (e.key === "ArrowRight") this.next();
-                    });
-
-                    // Resize: recalc transform
-                    window.addEventListener("resize", () => this.updatePosition());
-
-                    // Wire header buttons (previous / next) inside any card header
-                    // Use event delegation to avoid adding listeners to every button
-                    this.viewport.addEventListener("click", (e) => {
-                        const p = e.target.closest('.prev-card-btn');
-                        const n = e.target.closest('.next-card-btn');
-                        if (p) { this.prev(); return; }
-                        if (n) { this.next(); return; }
-                    });
-
-                    // keep cards list current if other code adds smaller elements
-                    const observer = new MutationObserver(() => {
-                        this.cards = Array.from(this.row.children || []);
-                    });
-                    observer.observe(this.row, { childList: true, subtree: false });
-                }
-
-                onDragStart(clientX, clientY) {
-                    if (this.transitioning) return;
-                    this.isDragging = true;
-                    this.startX = clientX;
-                    this.startY = clientY;
-                    // clear transition to allow following finger
-                    this.row.style.transition = "none";
-                    // compute initial translate
-                    const width = this.viewport.clientWidth;
-                    this.currentTranslate = -this.currentIndex * width;
-                }
-
-                onDragMove(clientX, clientY, originalEvent) {
-                    if (!this.isDragging) return;
-
-                    const dx = clientX - this.startX;
-                    const dy = clientY - this.startY;
-
-                    // if vertical move dominates, let native vertical scroll happen
-                    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
-                        // allow vertical scroll; cancel horizontal dragging
-                        return;
-                    }
-
-                    const width = this.viewport.clientWidth;
-                    this.currentTranslate = -this.currentIndex * width + dx;
-                    this.row.style.transform = `translateX(${this.currentTranslate}px)`;
-
-                    // Prevent page scrolling once we determined it's a horizontal drag
-                    if (originalEvent && Math.abs(dx) > 6) {
-                        originalEvent.preventDefault();
-                    }
-                }
-
-                onDragEnd() {
-                    if (!this.isDragging) return;
-                    this.isDragging = false;
-
-                    const width = this.viewport.clientWidth;
-                    // dx is how far finger moved horizontally from start
-                    const dx = this.currentTranslate + this.currentIndex * width; // positive when dragged right
-
-                    // IGNORE tiny moves (taps/clicks)
-                    if (Math.abs(dx) < this.minMoveToConsider) {
-                        this.goTo(this.currentIndex);
-                        return;
-                    }
-
-                    if (dx > this.threshold) {
-                        this.prev();
-                    } else if (dx < -this.threshold) {
-                        this.next();
-                    } else {
-                        this.goTo(this.currentIndex);
-                    }
-                }
-
-                // choose a random animation class (keeps CSS small)
-                _pickRandomAnim() {
-                    const arr = ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'];
-                    const idx = Math.floor(Math.random() * arr.length);
-                    return arr[idx];
-                }
-
-                updatePosition() {
-                    const width = this.viewport.clientWidth;
-                    // ensure we always have some transition for snap-backs
-                    this.row.style.transition = "transform .38s cubic-bezier(.22,.61,.36,1)";
-                    this.row.style.transform = `translateX(${-this.currentIndex * width}px)`;
-                    // mark active card for CSS hooks
-                    this.cards.forEach((c, i) => c.classList.toggle('active', i === this.currentIndex));
-                }
-
-                registerCard(cardId) {
-                    const el = document.getElementById(cardId);
-                    if (!el) {
-                        console.warn("⚠ registerCard: not found", cardId);
-                        return;
-                    }
-                    if (!this.cards.includes(el)) {
-                        this.cards.push(el);
-                        //this.row.appendChild(el);
-                    }
-                }
-
-                showCard(cardId) {
-                    const idx = this.cards.findIndex(c => c.id === cardId);
-                    if (idx === -1) {
-                        console.warn("⚠ showCard: not found", cardId);
-                        return;
-                    }
-                    this.goTo(idx);
-                }
-
-                goTo(index) {
-                    if (index < 0) index = 0;
-                    if (index >= this.cards.length) index = this.cards.length - 1;
-                    if (index === this.currentIndex) {
-                        this.updatePosition();
-                        return;
-                    }
-
-                    this.currentIndex = index;
-                    this.transitioning = true;
-
-                    // randomized animation class: add to viewport wrapper (only briefly)
-                    const anim = this._pickRandomAnim();
-                    // remove any previous animation classes
-                    ['anim-slide', 'anim-fade', 'anim-scale', 'anim-spring'].forEach(c => document.body.classList.remove(c));
-                    document.body.classList.add(anim);
-
-                    // Force layout read so the class take effect before transform (helps with CSS transitions)
-                    void this.row.offsetWidth;
-
-                    // update transform
-                    this.updatePosition();
-
-                    // clear animation class after transition completes
-                    setTimeout(() => {
-                        document.body.classList.remove(anim);
-                        this.transitioning = false;
-                    }, 620); // a little more than CSS durations to be safe
-                }
-
-                next() { this.goTo(this.currentIndex + 1); }
-                prev() { this.goTo(this.currentIndex - 1); }
-                getCurrentCard() { return this.cards[this.currentIndex]?.id || null; }
-                getCurrentIndex() { return this.currentIndex; }
-            }
-
-            // expose singleton (if one already exists, preserve it)
-            if (window.mainStageManager && window.mainStageManager instanceof MainStageManager) {
-                console.log("MainStageManager already present — skipping re-init.");
-            } else {
-                window.mainStageManager = new MainStageManager({ viewportId: "viewport", rowId: "cardsRow", threshold: 64 });
-            }
-
-            // convenience: expose small helpers (keeps older API)
-            window.mainStageManager.registerCards = function (ids) {
-                ids.forEach(id => window.mainStageManager.registerCard(id));
-            };
-
-            // small helper: fade out swipe hint after a few seconds
-            (function hideSwipeHint() {
-                const hint = document.getElementById('swipeHint');
-                if (!hint) return;
-                setTimeout(() => hint.classList.add('hidden'), 3000);
-            })();
-
-             // dynamic tabbar wiring (create tabs & wire to manager)
-  (function buildTabBar(){
-    const friendlyNames = {
-      "mainStageCard": "Main Stage",
-      "articleList": "Articles",
-      "studyContent": "Study",
-      "calendarCard": "Calendar",
-      "mapCard": "Map",
-      "podcast-card": "Podcast",
-      "triviaCard": "Trivia",
-      "quizCard": "Quizzes",
-      "jsonContainer": "Cards",
-      "searchCard": "Search",
-      "outlinesCard": "Outlines",
-      "mediaCard": "Media",
-      "prepperCard": "Preparedness",
-      "preziCard": "Prezis",
-      "mapViewCard": "Multimap"
-      //"otCard": "OT Quotes"
-      //"abCard": "Alephbet"
-
-    };
-
-    const ids = Object.keys(friendlyNames);
-    const tabBar = document.getElementById("tabBar");
-    if (!tabBar) return;
-
-    ids.forEach((id, idx) => {
-      const btn = document.createElement("button");
-      btn.textContent = friendlyNames[id] || id;
-      btn.dataset.id = id;
-      if (idx === 0) btn.classList.add("active");
-      btn.addEventListener("click", () => {
-        // remove active on others
-        Array.from(tabBar.children).forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        // ensure card registered then show
-        window.mainStageManager.registerCard(id);
-        window.mainStageManager.showCard(id);
-      });
-      tabBar.appendChild(btn);
-    });
-
-    // sync tab active on swipe
-    const observer = new MutationObserver(()=> {
-      const curr = window.mainStageManager.getCurrentCard();
-      Array.from(tabBar.children).forEach(b => b.classList.toggle("active", b.dataset.id === curr));
-    });
-    observer.observe(document.getElementById("cardsRow"), { attributes:true, childList:true, subtree:false });
-  })();
-
-})();
-</script>
-
-
-    <!-- Scripts -->
-     <script>
 window.addEventListener("load", () => {
   setTimeout(() => {
     const nav = performance.getEntriesByType("navigation")[0];
@@ -3602,9 +3473,75 @@ window.addEventListener("load", () => {
 });
 </script>
 
-  
-  <script type="module" src="js/SAVEorbitFloatingPlayer.js" defer></script>
+
+    <!-- Scripts -->
+     <!--<script>
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const nav = performance.getEntriesByType("navigation")[0];
+    const resources = performance.getEntriesByType("resource");
+
+    console.group("📊 Decision Support — Load Snapshot");
+
+    // --- Core timings ---
+    console.table([{
+      "DOM Ready (ms)": nav.domContentLoadedEventEnd.toFixed(1),
+      "Total Load (ms)": nav.loadEventEnd.toFixed(1),
+      "Total Resources": resources.length,
+      "Total Transfer (KB)": (
+        resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024
+      ).toFixed(1)
+    }]);
+
+    // --- Top 10 largest resources (by transfer size) ---
+    const topBySize = [...resources]
+      .filter(r => r.transferSize > 0)
+      .sort((a, b) => b.transferSize - a.transferSize)
+      .slice(0, 10)
+      .map(r => ({
+        name: r.name.split("/").pop(),
+        type: r.initiatorType,
+        "size (KB)": (r.transferSize / 1024).toFixed(1),
+        "duration (ms)": r.duration.toFixed(1)
+      }));
+
+    console.group("📦 Top 10 Resources by Size");
+    console.table(topBySize);
+    console.groupEnd();
+
+    // --- Top 10 slowest resources ---
+    const topByTime = [...resources]
+      .sort((a, b) => b.duration - a.duration)
+      .slice(0, 10)
+      .map(r => ({
+        name: r.name.split("/").pop(),
+        type: r.initiatorType,
+        "duration (ms)": r.duration.toFixed(1),
+        "size (KB)": (r.transferSize / 1024).toFixed(1)
+      }));
+
+    console.group("🐢 Top 10 Slowest Resources");
+    console.table(topByTime);
+    console.groupEnd();
+
+    // --- Resource type counts ---
+    const byType = {};
+    resources.forEach(r => {
+      byType[r.initiatorType] = (byType[r.initiatorType] || 0) + 1;
+    });
+
+    console.group("🧩 Resource Count by Type");
+    console.table(byType);
+    console.groupEnd();
+
+    console.groupEnd();
+  }, 0);
+});
+</script>-->
+
+<script type="module" src="js/SAVEorbitFloatingPlayer.js" defer></script>
   <!--<script src="js/loadCommentary.js" defer></script> -->
+  <script src="js/core/mainstageManager.js" defer></script>  
   <script src="js/globalAudioManager.js" defer></script> 
   <script type="module" src="./app.js" defer></script> 
   <script src="js/bullseyeMedia.js" defer></script> 
@@ -3616,13 +3553,28 @@ window.addEventListener("load", () => {
   <script src="js/hostMode.js" defer></script>
   <script src="js/today.js" defer></script>
 
-   <!--core scripts -->
+   <!--core + resource scripts -->
    <script type="module" src="/js/core/resourceManager.js"></script>
-   <script type="module" src="/js/core/debugger.js"></script>
+   <script type="module" src="/js/core/focusManager.js"></script>
+   <!--<script type="module" src="/js/core/debugger.js"></script>-->
+  <!--<script type="module" src="/js/core/resources/decisionSupportResource.js"></script>-->
+   <script type="module" src="/js/core/resources/porchPanelResource.js"></script>
+   <script type="module" src="/js/core/resources/playerResource.js"></script>
+   <script type="module" src="/js/core/resources/journeyResource.js"></script>
+   <!--<script type="module" src="/js/core/resources/playerCourtesyResource.js"></script>-->
+   <script type="module" src="/js/core/resources/htmlPanelResource.js"></script>
+   <script type="module" src="/js/core/resources/studyHubResource.js"></script>
+   <script type="module" src="/js/core/resources/calendarResource.js"></script>
+   <script type="module" src="/js/core/resources/misslerPlaylist.js"></script>
+
+  <!-- MapJoin JS CSS -->
+   <script src="/js/core/prayerMap.dev.js"></script>
+   <script src="/js/core/map.dev.js"></script>
+   <!--<script type="module" src="/js/core/map.js"></script>-->
 
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
+<!--<script>
 document.getElementById("downloadBtn").addEventListener("click", () => {
   html2canvas(document.getElementById("countdownWrapper"), {
     scale: 2,
@@ -3634,7 +3586,7 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
     link.click();
   });
 });
-</script>
+</script>-->
 
 <div id="hostOverlay" style="display:none">
   <button id="exitHostOverlay">Exit</button>
@@ -3693,6 +3645,41 @@ function goToCard(id) {
 </script>
 <div id="panelRoot">
   <!-- panels go under here -->
+<!-- Say Hello Overlay -->
+<div id="helloOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+    <h2 class="text-xl font-semibold text-cyan-300">Say Hello</h2>
+    <form class="space-y-3">
+      <input
+        type="text"
+        name="helloName"
+        placeholder="Your nickname"
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+      <textarea
+        name="helloMessage"
+        rows="3"
+        placeholder="Say hello (optional)"
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      ></textarea>
+      <button
+        type="button"
+        id="helloSubmitBtn"
+        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+      >
+        👋 Send Hello
+      </button>
+    </form>
+    <button
+      class="text-sm text-blue-400 underline mt-2"
+      onclick="closeHelloForm()"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+
 <div id="porchPanelOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-[90%] text-center space-y-4 shadow-xl">
     
@@ -3708,57 +3695,36 @@ function goToCard(id) {
 </div>
 
 
-<!-- Join Map Overlay -->
-<div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
 
-  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
-
-    <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
-
-    <p class="text-slate-400 text-sm">
-      You don’t have to share everything.  
-      Just enough to say hello.
-    </p>
-
-    <form class="space-y-3">
-
-      <input 
-        type="text" 
-        placeholder="Your name (or nickname)" 
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      />
-
-      <input 
-        type="text" 
-        placeholder="City or region" 
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      />
-
-      <textarea 
-        rows="3"
-        placeholder="A short note (optional)"
-        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
-      ></textarea>
-
-      <button 
-        type="button"
-        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
-        onclick="alert('Submission coming soon 🌱')"
-      >
-        🌱 Submit
-      </button>
-
-    </form>
-
-    <button 
-      class="text-sm text-blue-400 underline mt-2"
-      onclick="closeJoin()"
-    >
-      Close
-    </button>
-
+<!-- Journey Overlay -->
+<div id="journeyPanel" class="fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center hidden">
+  <div class="bg-slate-900 rounded-lg p-6 w-full max-w-lg text-white">
+    <h2 class="text-lg font-semibold mb-4">Journey Panel</h2>
+    <div id="journeyContent" class="mb-4"></div>
+    <div class="flex justify-between gap-2">
+      <button id="journeyPrevBtn" class="px-4 py-2 bg-slate-700 rounded hover:bg-slate-600">Previous</button>
+      <button id="journeyNextBtn" class="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">Next</button>
+    </div>
+    <div class="flex justify-end gap-2 mt-4">
+      <button id="journeyMinimizeBtn" class="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">Minimize</button>
+      <button id="journeyCloseBtn" class="px-4 py-2 bg-slate-700 rounded hover:bg-slate-600">Close</button>
+    </div>
   </div>
-</div>  
+</div>
+
+<!--mini guided journey-->
+<div id="journeyMini" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2
+  bg-slate-900/90 border border-slate-700 rounded-full px-4 py-2
+  shadow-xl flex items-center gap-3 z-50">
+
+  <span class="text-slate-300 text-sm">🌿 Guided Journey</span>
+
+  <button onclick="resumeJourney()" class="text-cyan-400 underline text-sm">
+    Resume →
+  </button>
+</div>
+
+
 
 <!-- Player Overlay -->
 <div id="playerPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
@@ -3806,36 +3772,19 @@ function goToCard(id) {
 </div>
 </div>
 
-   <!-- guided journey panel -->
-<div id="journeyPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
-  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center space-y-4 shadow-2xl">
 
-    <h2 id="journeyTitle" class="text-xl font-semibold text-cyan-300"></h2>
-    <p id="journeyText" class="text-slate-300 leading-relaxed"></p>
 
-    <button id="journeyNext"
-      class="w-full py-2 rounded-lg bg-cyan-600 text-white font-medium">
-      Continue →
-    </button>
+<!---Courtesy Popup-->
+<div id="courtesyPopup" class="popup hidden">
+  <p id="courtesyQuestion">Do you want to keep listening?</p>
 
-    <button onclick="closeJourney()" class="text-sm text-blue-400 underline">
-      Exit Journey
-    </button>
+  <div class="popup-actions">
+    <button id="courtesyYes">Keep Playing</button>
+    <button id="courtesyNo">Hide Player</button>
   </div>
 </div>
 
-
-<!--mini guided journey-->
-<div id="journeyMini" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2
-  bg-slate-900/90 border border-slate-700 rounded-full px-4 py-2
-  shadow-xl flex items-center gap-3 z-50">
-
-  <span class="text-slate-300 text-sm">🌿 Guided Journey</span>
-
-  <button onclick="resumeJourney()" class="text-cyan-400 underline text-sm">
-    Resume →
-  </button>
-</div>
+<!---Courtesy old panel-->
 
 <div id="playerCourtesyPanel" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur flex items-center justify-center">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center space-y-4 shadow-2xl">
@@ -3870,41 +3819,29 @@ function goToCard(id) {
 
 </div><!-- root end div -->
 <script>
-function openPorchPanel(title, html) {
-  const overlay = document.getElementById("porchPanelOverlay");
-  const titleEl = document.getElementById("porchPanelTitle");
-  const contentEl = document.getElementById("porchPanelContent");
+function showCourtesyPopup({
+  question,
+  onYes,
+  onNo
+}) {
+  const popup = document.getElementById("courtesyPopup");
+  const q = document.getElementById("courtesyQuestion");
 
-  if (!overlay || !titleEl || !contentEl) {
-    console.error("PorchPanel elements missing");
-    return;
-  }
+  q.textContent = question;
 
-  titleEl.innerHTML = title;
-  contentEl.innerHTML = html;
+  document.getElementById("courtesyYes").onclick = () => {
+    onYes?.();
+    popup.remove();
+  };
 
-  overlay.classList.remove("hidden");
+  document.getElementById("courtesyNo").onclick = () => {
+    onNo?.();
+    popup.remove();
+  };
+
+  popup.classList.remove("hidden");
 }
-
-function closePorchPanel() {
-  document.getElementById("porchPanelOverlay")?.classList.add("hidden");
-}
-
-function pauseAllMedia() {
-  const audios = document.querySelectorAll("audio, video");
-
-  audios.forEach(media => {
-    if (!media.paused) {
-      media.pause();
-      media.currentTime = media.currentTime;
-    }
-  });
-
-  console.log("⏸ All media paused:", audios.length);
-}
-
 </script>
-
 <script>
 function openPlayerPanel() {
   const panel = document.getElementById("playerPanel");
@@ -3955,437 +3892,143 @@ function closePlayerPanel() {
 }
 </script>
 
+<div id="communityPanel"
+  class="absolute top-4 left-4 z-40 w-72 max-h-[70vh]
+         bg-slate-900/95 border border-slate-700 rounded-xl
+         shadow-lg flex flex-col">
+ 
+  <div class="p-3 border-b border-slate-700">
+    <input
+      id="communitySearch"
+      type="text"
+      placeholder="Search prayers or hellos…"
+      class="w-full px-3 py-2 rounded-lg bg-slate-800
+             border border-slate-700 text-slate-200
+             focus:outline-none text-sm"
+    />
+  </div>
+ 
+  <div id="communityList"
+       class="overflow-y-auto p-2 space-y-2 text-sm">
+    <!-- injected -->
+  </div>
+ 
+</div>
+
+<!-- Prayer Overlay -->
+<div id="prayerOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+    <h2 class="text-xl font-semibold text-cyan-300">Prayer Requests</h2>
+    <p class="text-slate-400 text-sm">Share a short prayer request. Anyone can pray, no account needed.</p>
+
+    <form id="prayerForm" class="space-y-3">
+      <input 
+        type="text" 
+        id="prayerName"
+        placeholder="Your name (optional)" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+      <input 
+        type="text" 
+        id="prayerCity"
+        placeholder="City or region (optional)" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+      <textarea 
+        id="prayerMessage"
+        rows="3"
+        placeholder="Your prayer request..."
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      ></textarea>
+
+      <button 
+        type="submit"
+        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+      >
+        🌱 Submit
+      </button>
+    </form>
+
+    <button 
+      type="button"
+      class="text-sm text-blue-400 underline mt-2"
+      onclick="PrayerMap.closePrayer()"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+<!-- Join Map Overlay -->
+<div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+
+  <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+    <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
+
+    <p class="text-slate-400 text-sm">
+      You don’t have to share everything.  
+      Just enough to say hello.
+    </p>
+
+    <form class="space-y-3">
+
+      <input 
+        type="text" 
+        placeholder="Your name (or nickname)" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <input 
+        type="text" 
+        placeholder="City or region" 
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      />
+
+      <textarea 
+        rows="3"
+        placeholder="A short note (optional)"
+        class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"
+      ></textarea>
+
+      <button 
+        type="button"
+        class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+        onclick="submitJoin()"
+      >
+        🌱 Submit
+      </button>
+
+    </form>
+
+    <button 
+      class="text-sm text-blue-400 underline mt-2"
+      onclick="closeJoin()"
+    >
+      Close
+    </button>
+
+  </div>
+</div>
+
+<!--temporary-->
 <script>
-  // 1. Create the map
-  const map = L.map("map", {
-    zoomControl: true,
-    scrollWheelZoom: true
-  }).setView([39.5, -98.35], 4);
-
-  // 2. Base layer
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: "© OpenStreetMap"
-  }).addTo(map);
-
-  // 3. Marker group
-  const communityLayer = L.layerGroup().addTo(map);
-
-  // 4. Helper: parse description text
-  function parseDescription(text = "") {
-    const cityMatch = text.match(/City:\s*([^\n<]+)/i);
-    const noteMatch = text.match(/Comments:\s*([^\n<]+)/i);
-
-    return {
-      city: cityMatch ? cityMatch[1].trim() : "",
-      note: noteMatch ? noteMatch[1].trim() : "Walking a similar path."
-    };
-  }
-
-  // 5. Store people for search
-  const people = [];
-
-  // 6. Load community data
-  fetch("./HomeGroupsMap.geojson")
-    .then(res => res.json())
-    .then(data => {
-      data.features.forEach(person => {
-        const coords = person.properties.Coordinates?.split(",").map(Number);
-        if (!coords || coords.length < 2) return;
-
-        const [lon, lat] = coords;
-
-        const name =
-          person.properties.Name?.split(" ")[0] || "A Friend";
-
-        const desc = person.properties.description || "";
-        const parsed = parseDescription(desc);
-
-        const popupHTML = `
-          <div style="max-width:220px; color:#e5e7eb">
-            <strong>${name}</strong><br>Message/ Comment:
-            <span style="color:#94a3b8">${parsed.city}</span>
-            <p style="margin-top:6px; font-size:13px;">${parsed.note}</p>
-            <button
-              style="
-                margin-top:8px;
-                padding:6px 10px;
-                border-radius:8px;
-                background:#2563eb;
-                color:white;
-                border:none;
-                cursor:pointer;
-                font-size:12px;
-              "
-              onclick="openMessage('${name}')">
-              🗣️ Say Hello!
-            </button>
-            <button
-              style="
-                margin-top:8px;
-                padding:6px 10px;
-                border-radius:8px;
-                background:#2563eb;
-                color:white;
-                border:none;
-                cursor:pointer;
-                font-size:12px;
-              "
-              onclick="openMessage('${name}')">
-              🤝 Info
-            </button>
-          </div>
-        `;
-
-        const marker = L.circleMarker([lat, lon], {
-          radius: 8,
-          color: "#38bdf8",
-          fillColor: "#0ea5e9",
-          fillOpacity: 0.85,
-          weight: 2
-        }).bindPopup(popupHTML);
-
-        communityLayer.addLayer(marker);
-
-        // Save for search
-        people.push({
-          name: name.toLowerCase(),
-          city: parsed.city.toLowerCase(),
-          marker
-        });
-      });
-    })
-    .catch(err => console.error("Map load error:", err));
-
-  // 7. Location centering
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 10);
-
-      L.circleMarker([latitude, longitude], {
-        radius: 10,
-        color: "#22c55e",
-        fillColor: "#4ade80",
-        fillOpacity: 0.9
-      })
-        .addTo(map)
-        .bindPopup("📍 You are here.<br> Zoom out to find people nearby.")
-        .openPopup();
-    });
-  }
-
-  // 8. Placeholder message system
-  function openMessage(name) {
-    alert(`Send Message To ${name} (coming soon)`);
-  }
-
-  // 9. Search filter
-  document.getElementById("mapSearch")?.addEventListener("input", e => {
-    const query = e.target.value.toLowerCase();
-
-    people.forEach(p => {
-      const match =
-        p.name.includes(query) ||
-        p.city.includes(query);
-
-      if (match) {
-        communityLayer.addLayer(p.marker);
-      } else {
-        communityLayer.removeLayer(p.marker);
-      }
-    });
-  });
-
-  // 10. Join Map button
-  document.getElementById("joinMapBtn")?.addEventListener("click", () => {
-    alert(
-      "Join the Movement... form coming next. 🌱"
-    );
-  });
-</script>
-<script>
-function openJoin() {
+  function openJoin() {
   document.getElementById("joinOverlay").classList.remove("hidden");
 }
+
 function closeJoin() {
   document.getElementById("joinOverlay").classList.add("hidden");
 }
-</script>
 
-<script>
-function openHtmlPanel(url) {
-  const panel = document.getElementById("htmlPanel");
-  const frame = document.getElementById("htmlPanelFrame");
-
-  frame.src = url;
-  panel.classList.remove("hidden");
-}
-
-function closeHtmlPanel() {
-  const panel = document.getElementById("htmlPanel");
-  const frame = document.getElementById("htmlPanelFrame");
-
-  frame.src = ""; // stop audio/video
-  panel.classList.add("hidden");
+// Temporary placeholder for submit
+function submitJoin() {
+  alert("Submission coming soon 🌱");
 }
 </script>
-<script>
-const journeySteps = [
-  {
-    id: "welcome",
-    title: "Welcome",
-    html: `
-      <p>You’re not here by accident.</p>
-      <p>This is a space to rest, learn, and connect.</p>
-    `,
-    nextLabel: "Begin"
-  },
 
-  {
-    id: "rest",
-    title: "🪑 Rest",
-    html: `
-      <p>Start with peace.</p>
-      <p>Tap TODAY whenever you need calm and grounding.</p>
-      <button onclick="highlight('#todayBtn'); softMinimizeThen(() => {})">
-        Show Me
-      </button>
-    `,
-    arrow: "#todayBtn"
-  },
 
-  {
-    id: "join",
-    title: "🤝 Join",
-    html: `
-      <p>You don’t have to walk alone.</p>
-      <button onclick="softMinimizeThen(() => goToCard('mapCard'))">
-        Open Map
-      </button>
-    `,
-    arrow: "#mapCard"
-  },
 
-  {
-    id: "speak",
-    title: "🗣️ Speak",
-    html: `
-      <p>Your voice matters.</p>
-      <button onclick="softMinimizeThen(() => 
-  openPorchPanel('Speak', '<p>Messaging coming soon 🌱</p>')
-)">
-  Try Speaking
-</button>
-    `
-  },
-
-  {
-    id: "learn",
-    title: "📖 Learn",
-    html: `
-      <p>Grow at your own pace.</p>
-      <button onclick="softMinimizeThen(() => openDockCModal())">
-        Open Learning
-      </button>
-    `,
-    arrow: "#openScriptureHeaderBtn"
-  },
-
-  {
-    id: "listen",
-    title: "🎧 Listen",
-    html: `
-      <p>Sometimes, it’s best to just listen.</p>
-      <button onclick="softMinimizeThen(() => openPlayerPanel())">
-        Open Player
-      </button>
-    `
-  },
-
-  {
-    id: "customize",
-    title: "Make It Yours",
-    html: `
-      <p>You can explore however you like.</p>
-      <p>There’s no wrong path here.</p>
-    `
-  },
-
-  {
-    id: "finish",
-    title: "You're Ready",
-    html: `
-      <p>You’ve seen the doors.</p>
-      <p>Now walk freely.</p>
-    `,
-    nextLabel: "Finish"
-  }
-];
-
-let journeyIndex = 0;
-
-function highlight(selector) {
-  document.querySelectorAll(".journey-highlight")
-    .forEach(el => el.classList.remove("journey-highlight"));
-
-  const el = document.querySelector(selector);
-  if (el) el.classList.add("journey-highlight");
-}
-
-function openJourney() {
-  const saved = localStorage.getItem("journeyStep");
-  journeyIndex = saved ? Number(saved) : 0;
-
-  updateJourney();
-  document.getElementById("journeyPanel").classList.remove("hidden");
-}
-
-function softMinimizeThen(actionFn, delay = 400) {
-  const panel = document.getElementById("journeyPanel");
-  panel.classList.add("journey-soft-minimized");
-
-  setTimeout(() => {
-    actionFn();
-  }, delay);
-}
-
-function resumeJourney() {
-  document.getElementById("journeyPanel")
-    .classList.remove("journey-soft-minimized");
-}
-
-function closeJourney() {
-  document.getElementById("journeyPanel").classList.add("hidden");
-}
-
-function updateJourney() {
-  const step = journeySteps[journeyIndex];
-  const nextBtn = document.getElementById("journeyNext");
-
-  nextBtn.innerText = step.nextLabel || "Continue →";
-  document.getElementById("journeyTitle").innerText = step.title;
-  document.getElementById("journeyText").innerHTML = step.html;
-
-  localStorage.setItem("journeyStep", journeyIndex);
-
-  if (step.arrow) highlight(step.arrow);
-}
-
-document.getElementById("journeyNext").onclick = () => {
-  journeyIndex++;
-
-  if (journeyIndex < journeySteps.length) {
-    updateJourney();
-  } else {
-    localStorage.removeItem("journeyStep");
-    closeJourney();
-  }
-};
-</script>
-<script>
-/** Safely finds and clicks the dock button once */
-function dockPlayerOnce() {
-  const player = document.getElementById("floatingPlayer");
-  if (!player) return false;
-
-  const dockBtn =
-    player.querySelector("#dockBtn") ||
-    Array.from(player.querySelectorAll("button")).find(b =>
-      (b.textContent || "").includes("⫶") ||
-      (b.textContent || "").toLowerCase().includes("dock")
-    );
-
-  if (!dockBtn) {
-    console.warn("Dock button not found.");
-    return false;
-  }
-
-  dockBtn.click();
-  return true;
-}
-
-function pauseAllMedia() {
-  const audios = document.querySelectorAll("audio, video");
-
-  audios.forEach(media => {
-    if (!media.paused) {
-      media.pause();
-      media.currentTime = media.currentTime;
-    }
-  });
-
-  console.log("⏸ All media paused:", audios.length);
-}
-
-/** Shows the courtesy panel */
-function showPlayerCourtesyPanel() {
-  const html = `
-    <div class="space-y-3 text-left">
-      <p class="text-slate-200 font-semibold">Quick heads-up</p>
-      <p class="text-slate-300 text-sm">
-        I’m going to tuck the player out of your way so you can explore the app easier. What would you prefer?
-      </p>
-
-      <div class="flex gap-2">
-        <button id="pcpOk"
-          class="flex-1 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-medium">
-          Hide Player
-        </button>
-
-        <button id="pcpCancel"
-          class="flex-1 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700">
-          Keep Playing
-        </button>
-      </div>
-
-      <p class="text-xs text-slate-500">
-        You can bring it back anytime.
-      </p>
-    </div>
-  `;
-
-  openPorchPanel("Player", html);
-
-  // Wire buttons AFTER panel renders
-  function hidePlayerWithPause() {
-  pauseFloatingPlayer();        // 1️⃣ Stop audio first
-  autoDockOrHidePlayer();      // 2️⃣ Then move / hide it
-  savePlayerPreference();      // 3️⃣ Remember choice (optional)
-}
-
-  function savePlayerPreference() {
-  localStorage.setItem("playerCourtesyDismissed", "true");
-}
-
-  setTimeout(() => {
-    const ok = document.getElementById("pcpOk");
-    const cancel = document.getElementById("pcpCancel");
-
-    if (ok) ok.onclick = () => {
-      closePorchPanel();
-      dockPlayerOnce();
-    };
-
-    if (cancel) cancel.onclick = () => {
-      closePorchPanel();
-    };
-  }, 50);
-}
-
-/** Run on page load */
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    showPlayerCourtesyPanel();
-  }, 1200); // wait for player to exist
-});
-
-window.addEventListener("load", () => {
-  const dismissed = localStorage.getItem("playerCourtesyDismissed");
-  if (!dismissed) {
-    showPlayerCourtesyPanel();
-  }
-});
-</script>
 </body>
 </html>
