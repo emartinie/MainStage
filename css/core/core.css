@@ -567,7 +567,7 @@
   background: #020617;
 }
 .time span {
-  font-size: 2rem; /* Make the numbers bigger */
+  font-size: 1rem; /* Make the numbers bigger */
 }
 
 .time {
@@ -580,7 +580,7 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  height: 100vh; /* This makes it fill the full viewport height */
+  height: 60vh; /* This makes it fill the full viewport height */
   padding: 2.5rem;
   background:
     radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 60%),
@@ -594,7 +594,7 @@
 }
 
   h1 {
-    font-size: 5rem;
+    font-size: 3rem;
     margin-bottom: 1.5rem;
     color: #fde68a;
     text-shadow: 0 0 20px rgba(56,189,248,0.6);
@@ -627,13 +627,13 @@
 
   .time span {
     display: block;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #f8fafc;
   }
 
   .time label {
-    font-size: 1.75rem;
+    font-size: 1.0rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #94a3b8;
@@ -1067,32 +1067,6 @@
   }
 }
 
-.journey-highlight {
-  outline: 3px solid cyan;
-  box-shadow: 0 0 15px cyan;
-  border-radius: 12px;
-}
-
-/* Soft-minimized state for Guided Journey (CENTERED) */
-
-#journeyPanel.journey-soft-minimized {
-  background: transparent !important;      
-  backdrop-filter: none !important;        
-  pointer-events: none;                   
-  align-items: center;                    
-  justify-content: center;                
-}
-
-/* Shrink the panel box, keep it centered */
-#journeyPanel.journey-soft-minimized > div {
-  transform: scale(0.7);
-  opacity: 0.9;
-  transition: transform 0.4s ease, opacity 0.3s ease;
-  pointer-events: auto;                  
-  background: rgba(15, 23, 42, 0.9);
-  border-color: rgba(148, 163, 184, 0.3);
-}
-
 /* ===== Reader Skin (gentle + mobile-first) ===== */
 
 /* Use this on containers that render chapter text / intro / panel content */
@@ -1181,4 +1155,29 @@
 }
 .reader-skin li::marker{
   color: rgb(34 211 238);
+}
+
+//#communityList {
+  //background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  //border-radius:12px;
+  //height:100%;
+ // padding:16px;
+ // box-sizing:border-box;
+ // border:1px solid rgba(255,255,255,0.04);
+ // backdrop-filter: blur(6px) saturate(120%);
+  //height: 100vh;
+ // width: 360px;
+ // z-index: 60;
+//}
+
+/* Let clicks pass through the panel by default */
+#communityPanel {
+  pointer-events: none;
+}
+
+/* But allow interaction inside inputs + list */
+#communityPanel input,
+#communityPanel button,
+#communityPanel #communityList {
+  pointer-events: auto;
 }
