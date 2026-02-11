@@ -149,7 +149,7 @@
         // try to play but catch
         window.globalAudio.play().catch(function () {});
       } else {
-        window.globalAudio.pause();
+        window.globalAudio.pause(audio);
       }
       // reset ring
       if (progressCircle) progressCircle.setAttribute("stroke-dashoffset", circleCircumference.toString());
@@ -204,7 +204,7 @@
           playBtn.textContent = "▶";
         });
       } else {
-        window.globalAudio.pause();
+        window.globalglobalAudio.pause(audio);
         playBtn.textContent = "▶";
       }
     }

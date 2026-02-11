@@ -1,14 +1,8 @@
 // /js/core/resourceManager.js
-// Purpose: Central lifecycle manager for app subsystems (player, journey, panels, etc)
 
 const resources = new Map();
 
-/**
- * Register a resource with init and destroy handlers
- * @param {string} name
- * @param {{ init?: Function, destroy?: Function }} handlers
- */
-export function registerResource(name, { init, destroy } = {}) {
+export function registerResource(name, handlers = {}) {
   if (!name) throw new Error("Resource must have a name");
 
   if (resources.has(name)) {
@@ -16,30 +10,28 @@ export function registerResource(name, { init, destroy } = {}) {
     return;
   }
 
+  const { init, destroy, ...extra } = handlers;
+
   resources.set(name, {
     name,
     init: typeof init === "function" ? init : null,
     destroy: typeof destroy === "function" ? destroy : null,
-    active: false
+    active: false,
+    ...extra
   });
 
   console.log(`📦 Resource registered: ${name}`);
 }
 
-/**
- * Activate a resource by name
- */
 export function activateResource(name) {
   const res = resources.get(name);
+
   if (!res) {
     console.warn(`⚠ Resource not found: ${name}`);
     return;
   }
 
-  if (res.active) {
-    console.warn(`⚠ Resource already active: ${name}`);
-    return;
-  }
+  if (res.active) return;
 
   try {
     res.init?.();
@@ -50,13 +42,9 @@ export function activateResource(name) {
   }
 }
 
-/**
- * Deactivate a resource by name
- */
 export function deactivateResource(name) {
   const res = resources.get(name);
-  if (!res) return;
-  if (!res.active) return;
+  if (!res || !res.active) return;
 
   try {
     res.destroy?.();
@@ -67,18 +55,20 @@ export function deactivateResource(name) {
   }
 }
 
-/**
- * Deactivate all active resources
- */
 export function deactivateAllResources() {
   for (const name of resources.keys()) {
     deactivateResource(name);
   }
 }
 
-/**
- * Get snapshot of resource state (for debugger)
- */
+export function getResource(name) {
+  return resources.get(name);
+}
+
+export function isResourceActive(name) {
+  return resources.get(name)?.active === true;
+}
+
 export function getResourceState() {
   return Array.from(resources.values()).map(r => ({
     name: r.name,
@@ -86,16 +76,9 @@ export function getResourceState() {
   }));
 }
 
-/**
- * Check if resource is active
- */
-export function isResourceActive(name) {
-  return resources.get(name)?.active === true;
-}
-
-/**
- * Debug helper
- */
 export function dumpResources() {
   console.table(getResourceState());
 }
+
+window.dumpResources = dumpResources;
+window.getResource = getResource; // this is also very useful in console

@@ -13,6 +13,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-window.db = getFirestore(app);
+export const db = getFirestore(app); // <-- proper module export
 
 console.log("🔥 Firebase initialized");

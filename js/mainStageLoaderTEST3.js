@@ -301,6 +301,7 @@ async function loadWeek(weekNum) {
     const res = await fetch(`data/week${weekNum}.json`);
     if (!res.ok) throw new Error("Failed to fetch week data");
     const data = await res.json();
+    window.currentWeekData = data;
 
     if (!mainStageTitle || !mainStagePlaylist || !mainStageChapters) {
       console.warn("⚠️ MainStage elements missing, retrying cacheDOM()");
@@ -309,7 +310,10 @@ async function loadWeek(weekNum) {
 
     if (mainStageTitle && mainStagePlaylist && mainStageChapters) {
       await loadMainStageWeek(data);
-      renderWeekCards(data);
+      // Let weekChanged listeners run first
+       requestAnimationFrame(() => {
+       renderWeekCards(data);
+  });
     } else {
       console.error("❌ Required MainStage elements still missing in DOM.");
     }
@@ -368,7 +372,7 @@ function init() {
     }
 
     // Trigger initial load
-    document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week: window.currentWeek } }));
+    
 
 
   // --- Scripture Popup ---

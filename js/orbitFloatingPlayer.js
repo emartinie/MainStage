@@ -1,12 +1,18 @@
 // orbitFloatingPlayer.js
 
 function setupFloatingPlayer() {
+  console.log("🎧 Creating Floating Player");
+
+  // Remove any existing player
   const existing = document.getElementById("floatingPlayer");
   if (existing) existing.remove();
 
-  // --- Player container ---
+  // Create container
   const player = document.createElement("div");
   player.id = "floatingPlayer";
+  player.innerHTML = "Player Loaded";
+
+  // Style it
   Object.assign(player.style, {
     position: "fixed",
     bottom: "1rem",
@@ -16,11 +22,10 @@ function setupFloatingPlayer() {
     borderRadius: "50%",
     backdropFilter: "blur(8px)",
     background: "radial-gradient(120% 120% at 30% 30%, rgba(31,41,55,0.95), rgba(17,24,39,0.9))",
-    boxShadow: "0 12px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.06)",
-    display: "grid",
-    gridTemplateRows: "1fr auto",
+    boxShadow: "0 12px 28px rgba(0,0,0,0.45)",
+    display: "flex",
     alignItems: "center",
-    justifyItems: "center",
+    justifyContent: "center",
     color: "#fff",
     padding: "10px",
     cursor: "grab",
@@ -29,12 +34,19 @@ function setupFloatingPlayer() {
     overflow: "visible"
   });
 
-    const floatingPlayer = document.getElementById("floatingPlayer");
+  // Append to panel if it exists, otherwise to body
+  const host = document.getElementById("playerHost") || document.body;
+  host.appendChild(player);
 
-// Ensure floatingPlayer exists
-if (floatingPlayer) {
+  console.log("✅ Floating player mounted in:", host.id || "body");
+}
 
-
+// Run after DOM loads
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupFloatingPlayer);
+} else {
+  setupFloatingPlayer();
+}
   // --- GLOW EFFECT ---
   let glowGrowing = true;
   setInterval(() => {
@@ -57,7 +69,7 @@ if (floatingPlayer) {
     floatingPlayer.style.left = `${x}px`;
     floatingPlayer.style.top = `${y}px`;
   }, 16); // ~60fps
-}
+
 
 
   // --- Glow ring ---
@@ -137,7 +149,7 @@ if (floatingPlayer) {
   });
 
   // --- Title ---
-  const titleEl = document.createElement("div");
+  //const titleEl = document.createElement("div");
   Object.assign(titleEl.style,{
     position:"absolute",
     top:"8px",
@@ -176,7 +188,7 @@ if (floatingPlayer) {
   center.appendChild(marquee);
 
   // --- Audio element ---
-  const audio = document.createElement("audio");
+  const audio2 = document.createElement("audio");
   audio.setAttribute("preload","metadata");
   audio.style.display="none";
   center.appendChild(audio);
@@ -208,7 +220,7 @@ if (floatingPlayer) {
   };
 
   // --- State ---
-  let autoNext=true, currentLang="eng", currentIndex=0, autoplay=false, docked=true;
+  let autoNext=true, currentLang="eng", autoplay=false, docked=true;
   let playlist=[];
 
   // ---Psalms Playlist ---
@@ -227,16 +239,16 @@ if (floatingPlayer) {
     if(audio.paused){
       audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶");
     } else {
-      audio.pause();
-      playPauseBtn.textContent="▶";
-    }
+  audio.pause();
+  playPauseBtn.textContent="▶";
+}
   });
   audio.addEventListener("play",()=>playPauseBtn.textContent="⏸");
   audio.addEventListener("pause",()=>playPauseBtn.textContent="▶");
   audio.addEventListener("ended",()=>playPauseBtn.textContent="▶");
 
   const nextBtn  = btn("⏭","Next",()=>{
-    currentIndex=(currentIndex+1)%playlist.length;
+    currentIndex.issue=(currentIndex.issue+1)%playlist.length;
     loadTrack();
   });
 
@@ -259,7 +271,7 @@ if (floatingPlayer) {
   const psalmsBtn = btn("🎵","Switch to Psalms Playlist",()=>{
     if(typeof psalmsPlaylist!=="undefined" && psalmsPlaylist.length>0){
       playlist = psalmsPlaylist;
-      currentIndex = 0;
+      currentIndex.issue = 0;
       loadTrack();
     } else {
       console.warn("⚠ No psalmsPlaylist defined!");
@@ -281,226 +293,3 @@ if (floatingPlayer) {
   });
 
 
-  // --- Dock Button ---
-const dockBtn = document.createElement("button");
-dockBtn.textContent = "⫶";
-Object.assign(dockBtn.style, {
-      padding:"6px 10px",
-      borderRadius:"9999px",
-      border:"1px solid rgba(255,255,255,0.15)",
-      background:"rgba(255,255,255,0.08)",
-      color:"#fff",
-      backdropFilter:"blur(4px)",
-      boxShadow:"0 1px 4px rgba(0,0,0,0.25)",
-      fontSize:"12px",
-      cursor:"pointer",
-      pointerEvents:"auto",
-      userSelect:"none",
-      touchAction:"manipulation",
-      zIndex:5
-});
-player.appendChild(dockBtn);
-
-
-// Support both click + touch
-["click", "touchstart"].forEach(evt => {
-  dockBtn.addEventListener(evt, (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    docked = !docked;
-    const dockContainer = document.getElementById("floating-player-root");
-
-    if (docked && dockContainer) {
-      // Move player into dock container
-      dockContainer.appendChild(player);
-      Object.assign(player.style, {
-        position: "relative",
-        width: "100%",
-        maxWidth: "520px",
-        height: "72px",
-        borderRadius: "14px",
-        left: "0",
-        bottom: "0",
-        right: "0",
-        top: "0",
-        transform: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 10px"
-      });
-
-    } else {
-      // Return to floating mode
-      document.body.appendChild(player);
-      Object.assign(player.style, {
-        position: "fixed",
-        width: "190px",
-        height: "190px",
-        bottom: "1rem",
-        right: "1rem",
-        borderRadius: "50%",
-        left: "auto",
-        top: "auto",
-        transform: "none",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "0"
-      });
-    }
-  });
-});
-
-  // --- Controls container for orbit buttons ---
-  const controls = document.createElement("div");
-  Object.assign(controls.style,{
-    position:"absolute",
-    top:"0",
-    left:"0",
-    width:"100%",
-    height:"100%",
-    pointerEvents:"none",
-    zIndex:4
-  });
-
-  const orbitButtons = [dockBtn,nextBtn,langBtn,sleepBtn,psalmsBtn,speedBtn,videoBtn,shareBtn,favBtn];
-  orbitButtons.forEach(b=>{
-    b.style.pointerEvents="auto";
-    controls.appendChild(b);
-  });
-  center.appendChild(controls);
-
-  // --- Circular placement ---
-  const radius=70;
-  orbitButtons.forEach((b,i)=>{
-    const angle=(i/orbitButtons.length)*2*Math.PI;
-    Object.assign(b.style,{
-      position:"absolute",
-      left:`${50 + radius*Math.cos(angle)}%`,
-      top:`${50 + radius*Math.sin(angle)}%`,
-      transform:"translate(-50%,-50%)"
-    });
-  });
-
-  // --- Center Play/Pause on top ---
-  Object.assign(playPauseBtn.style,{
-    position:"absolute",
-    left:"50%",
-    top:"50%",
-    transform:"translate(-50%,-50%)",
-    zIndex:10001
-  });
-  center.appendChild(playPauseBtn);
-
-  // --- Append to DOM ---
-  player.appendChild(center);
-  document.body.appendChild(player);
-
-  // --- Playlist / loading ---
-  function normalize(list){ return (list||[]).map(i=>({ title:i.label||i.title||"Untitled", eng:i.eng||i.src||"", heb:i.heb||i.src||"", grk:i.grk||i.src||"" })); }
-  function loadTrack(){
-    const item = playlist[currentIndex]||{};
-    audio.src=item[currentLang]||"";
-    titleEl.textContent=`${item.title||"Untitled"} (${currentLang.toUpperCase()})`;
-    audio.play().catch(()=>{});
-    circleProgress.setAttribute("stroke-dashoffset",C.toString());
-    window.dispatchEvent(new CustomEvent("player:nowPlaying",{detail:{title:item.title||"",lang:currentLang,src:audio.src,index:currentIndex}}));
-  }
-
-  audio.addEventListener("timeupdate",()=>{ if(audio.duration && !isNaN(audio.duration)){ circleProgress.setAttribute("stroke-dashoffset",(C*(1-audio.currentTime/audio.duration)).toString()); } });
-  audio.addEventListener("loadedmetadata",()=>{ circleProgress.setAttribute("stroke-dashoffset",(C*(1-audio.currentTime/audio.duration)).toString()); });
-  audio.addEventListener("ended",()=>{ if(autoNext){ currentIndex=(currentIndex+1)%playlist.length; loadTrack(); } });
-
-  // --- Drag + snap ---
-  let isDragging=false,startX,startY,origX,origY;
-  function onPointerDown(e){ isDragging=true; const rect=player.getBoundingClientRect(); origX=rect.left; origY=rect.top; startX=e.type.startsWith("touch")?e.touches[0].clientX:e.clientX; startY=e.type.startsWith("touch")?e.touches[0].clientY:e.clientY; player.style.cursor="grabbing"; e.preventDefault(); }
-  function onPointerMove(e){ if(!isDragging) return; const clientX=e.type.startsWith("touch")?e.touches[0].clientX:e.clientX; const clientY=e.type.startsWith("touch")?e.touches[0].clientY:e.clientY; player.style.left = origX+(clientX-startX)+"px"; player.style.top = origY+(clientY-startY)+"px"; player.style.right="auto"; player.style.bottom="auto"; }
-  function onPointerUp(){ if(!isDragging) return; isDragging=false; player.style.cursor="grab"; snapToEdge(); }
-  function snapToEdge(){ const rect=player.getBoundingClientRect(); const vw=window.innerWidth,vh=window.innerHeight,margin=12; const distances=[rect.left,vw-rect.right,rect.top,vh-rect.bottom]; const min=Math.min(...distances); if(min===distances[1]){ player.style.left="auto"; player.style.right=margin+"px"; } else if(min===distances[0]){ player.style.left=margin+"px"; player.style.right="auto"; } else if(min===distances[2]){ player.style.top=margin+"px"; player.style.bottom="auto"; } else{ player.style.top="auto"; player.style.bottom=margin+"px"; } }
-
-  player.addEventListener("mousedown",onPointerDown);
-  player.addEventListener("touchstart",onPointerDown,{passive:false});
-  window.addEventListener("mousemove",onPointerMove,{passive:true});
-  window.addEventListener("touchmove",onPointerMove,{passive:false});
-  window.addEventListener("mouseup",onPointerUp);
-  window.addEventListener("touchend",onPointerUp);
-
-  // --- External hooks ---
-  window.addEventListener("player:updatePlaylist", e=>{ playlist=normalize(e.detail.playlist||[]); currentIndex=0; loadTrack(); });
-  window.addEventListener("player:setLang", e=>{ const l=e.detail.lang?.toLowerCase(); if(["eng","heb","grk"].includes(l)){ currentLang=l; loadTrack(); } });
-
-  // --- Auto-load weekData ---
-  if(window.weekData?.sections?.audio_playlist){ playlist=normalize(window.weekData.sections.audio_playlist); }
-  loadTrack();
-
-  // --- Update marquee ---
-  window.addEventListener("player:nowPlaying", e=>{ const item=e.detail||{}; fpNowPlaying.textContent=`${item.title||""} (${item.lang?.toUpperCase()||""})`; });
-}
-
-document.addEventListener("DOMContentLoaded", setupFloatingPlayer);
-
-// 🌌 Floating Player Glow + Subtle Orbit Effect (waits until player exists)
-function enhanceFloatingPlayer() {
-  const fp = document.getElementById("floatingPlayer");
-  if (!fp) {
-    console.warn("⏳ Waiting for floating player...");
-    setTimeout(enhanceFloatingPlayer, 500); // retry every half second
-    return;
-  }
-
-  console.log("🌟 Floating player found — glow effect applied!");
-
-  fp.style.boxShadow =
-    "0 0 25px rgba(0, 200, 255, 0.6), 0 0 60px rgba(0, 180, 255, 0.3)";
-  fp.style.transition = "transform 2s ease-in-out, box-shadow 1.5s ease-in-out";
-  fp.style.animation = "fpOrbit 6s ease-in-out infinite";
-
-  // inject keyframes only once
-  if (!document.getElementById("fpGlowKeyframes")) {
-    const style = document.createElement("style");
-    style.id = "fpGlowKeyframes";
-    style.textContent = `
-      @keyframes fpOrbit {
-        0% {
-          transform: translate(0px, 0px) rotate(0deg);
-          box-shadow: 0 0 20px rgba(0, 200, 255, 0.6), 0 0 40px rgba(0, 180, 255, 0.3);
-        }
-        50% {
-          transform: translate(6px, -6px) rotate(3deg);
-          box-shadow: 0 0 35px rgba(0, 255, 255, 0.9), 0 0 70px rgba(0, 200, 255, 0.4);
-        }
-        100% {
-          transform: translate(0px, 0px) rotate(0deg);
-          box-shadow: 0 0 20px rgba(0, 200, 255, 0.6), 0 0 40px rgba(0, 180, 255, 0.3);
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-}
-
-// run it after everything else loads
-window.addEventListener("load", enhanceFloatingPlayer);
-
-// Monitor and add glow to any new orbit buttons
-const applyOrbitGlow = () => {
-  const orbitButtons = document.querySelectorAll(".orbit-button:not(.glow-applied)");
-
-  orbitButtons.forEach(btn => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "orbit-button-glow";
-
-    btn.parentNode.insertBefore(wrapper, btn);
-    wrapper.appendChild(btn);
-
-    btn.classList.add("glow-applied"); // mark as processed
-  });
-};
-
-// Run immediately
-applyOrbitGlow();
-
-// Repeat every 500ms to catch new buttons dynamically
-setInterval(applyOrbitGlow, 500);

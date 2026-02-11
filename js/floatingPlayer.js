@@ -187,7 +187,7 @@ function setupFloatingPlayer() {
     if(audio.paused){
       audio.play().then(()=>playPauseBtn.textContent="⏸").catch(()=>playPauseBtn.textContent="▶");
     } else {
-      audio.pause();
+      globalAudio.pause(audio);
       playPauseBtn.textContent="▶";
     }
   });

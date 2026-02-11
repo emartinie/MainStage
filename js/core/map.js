@@ -201,9 +201,9 @@
   //loadStaticGeoJSON("./HomeGroupsMap.geojson");
 
 // 🔗 Explicit PrayerMap boot
-setTimeout(() => {
-  console.log("🧩 Forcing PrayerMap.init");
-  PrayerMap.init(window.map);
-}, 0);
+//setTimeout(() => {
+ // console.log("🧩 Forcing PrayerMap.init");
+//  PrayerMap.init(window.map);
+//}, 0);
 
 })();
