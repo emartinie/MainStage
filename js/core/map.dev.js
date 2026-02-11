@@ -61,7 +61,7 @@ console.log("🧪 Marker sanity test marker starting");
 
 const testMarker = L.marker([39.5, -98.35]).addTo(window.map);
 
-testMarker.bindPopup("✅ Marker pipeline works").openPopup();
+testMarker.bindPopup("✅ Eddie's Map pipeline works").openPopup();
 
 console.log("🧪 Test marker added", testMarker);
 
