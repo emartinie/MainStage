@@ -1,4 +1,6 @@
-// ---------------- requestStore ----------------
+// requestStore.dev.js
+console.log("🙏 requestStore.dev.js loaded");
+
 const requestStore = (() => {
   const STORAGE_KEY = "requests";
   const ACK_KEY = "joined";
@@ -10,22 +12,19 @@ const requestStore = (() => {
   // ---- utils ----
   const now = () => Date.now();
   const hours = ms => ms / 36e5;
-
   const log = (...args) => console.log("🙏 RequestStore:", ...args);
-  // comment out ↑ when stable
 
   // ---- persistence ----
   function load() {
     requests = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     joins = JSON.parse(localStorage.getItem(ACK_KEY) || "{}");
-
     log("loaded", requests.length, "requests");
     expire();
   }
 
   function save() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
-    localStorage.setItem(ACK_KEY, JSON.stringify(adds));
+    localStorage.setItem(ACK_KEY, JSON.stringify(joins));
     log("saved");
   }
 
@@ -33,23 +32,22 @@ const requestStore = (() => {
   function add({ name, message, coordinates }) {
     const request = {
       id: "p_" + now(),
-      name: name || "No Anonymous",
-      message,
-      coordinates, // [lat, lng]
+      name: name || "Anonymous",
+      message: message || "",
+      coordinates: coordinates || null, // [lat, lng]
       createdAt: now()
     };
 
     requests.push(request);
     save();
-
-    log("joined", request);
+    log("added request:", request);
     return request;
   }
 
   function acknowledge(requestId) {
-    adds[requestId] = true;
+    joins[requestId] = true;
     save();
-    log("acknowledged", requestId);
+    log("acknowledged request:", requestId);
   }
 
   function expire() {
@@ -65,7 +63,7 @@ const requestStore = (() => {
   function getActive() {
     return requests.map(p => ({
       ...p,
-      added: !!joins[p.id]
+      joined: !!joins[p.id]
     }));
   }
 
@@ -94,11 +92,14 @@ const requestStore = (() => {
   // ---- init ----
   load();
 
+  // Exported API
   return {
     add,
-    join,
+    acknowledge, // previously 'join'
     getActive,
     withGeolocation,
     expire
   };
-})()
+})();
+
+export default requestStore;

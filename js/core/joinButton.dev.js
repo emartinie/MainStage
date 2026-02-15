@@ -1,6 +1,6 @@
 // joinButton.dev.js
 
-import { db } from "./firebase-init.js";
+import { db } from "./firebase-init.dev.js";
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 console.log("🙏 joinButton.dev.js loaded");
