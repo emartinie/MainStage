@@ -32,27 +32,30 @@
   <meta name="theme-color" content="#4a5568">
   <title>MainStage Bible Study App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
-  <!-- Link the external CSS file -->
+  <!-- Links CSS files -->
   <link rel="stylesheet" href="css/core/core.css">
   <link rel="stylesheet" href="css/core/debugger.css">
-  <link rel="stylesheet" href="/css/resources/porchPanel.css">
-  <link rel="stylesheet" href="/css/resources/journeyPanel.css">
-
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Leaflet MarkerCluster CSS + JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <!--<link rel="stylesheet" href="/css/porchPanel.css">
+  <link rel="stylesheet" href="/css/journeyPanel.css">-->
 
 
-  <title>MainStage</title>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- MarkerCluster CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- MarkerCluster JS -->
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
 </head>
+
 <style>
   :root {
     color-scheme: dark;
@@ -791,13 +794,7 @@ window.addEventListener("load", () => {
   </div>
 
   <!-- Floating Controls -->
-   <button id="prayTogetherBtn">Pray Together</button>
-<div id="prayTogetherModal" class="hidden">
-  <div id="prayTogetherModalContent">
-    <button id="closePrayTogether">Close</button>
-    <div id="prayTogetherMap" style="width:100%; height:80vh;"></div>
-  </div>
-</div>
+
 
   <div class="absolute top-4 right-4 flex gap-2 z-30">
     <button id="fullscreenMapBtn"
@@ -821,7 +818,7 @@ window.addEventListener("load", () => {
     </p>
 
     <div class="flex justify-center gap-4">
-      <button id="prayViewBtn"
+      <button id="prayTogetherBtn"
         class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
         🙏 Pray Together
       </button>
@@ -3324,7 +3321,7 @@ function updateResults(results) {
           console.group("PWA Load Metrics");
           console.log("DOM Content Loaded:", nav.domContentLoadedEventEnd.toFixed(1), "ms");
           console.log("Total Load Time:", nav.loadEventEnd.toFixed(1), "ms");
-          console.log("Resources Loaded:", resources.length);
+          console.log(" Loaded:", resources.length);
 
           const totalKB = resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024;
           console.log("Transfer Size:", totalKB.toFixed(1), "KB");
@@ -3340,7 +3337,7 @@ function updateResults(results) {
 window.addEventListener("load", () => {
   setTimeout(() => {
     const nav = performance.getEntriesByType("navigation")[0];
-    const resources = performance.getEntriesByType("resource");
+    const  = performance.getEntriesByType("resource");
 
     console.group("📊 Decision Support — Load Snapshot");
 
@@ -3348,14 +3345,14 @@ window.addEventListener("load", () => {
     console.table([{
       "DOM Ready (ms)": nav.domContentLoadedEventEnd.toFixed(1),
       "Total Load (ms)": nav.loadEventEnd.toFixed(1),
-      "Total Resources": resources.length,
+      "Total ": .length,
       "Total Transfer (KB)": (
-        resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024
+        .reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024
       ).toFixed(1)
     }]);
 
-    // --- Top 10 largest resources (by transfer size) ---
-    const topBySize = [...resources]
+    // --- Top 10 largest  (by transfer size) ---
+    const topBySize = [...]
       .filter(r => r.transferSize > 0)
       .sort((a, b) => b.transferSize - a.transferSize)
       .slice(0, 10)
@@ -3366,12 +3363,12 @@ window.addEventListener("load", () => {
         "duration (ms)": r.duration.toFixed(1)
       }));
 
-    console.group("📦 Top 10 Resources by Size");
+    console.group("📦 Top 10  by Size");
     console.table(topBySize);
     console.groupEnd();
 
-    // --- Top 10 slowest resources ---
-    const topByTime = [...resources]
+    // --- Top 10 slowest  ---
+    const topByTime = [...]
       .sort((a, b) => b.duration - a.duration)
       .slice(0, 10)
       .map(r => ({
@@ -3381,13 +3378,13 @@ window.addEventListener("load", () => {
         "size (KB)": (r.transferSize / 1024).toFixed(1)
       }));
 
-    console.group("🐢 Top 10 Slowest Resources");
+    console.group("🐢 Top 10 Slowest ");
     console.table(topByTime);
     console.groupEnd();
 
     // --- Resource type counts ---
     const byType = {};
-    resources.forEach(r => {
+    .forEach(r => {
       byType[r.initiatorType] = (byType[r.initiatorType] || 0) + 1;
     });
 
@@ -3399,7 +3396,6 @@ window.addEventListener("load", () => {
   }, 0);
 });
 </script>-->
-    <script type="module" src="./js/core/map.js"></script>
     <script type="module" src="js/SAVEorbitFloatingPlayer.js" defer></script>
     <!--<script src="js/loadCommentary.js" defer></script> -->
     <script src="js/core/mainstageManager.js" defer></script>
@@ -3420,29 +3416,39 @@ window.addEventListener("load", () => {
     <script type="module" src="/js/core/resourceManager.js"></script>
     <script type="module" src="/js/core/focusManager.js"></script>
     <!--<script type="module" src="/js/core/debugger.js"></script>-->
-    <!--<script type="module" src="/js/core/resources/decisionSupportResource.js"></script>-->
-    <script type="module" src="/js/core/resources/porchPanelResource.js"></script>
-    <script type="module" src="/js/core/resources/playerResource.js"></script>
-    <script type="module" src="/js/core/resources/journeyResource.js"></script>
-    <!--<script type="module" src="/js/core/resources/playerCourtesyResource.js"></script>-->
-    <script type="module" src="/js/core/resources/htmlPanelResource.js"></script>
-    <script type="module" src="/js/core/resources/studyHubResource.js"></script>
-    <script type="module" src="/js/core/resources/calendarResource.js"></script>
-    <script type="module" src="/js/core/resources/misslerPlaylist.js"></script>
+    <!--<script type="module" src="/js/core/decisionSupportResource.js"></script>-->
+    <!--<script type="module" src="/js/core/porchPanelResource.js"></script>
+    <script type="module" src="/js/core/playerResource.js"></script>
+    <script type="module" src="/js/core/journeyResource.js"></script>-->
+    <!--<script type="module" src="/js/core/playerCourtesyResource.js"></script>-->
+    <!--<script type="module" src="/js/core/htmlPanelResource.js"></script>
+    <script type="module" src="/js/core/studyHubResource.js"></script>
+    <script type="module" src="/js/core/calendarResource.js"></script>-->
+    <script type="module" src="/js/core/misslerPlaylist.js"></script>
 
     <!-- Firebase core -->
+         <script type="module" src="./js/core/firebase-init.dev.js"></script>
+         <script type="module" src="./js/core/prayerStore.dev.js"></script>
+              <script type="module" src="./js/core/map.js"></script>
+              <script>
+  console.log("Leaflet loaded:", typeof L);
+  console.log("MarkerCluster loaded:", typeof L?.markerClusterGroup);
+</script>
+    <script type="module" src="./js/core/map.dev.js"></script>
+    <script type="module" src="./js/core/prayerMap.dev.js"></script>
+
     <script type="module" src="./js/core/requestStore.dev.js"></script>
-    <script type="module" src="./js/core/firebase-init.dev.js"></script>
     <script type="module" src="./js/core/prayerButton.dev.js"></script>
     <script type="module" src="./js/core/joinButton.dev.js"></script>
+    <script type="module" src="./js/core/prayTogetherButton.dev.js"></script>
+
 
     <!-- Prayer Map core -->
-         <script type="module" src="./js/core/prayerStore.dev.js"></script>
-         <script type="module" src="./js/core/map.dev.js"></script>
-   <script type="module" src="./js/core/prayerModal.dev.js"></script>
-    <script type="module" src="./js/core/prayerMap.dev.js"></script>
+
+
+
+   <!-- <script type="module" src="./js/core/prayerModal.dev.js"></script>-->
     <script type="module" src="./js/core/prayerTicker.dev.js"></script>
-    <script type="module" src="./js/core/prayTogetherButton.dev.js"></script>
 
 
     
@@ -3524,6 +3530,89 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
     </script>
     <div id="panelRoot">
       <!-- panels go under here -->
+      <!-- PrayerMap Modal Overlay -->
+
+<!-- PrayTogether Modal -->
+
+<div id="prayTogetherModal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+      <div id="prayTogether-inner" class="relative">
+        <!-- FLIP WRAPPER -->
+        <div id="prayTogether-flipWrapper">
+
+          <!-- FRONT:  -->
+          <div class="prayTogether-face front">
+            <div class="flex items-center justify-between mb-1 text-align:center">
+              <h2 class="text-cyan-300 text-lg font-semibold">
+                Pray Together
+              </h2>
+              <div class="flex gap-3 items-center text-sm text-slate-300">
+                <span id="prayTogetherWeekLabel"></span> ___
+              </div>
+            </div>
+
+            <div class="prayTogetherface-scroll">
+              <div id="prayerMapBox" class="flex-1 min-h-[400px]">
+                <div id="prayTogetherMap" class="w-full h-full rounded-lg"></div>
+              </div>
+              <div id="prayTogetherBox"></div>
+            </div>
+          </div>
+
+          <!-- BACK:  -->
+          <div class="prayTogether-face back">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-cyan-300 text-lg font-semibold">
+                PrayTogether Section
+              </h2>
+              <span class="text-xs text-slate-400">
+                (Welcome to prayTogether)
+              </span>
+            </div>
+
+            <div class="prayTogetherface-scroll">
+              <div id="prayTogetherListBox">
+
+                <div id="prayTogetherlist"></div>
+              </div>
+
+              <div id="prayTogetherViewer">
+                <p class="text-sm text-slate-300">
+                  When you click a title, you can load its content here.
+                </p>
+                <div id="prayTogetherModal">
+                  <h2 id="prayTogetherTitle"></h2>
+                  <div id="prayTogetherContent"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLOSE BUTTON -->
+        <button type="button" id="closePrayTogether"
+          class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+          ✕
+        </button>
+
+        <button type="button" id="flipPrayTogetherBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+          🔁 FlipOver
+        </button>
+      </div>
+    </div>
+
+
+
       <!-- Say Hello Overlay -->
       <div id="helloOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
         <div
