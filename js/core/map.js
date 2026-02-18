@@ -193,7 +193,7 @@
         color: "#22c55e",
         fillColor: "#4ade80",
         fillOpacity: 0.9
-      }).addTo(map).bindPopup("📍 You are here.<br>Zoom out to find people nearby.").openPopup();
+      }).addTo(map).bindPopup("📍 You are here.<br>Zoom to see<br> people nearby you.").openPopup();
     });
   }
 
@@ -205,5 +205,6 @@
  // console.log("🧩 Forcing PrayerMap.init");
 //  PrayerMap.init(window.map);
 //}, 0);
+
 
 })();
