@@ -1,37 +1,73 @@
-// prayTogetherButton.dev.js
 console.log("🙏 PrayTogetherButton loaded");
 
-// Open/Close modal
-function openPrayTogetherModal() {
-  const modal = document.getElementById("prayTogetherModal");
-  if (!modal) return;
-  modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden"; // lock scroll
+let prayMap = null;
 
-  // Initialize Leaflet map inside modal
-  const mapDiv = document.getElementById("prayTogetherMap");
-  if (mapDiv && !mapDiv._leaflet_map) { // avoid re-creating map
-    const map = L.map(mapDiv).setView([36.1, -86.7], 8);
+document.addEventListener("DOMContentLoaded", () => {
+  const openBtn = document.getElementById("prayTogetherBtn");
+  const modal = document.getElementById("prayTogetherModal");
+  const closeBtn = document.getElementById("closePrayTogether");
+  const flipBtn = document.getElementById("flipPrayTogetherBtn");
+  const flipWrapper = document.getElementById("prayTogether-flipWrapper");
+
+  if (!modal) {
+    console.warn("prayTogetherModal not found");
+    return;
+  }
+
+  // -------------------------
+  // MAP INIT (safe + once)
+  // -------------------------
+  function initPrayMap() {
+    const mapDiv = document.getElementById("prayTogetherMap");
+    if (!mapDiv) return;
+    if (prayMap) return; // prevent duplicate creation
+
+    prayMap = L.map(mapDiv).setView([36.1, -86.7], 8);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(prayMap);
 
-    // mark that map is initialized to prevent duplicates
-    mapDiv._leaflet_map = map;
+    const clusterGroup = L.markerClusterGroup();
+    clusterGroup.addLayer(
+      L.marker([36.2, -86.8]).bindPopup("Sample Prayer")
+    );
+    prayMap.addLayer(clusterGroup);
 
-    // Example: one fake prayer marker
-    L.circleMarker([36.2, -86.8], { color: "#22c55e", radius: 7 }).addTo(map)
-      .bindPopup("Sample Prayer: 'Peace and love'");
+    // ensure correct sizing after modal opens
+    setTimeout(() => prayMap.invalidateSize(), 100);
   }
-}
 
-function closePrayTogetherModal() {
-  const modal = document.getElementById("prayTogetherModal");
-  if (!modal) return;
-  modal.classList.add("hidden");
-  document.body.style.overflow = ""; // restore scroll
-}
+  // -------------------------
+  // OPEN MODAL
+  // -------------------------
+  if (openBtn) {
+    openBtn.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      initPrayMap();
+    });
+  }
 
-// Attach listeners immediately
-document.getElementById("prayTogetherBtn")?.addEventListener("click", openPrayTogetherModal);
-document.getElementById("closePrayTogether")?.addEventListener("click", closePrayTogetherModal);
+  // -------------------------
+  // CLOSE MODAL
+  // -------------------------
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+      if (flipWrapper) flipWrapper.classList.remove("is-flipped");
+    });
+  }
+
+  // -------------------------
+  // FLIP MODAL
+  // -------------------------
+  if (flipBtn && flipWrapper) {
+    flipBtn.addEventListener("click", () => {
+      flipWrapper.classList.toggle("is-flipped");
+    });
+  }
+
+});
+
