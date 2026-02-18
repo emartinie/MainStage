@@ -24,7 +24,7 @@ function showInstallButton() {
         // If button doesn't exist, create it
         btn = document.createElement('button');
         btn.id = 'installBtn';
-        btn.className = 'px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 fixed top-4 right-4 z-50';
+        btn.className = 'px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 fixed bottom-4 left-4 z-50';
         btn.textContent = '📲 Install App';
         document.body.appendChild(btn);
     }
@@ -105,4 +105,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Optional: Add click interactions for expanding/collapsing
+
 });
