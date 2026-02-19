@@ -7,7 +7,7 @@ console.log("🙏 prayerStore.dev.js loaded");
 
 // Define your collection reference and potentially a query
 const prayersCollectionRef = collection(db, "prayers");
-const orderedPrayersQuery = query(prayersCollectionRef, orderBy("timestamp", "desc")); // Assuming 'timestamp' field exists
+const orderedPrayersQuery = query(prayersCollectionRef, orderBy("createdAt", "desc")); // Assuming 'timestamp' field exists
 
 /**
  * Sets up a real-time listener for prayer documents and calls a callback for each change.
