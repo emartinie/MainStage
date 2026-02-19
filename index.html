@@ -216,6 +216,10 @@ window.addEventListener("load", () => {
           class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
           TODAY
         </button>
+        <button id="companionToggle"
+  style="position:fixed;top:60px;left:10px;z-index:9999;">
+  Companion: OFF
+</button>
       </div>
 
       <!-- Right -->
@@ -231,6 +235,7 @@ window.addEventListener("load", () => {
       </div>
 
     </div>
+    
   </header>
 
   <div id="weekInfo"></div>
@@ -250,7 +255,11 @@ window.addEventListener("load", () => {
         Jesus?</button>
       <div class="jesus-label">Do you know the Father and the Son? I want to make sure you KNOW Them!</div>
     </div>
-
+  <!-- Companion Text Input -->
+<div id="companionUI" style="position:fixed;bottom:240px;right:10px;z-index:9999;background:#222;color:#fff;padding:10px;border-radius:8px;">
+  <input id="companionInput" type="text" placeholder="Ask your AI Textcompanion..." style="width:300px;padding:5px;border-radius:4px;border:none;">
+  <button id="companionSend" style="margin-left:5px;padding:5px 10px;border-radius:4px;border:none;background:#4ade80;color:#111;">Send</button>
+</div>
 
     <div id="viewport" role="region" aria-label="Main Stage viewport">
       <div id="cardsRow" class="cards-row">
@@ -883,7 +892,7 @@ function updateResults(results) {
         });</script>
 
         <script type="module">
-         // import { getResource } from "/js/core/resourceManager.js";
+          import { getResource } from "/js/core/resourceManager.js";
           window.getResource = getResource;
 
           function openJoin() {
@@ -3446,7 +3455,6 @@ window.addEventListener("load", () => {
    <!-- <script type="module" src="./js/core/prayerModal.dev.js"></script>-->
     <script type="module" src="./js/core/prayerTicker.dev.js"></script>
 
-
     
 
 
@@ -3914,6 +3922,8 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
     </div>
   </div>
 
+
+
   <!--temporary-->
   <script>
     function openJoin() {
@@ -3924,10 +3934,38 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
       document.getElementById("joinOverlay").classList.add("hidden");
     }
   </script>
+<script type="module">
+import { Companion } from './js/core/appCompanion.dev.js';
 
+document.addEventListener("DOMContentLoaded", () => {
+  Companion.init();
+  Companion.activateFace(); // companion starts visible
 
+  // Example usage:
+  // Companion.goToCard(2);
+  // Companion.openPrayerForm();
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("companionToggle");
+  let active = false;
+
+  toggle.addEventListener("click", () => {
+    active = !active;
+
+    toggle.innerText = active ? "Companion: ON" : "Companion: OFF";
+
+    // Just visual for now — no heavy logic
+    document.body.classList.toggle("companion-active", active);
+
+    console.log("Companion state:", active);
+  });
+});
+
+</script>
 
 </body>
 
 </html>
-
