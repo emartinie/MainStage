@@ -39,7 +39,7 @@ style.innerHTML = `
 #firesideTicker {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 300px;
   width: 320px;
   background: rgba(28,25,23,0.92);
   backdrop-filter: blur(8px);
