@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 }
-      addUserLocation(prayMap);
   // -------------------------
   // OPEN MODAL
   // -------------------------
@@ -102,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flipWrapper.classList.toggle("is-flipped");
     });
   }
+
+        addUserLocation(prayMap);
 
 });
 
