@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const userLatLng = [lat, lng];
 
       // Move map to user
+      console.log("Map inside addUserLocation:", map);
       map.setView(userLatLng, 10);
 
       // Add "You are here" marker
@@ -102,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-        addUserLocation(prayMap);
 
 });
 
