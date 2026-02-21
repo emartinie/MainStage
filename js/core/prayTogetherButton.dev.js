@@ -38,6 +38,40 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => prayMap.invalidateSize(), 100);
   }
 
+  function addUserLocation(map) {
+  if (!navigator.geolocation) {
+    console.log("Geolocation not supported");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      const userLatLng = [lat, lng];
+
+      // Move map to user
+      map.setView(userLatLng, 10);
+
+      // Add "You are here" marker
+      const userMarker = L.circleMarker(userLatLng, {
+        radius: 8,
+        fillColor: "#4CAF50",
+        color: "#fff",
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.9
+      }).addTo(map);
+
+      userMarker.bindPopup("You are here.<br>Zoom to see nearby prayer requests.").openPopup();
+    },
+    (error) => {
+      console.log("Location error:", error);
+    }
+  );
+}
+      addUserLocation(prayTogetherMap);
   // -------------------------
   // OPEN MODAL
   // -------------------------
