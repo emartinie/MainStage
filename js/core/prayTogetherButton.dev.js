@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 }
-      addUserLocation(prayTogetherMap);
+      addUserLocation(prayMap);
   // -------------------------
   // OPEN MODAL
   // -------------------------
