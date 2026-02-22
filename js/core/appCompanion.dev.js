@@ -19,10 +19,19 @@ export const Companion = {
 
   // animate the orbit face
   activateFace() {
-    if (!this.orbitFace) return;
-    this.orbitFace.classList.add("companion-active");
-    console.log("🎛 Companion face activated");
-  },
+  const el = document.getElementById("floatingPlayer");
+  if (!el) return;
+
+  el.classList.remove("companion-active"); // reset
+  void el.offsetWidth; // force reflow
+  el.classList.add("companion-active");
+},
+
+  //activateFace() {
+    //if (!this.orbitFace) return;
+   // this.orbitFace.classList.add("companion-active");
+   // console.log("🎛 Companion face activated");
+  //},
 
   deactivateFace() {
     if (!this.orbitFace) return;
@@ -139,4 +148,5 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 });
+
 
