@@ -256,10 +256,10 @@ window.addEventListener("load", () => {
       <div class="jesus-label">Do you know the Father and the Son? I want to make sure you KNOW Them!</div>
     </div>
   <!-- Companion Text Input -->
-<div id="companionUI" style="position:fixed;bottom:240px;right:10px;z-index:9999;background:#222;color:#fff;padding:10px;border-radius:8px;">
+<!--<div id="companionUI" style="position:fixed;top:80px;left:9px;z-index:9999;background:#222;color:#fff;padding:10px;border-radius:8px;">
   <input id="companionInput" type="text" placeholder="Ask your AI Textcompanion..." style="width:300px;padding:5px;border-radius:4px;border:none;">
-  <button id="companionSend" style="margin-left:5px;padding:5px 10px;border-radius:4px;border:none;background:#4ade80;color:#111;">Send</button>
-</div>
+  <button id="companionRun" style="margin-left:5px;padding:5px 10px;border-radius:4px;border:none;background:#4ade80;color:#111;">Send</button>
+</div>-->
 
     <div id="viewport" role="region" aria-label="Main Stage viewport">
       <div id="cardsRow" class="cards-row">
@@ -3461,6 +3461,7 @@ window.addEventListener("load", () => {
 
 
 
+
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <!--<script>
 document.getElementById("downloadBtn").addEventListener("click", () => {
@@ -3937,14 +3938,16 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
 <script type="module">
 import { Companion } from './js/core/appCompanion.dev.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-  Companion.init();
-  Companion.activateFace(); // companion starts visible
+//document.getElementById("companionRun").onclick = () => {
+ // const input = document.getElementById("companionInput").value;
+ // Companion.runCommand(input);
+//};
 
-  // Example usage:
-  // Companion.goToCard(2);
-  // Companion.openPrayerForm();
-});
+//document.getElementById("companionInput").addEventListener("keydown", e => {
+  //if (e.key === "Enter") {
+   // Companion.runCommand(e.target.value);
+ /// }
+//});
 </script>
 
 <script>
