@@ -1331,3 +1331,45 @@
       padding-bottom: 0.5rem;
 
     }
+
+    #companion-active {
+     outline: 3px solid #4ade80;
+}
+
+/* Base smooth transition */
+#orbitPlayer {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Active state */
+.companion-active {
+  animation: companionPulse 1.5s ease-in-out;
+}
+
+/* Pulse animation */
+@keyframes companionPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 200, 255, 0);
+  }
+
+  25% {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(0, 200, 255, 0.9);
+  }
+
+  75% {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 200, 255, 0);
+  }
+}
