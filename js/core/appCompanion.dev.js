@@ -118,7 +118,7 @@ runCommand(input) {
 
 // 👇 Commands MUST be defined AFTER the object
 Companion.commands = {
-  "go to study card": () => Companion.goToCard(2),   // card 3
+  "go to map card": () => Companion.goToCard(2),   // card 3
   "open prayer form": () => Companion.openPrayerForm(),
   "join community": () => Companion.openJoinForm(),
   "pray together": () => Companion.openPrayTogether(),
@@ -139,3 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 });
+
