@@ -963,7 +963,16 @@ function updateResults(results) {
                     Access study tools and reference material. You can enable or disable sections later.
                   </p>
                   <div class="grid gap-3">
-
+                    <button id="studyButton"
+                      class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition shadow-lg">
+                      📖 ✚ Add Study Rqst
+                    </button>
+                  </div>
+                  <div class="flex justify-center gap-4">
+                    <button id="studyTogetherBtn"
+                      class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
+                      📖 Study Together
+                    </button>
 
                     <button onclick="
   getResource('porchPanel')?.openPorchPanel(
@@ -3450,6 +3459,8 @@ window.addEventListener("load", () => {
     <script type="module" src="./js/core/prayerButton.dev.js"></script>
     <script type="module" src="./js/core/joinButton.dev.js"></script>
     <script type="module" src="./js/core/prayTogetherButton.dev.js"></script>
+    <script type="module" src="./js/core/studyTogetherButton.dev.js"></script>
+
     <!-- Prayer Map core -->
 
    <!-- <script type="module" src="./js/core/prayerModal.dev.js"></script>-->
@@ -3616,7 +3627,142 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
       </div>
     </div>
 
+      <!-- StudyTogether Modal -->
 
+      <div id="studyTogetherModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+        <div id="studyTogether-inner" class="relative">
+          <!-- FLIP WRAPPER -->
+          <div id="studyTogether-flipWrapper">
+
+            <!-- FRONT:  -->
+            <div class="studyTogether-face front">
+              <div class="flex items-center justify-between mb-1 text-align:center">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  Study Together Room Syncing, [waiting for others to join]
+                </h2>
+                <div class="flex gap-3 items-center text-sm text-slate-300">
+                  <span id="studyTogetherWeekLabel"></span> ___
+                </div>
+              </div>
+
+              <div class="studyTogetherface-scroll">
+                <div id="studySurface">
+
+                  <!-- Room Status -->
+                  <div id="studyRoomBar">
+                    <div class="room-title">John 3:16–21</div>
+
+                    <div class="room-people">
+                      <div class="avatar-stack">
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                      </div>
+                      <span class="people-label">You, David, Maria</span>
+                    </div>
+
+                    <div class="room-meta">
+                      <span id="studyParticipants">3 gathered right now</span>
+                      <span class="room-sync">Room Synced</span>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <!-- Core Widget Area -->
+              <div id="studyWidgetArea">
+
+                <!-- Primary Scripture -->
+                <div class="widget scripture-widget">
+                  <h3>Scripture</h3>
+                  <div id="sharedScripture">
+                    For God so loved the world...
+                  </div>
+                </div>
+
+                <!-- Supporting Widget -->
+                <div class="widget commentary-widget">
+                  <h3>Insights</h3>
+                  <div id="sharedInsights">
+                    Commentary or word study appears here.
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Shared Notes -->
+              <div id="studyInteractionBar">
+                <textarea placeholder="Add a shared thought..."></textarea>
+                <button id="sendSharedNote">Share</button>
+              </div>
+
+            </div>
+
+            <!-- BACK:  -->
+            <div class="studyTogether-face back">
+              <div class="flex items-center justify-between mb-1">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  studyTogether Section
+                </h2>
+                <span class="text-xs text-slate-400">
+                  (Welcome to studyTogether)
+                </span>
+              </div>
+
+              <div id="studyDiscovery">
+
+                <div id="studyMapBox">
+                  <div id="studyTogetherMap"></div>
+                </div>
+
+                <div id="studyRoomList">
+                  <!-- active rooms populate here -->
+                </div>
+
+              </div>
+
+              <div class="studyTogetherface-scroll">
+                <div id="studyTogetherListBox">
+
+                  <div id="studyTogetherlist"></div>
+                </div>
+
+                <div id="studyTogetherViewer">
+                  <p class="text-sm text-slate-300">
+                    When you click a title, you can load its content here.
+                  </p>
+                  <div id="studyTogetherModal">
+                    <h2 id="studyTogetherTitle"></h2>
+                    <div id="studyTogetherContent"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLOSE BUTTON -->
+          <button type="button" id="closeStudyTogether"
+            class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+            ✕
+          </button>
+
+          <button type="button" id="flipStudyTogetherBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+            🔁 FlipOver
+          </button>
+        </div>
+      </div>
 
       <!-- Say Hello Overlay -->
       <div id="helloOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
@@ -3972,3 +4118,4 @@ document.addEventListener("DOMContentLoaded", () => {
 </body>
 
 </html>
+
