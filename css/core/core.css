@@ -1373,3 +1373,69 @@
     box-shadow: 0 0 0px rgba(0, 200, 255, 0);
   }
 }
+
+
+/* Room Bar Layout */
+#studyRoomBar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.room-sync {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* People Section */
+.room-people {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-stack {
+  display: flex;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #555, #999);
+  border: 2px solid rgba(0,0,0,0.5);
+  margin-left: -10px;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+.people-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.people-label {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.people-names {
+  font-size: 0.9rem;
+}
