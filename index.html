@@ -32,7 +32,16 @@
   <meta name="theme-color" content="#4a5568">
   <title>MainStage Bible Study App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
-  <!-- Links CSS files -->
+
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" href="./favicon.ico" />
+  <!-- Links CSS files/styles -->
+
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="./style/main.css" />
+<link rel="stylesheet" href="./style/global.css" />
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shalom — Living Prototype</title>
 <style>
@@ -109,6 +118,7 @@ body::after {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
 /* -----------------------------
    Cards
@@ -407,6 +417,7 @@ html::after {
   position: absolute;
   inset: 0;
   border-radius: inherit;
+  
   background: linear-gradient(
     120deg,
     transparent 20%,
@@ -437,6 +448,7 @@ html::after {
 
 /* Label below */
 .jesus-label {
+  
   margin-top: 14px;
   font-size: 0.95rem;
   color: rgba(234,246,255,0.7);
@@ -444,12 +456,29 @@ html::after {
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
+  
 }
 
 .jesus-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #0a0a0a;
+  color: #ffffff;
 }
 
 /* Header */
@@ -499,9 +528,6 @@ html::after {
 
   
 
-
-  
-
 </style>
 </head>
 <body>
@@ -521,7 +547,26 @@ html::after {
   <script src="https://cdn.tailwindcss.com"></script>
 
   <header class="main-header">
-  <div class="logo">MAINSTAGE</div>
+  <div class="logo">MAINSTAGE</div>      <!-- Middle -->
+      <div class="flex items-center justify-center gap-2 flex-wrap">
+        <button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &laquo;
+        </button>
+
+        <select id="weekSelect"
+          class="px-2 py-1 text-xs sm:text-sm rounded-md border bg-slate-900 text-cyan-300 w-[120px] sm:w-auto">
+        </select>
+
+        <button id="nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &raquo;
+        </button>
+
+
+        <button id="companionToggle" style="position:fixed;top:60px;left:10px;z-index:9999;">
+          Companion: OFF
+        </button>
+
+
   <nav class="nav">
     <button data-card="card1">Home</button>
     <button data-card="card2">Cards</button>
@@ -531,21 +576,45 @@ html::after {
 
 <div id="app"></div>
 
-  
-
   <div class="jesus-tile mb-6 mx-auto">
 
-        
-      <div class="jesus-label ">Do you know the Father and the Son?<br> I want to make sure you KNOW Them!<br><button class="jesus-btn mx-auto align-center;" onclick="getResource('htmlPanel')?.open('./public/jesus.html', 'To Know')">✝️ Who is
-        Jesus?</button>
-    </div>
+        <div class="hero">
 
+      <p class="text-s text-slate-500 mt- text-center">>Do you know the Father and the Son?<br> I want to make sure you KNOW Them!<br><button class="jesus-btn mx-auto align-center;" onclick="getResource('htmlPanel')?.open('./public/jesus.html', 'To Know')">✝️ Who is
+        Jesus?</button>
+      </p>
 <!-- Hero -->
-<div class="hero">
   <div class="logo">שלום
   <img src="images/HGHouses.png" class="mx-auto w-20 h-20 shrink-0"</img></div>
+  
   <p>Augmented Redemption — 1st century meets 21st century</p>
-</div>
+</div>                <button id="todayBtn"
+          class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
+          TODAY
+        </button>
+      <div class="flex items-center justify-end gap-2">
+        <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
+          onclick="openDockCModal()">
+          📖
+        </button>
+
+        <button id="installButton" class="p-2 rounded-full bg-cyan-700 hover:bg-cyan-600 shadow">
+          ⬇
+        </button>
+      </div>
+
+  
+
+
+      </div>
+    </div>
+
+  </header>
+
+  <div id="weekInfo"></div>
+
+  <div class="app">
+
 
 <!-- Card Grid -->
 <div class="card-grid">
@@ -558,6 +627,126 @@ html::after {
     <p>See who is praying nearby, and join them in shared intention.</p>
   </div>
 </div>
+
+<p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+                    </marquee>
+                    <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
+                  </p>
+                  <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
+                    Weekly Bible Study
+                  </h3>
+                  <p id="mainStageSub" class="text-sm text-slate-200">
+                    English • Hebrew • Greek (Phase 2) – Audio + Visual
+                  </p>
+                  <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show
+                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
+                      style="float: right;">Show Video</button></p>
+                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                    <video controls class="max-w-[90%] max-h-[90%]">
+                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+                  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">
+
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />AudioVisual Scriptures<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                </div>
+              </div>
+
+              <!-- Open announcements and  controls -->
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <button id="openAnnouncementsBtn"
+                  class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                  🔁 Open Announcements
+                </button>
+                <button id="openPrayersBtn"
+                  class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                  📖 Open Prayers
+                </button>
+                <!-- Floating player root (existing JS can attach here) -->
+                <div id="">
+                  <!-- player mounts here -->
+                </div>
+
+
+
+
+                <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+                </div>
+                </p>
+                <div class="muted"></div>
+                <p><!-- MainStage Hero Card -->
+                <section id="mainStageCard"
+                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                  </video>
+
+                  <div class="mb-4">
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Chapter Outlines<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                  </h2>
+
+                  <p>
+                  <div id="mainStageChapters"
+                    class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                  </div>
+
+              </div>
+
+              <div class="jesus-tile">
+                <div class="jesus-label">Open Scriptural Sources & Witnesses
+                </div>
+                <button id="open.SourcesBtn" class="sources-btn">
+                  Open Sources →
+                </button>
+              </div>
+
+              <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
+            </div>
+
+            <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+            </div>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+            <div id="mainStageCard"
+              class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+              <!-- Background video -->
+              <video autoplay muted loop playsinline
+                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+
+              <div class="mb-4">
+
+              </div>
+              <h2 class="text-2xl font-bold flex text-center gap-2">
+                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Updates<img
+                  src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+              </h2>
+
+              <div id="mainStageUpdates"
+                class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                <p>
+                <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
+                  </p>
+                </div>
+
+              </div>
+
+        </section>
+
+        <script src="js/mainStageLoaderTEST3.js">
 
 <!-- Modal Overlay -->
 <div class="modal-overlay" id="modalOverlay">
@@ -678,4 +867,3 @@ function animate() {
 
 </body>
 </html>
-
