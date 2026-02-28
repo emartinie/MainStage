@@ -452,6 +452,52 @@ html::after {
   justify-content: center;
 }
 
+/* Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav button:hover {
+  background: white;
+  color: black;
+}
+
+  
 
 
   
@@ -473,6 +519,17 @@ html::after {
   <!-- MarkerCluster JS -->
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <header class="main-header">
+  <div class="logo">MAINSTAGE</div>
+  <nav class="nav">
+    <button data-card="card1">Home</button>
+    <button data-card="card2">Cards</button>
+    <button>Profile</button>
+  </nav>
+</header>
+
+<div id="app"></div>
 
   
 
@@ -621,3 +678,4 @@ function animate() {
 
 </body>
 </html>
+
