@@ -29,6 +29,7 @@ function cacheDOM() {
     mainStagePlaylist = document.getElementById("mainStagePlaylist");
     mainStageChapters = document.getElementById("mainStageChapters");
     mainStageVideo = document.getElementById("mainStageVideo");
+    mainStageIframe = document.getElementById("mainStageIframe");
 }
 
 if (!window.globalAudio) {
